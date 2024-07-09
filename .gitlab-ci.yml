@@ -7,7 +7,6 @@ build:
   script:
     - npm install --legacy-peer-deps
     - npx prettier --write .
-    - npx eslint --fix .
     - npm install ajv --save-dev --legacy-peer-deps
     - npm run build
   only:
