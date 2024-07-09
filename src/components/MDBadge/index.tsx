@@ -23,7 +23,15 @@ import MDBadgeRoot from "components/MDBadge/MDBadgeRoot";
 
 // declaring props types for MDBadge
 interface Props extends Omit<BadgeProps, "color" | "variant"> {
-  color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "light" | "dark";
+  color?:
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "light"
+    | "dark";
   variant?: "gradient" | "contained";
   size?: "xs" | "sm" | "md" | "lg";
   circular?: boolean;
@@ -35,10 +43,32 @@ interface Props extends Omit<BadgeProps, "color" | "variant"> {
 }
 
 const MDBadge: FC<Props | any> = forwardRef(
-  ({ color, variant, size, circular, indicator, border, container, children, ...rest }, ref) => (
+  (
+    {
+      color,
+      variant,
+      size,
+      circular,
+      indicator,
+      border,
+      container,
+      children,
+      ...rest
+    },
+    ref
+  ) => (
     <MDBadgeRoot
       {...rest}
-      ownerState={{ color, variant, size, circular, indicator, border, container, children }}
+      ownerState={{
+        color,
+        variant,
+        size,
+        circular,
+        indicator,
+        border,
+        container,
+        children,
+      }}
       ref={ref}
       color="default"
     >

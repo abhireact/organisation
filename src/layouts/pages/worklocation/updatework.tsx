@@ -176,8 +176,13 @@ const Updatework = (props: any) => {
                 value={formik.values.address_line1}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.address_line1 && Boolean(formik.errors.address_line1)}
-                helperText={formik.touched.address_line1 && formik.errors.address_line1}
+                error={
+                  formik.touched.address_line1 &&
+                  Boolean(formik.errors.address_line1)
+                }
+                helperText={
+                  formik.touched.address_line1 && formik.errors.address_line1
+                }
                 mb={10}
               />
             </Grid>
@@ -190,8 +195,13 @@ const Updatework = (props: any) => {
                 value={formik.values.address_line2}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.address_line2 && Boolean(formik.errors.address_line2)}
-                helperText={formik.touched.address_line2 && formik.errors.address_line2}
+                error={
+                  formik.touched.address_line2 &&
+                  Boolean(formik.errors.address_line2)
+                }
+                helperText={
+                  formik.touched.address_line2 && formik.errors.address_line2
+                }
                 mb={10}
               />
             </Grid>

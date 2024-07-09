@@ -38,7 +38,15 @@ import rgba from "assets/theme/functions/rgba";
 // Declaring props types for RadarChart
 interface Props {
   icon?: {
-    color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "light" | "dark";
+    color?:
+      | "primary"
+      | "secondary"
+      | "info"
+      | "success"
+      | "warning"
+      | "error"
+      | "light"
+      | "dark";
     component: ReactNode;
   };
   title?: string;
@@ -47,7 +55,15 @@ interface Props {
     labels: string[];
     datasets: {
       label: string;
-      color: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "light" | "dark";
+      color:
+        | "primary"
+        | "secondary"
+        | "info"
+        | "success"
+        | "warning"
+        | "error"
+        | "light"
+        | "dark";
       data: number[];
       borderDash?: number[];
     }[];
@@ -102,7 +118,7 @@ function RadarChart({ icon, title, description, chart }: Props): JSX.Element {
       {useMemo(
         () => (
           <MDBox p={6}>
-            <Radar data={data} options={options} />
+            {/* <Radar data={data} options={options} /> */}
           </MDBox>
         ),
         [chart]

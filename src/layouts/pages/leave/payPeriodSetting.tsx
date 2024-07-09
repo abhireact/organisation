@@ -1,4 +1,10 @@
-import { Autocomplete, Checkbox, FormControlLabel, FormGroup, Grid } from "@mui/material";
+import {
+  Autocomplete,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+} from "@mui/material";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
@@ -36,15 +42,19 @@ const selectData = {
 };
 const PayPeriodSetting = () => {
   const [locationdata, SetLocationdata] = useState([]);
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
 
   console.log("token", token);
@@ -54,12 +64,15 @@ const PayPeriodSetting = () => {
 
   const fetchLocation = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/worklocation`, {
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/worklocation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const locationdataa = await response.json();
       console.log(locationdataa.location_name, "ldata");
@@ -269,13 +282,20 @@ const PayPeriodSetting = () => {
                 value="top"
                 control={
                   <Checkbox
-                    checked={values.process_encash.includes("Process leave encashment")}
+                    checked={values.process_encash.includes(
+                      "Process leave encashment"
+                    )}
                     onChange={handleChange}
                     name="process_encash"
                     value="Process leave encashment"
                   />
                 }
-                label={<MDTypography variant="h6"> Process leave encashment</MDTypography>}
+                label={
+                  <MDTypography variant="h6">
+                    {" "}
+                    Process leave encashment
+                  </MDTypography>
+                }
                 labelPlacement="end"
               />
               <FormControlLabel
@@ -293,8 +313,9 @@ const PayPeriodSetting = () => {
                 label={
                   <MDTypography variant="h6">
                     {" "}
-                    Lock (Any modification(s) to Attendance, Leave and Timesheet entries for the
-                    period mentioned above, will be locked after the processing day)
+                    Lock (Any modification(s) to Attendance, Leave and Timesheet
+                    entries for the period mentioned above, will be locked after
+                    the processing day)
                   </MDTypography>
                 }
                 labelPlacement="end"

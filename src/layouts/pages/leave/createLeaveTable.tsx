@@ -85,13 +85,26 @@ const selectData = {
   date: ["1st", "2nd", "3rd"],
   type_accural: ["Yearly", "Monthly", "Weekly"],
   accural_in: ["Current Accural ", "Next Accural"],
-  resetCarryForward: ["Carry Forward", "Carry Forward with Expiry", "Carry Forward with OverLimit"],
+  resetCarryForward: [
+    "Carry Forward",
+    "Carry Forward with Expiry",
+    "Carry Forward with OverLimit",
+  ],
   unit: ["Unit", "Percentage"],
   effectiveFrom: ["Date of Confirmation", "Date of Joining"],
-  ProrateAccrual: ["Start of Policy", "Start and End of Policy", "Do not protrate"],
+  ProrateAccrual: [
+    "Start of Policy",
+    "Start and End of Policy",
+    "Do not protrate",
+  ],
   DeductibleHolidays: ["All Holiday", "Holiday on workdays"],
 };
-function TabPanel(props: { [x: string]: any; children: any; value: any; index: any }) {
+function TabPanel(props: {
+  [x: string]: any;
+  children: any;
+  value: any;
+  index: any;
+}) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -140,7 +153,9 @@ function CreateLeaveTable() {
   const dispatched = useDispatch();
   const [clickbtn, setClickbtn] = React.useState(false);
 
-  const checkMainbtnClick = useSelector((state: any) => state.dummyData.className);
+  const checkMainbtnClick = useSelector(
+    (state: any) => state.dummyData.className
+  );
   console.log("checkMainbtnClick", checkMainbtnClick);
   const tableBtnClick = checkMainbtnClick?.name;
   React.useEffect(() => {
@@ -172,15 +187,19 @@ function CreateLeaveTable() {
   };
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const [isChecked, setIsChecked] = React.useState(false);
   const [isPastChecked, setIsPastChecked] = React.useState(false);
   const [isFutureChecked, setIsFutureChecked] = React.useState(false);
@@ -193,7 +212,10 @@ function CreateLeaveTable() {
   const addMoreFields = () => {
     setAdditionalFields([...additionalFields, additionalFields.length]);
   };
-  const handleChanged = (event: any, newValue: React.SetStateAction<number>) => {
+  const handleChanged = (
+    event: any,
+    newValue: React.SetStateAction<number>
+  ) => {
     setValue(newValue);
   };
 

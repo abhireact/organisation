@@ -67,12 +67,21 @@ function OrderList(): JSX.Element {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox my={3}>
-        <MDBox display="flex" justifyContent="space-between" alignItems="flex-start" mb={2}>
+        <MDBox
+          display="flex"
+          justifyContent="space-between"
+          alignItems="flex-start"
+          mb={2}
+        >
           <MDButton variant="gradient" color="info">
             new order
           </MDButton>
           <MDBox display="flex">
-            <MDButton variant={menu ? "contained" : "outlined"} color="dark" onClick={openMenu}>
+            <MDButton
+              variant={menu ? "contained" : "outlined"}
+              color="dark"
+              onClick={openMenu}
+            >
               filters&nbsp;
               <Icon>keyboard_arrow_down</Icon>
             </MDButton>

@@ -39,44 +39,45 @@ const Updatebreak = (props: any) => {
   const { SHOW_PARENT } = TreeSelect;
   const token = Cookies.get("token");
 
-  const { values, touched, errors, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      name: editData.name,
-      description: editData.description,
-      start_date: editData.from_date,
-      end_date: editData.to_date,
-    },
+  const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        name: editData.name,
+        description: editData.description,
+        start_date: editData.from_date,
+        end_date: editData.to_date,
+      },
 
-    // validationSchema: validationSchema,
-    onSubmit: (values, action) => {
-      const sendData = {
-        old_name: editData.name,
-        old_from_date: transformString(editData.from_date),
-        old_to_date: transformString(editData.to_date),
-        name: values.name,
-        from_date: transformString(values.start_date),
-        to_date: transformString(values.end_date),
-        description: values.description,
-      };
-      axios
-        .put(`${process.env.REACT_APP_BACKEND_URL}/holiday`, sendData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          if (response.status == 200) {
-            message.success("Holiday Updated Successfully");
-            window.location.reload();
-          }
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-  });
+      // validationSchema: validationSchema,
+      onSubmit: (values, action) => {
+        const sendData = {
+          old_name: editData.name,
+          old_from_date: transformString(editData.from_date),
+          old_to_date: transformString(editData.to_date),
+          name: values.name,
+          from_date: transformString(values.start_date),
+          to_date: transformString(values.end_date),
+          description: values.description,
+        };
+        axios
+          .put(`${process.env.REACT_APP_BACKEND_URL}/holiday`, sendData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            if (response.status == 200) {
+              message.success("Holiday Updated Successfully");
+              window.location.reload();
+            }
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+    });
   return (
     <form onSubmit={handleSubmit}>
       <MDBox p={4}>

@@ -13,7 +13,14 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect, useMemo, JSXElementConstructor, Key, ReactElement } from "react";
+import {
+  useState,
+  useEffect,
+  useMemo,
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+} from "react";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -47,7 +54,11 @@ import createCache from "@emotion/cache";
 import routes from "routes";
 
 // Material Dashboard 2 PRO React TS contexts
-import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import {
+  useMaterialUIController,
+  setMiniSidenav,
+  setOpenConfigurator,
+} from "context";
 
 // Images
 import brandWhite from "assets/images/logo-ct.png";
@@ -131,7 +142,8 @@ export default function App() {
   };
 
   // Change the openConfigurator state
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
+  const handleConfiguratorOpen = () =>
+    setOpenConfigurator(dispatch, !openConfigurator);
 
   // Setting the dir attribute for the body element
   useEffect(() => {
@@ -157,7 +169,13 @@ export default function App() {
         }
 
         if (route.route) {
-          return <Route path={route.route} element={route.component} key={route.key} />;
+          return (
+            <Route
+              path={route.route}
+              element={route.component}
+              key={route.key}
+            />
+          );
         }
 
         return null;
@@ -196,7 +214,11 @@ export default function App() {
           <>
             <Sidenav
               color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+              brand={
+                (transparentSidenav && !darkMode) || whiteSidenav
+                  ? brandDark
+                  : brandWhite
+              }
               brandName="Mindcom Group"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
@@ -212,7 +234,10 @@ export default function App() {
           {token ? (
             <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
           ) : (
-            <Route path="*" element={<Navigate to="/pages/authentication/signin" />} />
+            <Route
+              path="*"
+              element={<Navigate to="/pages/authentication/signin" />}
+            />
           )}
           {/* <Route path="*" element={<Navigate to="/dashboards/analytics" />} /> */}
         </Routes>
@@ -225,7 +250,11 @@ export default function App() {
         <>
           <Sidenav
             color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+            brand={
+              (transparentSidenav && !darkMode) || whiteSidenav
+                ? brandDark
+                : brandWhite
+            }
             brandName="Mindcom Group"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
@@ -241,7 +270,10 @@ export default function App() {
         {token ? (
           <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
         ) : (
-          <Route path="*" element={<Navigate to="/pages/authentication/signin" />} />
+          <Route
+            path="*"
+            element={<Navigate to="/pages/authentication/signin" />}
+          />
         )}
       </Routes>
     </ThemeProvider>

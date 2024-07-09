@@ -71,12 +71,15 @@ const Employeesm = () => {
   };
   const fetchForm16status = () => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/status/form16`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/status/form16`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         console.log(response.data, "show button");
         setShowbutton(response.data);
@@ -164,7 +167,9 @@ const Employeesm = () => {
             </CardContent>
             <Stack direction="column" justifyContent="center">
               <Stack direction="row" justifyContent="space-between">
-                <MDTypography variant="body1">{deductor[0]?.deductor_name}</MDTypography>
+                <MDTypography variant="body1">
+                  {deductor[0]?.deductor_name}
+                </MDTypography>
                 <Link href="/payrole/salarycomponent/taxes" variant="body2">
                   <IconButton>
                     <CreateRoundedIcon fontSize="medium" />
@@ -183,7 +188,8 @@ const Employeesm = () => {
         <MDBox>
           <Grid sx={{ display: "flex", justifyContent: "center" }} p={3}>
             <MDTypography variant="caption">
-              Note: Remember that once you generate Form 16, you cannot change the deductor details.
+              Note: Remember that once you generate Form 16, you cannot change
+              the deductor details.
             </MDTypography>
           </Grid>
           <Grid sx={{ display: "flex", justifyContent: "center" }}>

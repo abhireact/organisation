@@ -228,7 +228,11 @@ const Editrole = (props: any) => {
             />
           </Grid> */}
 
-          <Grid container sm={12} sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid
+            container
+            sm={12}
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
             <Grid mt={4}>
               <MDButton
                 color="info"

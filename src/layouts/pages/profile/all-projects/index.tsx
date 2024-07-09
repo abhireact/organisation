@@ -59,13 +59,17 @@ function AllProjects(): JSX.Element {
   // TeamProfileCard dropdown menu handlers
   const openSlackBotMenu = (event: any) => setSlackBotMenu(event.currentTarget);
   const closeSlackBotMenu = () => setSlackBotMenu(null);
-  const openPremiumSupportMenu = (event: any) => setPremiumSupportMenu(event.currentTarget);
+  const openPremiumSupportMenu = (event: any) =>
+    setPremiumSupportMenu(event.currentTarget);
   const closePremiumSupportMenu = () => setPremiumSupportMenu(null);
-  const openDesignToolsMenu = (event: any) => setDesignToolsMenu(event.currentTarget);
+  const openDesignToolsMenu = (event: any) =>
+    setDesignToolsMenu(event.currentTarget);
   const closeDesignToolsMenu = () => setDesignToolsMenu(null);
-  const openLookingGreatMenu = (event: any) => setLookingGreatMenu(event.currentTarget);
+  const openLookingGreatMenu = (event: any) =>
+    setLookingGreatMenu(event.currentTarget);
   const closeLookingGreatMenu = () => setLookingGreatMenu(null);
-  const openDeveloperFirstMenu = (event: any) => setDeveloperFirstMenu(event.currentTarget);
+  const openDeveloperFirstMenu = (event: any) =>
+    setDeveloperFirstMenu(event.currentTarget);
   const closeDeveloperFirstMenu = () => setDeveloperFirstMenu(null);
 
   // Dropdown menu template for the ComplexProjectCard
@@ -94,12 +98,15 @@ function AllProjects(): JSX.Element {
         <Grid container alignItems="center">
           <Grid item xs={12} md={7}>
             <MDBox mb={1}>
-              <MDTypography variant="h5">Some of Our Awesome Projects</MDTypography>
+              <MDTypography variant="h5">
+                Some of Our Awesome Projects
+              </MDTypography>
             </MDBox>
             <MDBox mb={2}>
               <MDTypography variant="body2" color="text">
-                This is the paragraph where you can write more details about your projects. Keep you
-                user engaged by providing meaningful information.
+                This is the paragraph where you can write more details about
+                your projects. Keep you user engaged by providing meaningful
+                information.
               </MDTypography>
             </MDBox>
           </Grid>
@@ -136,7 +143,10 @@ function AllProjects(): JSX.Element {
                   members={[team1, team2, team3]}
                   dropdown={{
                     action: openPremiumSupportMenu,
-                    menu: renderMenu(premiumSupportMenu, closePremiumSupportMenu),
+                    menu: renderMenu(
+                      premiumSupportMenu,
+                      closePremiumSupportMenu
+                    ),
                   }}
                 />
               </MDBox>
@@ -181,7 +191,10 @@ function AllProjects(): JSX.Element {
                   members={[team1, team2, team3, team4]}
                   dropdown={{
                     action: openDeveloperFirstMenu,
-                    menu: renderMenu(developerFirstMenu, closeDeveloperFirstMenu),
+                    menu: renderMenu(
+                      developerFirstMenu,
+                      closeDeveloperFirstMenu
+                    ),
                   }}
                 />
               </MDBox>
@@ -196,7 +209,10 @@ function AllProjects(): JSX.Element {
                   members={[team1, team2, team3, team4]}
                   dropdown={{
                     action: openDeveloperFirstMenu,
-                    menu: renderMenu(developerFirstMenu, closeDeveloperFirstMenu),
+                    menu: renderMenu(
+                      developerFirstMenu,
+                      closeDeveloperFirstMenu
+                    ),
                   }}
                 />
               </MDBox>

@@ -119,7 +119,12 @@ const Manageloan = ({ setOpendialog }: any) => {
   }; //End
   return (
     <MDBox p={4}>
-      <Grid item sm={12} sx={{ display: "flex", justifyContent: "center" }} py={2}>
+      <Grid
+        item
+        sm={12}
+        sx={{ display: "flex", justifyContent: "center" }}
+        py={2}
+      >
         <MDTypography variant="h3" fontWeight="medium">
           Manage Loan
         </MDTypography>

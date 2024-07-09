@@ -35,7 +35,9 @@ function MDEditor({ value }: any) {
   const { darkMode } = controller;
 
   const [convertedContent, setConvertedContent] = React.useState(null);
-  const [editorState, setEditorState] = React.useState(() => EditorState.createEmpty());
+  const [editorState, setEditorState] = React.useState(() =>
+    EditorState.createEmpty()
+  );
 
   React.useEffect(() => {
     let html = convertToHTML(editorState.getCurrentContent());

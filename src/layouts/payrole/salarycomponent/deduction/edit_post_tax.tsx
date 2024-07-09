@@ -126,8 +126,20 @@ function CreatePage(props: any) {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={3} p={3} display="flex" justifyContent="flex-end">
-          <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+        <Grid
+          item
+          xs={12}
+          sm={3}
+          p={3}
+          display="flex"
+          justifyContent="flex-end"
+        >
+          <MDButton
+            variant="gradient"
+            color="info"
+            type="submit"
+            onClick={handleFormSubmit}
+          >
             {"Save"}
           </MDButton>
         </Grid>

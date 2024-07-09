@@ -26,9 +26,19 @@ import MDBadge from "components/MDBadge";
 function Authentication(): JSX.Element {
   return (
     <Card id="2fa" sx={{ overflow: "visible" }}>
-      <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+      <MDBox
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        p={3}
+      >
         <MDTypography variant="h5">Two-factor authentication</MDTypography>
-        <MDBadge variant="contained" color="success" badgeContent="enabled" container />
+        <MDBadge
+          variant="contained"
+          color="success"
+          badgeContent="enabled"
+          container
+        />
       </MDBox>
       <MDBox p={3}>
         <MDBox

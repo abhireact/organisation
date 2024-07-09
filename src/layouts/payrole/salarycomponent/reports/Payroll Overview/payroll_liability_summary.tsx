@@ -16,7 +16,9 @@ function payrollLiabilitySummary(): JSX.Element {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/mg_earning_type`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/mg_earning_type`
+      );
       setEarnings(response.data);
     };
     fetchData();

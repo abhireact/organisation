@@ -11,7 +11,9 @@ const getFridayDate = (date: any) => {
 const MyComponent = () => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-  const handleDateChange = (event: { target: { value: string | number | Date } }) => {
+  const handleDateChange = (event: {
+    target: { value: string | number | Date };
+  }) => {
     setSelectedDate(new Date(event.target.value));
   };
 
@@ -25,7 +27,9 @@ const MyComponent = () => {
         onChange={handleDateChange}
       />
       <p>Selected Date: {selectedDate.toDateString()}</p>
-      {fridayDate.getDay() === 5 && <p>Friday Date: {fridayDate.toDateString()}</p>}
+      {fridayDate.getDay() === 5 && (
+        <p>Friday Date: {fridayDate.toDateString()}</p>
+      )}
     </div>
   );
 };

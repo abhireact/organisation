@@ -88,13 +88,26 @@ const selectData = {
   date: ["1st", "2nd", "3rd"],
   type_accural: ["Yearly", "Monthly", "Weekly"],
   accural_in: ["Current Accural ", "Next Accural"],
-  resetCarryForward: ["Carry Forward", "Carry Forward with Expiry", "Carry Forward with OverLimit"],
+  resetCarryForward: [
+    "Carry Forward",
+    "Carry Forward with Expiry",
+    "Carry Forward with OverLimit",
+  ],
   unit: ["Unit", "Percentage"],
   effectiveFrom: ["Date of Confirmation", "Date of Joining"],
-  ProrateAccrual: ["Start of Policy", "Start and End of Policy", "Do not protrate"],
+  ProrateAccrual: [
+    "Start of Policy",
+    "Start and End of Policy",
+    "Do not protrate",
+  ],
   DeductibleHolidays: ["All Holiday", "Holiday on workdays"],
 };
-function TabPanel(props: { [x: string]: any; children: any; value: any; index: any }) {
+function TabPanel(props: {
+  [x: string]: any;
+  children: any;
+  value: any;
+  index: any;
+}) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -143,7 +156,9 @@ function MainCreateLeavePage() {
   const dispatched = useDispatch();
   const [clickbtn, setClickbtn] = React.useState(false);
 
-  const checkMainbtnClick = useSelector((state: any) => state.dummyData.className);
+  const checkMainbtnClick = useSelector(
+    (state: any) => state.dummyData.className
+  );
   console.log("checkMainbtnClick", checkMainbtnClick);
   const tableBtnClick = checkMainbtnClick?.name;
   React.useEffect(() => {
@@ -175,15 +190,19 @@ function MainCreateLeavePage() {
   };
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const [isChecked, setIsChecked] = React.useState(false);
   const [isPastChecked, setIsPastChecked] = React.useState(false);
   const [isFutureChecked, setIsFutureChecked] = React.useState(false);
@@ -256,7 +275,10 @@ function MainCreateLeavePage() {
   const addMoreFields = () => {
     setAdditionalFields([...additionalFields, additionalFields.length]);
   };
-  const handleChanged = (event: any, newValue: React.SetStateAction<number>) => {
+  const handleChanged = (
+    event: any,
+    newValue: React.SetStateAction<number>
+  ) => {
     setValue(newValue);
   };
 
@@ -268,15 +290,26 @@ function MainCreateLeavePage() {
     enter: theme.transitions.duration.enteringScreen,
     exit: theme.transitions.duration.leavingScreen,
   };
-  const entitlementData = useSelector((state: any) => state.dummyData.entitlementName);
+  const entitlementData = useSelector(
+    (state: any) => state.dummyData.entitlementName
+  );
   console.log("entitlementDghhhhhhhhhdfgdftxdgfdghfhgata", entitlementData);
-  const restrictionData = useSelector((state: any) => state.dummyData.restrictionData);
+  const restrictionData = useSelector(
+    (state: any) => state.dummyData.restrictionData
+  );
   console.log("restrictionDghhhhhhhhhdfgdftxdgfdghfhgata", restrictionData);
-  const applicableData = useSelector((state: any) => state.dummyData.applicableData);
+  const applicableData = useSelector(
+    (state: any) => state.dummyData.applicableData
+  );
   console.log("applicableDataghhhhhhhhhdfgdftxdgfdghfhgata", applicableData);
-  const leaveGrantData = useSelector((state: any) => state.dummyData.leavegrantData);
+  const leaveGrantData = useSelector(
+    (state: any) => state.dummyData.leavegrantData
+  );
   console.log("leaveGrantDataghhhhhhhhhdfgdftxdgfdghfhgata", leaveGrantData);
-  console.log({ entitlementData, restrictionData, applicableData, leaveGrantData }, "main data");
+  console.log(
+    { entitlementData, restrictionData, applicableData, leaveGrantData },
+    "main data"
+  );
 
   return (
     <Card>
@@ -286,7 +319,12 @@ function MainCreateLeavePage() {
             <MDTypography variant="h5">{"Create Leave Type"}</MDTypography>
           </Grid>
           <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-            <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+            <MDButton
+              variant="gradient"
+              color="info"
+              type="submit"
+              onClick={handleFormSubmit}
+            >
               {"Save All"}
             </MDButton>
           </Grid>
@@ -310,7 +348,11 @@ function MainCreateLeavePage() {
               // <p className="form-error">{errors.name}</p>
               <Grid>
                 {" "}
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.leave_type_name}
                 </MDTypography>
               </Grid>
@@ -336,7 +378,11 @@ function MainCreateLeavePage() {
               // <p classleave_type_code="form-error">{errors.leave_type_code}</p>
               <Grid>
                 {" "}
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.leave_type_code}
                 </MDTypography>
               </Grid>
@@ -409,18 +455,29 @@ function MainCreateLeavePage() {
                 <FormControlLabel
                   value="Fixed entitlement"
                   control={<Radio />}
-                  label={<MDTypography variant="body2">Fixed entitlement </MDTypography>}
+                  label={
+                    <MDTypography variant="body2">
+                      Fixed entitlement{" "}
+                    </MDTypography>
+                  }
                 />
                 <FormControlLabel
                   value="Leave grant"
                   control={<Radio />}
-                  label={<MDTypography variant="body2">Leave grant</MDTypography>}
+                  label={
+                    <MDTypography variant="body2">Leave grant</MDTypography>
+                  }
                 />
               </RadioGroup>
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={2.5}>
-            <MDTypography component="label" variant="button" fontWeight="regular" color="text">
+            <MDTypography
+              component="label"
+              variant="button"
+              fontWeight="regular"
+              color="text"
+            >
               Start Date
             </MDTypography>
             <MDInput
@@ -434,7 +491,12 @@ function MainCreateLeavePage() {
             />
           </Grid>
           <Grid item xs={12} sm={2.5}>
-            <MDTypography component="label" variant="button" fontWeight="regular" color="text">
+            <MDTypography
+              component="label"
+              variant="button"
+              fontWeight="regular"
+              color="text"
+            >
               End Date
             </MDTypography>
             <MDInput
@@ -449,7 +511,12 @@ function MainCreateLeavePage() {
           </Grid>
           <Grid item xs={12} sm={4.5}>
             {/* <MDBox mb={1} ml={0.5} lineHeight={0} display="inline-block"> */}
-            <MDTypography component="label" variant="button" fontWeight="regular" color="text">
+            <MDTypography
+              component="label"
+              variant="button"
+              fontWeight="regular"
+              color="text"
+            >
               Description
             </MDTypography>
 
@@ -471,7 +538,11 @@ function MainCreateLeavePage() {
             />
             {errors.description && touched.description ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.description}
               </MDTypography>
             ) : null}

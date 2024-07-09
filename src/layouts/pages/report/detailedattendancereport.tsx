@@ -52,7 +52,10 @@ const DetailedAttandencereport = () => {
   const [ageData, setAgeData] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
-  const totalGenderValue = attendancedata?.reduce((total, item) => total + item.value, 0);
+  const totalGenderValue = attendancedata?.reduce(
+    (total, item) => total + item.value,
+    0
+  );
   const totalAgeValue = ageData.reduce((total, item) => total + item.value, 0);
 
   // Calculate percentage values for each category rounded to 2 decimal places
@@ -83,17 +86,24 @@ const DetailedAttandencereport = () => {
     { label: "Gender", value: "gender" },
     { label: "Age", value: "age" },
   ];
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      enableReinitialize: true,
-      onSubmit: (values: any, action: { resetForm: () => void }) => {
-        console.log("Form Data:", values);
-        // Perform your form submission logic here
-        // ...
-        action.resetForm();
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: (values: any, action: { resetForm: () => void }) => {
+      console.log("Form Data:", values);
+      // Perform your form submission logic here
+      // ...
+      action.resetForm();
+    },
+  });
 
   const token = Cookies.get("token");
 
@@ -136,7 +146,9 @@ const DetailedAttandencereport = () => {
     setFieldValue(fieldName, event.target.value);
   };
   // dep des location data
-  const WorkLocation = useSelector((state: any) => state.dummyData.workLocationData);
+  const WorkLocation = useSelector(
+    (state: any) => state.dummyData.workLocationData
+  );
   console.log("WorkLocation", WorkLocation);
 
   const location_name = [];
@@ -155,7 +167,9 @@ const DetailedAttandencereport = () => {
 
   console.log(location_name, "location");
 
-  const Department = useSelector((state: any) => state.dummyData.departmentData);
+  const Department = useSelector(
+    (state: any) => state.dummyData.departmentData
+  );
   console.log("Department", Department);
   const dept_name = [];
 
@@ -172,7 +186,9 @@ const DetailedAttandencereport = () => {
   }
 
   console.log(dept_name, "departmentName");
-  const Designation = useSelector((state: any) => state.dummyData.designationData);
+  const Designation = useSelector(
+    (state: any) => state.dummyData.designationData
+  );
   console.log("Designation", Designation);
   const des_name = [];
 
@@ -224,7 +240,15 @@ const DetailedAttandencereport = () => {
       fetchData();
       setIsSliceClicked(false); // Reset the slice clicked state after making the API request
     }
-  }, [isSliceClicked, clickedSliceData, selectedOption, ageData, attendancedata, values, token]);
+  }, [
+    isSliceClicked,
+    clickedSliceData,
+    selectedOption,
+    ageData,
+    attendancedata,
+    values,
+    token,
+  ]);
 
   // datatable
   const dataTableData = {
@@ -358,7 +382,11 @@ const DetailedAttandencereport = () => {
                   />
                   {errors.department && touched.department ? (
                     // <p className="form-error">{errors.name}</p>
-                    <MDTypography variant="caption" fontWeight="regular" color="error">
+                    <MDTypography
+                      variant="caption"
+                      fontWeight="regular"
+                      color="error"
+                    >
                       {errors.department}
                     </MDTypography>
                   ) : null}
@@ -401,7 +429,11 @@ const DetailedAttandencereport = () => {
                   />
                   {errors.designation && touched.designation ? (
                     // <p className="form-error">{errors.name}</p>
-                    <MDTypography variant="caption" fontWeight="regular" color="error">
+                    <MDTypography
+                      variant="caption"
+                      fontWeight="regular"
+                      color="error"
+                    >
                       {errors.designation}
                     </MDTypography>
                   ) : null}
@@ -471,7 +503,11 @@ const DetailedAttandencereport = () => {
 
                   {errors.location && touched.location ? (
                     // <p className="form-error">{errors.name}</p>
-                    <MDTypography variant="caption" fontWeight="regular" color="error">
+                    <MDTypography
+                      variant="caption"
+                      fontWeight="regular"
+                      color="error"
+                    >
                       {errors.location}
                     </MDTypography>
                   ) : null}
@@ -486,7 +522,13 @@ const DetailedAttandencereport = () => {
                         handleChange({ target: { name: "period", value } });
                       }
                     }}
-                    options={["Today", "Yesterday", "This Month", "Previous Month", "Custom"]}
+                    options={[
+                      "Today",
+                      "Yesterday",
+                      "This Month",
+                      "Previous Month",
+                      "Custom",
+                    ]}
                     renderInput={(params: any) => (
                       <FormField
                         required
@@ -505,12 +547,22 @@ const DetailedAttandencereport = () => {
                     )}
                   />
                   {errors.period && touched.period ? (
-                    <MDTypography variant="caption" fontWeight="regular" color="error">
+                    <MDTypography
+                      variant="caption"
+                      fontWeight="regular"
+                      color="error"
+                    >
                       {errors.period}
                     </MDTypography>
                   ) : null}
                 </Grid>
-                <Grid item xs={12} sm={2} display="flex" justifyContent="flex-end">
+                <Grid
+                  item
+                  xs={12}
+                  sm={2}
+                  display="flex"
+                  justifyContent="flex-end"
+                >
                   <MDButton
                     variant="gradient"
                     color="info"
@@ -533,7 +585,9 @@ const DetailedAttandencereport = () => {
           <div style={{ display: selectedOption === "age" ? "block" : "none" }}>
             <PieChart series={[{ data: agePercentageData }]} width={700} height={300} />
           </div> */}
-          <div style={{ display: selectedOption === "gender" ? "block" : "none" }}>
+          <div
+            style={{ display: selectedOption === "gender" ? "block" : "none" }}
+          >
             {attendancedata ? (
               <PieChart
                 series={[{ data: genderPercentageData }]}

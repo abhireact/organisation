@@ -18,7 +18,15 @@ interface Types {
   labels: string[];
   datasets: {
     label: string;
-    color: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "light" | "dark";
+    color:
+      | "primary"
+      | "secondary"
+      | "info"
+      | "success"
+      | "warning"
+      | "error"
+      | "light"
+      | "dark";
     data: number[];
   }[];
 }

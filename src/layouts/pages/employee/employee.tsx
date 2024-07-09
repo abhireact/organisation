@@ -24,7 +24,10 @@ import {
 } from "@mui/material";
 import MDInput from "components/MDInput";
 import { useDispatch, useSelector } from "react-redux";
-import { storeEmployeeData, storeRoleseData } from "Redux/action/dummyDataActions";
+import {
+  storeEmployeeData,
+  storeRoleseData,
+} from "Redux/action/dummyDataActions";
 import { Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 const initialValues = {
@@ -88,7 +91,9 @@ const Employee = () => {
   const [employee, setEmployee] = React.useState({});
   const [roles, setRoles] = React.useState([]);
   const [selectedlocation, setSelectedlocation] = React.useState({});
-  const WorkLocation = useSelector((state: any) => state.dummyData.workLocationData);
+  const WorkLocation = useSelector(
+    (state: any) => state.dummyData.workLocationData
+  );
   // console.log("WorkLocation", WorkLocation);
 
   const location_name = [];
@@ -107,7 +112,9 @@ const Employee = () => {
 
   console.log(location_name, "location");
 
-  const Department = useSelector((state: any) => state.dummyData.departmentData);
+  const Department = useSelector(
+    (state: any) => state.dummyData.departmentData
+  );
   // console.log("Department", Department);
   const dept_name = [];
 
@@ -124,7 +131,9 @@ const Employee = () => {
   }
 
   // console.log(dept_name, "departmentName");
-  const Designation = useSelector((state: any) => state.dummyData.designationData);
+  const Designation = useSelector(
+    (state: any) => state.dummyData.designationData
+  );
   // console.log("Designation", Designation);
   const des_name = [];
 
@@ -160,7 +169,9 @@ const Employee = () => {
 
   // console.log(role_display_name, "role_display_name");
 
-  const EmployeeData = useSelector((state: any) => state.dummyData.employeeData);
+  const EmployeeData = useSelector(
+    (state: any) => state.dummyData.employeeData
+  );
   // console.log("EmployeeDatagggggggg", EmployeeData);
   const emoployee_name = [];
   // const manager_name = [];
@@ -211,27 +222,32 @@ const Employee = () => {
     dispatched(storeRoleseData(roles));
   }, [dispatched, roles]);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      // console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      // action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        // console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
+        // action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
 
   const handleFormSubmit = async () => {
     try {
       // console.log(values, "formdata");
 
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/employee`, values, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/employee`,
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       // console.log(response);
 
@@ -254,12 +270,15 @@ const Employee = () => {
 
   const fetchEmployee = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/employee`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/employee`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const employee = await response.json();
       // console.log(employee, typeof employee);
@@ -278,10 +297,13 @@ const Employee = () => {
       ? ((values.percentofctc / 100) * values.annual_ctc) / 12
       : 0;
   // calculating housingrentmothly%
-  const housingrent = values.percentofbasic ? (values.percentofbasic / 100) * ctcbasic : 0;
+  const housingrent = values.percentofbasic
+    ? (values.percentofbasic / 100) * ctcbasic
+    : 0;
 
   const fixedallownce =
-    values.annual_ctc / 12 - (ctcbasic + housingrent + values.convinienceallownce);
+    values.annual_ctc / 12 -
+    (ctcbasic + housingrent + values.convinienceallownce);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -313,7 +335,11 @@ const Employee = () => {
             />
             {errors.first_name && touched.first_name ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.first_name}
               </MDTypography>
             ) : null}
@@ -334,7 +360,11 @@ const Employee = () => {
             />
             {errors.last_name && touched.last_name ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.last_name}
               </MDTypography>
             ) : null}
@@ -355,7 +385,11 @@ const Employee = () => {
             />
             {errors.email && touched.email ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.email}
               </MDTypography>
             ) : null}
@@ -392,7 +426,11 @@ const Employee = () => {
             />
             {errors.department && touched.department ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.department}
               </MDTypography>
             ) : null}
@@ -426,7 +464,11 @@ const Employee = () => {
             />
             {errors.designation && touched.designation ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.designation}
               </MDTypography>
             ) : null}
@@ -486,7 +528,11 @@ const Employee = () => {
 
             {errors.location && touched.location ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.location}
               </MDTypography>
             ) : null}
@@ -520,7 +566,11 @@ const Employee = () => {
             />
             {errors.role && touched.role ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.role}
               </MDTypography>
             ) : null}
@@ -554,7 +604,11 @@ const Employee = () => {
             />
             {errors.employee_type && touched.employee_type ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.employee_type}
               </MDTypography>
             ) : null}
@@ -587,7 +641,11 @@ const Employee = () => {
             />
             {errors.source_of_hire && touched.source_of_hire ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.source_of_hire}
               </MDTypography>
             ) : null}
@@ -642,7 +700,11 @@ const Employee = () => {
             />
             {errors.joining_date && touched.joining_date ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.joining_date}
               </MDTypography>
             ) : null}
@@ -690,7 +752,9 @@ const Employee = () => {
               onChange={(event, value) => {
                 if (value) {
                   const managerObject = value.value; // Extract manager's name in object format
-                  handleChange({ target: { name: "manager", value: managerObject } });
+                  handleChange({
+                    target: { name: "manager", value: managerObject },
+                  });
                 } else {
                   handleChange({ target: { name: "manager", value: null } });
                 }
@@ -733,7 +797,11 @@ const Employee = () => {
             />
             {errors.dob && touched.dob ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.dob}
               </MDTypography>
             ) : null}
@@ -766,7 +834,11 @@ const Employee = () => {
             />
             {errors.gender && touched.gender ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.gender}
               </MDTypography>
             ) : null}
@@ -799,7 +871,11 @@ const Employee = () => {
             />
             {errors.marital_status && touched.marital_status ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.marital_status}
               </MDTypography>
             ) : null}
@@ -819,7 +895,11 @@ const Employee = () => {
             />
             {errors.about_me && touched.about_me ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.about_me}
               </MDTypography>
             ) : null}
@@ -839,7 +919,11 @@ const Employee = () => {
             />
             {errors.Expertise && touched.Expertise ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.Expertise}
               </MDTypography>
             ) : null}
@@ -862,7 +946,11 @@ const Employee = () => {
             />
             {errors.uan && touched.uan ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.uan}
               </MDTypography>
             ) : null}
@@ -882,7 +970,11 @@ const Employee = () => {
             />
             {errors.pan && touched.pan ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.pan}
               </MDTypography>
             ) : null}
@@ -902,7 +994,11 @@ const Employee = () => {
             />
             {errors.aadhaar && touched.aadhaar ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.aadhaar}
               </MDTypography>
             ) : null}
@@ -925,7 +1021,11 @@ const Employee = () => {
             />
             {errors.ph_num && touched.ph_num ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.ph_num}
               </MDTypography>
             ) : null}
@@ -945,7 +1045,11 @@ const Employee = () => {
             />
             {errors.person_ph_num && touched.person_ph_num ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.person_ph_num}
               </MDTypography>
             ) : null}
@@ -961,11 +1065,17 @@ const Employee = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.personalemail_id && touched.personalemail_id}
-              success={values.personalemail_id.length && !errors.personalemail_id}
+              success={
+                values.personalemail_id.length && !errors.personalemail_id
+              }
             />
             {errors.personalemail_id && touched.personalemail_id ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.personalemail_id}
               </MDTypography>
             ) : null}
@@ -981,11 +1091,17 @@ const Employee = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.seating_location && touched.seating_location}
-              success={values.seating_location.length && !errors.seating_location}
+              success={
+                values.seating_location.length && !errors.seating_location
+              }
             />
             {errors.seating_location && touched.seating_location ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.seating_location}
               </MDTypography>
             ) : null}
@@ -1005,7 +1121,11 @@ const Employee = () => {
             />
             {errors.Tags && touched.Tags ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.Tags}
               </MDTypography>
             ) : null}
@@ -1024,7 +1144,11 @@ const Employee = () => {
               success={values.presentaddress.length && !errors.presentaddress}
             />
             {errors.presentaddress && touched.presentaddress ? (
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.presentaddress}
               </MDTypography>
             ) : null}
@@ -1040,11 +1164,17 @@ const Employee = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.permanentaddress && touched.permanentaddress}
-              success={values.permanentaddress.length && !errors.permanentaddress}
+              success={
+                values.permanentaddress.length && !errors.permanentaddress
+              }
             />
             {errors.permanentaddress && touched.permanentaddress ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.permanentaddress}
               </MDTypography>
             ) : null}
@@ -1052,7 +1182,12 @@ const Employee = () => {
           <Grid item xs={12} sm={8}></Grid>
           <Grid item xs={12} sm={4} display="flex" justifyContent="flex-end">
             <Link href={`/createemployeesalarydetails?data=${values.email}`}>
-              <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+              <MDButton
+                variant="gradient"
+                color="info"
+                type="submit"
+                onClick={handleFormSubmit}
+              >
                 {"Save"}
               </MDButton>
             </Link>

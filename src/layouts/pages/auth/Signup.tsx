@@ -35,15 +35,19 @@ const initialValues = {
   role_name: "Admin",
 };
 function Cover() {
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    // validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      // validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
 
   const [rememberMe, setRememberMe] = useState(true);
   const [tokendata, setTokendata] = useState("");
@@ -56,12 +60,16 @@ function Cover() {
   const handleFormSubmit = async () => {
     console.log(values, "formdata");
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/register`, values, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/register`,
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log(response);
 
@@ -113,7 +121,11 @@ function Cover() {
               />
               {errors.username && touched.username ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.username}
                 </MDTypography>
               ) : null}
@@ -133,7 +145,11 @@ function Cover() {
               />
               {errors.email && touched.email ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.email}
                 </MDTypography>
               ) : null}
@@ -153,7 +169,11 @@ function Cover() {
               />
               {errors.password && touched.password ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.password}
                 </MDTypography>
               ) : null}
@@ -170,17 +190,27 @@ function Cover() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={errors.organization_name && touched.organization_name}
-                success={values.organization_name.length && !errors.organization_name}
+                success={
+                  values.organization_name.length && !errors.organization_name
+                }
               />
               {errors.organization_name && touched.organization_name ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.organization_name}
                 </MDTypography>
               ) : null}
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch required checked={rememberMe} onChange={handleSetRememberMe} />
+              <Switch
+                required
+                checked={rememberMe}
+                onChange={handleSetRememberMe}
+              />
               <MDTypography
                 variant="button"
                 fontWeight="regular"

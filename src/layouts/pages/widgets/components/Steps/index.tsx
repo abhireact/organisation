@@ -33,7 +33,12 @@ function Steps(): JSX.Element {
             11.4K
           </MDTypography>
         </MDBox>
-        <MDBadge variant="contained" color="success" badgeContent="+4.3%" container />
+        <MDBadge
+          variant="contained"
+          color="success"
+          badgeContent="+4.3%"
+          container
+        />
       </MDBox>
     </Card>
   );

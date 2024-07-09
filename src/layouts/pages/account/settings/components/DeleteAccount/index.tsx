@@ -36,7 +36,8 @@ function DeleteAccount(): JSX.Element {
             <MDTypography variant="h5">Delete Account</MDTypography>
           </MDBox>
           <MDTypography variant="button" color="text">
-            Once you delete your account, there is no going back. Please be certain.
+            Once you delete your account, there is no going back. Please be
+            certain.
           </MDTypography>
         </MDBox>
         <MDBox display="flex" flexDirection={{ xs: "column", sm: "row" }}>

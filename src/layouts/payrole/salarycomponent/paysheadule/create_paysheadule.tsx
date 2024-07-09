@@ -84,48 +84,63 @@ function formatDate(inputDate: any) {
     var formattedDate = [day + "-" + month + "-" + year];
   }
   if (day >= 20) {
-    var formattedDate = [day + "-" + month1 + "-" + year, day + "-" + month2 + "-" + year];
+    var formattedDate = [
+      day + "-" + month1 + "-" + year,
+      day + "-" + month2 + "-" + year,
+    ];
   }
 
   return formattedDate;
 }
 // http://10.0.20.133:8000/employee_salary_details/current_fincial_year
 function CreatePaysheadule() {
-  const [monthwithyearname, setMonthWithYearName] = React.useState<string[]>([]);
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      validationSchema,
-      enableReinitialize: true,
-      onSubmit: async (values, action) => {
-        const valuesForSubmit = {
-          select_work_week: values.select_work_week,
-          calculate_salary_based_on:
-            values.calculate_salary_based_on + values.organisationworkingday + "per month",
-          pay_your_employee_on: values.pay_your_employee_on + values.whichday + "of every month",
-          start_first_payroll: values.start_first_payroll,
-          salary_month_willbe_paidon: values.salary_month_willbe_paidon,
-        };
-        try {
-          const response = await axios.post(
-            `${process.env.REACT_APP_BACKEND_URL}/mg_payschedule`,
-            valuesForSubmit,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          if (response.status === 200) {
-            console.log("Paysheadule Created Successfully");
+  const [monthwithyearname, setMonthWithYearName] = React.useState<string[]>(
+    []
+  );
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema,
+    enableReinitialize: true,
+    onSubmit: async (values, action) => {
+      const valuesForSubmit = {
+        select_work_week: values.select_work_week,
+        calculate_salary_based_on:
+          values.calculate_salary_based_on +
+          values.organisationworkingday +
+          "per month",
+        pay_your_employee_on:
+          values.pay_your_employee_on + values.whichday + "of every month",
+        start_first_payroll: values.start_first_payroll,
+        salary_month_willbe_paidon: values.salary_month_willbe_paidon,
+      };
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/mg_payschedule`,
+          valuesForSubmit,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
-        } catch (error) {
-          console.error(error);
+        );
+        if (response.status === 200) {
+          console.log("Paysheadule Created Successfully");
         }
-        action.resetForm();
-      },
-    });
+      } catch (error) {
+        console.error(error);
+      }
+      action.resetForm();
+    },
+  });
 
   let monthes;
 
@@ -136,7 +151,9 @@ function CreatePaysheadule() {
   }
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-  const handleDateChange = (event: { target: { value: string | number | Date } }) => {
+  const handleDateChange = (event: {
+    target: { value: string | number | Date };
+  }) => {
     setSelectedDate(new Date(event.target.value));
   };
 
@@ -146,13 +163,16 @@ function CreatePaysheadule() {
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth() + 1;
         const nextMonth = (currentMonth % 12) + 1;
-        const currentMonthName = currentDate.toLocaleString("default", { month: "long" });
+        const currentMonthName = currentDate.toLocaleString("default", {
+          month: "long",
+        });
         const currentYear = currentDate.getFullYear();
 
-        const nextMonthName = new Date(currentDate.getFullYear(), nextMonth - 1, 1).toLocaleString(
-          "default",
-          { month: "long" }
-        );
+        const nextMonthName = new Date(
+          currentDate.getFullYear(),
+          nextMonth - 1,
+          1
+        ).toLocaleString("default", { month: "long" });
         const nextMonthYear = nextMonth === 1 ? currentYear + 1 : currentYear;
         setMonthWithYearName([
           currentMonthName + " " + currentYear,
@@ -165,12 +185,15 @@ function CreatePaysheadule() {
     fetchData();
     try {
       axios
-        .get(`${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/current_fincial_year`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(
+          `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/current_fincial_year`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((Response) => {
           monthes = Response.data;
         });
@@ -192,7 +215,9 @@ function CreatePaysheadule() {
           <Grid container spacing={3} p={2}>
             <Grid item xs={12} sm={12}>
               <MDTypography variant="h6">Select your work week*</MDTypography>
-              <MDTypography variant="caption">The days worked in a calendar week</MDTypography>
+              <MDTypography variant="caption">
+                The days worked in a calendar week
+              </MDTypography>
             </Grid>
             <Grid className="weekDays-selector" item xs={12} sm={12}>
               <input
@@ -269,7 +294,9 @@ function CreatePaysheadule() {
           </Grid>
           <Grid container spacing={1} p={2}>
             <Grid item xs={12} sm={12}>
-              <MDTypography variant="h6">Calculate monthly salary based on*</MDTypography>
+              <MDTypography variant="h6">
+                Calculate monthly salary based on*
+              </MDTypography>
               <RadioGroup
                 value={values.calculate_salary_based_on}
                 name="calculate_salary_based_on"
@@ -278,7 +305,11 @@ function CreatePaysheadule() {
                 <FormControlLabel
                   value="Actual days in a month"
                   control={<Radio />}
-                  label={<MDTypography variant="button">Actual days in a month</MDTypography>}
+                  label={
+                    <MDTypography variant="button">
+                      Actual days in a month
+                    </MDTypography>
+                  }
                 />
                 <FormControlLabel
                   value="Organisation working days"
@@ -288,11 +319,14 @@ function CreatePaysheadule() {
                       {" "}
                       <>
                         <Grid container spacing={2} p={2}>
-                          <MDTypography variant="body2">Organisation working days</MDTypography>
+                          <MDTypography variant="body2">
+                            Organisation working days
+                          </MDTypography>
                           <MDInput
                             name="organisationworkingday"
                             disabled={
-                              values.calculate_salary_based_on === "Organisation working days"
+                              values.calculate_salary_based_on ===
+                              "Organisation working days"
                                 ? false
                                 : true
                             }
@@ -307,7 +341,10 @@ function CreatePaysheadule() {
                             sx={{ width: "15%" }}
                             size="small"
                           />
-                          <MDTypography variant="body2"> per month</MDTypography>
+                          <MDTypography variant="body2">
+                            {" "}
+                            per month
+                          </MDTypography>
                         </Grid>
                       </>
                     </MDTypography>
@@ -341,7 +378,11 @@ function CreatePaysheadule() {
                         <Grid container spacing={2} p={2}>
                           <MDTypography variant="body2">day</MDTypography>
                           <MDInput
-                            disabled={values.pay_your_employee_on === "days" ? false : true}
+                            disabled={
+                              values.pay_your_employee_on === "days"
+                                ? false
+                                : true
+                            }
                             name="whichday"
                             value={values.whichday}
                             type="number"
@@ -352,7 +393,9 @@ function CreatePaysheadule() {
                             size="small"
                           />
 
-                          <MDTypography variant="body2">of every month</MDTypography>
+                          <MDTypography variant="body2">
+                            of every month
+                          </MDTypography>
                         </Grid>
                       </>
                     </MDTypography>
@@ -366,7 +409,9 @@ function CreatePaysheadule() {
               {values.pay_your_employee_on != "" ? (
                 <Autocomplete
                   onChange={(event, value) => {
-                    handleChange({ target: { name: "start_first_payroll", value } });
+                    handleChange({
+                      target: { name: "start_first_payroll", value },
+                    });
                   }}
                   options={monthes}
                   renderInput={(params) => (
@@ -386,7 +431,9 @@ function CreatePaysheadule() {
                 {values.start_first_payroll != "" ? (
                   <Autocomplete
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "salary_month_willbe_paidon", value } });
+                      handleChange({
+                        target: { name: "salary_month_willbe_paidon", value },
+                      });
                     }}
                     options={salary_selected_month}
                     renderInput={(params) => (
@@ -411,12 +458,22 @@ function CreatePaysheadule() {
             {values.salary_month_willbe_paidon != "" ? (
               <Grid item xs={12} sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DateCalendar defaultValue={dayjs(values.salary_month_willbe_paidon)} readOnly />
+                  <DateCalendar
+                    defaultValue={dayjs(values.salary_month_willbe_paidon)}
+                    readOnly
+                  />
                 </LocalizationProvider>
               </Grid>
             ) : null}
           </Grid>
-          <Grid item xs={12} sm={3} p={3} display="flex" justifyContent="flex-end">
+          <Grid
+            item
+            xs={12}
+            sm={3}
+            p={3}
+            display="flex"
+            justifyContent="flex-end"
+          >
             <MDButton variant="gradient" color="info" type="submit">
               {"Save"}
             </MDButton>

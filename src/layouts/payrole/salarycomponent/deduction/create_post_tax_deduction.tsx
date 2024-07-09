@@ -46,12 +46,16 @@ function CreatePage() {
     enableReinitialize: true,
     onSubmit: async (values, action) => {
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/mg_post_tax_deduction`, values, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .post(
+          `${process.env.REACT_APP_BACKEND_URL}/mg_post_tax_deduction`,
+          values,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((response) => {
           message.success(response.data.message);
           action.resetForm();
@@ -125,7 +129,14 @@ function CreatePage() {
               />
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={3} p={3} display="flex" justifyContent="flex-end">
+          <Grid
+            item
+            xs={12}
+            sm={3}
+            p={3}
+            display="flex"
+            justifyContent="flex-end"
+          >
             <MDButton
               pr={2}
               variant="outlined"

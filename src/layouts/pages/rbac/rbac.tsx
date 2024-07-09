@@ -76,62 +76,69 @@ const Rbac = (props: any) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [rbacData, setRbacData] = useState([]);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      enableReinitialize: true,
-      onSubmit: async (values, action) => {
-        console.log("valuess", values);
-        action.resetForm();
-        for (const key of checkedKeys) {
-          console.log(key, checkedKeys, "checkedkey");
-          // setCheckedKeystring(key.toString());
-          initialValues.sub_module_menu.push(key.toString());
-        }
-        if (editorcreate === "create") {
-          try {
-            const response = await axios.post(
-              `${process.env.REACT_APP_BACKEND_URL}/mg_rbac`,
-              { ...values, sub_module_menu: allchecked },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-            if (response.status === 200) {
-              console.log("Created Earning Successfully");
-              window.location.reload();
-              setOpenupdate2(false);
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: async (values, action) => {
+      console.log("valuess", values);
+      action.resetForm();
+      for (const key of checkedKeys) {
+        console.log(key, checkedKeys, "checkedkey");
+        // setCheckedKeystring(key.toString());
+        initialValues.sub_module_menu.push(key.toString());
+      }
+      if (editorcreate === "create") {
+        try {
+          const response = await axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/mg_rbac`,
+            { ...values, sub_module_menu: allchecked },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
             }
-          } catch (error) {
-            console.error("Error saving data:", error);
+          );
+          if (response.status === 200) {
+            console.log("Created Earning Successfully");
+            window.location.reload();
+            setOpenupdate2(false);
           }
+        } catch (error) {
+          console.error("Error saving data:", error);
         }
-        if (editorcreate === "edit") {
-          try {
-            const response = await axios.put(
-              `${process.env.REACT_APP_BACKEND_URL}/mg_rbac`,
-              { ...values, sub_module_menu: allchecked },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-            if (response.status === 200) {
-              console.log("Update Successfully");
-              window.location.reload();
-              setOpenupdate2(false);
+      }
+      if (editorcreate === "edit") {
+        try {
+          const response = await axios.put(
+            `${process.env.REACT_APP_BACKEND_URL}/mg_rbac`,
+            { ...values, sub_module_menu: allchecked },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
             }
-          } catch (error) {
-            console.error("Error saving data:", error);
+          );
+          if (response.status === 200) {
+            console.log("Update Successfully");
+            window.location.reload();
+            setOpenupdate2(false);
           }
+        } catch (error) {
+          console.error("Error saving data:", error);
         }
-      },
-    });
+      }
+    },
+  });
 
   const treeData: DataNode[] = [];
   let count = 0;
@@ -182,12 +189,21 @@ const Rbac = (props: any) => {
 
   // Get parent key
 
-  const getParentKeys = (key: React.Key, nodes: DataNode[] | undefined): React.Key[] => {
+  const getParentKeys = (
+    key: React.Key,
+    nodes: DataNode[] | undefined
+  ): React.Key[] => {
     const parentKeys: React.Key[] = [];
-    const findParent = (currentKey: React.Key, nodesArray: DataNode[] | undefined): void => {
+    const findParent = (
+      currentKey: React.Key,
+      nodesArray: DataNode[] | undefined
+    ): void => {
       nodesArray?.forEach((node) => {
         const nodeKey = node.key as React.Key;
-        if (node.children && node.children.some((child) => child.key === currentKey)) {
+        if (
+          node.children &&
+          node.children.some((child) => child.key === currentKey)
+        ) {
           parentKeys.push(nodeKey);
         } else if (node.children) {
           findParent(currentKey, node.children);
@@ -228,16 +244,21 @@ const Rbac = (props: any) => {
 
     // Check if checked is an array
     if (Array.isArray(checked)) {
-      const halfCheckedKeysSet = checked.reduce((acc: Set<React.Key>, key: React.Key) => {
-        const parentKeys = getParentKeys(key, treeData);
-        parentKeys.forEach((parentKey) => acc.add(parentKey));
-        return acc;
-      }, new Set());
+      const halfCheckedKeysSet = checked.reduce(
+        (acc: Set<React.Key>, key: React.Key) => {
+          const parentKeys = getParentKeys(key, treeData);
+          parentKeys.forEach((parentKey) => acc.add(parentKey));
+          return acc;
+        },
+        new Set()
+      );
 
       const halfCheckedKeys = Array.from(halfCheckedKeysSet);
 
       console.log("Half-checked keys", halfCheckedKeys, checked);
-      const combinedArray = Array.from(new Set([...checked, ...halfCheckedKeys]));
+      const combinedArray = Array.from(
+        new Set([...checked, ...halfCheckedKeys])
+      );
       console.log(combinedArray, "combinedArray");
       // setCheckedKeys(combinedArray);
       setAllchecked(combinedArray);
@@ -247,16 +268,21 @@ const Rbac = (props: any) => {
       // If checked is an object, extract the checked property
       const { checked: checkedArray } = checked;
 
-      const halfCheckedKeysSet = checkedArray.reduce((acc: Set<React.Key>, key: React.Key) => {
-        const parentKeys = getParentKeys(key, treeData);
-        parentKeys.forEach((parentKey) => acc.add(parentKey));
-        return acc;
-      }, new Set());
+      const halfCheckedKeysSet = checkedArray.reduce(
+        (acc: Set<React.Key>, key: React.Key) => {
+          const parentKeys = getParentKeys(key, treeData);
+          parentKeys.forEach((parentKey) => acc.add(parentKey));
+          return acc;
+        },
+        new Set()
+      );
 
       const halfCheckedKeys = Array.from(halfCheckedKeysSet);
 
       console.log("Half-checked keys", halfCheckedKeys, checkedArray);
-      const combinedArray = Array.from(new Set([...checkedArray, ...halfCheckedKeys]));
+      const combinedArray = Array.from(
+        new Set([...checkedArray, ...halfCheckedKeys])
+      );
       console.log(combinedArray, "combinedArray");
       // setCheckedKeys(combinedArray);
       setAllchecked(combinedArray);
@@ -299,12 +325,15 @@ const Rbac = (props: any) => {
   const fetchRoles = async () => {
     console.log(token, "token");
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/mg_roles`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/mg_roles`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status === 200) {
         console.log(response.data, "all Rolesssssssss");
         setMRoles(response.data);
@@ -317,12 +346,15 @@ const Rbac = (props: any) => {
   const fetchLocation = async () => {
     console.log(token, "token");
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/only_worklocation`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/only_worklocation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status === 200) {
         console.log(response.data, "all Rolesssssssss");
         setWorklocation(response.data);
@@ -500,9 +532,17 @@ const Rbac = (props: any) => {
           <MDBox p={3}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={9} mb={2}>
-                <MDTypography variant="h5">Give Permission To Roles</MDTypography>
+                <MDTypography variant="h5">
+                  Give Permission To Roles
+                </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDButton variant="gradient" color="info" type="submit">
                   {"Save"}
                 </MDButton>

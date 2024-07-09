@@ -61,34 +61,39 @@ const Addholiday = (props: any) => {
   };
   ////
 
-  const { values, touched, errors, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      name: "",
-      description: "",
-      start_date: "",
-      end_date: "",
-    },
-    // validationSchema: validationSchema,
-    onSubmit: async (values, action) => {
-      const sendData = {
-        name: values.name,
-        from_date: transformString(values.start_date),
-        to_date: transformString(values.end_date),
-        description: values.description,
-      };
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/holiday`, sendData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (response.status == 200) {
-        message.success("Created Leave Succesfully");
-        window.location.reload();
-      }
-      action.resetForm();
-    },
-  });
+  const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        name: "",
+        description: "",
+        start_date: "",
+        end_date: "",
+      },
+      // validationSchema: validationSchema,
+      onSubmit: async (values, action) => {
+        const sendData = {
+          name: values.name,
+          from_date: transformString(values.start_date),
+          to_date: transformString(values.end_date),
+          description: values.description,
+        };
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/holiday`,
+          sendData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status == 200) {
+          message.success("Created Leave Succesfully");
+          window.location.reload();
+        }
+        action.resetForm();
+      },
+    });
   return (
     <form onSubmit={handleSubmit}>
       <MDBox p={4}>

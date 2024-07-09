@@ -37,12 +37,15 @@ const viewrecord = () => {
   }; //End
   const Fetchloans = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/record_loans`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/record_loans`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response.data);
       setData(response.data);
     } catch (error) {
@@ -85,10 +88,16 @@ const viewrecord = () => {
     ],
 
     rows: data.map((row, _index) => ({
-      repaid_amount: <MDTypography variant="p">{row.total_repayment_amount}</MDTypography>,
+      repaid_amount: (
+        <MDTypography variant="p">{row.total_repayment_amount}</MDTypography>
+      ),
       loan_amount: <MDTypography variant="p">{row.loan_amount}</MDTypography>,
-      loan_name: <MDTypography variant="p">{row.manage_loan_name}</MDTypography>,
-      employee_name: <MDTypography variant="p">{row.employee_name} </MDTypography>,
+      loan_name: (
+        <MDTypography variant="p">{row.manage_loan_name}</MDTypography>
+      ),
+      employee_name: (
+        <MDTypography variant="p">{row.employee_name} </MDTypography>
+      ),
       action: (
         <MDTypography variant="p">
           <IconButton
@@ -133,7 +142,11 @@ const viewrecord = () => {
         <Manageloan setOpendialog={setOpenloan} />
       </Dialog>
       <Dialog open={openupdate} onClose={handleCloseupdate}>
-        <View setOpendialog={setOpenupdate} data={editData} onSuccess={handleEditSuccess} />
+        <View
+          setOpendialog={setOpenupdate}
+          data={editData}
+          onSuccess={handleEditSuccess}
+        />
       </Dialog>
     </DashboardLayout>
   );

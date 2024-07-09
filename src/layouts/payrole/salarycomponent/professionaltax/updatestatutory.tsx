@@ -79,12 +79,14 @@ const Updates = (props: any) => {
   console.log("data ", task);
 
   // Create initialSlab based on the matchingState or use an empty array
-  const initialSlab: AdditionalSlab[] = task.start_range.map((start: any, index: any) => ({
-    key: Math.random(),
-    start_range: start,
-    end_range: task.end_range[index],
-    monthly_tax_amount: task.monthly_tax_amount[index],
-  }));
+  const initialSlab: AdditionalSlab[] = task.start_range.map(
+    (start: any, index: any) => ({
+      key: Math.random(),
+      start_range: start,
+      end_range: task.end_range[index],
+      monthly_tax_amount: task.monthly_tax_amount[index],
+    })
+  );
 
   console.log(initialSlab);
   const removeTaxSlab = (index: number) => {
@@ -99,7 +101,8 @@ const Updates = (props: any) => {
   const handleCloseupdate = () => {
     setOpenupdate(false);
   };
-  const [additionalSlabs, setAdditionalSlabs] = useState<AdditionalSlab[]>(initialSlab);
+  const [additionalSlabs, setAdditionalSlabs] =
+    useState<AdditionalSlab[]>(initialSlab);
 
   // Function to add a new set of tax slabs
   const addTaxSlab = () => {
@@ -113,7 +116,11 @@ const Updates = (props: any) => {
       },
     ]);
   };
-  const handleAdditionalSlabChange = (key: number, field: keyof AdditionalSlab, value: string) => {
+  const handleAdditionalSlabChange = (
+    key: number,
+    field: keyof AdditionalSlab,
+    value: string
+  ) => {
     setAdditionalSlabs((prevSlabs) => {
       return prevSlabs.map((slab) => {
         if (slab.key === key) {
@@ -150,16 +157,22 @@ const Updates = (props: any) => {
         deduction_cycle: values.deduction_cycle,
         start_range: [...taxSlabsData.map((slab) => slab.start_range)],
         end_range: [...taxSlabsData.map((slab) => slab.end_range)],
-        monthly_tax_amount: [...taxSlabsData.map((slab) => slab.monthly_tax_amount)],
+        monthly_tax_amount: [
+          ...taxSlabsData.map((slab) => slab.monthly_tax_amount),
+        ],
       };
 
       axios
-        .put(`${process.env.REACT_APP_BACKEND_URL}/professional_tax`, requestData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .put(
+          `${process.env.REACT_APP_BACKEND_URL}/professional_tax`,
+          requestData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((response) => {
           console.log("it is working", response);
           window.location.reload();
@@ -228,7 +241,9 @@ const Updates = (props: any) => {
                 value={formik.values.pt_number}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.pt_number && Boolean(formik.errors.pt_number)}
+                error={
+                  formik.touched.pt_number && Boolean(formik.errors.pt_number)
+                }
                 helperText={formik.touched.pt_number && formik.errors.pt_number}
               />
             </Grid>
@@ -242,8 +257,14 @@ const Updates = (props: any) => {
                 value={formik.values.deduction_cycle}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.deduction_cycle && Boolean(formik.errors.deduction_cycle)}
-                helperText={formik.touched.deduction_cycle && formik.errors.deduction_cycle}
+                error={
+                  formik.touched.deduction_cycle &&
+                  Boolean(formik.errors.deduction_cycle)
+                }
+                helperText={
+                  formik.touched.deduction_cycle &&
+                  formik.errors.deduction_cycle
+                }
               />
             </Grid>
             <Grid sm={12}>
@@ -251,7 +272,11 @@ const Updates = (props: any) => {
                 Taxes slabs based on
               </MDTypography>
 
-              <MDTypography sx={{ fontSize: 14, fontWeight: "bold" }} ml={1} variant="span">
+              <MDTypography
+                sx={{ fontSize: 14, fontWeight: "bold" }}
+                ml={1}
+                variant="span"
+              >
                 Monthly Salary
               </MDTypography>
             </Grid>
@@ -269,7 +294,11 @@ const Updates = (props: any) => {
                         name={`start_range_${index}`}
                         value={slab.start_range}
                         onChange={(e: { target: { value: any } }) =>
-                          handleAdditionalSlabChange(slab.key, "start_range", e.target.value)
+                          handleAdditionalSlabChange(
+                            slab.key,
+                            "start_range",
+                            e.target.value
+                          )
                         }
                         sx={{ width: "80%" }}
                       />
@@ -280,7 +309,11 @@ const Updates = (props: any) => {
                         a
                         value={slab.end_range}
                         onChange={(e: { target: { value: any } }) =>
-                          handleAdditionalSlabChange(slab.key, "end_range", e.target.value)
+                          handleAdditionalSlabChange(
+                            slab.key,
+                            "end_range",
+                            e.target.value
+                          )
                         }
                         sx={{ width: "80%" }}
                       />
@@ -290,13 +323,21 @@ const Updates = (props: any) => {
                         name={`monthly_tax_amount_${index}`}
                         value={slab.monthly_tax_amount}
                         onChange={(e: { target: { value: any } }) =>
-                          handleAdditionalSlabChange(slab.key, "monthly_tax_amount", e.target.value)
+                          handleAdditionalSlabChange(
+                            slab.key,
+                            "monthly_tax_amount",
+                            e.target.value
+                          )
                         }
                         sx={{ width: "80%" }}
                       />
                     </Grid>
                     <Grid item xs={3}>
-                      <MDButton variant="text" color="error" onClick={() => removeTaxSlab(index)}>
+                      <MDButton
+                        variant="text"
+                        color="error"
+                        onClick={() => removeTaxSlab(index)}
+                      >
                         Remove Slab
                       </MDButton>
                     </Grid>

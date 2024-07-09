@@ -68,20 +68,26 @@ function CreateLeave() {
   // const [editDatap, setEditDatap] = useState(editData ? editData.editData : null);
   // const [showDatap, setShowDatap] = useState(showData ? editData.showData : null);
   // console.log(editvalue);
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   useEffect(() => {
     dispatched(updateSectionName(leavebalance_redux));
     // console.log(dispatched, "dispatfrhjufwefhevhjwvfhj");
   }, [dispatched, leavebalance_redux]);
-  const checkMainbtnClick = useSelector((state: any) => state.dummyData.className);
+  const checkMainbtnClick = useSelector(
+    (state: any) => state.dummyData.className
+  );
   console.log("checkMainbtnClick", checkMainbtnClick);
 
   const handleFormSubmit = async () => {
@@ -100,12 +106,16 @@ function CreateLeave() {
 
       console.log(formValues, "formdata");
       console.log(values, "formdata");
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/mg_leave_type`, formValues, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/mg_leave_type`,
+        formValues,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log(response);
 
@@ -130,7 +140,13 @@ function CreateLeave() {
           <Grid item xs={12} sm={9}>
             <MDTypography variant="h5">{"create Leave Type"}</MDTypography>
           </Grid>
-          <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end"></Grid>
+          <Grid
+            item
+            xs={12}
+            sm={3}
+            display="flex"
+            justifyContent="flex-end"
+          ></Grid>
           <Grid item xs={12} sm={4}>
             {/* <FormField type="text" label={"Leave name *"} defaultValue="" /> */}
             <MDInput
@@ -149,7 +165,11 @@ function CreateLeave() {
             />
             {errors.leave_type_name && touched.leave_type_name ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.leave_type_name}
               </MDTypography>
             ) : null}
@@ -172,7 +192,11 @@ function CreateLeave() {
             />
             {errors.leave_type_code && touched.leave_type_code ? (
               // <p classleave_type_code="form-error">{errors.leave_type_code}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.leave_type_code}
               </MDTypography>
             ) : null}
@@ -192,7 +216,9 @@ function CreateLeave() {
                 <MenuItem value="paid">Paid</MenuItem>
                 <MenuItem value="unPaid">UnPaid</MenuItem>
                 <MenuItem value="onDuty">On Duty</MenuItem>
-                <MenuItem value="restrictedHoliday">Restricted Holiday</MenuItem>
+                <MenuItem value="restrictedHoliday">
+                  Restricted Holiday
+                </MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -237,18 +263,29 @@ function CreateLeave() {
                 <FormControlLabel
                   value="Fixed entitlement"
                   control={<Radio />}
-                  label={<MDTypography variant="body2">Fixed entitlement </MDTypography>}
+                  label={
+                    <MDTypography variant="body2">
+                      Fixed entitlement{" "}
+                    </MDTypography>
+                  }
                 />
                 <FormControlLabel
                   value="Leave grant"
                   control={<Radio />}
-                  label={<MDTypography variant="body2">Leave grant</MDTypography>}
+                  label={
+                    <MDTypography variant="body2">Leave grant</MDTypography>
+                  }
                 />
               </RadioGroup>
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <MDTypography component="label" variant="button" fontWeight="regular" color="text">
+            <MDTypography
+              component="label"
+              variant="button"
+              fontWeight="regular"
+              color="text"
+            >
               Start Date
             </MDTypography>
             <MDInput
@@ -262,7 +299,12 @@ function CreateLeave() {
             />
           </Grid>
           <Grid item xs={12} sm={3}>
-            <MDTypography component="label" variant="button" fontWeight="regular" color="text">
+            <MDTypography
+              component="label"
+              variant="button"
+              fontWeight="regular"
+              color="text"
+            >
               End Date
             </MDTypography>
             <MDInput
@@ -277,7 +319,12 @@ function CreateLeave() {
           </Grid>
           <Grid item xs={12} sm={6}>
             {/* <MDBox mb={1} ml={0.5} lineHeight={0} display="inline-block"> */}
-            <MDTypography component="label" variant="button" fontWeight="regular" color="text">
+            <MDTypography
+              component="label"
+              variant="button"
+              fontWeight="regular"
+              color="text"
+            >
               Description
             </MDTypography>
 
@@ -299,7 +346,11 @@ function CreateLeave() {
             />
             {errors.description && touched.description ? (
               // <p className="form-error">{errors.name}</p>
-              <MDTypography variant="caption" fontWeight="regular" color="error">
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
                 {errors.description}
               </MDTypography>
             ) : null}

@@ -97,7 +97,9 @@ function Department(): JSX.Element {
       action: (
         <MDTypography variant="p">
           {rbacData ? (
-            rbacData?.find((element: string) => element === "departmentupdate") ? (
+            rbacData?.find(
+              (element: string) => element === "departmentupdate"
+            ) ? (
               <IconButton
                 onClick={() => {
                   handleOpenupdate(index);
@@ -112,7 +114,9 @@ function Department(): JSX.Element {
             ""
           )}
           {rbacData ? (
-            rbacData?.find((element: string) => element === "departmentdelete") ? (
+            rbacData?.find(
+              (element: string) => element === "departmentdelete"
+            ) ? (
               <IconButton onClick={() => handleDeleteTask(row.dept_name)}>
                 <DeleteIcon />
               </IconButton>
@@ -145,13 +149,16 @@ function Department(): JSX.Element {
   const handleDeleteTask = async (dept_name: any) => {
     console.log(dept_name, "function is working");
     try {
-      const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/department/`, {
-        data: { dept_name: dept_name },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/department/`,
+        {
+          data: { dept_name: dept_name },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (res.status == 200) {
         message.success("Department Deleted successfully");
         window.location.reload();
@@ -159,7 +166,9 @@ function Department(): JSX.Element {
     } catch (error: unknown) {
       console.error("Error deleting task:", error);
       const myError = error as MyError;
-      message.error(myError?.response?.data?.detail || "An unexpected error occurred");
+      message.error(
+        myError?.response?.data?.detail || "An unexpected error occurred"
+      );
     }
   };
 
@@ -219,9 +228,22 @@ function Department(): JSX.Element {
             <MDTypography variant="h5">{"Departments"}</MDTypography>
           </Grid>
           {rbacData ? (
-            rbacData?.find((element: string) => element === "departmentcreate") ? (
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                <MDButton variant="gradient" color="info" type="submit" onClick={handleClickOpen}>
+            rbacData?.find(
+              (element: string) => element === "departmentcreate"
+            ) ? (
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  type="submit"
+                  onClick={handleClickOpen}
+                >
                   + New Department
                 </MDButton>
               </Grid>
@@ -255,9 +277,13 @@ function Department(): JSX.Element {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           error={
-                            formik.touched.departmentname && Boolean(formik.errors.departmentname)
+                            formik.touched.departmentname &&
+                            Boolean(formik.errors.departmentname)
                           }
-                          helperText={formik.touched.departmentname && formik.errors.departmentname}
+                          helperText={
+                            formik.touched.departmentname &&
+                            formik.errors.departmentname
+                          }
                           mb={10}
                           mt={10}
                         />
@@ -273,9 +299,13 @@ function Department(): JSX.Element {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           error={
-                            formik.touched.departmentcode && Boolean(formik.errors.departmentcode)
+                            formik.touched.departmentcode &&
+                            Boolean(formik.errors.departmentcode)
                           }
-                          helperText={formik.touched.departmentcode && formik.errors.departmentcode}
+                          helperText={
+                            formik.touched.departmentcode &&
+                            formik.errors.departmentcode
+                          }
                           mb={10}
                           mt={10}
                         />
@@ -289,8 +319,14 @@ function Department(): JSX.Element {
                           value={formik.values.description}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          error={formik.touched.description && Boolean(formik.errors.description)}
-                          helperText={formik.touched.description && formik.errors.description}
+                          error={
+                            formik.touched.description &&
+                            Boolean(formik.errors.description)
+                          }
+                          helperText={
+                            formik.touched.description &&
+                            formik.errors.description
+                          }
                           mb={10}
                           mt={10}
                           sx={{ width: "80%" }}
@@ -310,7 +346,11 @@ function Department(): JSX.Element {
                         </Button>
                       </Grid>
                       <Grid ml={2} mt={3}>
-                        <Button color="primary" variant="contained" onClick={handleClose}>
+                        <Button
+                          color="primary"
+                          variant="contained"
+                          onClick={handleClose}
+                        >
                           Cancel
                         </Button>
                       </Grid>
@@ -322,10 +362,16 @@ function Department(): JSX.Element {
           </Dialog>
 
           <Dialog open={openupdate} onClose={handleCloseupdate}>
-            <Updatedep openupdate={openupdate} setOpenupdate={setOpenupdate} task={editTaskData} />
+            <Updatedep
+              openupdate={openupdate}
+              setOpenupdate={setOpenupdate}
+              task={editTaskData}
+            />
           </Dialog>
           {rbacData ? (
-            rbacData?.find((element: string) => element === "departmentread") ? (
+            rbacData?.find(
+              (element: string) => element === "departmentread"
+            ) ? (
               <DataTable table={dataTableData} importbtn />
             ) : (
               ""

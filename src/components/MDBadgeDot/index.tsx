@@ -22,7 +22,15 @@ import MDTypography from "components/MDTypography";
 // declaring props types for MDBadgeDot
 interface Props {
   variant?: "gradient" | "contained";
-  color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "light" | "dark";
+  color?:
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "light"
+    | "dark";
   size?: "xs" | "sm" | "md" | "lg";
   badgeContent: string;
   font?:

@@ -51,7 +51,8 @@ function MDDropzone({ options }: Props): JSX.Element {
     }
 
     function removeDropzone() {
-      if (Dropzone.instances.length > 0) Dropzone.instances.forEach((dz: any) => dz.destroy());
+      if (Dropzone.instances.length > 0)
+        Dropzone.instances.forEach((dz: any) => dz.destroy());
     }
 
     createDropzone();

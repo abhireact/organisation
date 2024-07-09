@@ -72,10 +72,12 @@ const Professionaltax = () => {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox>
-        <MDTypography sx={{ fontSize: 20, fontWeight: "bold" }}>Professional Tax</MDTypography>
+        <MDTypography sx={{ fontSize: 20, fontWeight: "bold" }}>
+          Professional Tax
+        </MDTypography>
         <MDTypography sx={{ fontSize: 14 }}>
-          This tax is levied on an employee's income by the State Government. Tax slabs differ in
-          each state.
+          This tax is levied on an employee's income by the State Government.
+          Tax slabs differ in each state.
         </MDTypography>
       </MDBox>
       <Grid
@@ -144,7 +146,11 @@ const Professionaltax = () => {
                   </MDTypography>
                 </Grid>
                 <Grid sm={6}>
-                  <MDTypography sx={{ fontSize: 14, fontWeight: "bold" }} ml={2} variant="span">
+                  <MDTypography
+                    sx={{ fontSize: 14, fontWeight: "bold" }}
+                    ml={2}
+                    variant="span"
+                  >
                     {task.state}
                   </MDTypography>
                 </Grid>
@@ -158,7 +164,11 @@ const Professionaltax = () => {
                   </MDTypography>
                 </Grid>
                 <Grid sm={6}>
-                  <MDTypography sx={{ fontSize: 14, fontWeight: "bold" }} ml={2} variant="span">
+                  <MDTypography
+                    sx={{ fontSize: 14, fontWeight: "bold" }}
+                    ml={2}
+                    variant="span"
+                  >
                     {"Monthly"}
                   </MDTypography>
                 </Grid>
@@ -195,7 +205,11 @@ const Professionaltax = () => {
                         accessor: "monthlysalary",
                         width: "50%",
                       },
-                      { Header: "MONTHLY TAX AMOUNT (₹)", accessor: "monthlyamount", width: "50%" },
+                      {
+                        Header: "MONTHLY TAX AMOUNT (₹)",
+                        accessor: "monthlyamount",
+                        width: "50%",
+                      },
                     ],
                     rows: [
                       {

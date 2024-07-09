@@ -30,7 +30,11 @@ import ivana from "assets/images/ivana-squares.jpg";
 
 const dataTableData = {
   columns: [
-    { Header: "id", accessor: "id", Cell: ({ value }: any) => <IdCell id={value} /> },
+    {
+      Header: "id",
+      accessor: "id",
+      Cell: ({ value }: any) => <IdCell id={value} />,
+    },
     {
       Header: "date",
       accessor: "date",
@@ -57,7 +61,11 @@ const dataTableData = {
       Header: "customer",
       accessor: "customer",
       Cell: ({ value: [name, data] }: any) => (
-        <CustomerCell image={data.image} color={data.color || "dark"} name={name} />
+        <CustomerCell
+          image={data.image}
+          color={data.color || "dark"}
+          name={name}
+        />
       ),
     },
     {

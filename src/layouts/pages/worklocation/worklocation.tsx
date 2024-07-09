@@ -118,12 +118,15 @@ const Worklocations = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/worklocation`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/worklocation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setTasks(response.data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -137,13 +140,16 @@ const Worklocations = () => {
 
   const handleDeleteTask = async (name: any) => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/worklocation/`, {
-        data: { location_name: name },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/worklocation/`,
+        {
+          data: { location_name: name },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       {
         response.status == 200
           ? message.success("Work Location Deleted Successfully")
@@ -153,7 +159,9 @@ const Worklocations = () => {
     } catch (error: unknown) {
       console.error("Error deleting task:", error);
       const myError = error as MyError;
-      message.error(myError?.response?.data?.detail || "An unexpected error occurred");
+      message.error(
+        myError?.response?.data?.detail || "An unexpected error occurred"
+      );
     }
   };
   const formik = useFormik({
@@ -200,7 +208,9 @@ const Worklocations = () => {
     },
   });
   //sx={{ display: "flex", justifyContent: "flex-end" }}
-  const userprofileData = useSelector((state: any) => state.dummyData.userprofileData);
+  const userprofileData = useSelector(
+    (state: any) => state.dummyData.userprofileData
+  );
   console.log("userProfileDatin show empa", userprofileData);
   const rbacData = useSelector((state: any) => state.dummyData?.rbacData);
   console.log("rbac data", rbacData);
@@ -214,9 +224,22 @@ const Worklocations = () => {
             <MDTypography variant="h5">{"Work Locations"}</MDTypography>
           </Grid>
           {rbacData ? (
-            rbacData?.find((element: string) => element === "worklocationcreate") ? (
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                <MDButton variant="gradient" color="info" type="submit" onClick={handleClickOpen}>
+            rbacData?.find(
+              (element: string) => element === "worklocationcreate"
+            ) ? (
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  type="submit"
+                  onClick={handleClickOpen}
+                >
                   Add Work Location
                 </MDButton>
               </Grid>
@@ -247,7 +270,9 @@ const Worklocations = () => {
                         value={formik.values.name}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.name && Boolean(formik.errors.name)}
+                        error={
+                          formik.touched.name && Boolean(formik.errors.name)
+                        }
                         helperText={formik.touched.name && formik.errors.name}
                         mb={10}
                         mt={10}
@@ -263,8 +288,14 @@ const Worklocations = () => {
                         value={formik.values.address_line1}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.address_line1 && Boolean(formik.errors.address_line1)}
-                        helperText={formik.touched.address_line1 && formik.errors.address_line1}
+                        error={
+                          formik.touched.address_line1 &&
+                          Boolean(formik.errors.address_line1)
+                        }
+                        helperText={
+                          formik.touched.address_line1 &&
+                          formik.errors.address_line1
+                        }
                         mb={10}
                       />
                     </Grid>
@@ -277,8 +308,14 @@ const Worklocations = () => {
                         value={formik.values.address_line2}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.address_line2 && Boolean(formik.errors.address_line2)}
-                        helperText={formik.touched.address_line2 && formik.errors.address_line2}
+                        error={
+                          formik.touched.address_line2 &&
+                          Boolean(formik.errors.address_line2)
+                        }
+                        helperText={
+                          formik.touched.address_line2 &&
+                          formik.errors.address_line2
+                        }
                         mb={10}
                       />
                     </Grid>
@@ -315,8 +352,13 @@ const Worklocations = () => {
                         value={formik.values.pincode}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.pincode && Boolean(formik.errors.pincode)}
-                        helperText={formik.touched.pincode && formik.errors.pincode}
+                        error={
+                          formik.touched.pincode &&
+                          Boolean(formik.errors.pincode)
+                        }
+                        helperText={
+                          formik.touched.pincode && formik.errors.pincode
+                        }
                       />
                     </Grid>
                     <Grid sm={4} mb={2}>
@@ -329,7 +371,9 @@ const Worklocations = () => {
                         value={formik.values.city}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.city && Boolean(formik.errors.city)}
+                        error={
+                          formik.touched.city && Boolean(formik.errors.city)
+                        }
                         helperText={formik.touched.city && formik.errors.city}
                       />
                     </Grid>
@@ -345,7 +389,11 @@ const Worklocations = () => {
                       </MDButton>
                     </Grid>
                     <Grid ml={2} mt={3}>
-                      <MDButton color="primary" variant="contained" onClick={handleClose}>
+                      <MDButton
+                        color="primary"
+                        variant="contained"
+                        onClick={handleClose}
+                      >
                         Cancel
                       </MDButton>
                     </Grid>
@@ -382,7 +430,9 @@ const Worklocations = () => {
               >
                 <CardContent sx={{ ml: "40%" }}>
                   {rbacData ? (
-                    rbacData?.find((element: string) => element === "worklocationupdate") ? (
+                    rbacData?.find(
+                      (element: string) => element === "worklocationupdate"
+                    ) ? (
                       <MDButton
                         startIcon={<CreateRoundedIcon />}
                         onClick={() => handleOpenupdate(index)}
@@ -395,7 +445,9 @@ const Worklocations = () => {
                     ""
                   )}
                   {rbacData ? (
-                    rbacData?.find((element: string) => element === "worklocationdelete") ? (
+                    rbacData?.find(
+                      (element: string) => element === "worklocationdelete"
+                    ) ? (
                       <MDButton
                         startIcon={<Delete />}
                         onClick={() => handleDeleteTask(task.location_name)}

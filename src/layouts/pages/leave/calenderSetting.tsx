@@ -97,22 +97,34 @@ const selectData = {
     "Year end estimatted balance ",
   ],
   halfday: ["Full Day", "1st Half", "2nd Half"],
-  weekday: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+  weekday: [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ],
   date: ["1st", "2nd", "3rd"],
   payCycle: ["Monthly", "Weekly", "BiWeekly", "HalfMonthly"],
 };
 const CalenderSetting = () => {
   // let MainSaturDay: [];
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
 
   console.log("token", token);
@@ -353,12 +365,20 @@ const CalenderSetting = () => {
                         // MainSunday.includes(newvalue);
 
                         // Update MainSunday array
-                        const updatedMainSunday = [...values.MainSunday, newvalue];
+                        const updatedMainSunday = [
+                          ...values.MainSunday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainSunday", value: updatedMainSunday },
+                          target: {
+                            name: "MainSunday",
+                            value: updatedMainSunday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete1", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete1", newvalue },
+                        });
                       }
                     }}
                     options={selectData.halfday}
@@ -410,12 +430,20 @@ const CalenderSetting = () => {
                         // MainSunday.includes(newvalue);
 
                         // Update MainSunday array
-                        const updatedMainSunday = [...values.MainSunday, newvalue];
+                        const updatedMainSunday = [
+                          ...values.MainSunday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainSunday", value: updatedMainSunday },
+                          target: {
+                            name: "MainSunday",
+                            value: updatedMainSunday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete2", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete2", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -465,12 +493,20 @@ const CalenderSetting = () => {
                         // MainSunday.includes(newvalue);
 
                         // Update MainSunday array
-                        const updatedMainSunday = [...values.MainSunday, newvalue];
+                        const updatedMainSunday = [
+                          ...values.MainSunday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainSunday", value: updatedMainSunday },
+                          target: {
+                            name: "MainSunday",
+                            value: updatedMainSunday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete3", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete3", newvalue },
+                        });
                       }
                     }}
                     options={selectData.halfday}
@@ -519,12 +555,20 @@ const CalenderSetting = () => {
                         // MainSunday.includes(newvalue);
 
                         // Update MainSunday array
-                        const updatedMainSunday = [...values.MainSunday, newvalue];
+                        const updatedMainSunday = [
+                          ...values.MainSunday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainSunday", value: updatedMainSunday },
+                          target: {
+                            name: "MainSunday",
+                            value: updatedMainSunday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete4", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete4", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -575,12 +619,20 @@ const CalenderSetting = () => {
                         // MainSunday.includes(newvalue);
 
                         // Update MainSunday array
-                        const updatedMainSunday = [...values.MainSunday, newvalue];
+                        const updatedMainSunday = [
+                          ...values.MainSunday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainSunday", value: updatedMainSunday },
+                          target: {
+                            name: "MainSunday",
+                            value: updatedMainSunday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete5", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete5", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -693,12 +745,20 @@ const CalenderSetting = () => {
                         // MainMonday.includes(newvalue);
 
                         // Update MainMonday array
-                        const updatedMainMonday = [...values.MainMonday, newvalue];
+                        const updatedMainMonday = [
+                          ...values.MainMonday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainMonday", value: updatedMainMonday },
+                          target: {
+                            name: "MainMonday",
+                            value: updatedMainMonday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete6", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete6", newvalue },
+                        });
                       }
                     }}
                     options={selectData.halfday}
@@ -745,12 +805,20 @@ const CalenderSetting = () => {
                         // MainMonday.includes(newvalue);
 
                         // Update MainMonday array
-                        const updatedMainMonday = [...values.MainMonday, newvalue];
+                        const updatedMainMonday = [
+                          ...values.MainMonday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainMonday", value: updatedMainMonday },
+                          target: {
+                            name: "MainMonday",
+                            value: updatedMainMonday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete7", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete7", newvalue },
+                        });
                       }
                     }}
                     options={selectData.halfday}
@@ -797,12 +865,20 @@ const CalenderSetting = () => {
                         // MainMonday.includes(newvalue);
 
                         // Update MainMonday array
-                        const updatedMainMonday = [...values.MainMonday, newvalue];
+                        const updatedMainMonday = [
+                          ...values.MainMonday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainMonday", value: updatedMainMonday },
+                          target: {
+                            name: "MainMonday",
+                            value: updatedMainMonday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete8", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete8", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -852,12 +928,20 @@ const CalenderSetting = () => {
                         // MainMonday.includes(newvalue);
 
                         // Update MainMonday array
-                        const updatedMainMonday = [...values.MainMonday, newvalue];
+                        const updatedMainMonday = [
+                          ...values.MainMonday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainMonday", value: updatedMainMonday },
+                          target: {
+                            name: "MainMonday",
+                            value: updatedMainMonday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete9", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete9", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -907,12 +991,20 @@ const CalenderSetting = () => {
                         // MainMonday.includes(newvalue);
 
                         // Update MainMonday array
-                        const updatedMainMonday = [...values.MainMonday, newvalue];
+                        const updatedMainMonday = [
+                          ...values.MainMonday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainMonday", value: updatedMainMonday },
+                          target: {
+                            name: "MainMonday",
+                            value: updatedMainMonday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete10", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete10", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -980,12 +1072,20 @@ const CalenderSetting = () => {
                         // MainTuesDay.includes(newvalue);
 
                         // Update MainTuesDay array
-                        const updatedMainTuesDay = [...values.MainTuesDay, newvalue];
+                        const updatedMainTuesDay = [
+                          ...values.MainTuesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainTuesDay", value: updatedMainTuesDay },
+                          target: {
+                            name: "MainTuesDay",
+                            value: updatedMainTuesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete11", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete11", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1035,12 +1135,20 @@ const CalenderSetting = () => {
                         // MainTuesDay.includes(newvalue);
 
                         // Update MainTuesDay array
-                        const updatedMainTuesDay = [...values.MainTuesDay, newvalue];
+                        const updatedMainTuesDay = [
+                          ...values.MainTuesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainTuesDay", value: updatedMainTuesDay },
+                          target: {
+                            name: "MainTuesDay",
+                            value: updatedMainTuesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete12", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete12", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1090,12 +1198,20 @@ const CalenderSetting = () => {
                         // MainTuesDay.includes(newvalue);
 
                         // Update MainTuesDay array
-                        const updatedMainTuesDay = [...values.MainTuesDay, newvalue];
+                        const updatedMainTuesDay = [
+                          ...values.MainTuesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainTuesDay", value: updatedMainTuesDay },
+                          target: {
+                            name: "MainTuesDay",
+                            value: updatedMainTuesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete13", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete13", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1145,12 +1261,20 @@ const CalenderSetting = () => {
                         // MainTuesDay.includes(newvalue);
 
                         // Update MainTuesDay array
-                        const updatedMainTuesDay = [...values.MainTuesDay, newvalue];
+                        const updatedMainTuesDay = [
+                          ...values.MainTuesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainTuesDay", value: updatedMainTuesDay },
+                          target: {
+                            name: "MainTuesDay",
+                            value: updatedMainTuesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete14", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete14", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1200,12 +1324,20 @@ const CalenderSetting = () => {
                         // MainTuesDay.includes(newvalue);
 
                         // Update MainTuesDay array
-                        const updatedMainTuesDay = [...values.MainTuesDay, newvalue];
+                        const updatedMainTuesDay = [
+                          ...values.MainTuesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainTuesDay", value: updatedMainTuesDay },
+                          target: {
+                            name: "MainTuesDay",
+                            value: updatedMainTuesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete15", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete15", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1273,12 +1405,20 @@ const CalenderSetting = () => {
                         // MainWednesDay.includes(newvalue);
 
                         // Update MainWednesDay array
-                        const updatedMainWednesDay = [...values.MainWednesDay, newvalue];
+                        const updatedMainWednesDay = [
+                          ...values.MainWednesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainWednesDay", value: updatedMainWednesDay },
+                          target: {
+                            name: "MainWednesDay",
+                            value: updatedMainWednesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete16", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete16", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1328,12 +1468,20 @@ const CalenderSetting = () => {
                         // MainWednesDay.includes(newvalue);
 
                         // Update MainWednesDay array
-                        const updatedMainWednesDay = [...values.MainWednesDay, newvalue];
+                        const updatedMainWednesDay = [
+                          ...values.MainWednesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainWednesDay", value: updatedMainWednesDay },
+                          target: {
+                            name: "MainWednesDay",
+                            value: updatedMainWednesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete17", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete17", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1383,12 +1531,20 @@ const CalenderSetting = () => {
                         // MainWednesDay.includes(newvalue);
 
                         // Update MainWednesDay array
-                        const updatedMainWednesDay = [...values.MainWednesDay, newvalue];
+                        const updatedMainWednesDay = [
+                          ...values.MainWednesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainWednesDay", value: updatedMainWednesDay },
+                          target: {
+                            name: "MainWednesDay",
+                            value: updatedMainWednesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete18", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete18", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1438,12 +1594,20 @@ const CalenderSetting = () => {
                         // MainWednesDay.includes(newvalue);
 
                         // Update MainWednesDay array
-                        const updatedMainWednesDay = [...values.MainWednesDay, newvalue];
+                        const updatedMainWednesDay = [
+                          ...values.MainWednesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainWednesDay", value: updatedMainWednesDay },
+                          target: {
+                            name: "MainWednesDay",
+                            value: updatedMainWednesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete19", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete19", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1493,12 +1657,20 @@ const CalenderSetting = () => {
                         // MainWednesDay.includes(newvalue);
 
                         // Update MainWednesDay array
-                        const updatedMainWednesDay = [...values.MainWednesDay, newvalue];
+                        const updatedMainWednesDay = [
+                          ...values.MainWednesDay,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainWednesDay", value: updatedMainWednesDay },
+                          target: {
+                            name: "MainWednesDay",
+                            value: updatedMainWednesDay,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete20", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete20", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1566,12 +1738,20 @@ const CalenderSetting = () => {
                         // Thursaday.includes(newvalue);
 
                         // Update Thursaday array
-                        const updatedThursaday = [...values.Thursaday, newvalue];
+                        const updatedThursaday = [
+                          ...values.Thursaday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "Thursaday", value: updatedThursaday },
+                          target: {
+                            name: "Thursaday",
+                            value: updatedThursaday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete21", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete21", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1621,12 +1801,20 @@ const CalenderSetting = () => {
                         // Thursaday.includes(newvalue);
 
                         // Update Thursaday array
-                        const updatedThursaday = [...values.Thursaday, newvalue];
+                        const updatedThursaday = [
+                          ...values.Thursaday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "Thursaday", value: updatedThursaday },
+                          target: {
+                            name: "Thursaday",
+                            value: updatedThursaday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete22", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete22", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1676,12 +1864,20 @@ const CalenderSetting = () => {
                         // Thursaday.includes(newvalue);
 
                         // Update Thursaday array
-                        const updatedThursaday = [...values.Thursaday, newvalue];
+                        const updatedThursaday = [
+                          ...values.Thursaday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "Thursaday", value: updatedThursaday },
+                          target: {
+                            name: "Thursaday",
+                            value: updatedThursaday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete23", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete23", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1731,12 +1927,20 @@ const CalenderSetting = () => {
                         // Thursaday.includes(newvalue);
 
                         // Update Thursaday array
-                        const updatedThursaday = [...values.Thursaday, newvalue];
+                        const updatedThursaday = [
+                          ...values.Thursaday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "Thursaday", value: updatedThursaday },
+                          target: {
+                            name: "Thursaday",
+                            value: updatedThursaday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete24", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete24", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1786,12 +1990,20 @@ const CalenderSetting = () => {
                         // Thursaday.includes(newvalue);
 
                         // Update Thursaday array
-                        const updatedThursaday = [...values.Thursaday, newvalue];
+                        const updatedThursaday = [
+                          ...values.Thursaday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "Thursaday", value: updatedThursaday },
+                          target: {
+                            name: "Thursaday",
+                            value: updatedThursaday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete25", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete25", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1859,12 +2071,20 @@ const CalenderSetting = () => {
                         // MainFriday.includes(newvalue);
 
                         // Update MainFriday array
-                        const updatedMainFriday = [...values.MainFriday, newvalue];
+                        const updatedMainFriday = [
+                          ...values.MainFriday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainFriday", value: updatedMainFriday },
+                          target: {
+                            name: "MainFriday",
+                            value: updatedMainFriday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete26", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete26", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1914,12 +2134,20 @@ const CalenderSetting = () => {
                         // MainFriday.includes(newvalue);
 
                         // Update MainFriday array
-                        const updatedMainFriday = [...values.MainFriday, newvalue];
+                        const updatedMainFriday = [
+                          ...values.MainFriday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainFriday", value: updatedMainFriday },
+                          target: {
+                            name: "MainFriday",
+                            value: updatedMainFriday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete27", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete27", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -1969,12 +2197,20 @@ const CalenderSetting = () => {
                         // MainFriday.includes(newvalue);
 
                         // Update MainFriday array
-                        const updatedMainFriday = [...values.MainFriday, newvalue];
+                        const updatedMainFriday = [
+                          ...values.MainFriday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainFriday", value: updatedMainFriday },
+                          target: {
+                            name: "MainFriday",
+                            value: updatedMainFriday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete28", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete28", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -2024,12 +2260,20 @@ const CalenderSetting = () => {
                         // MainFriday.includes(newvalue);
 
                         // Update MainFriday array
-                        const updatedMainFriday = [...values.MainFriday, newvalue];
+                        const updatedMainFriday = [
+                          ...values.MainFriday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainFriday", value: updatedMainFriday },
+                          target: {
+                            name: "MainFriday",
+                            value: updatedMainFriday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete29", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete29", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -2079,12 +2323,20 @@ const CalenderSetting = () => {
                         // MainFriday.includes(newvalue);
 
                         // Update MainFriday array
-                        const updatedMainFriday = [...values.MainFriday, newvalue];
+                        const updatedMainFriday = [
+                          ...values.MainFriday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainFriday", value: updatedMainFriday },
+                          target: {
+                            name: "MainFriday",
+                            value: updatedMainFriday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete30", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete30", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -2151,13 +2403,21 @@ const CalenderSetting = () => {
                         newvalue = "1st Saturday" + " " + value;
                         console.log(newvalue, "value of sat ");
                         // MainSaturDay.includes(newvalue);
-                        const updatedMainSaturday = [...values.MainSaturday, newvalue];
+                        const updatedMainSaturday = [
+                          ...values.MainSaturday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainSaturday", value: updatedMainSaturday },
+                          target: {
+                            name: "MainSaturday",
+                            value: updatedMainSaturday,
+                          },
                         });
 
-                        handleChange({ target: { name: "Autocomplete31", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete31", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -2207,12 +2467,20 @@ const CalenderSetting = () => {
                         // MainSaturDay.includes(newvalue);
 
                         // Update MainSaturday array
-                        const updatedMainSaturday = [...values.MainSaturday, newvalue];
+                        const updatedMainSaturday = [
+                          ...values.MainSaturday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainSaturday", value: updatedMainSaturday },
+                          target: {
+                            name: "MainSaturday",
+                            value: updatedMainSaturday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete32", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete32", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -2262,12 +2530,20 @@ const CalenderSetting = () => {
                         // MainSaturDay.includes(newvalue);
 
                         // Update MainSaturday array
-                        const updatedMainSaturday = [...values.MainSaturday, newvalue];
+                        const updatedMainSaturday = [
+                          ...values.MainSaturday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainSaturday", value: updatedMainSaturday },
+                          target: {
+                            name: "MainSaturday",
+                            value: updatedMainSaturday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete33", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete33", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -2317,12 +2593,20 @@ const CalenderSetting = () => {
                         // MainSaturDay.includes(newvalue);
 
                         // Update MainSaturday array
-                        const updatedMainSaturday = [...values.MainSaturday, newvalue];
+                        const updatedMainSaturday = [
+                          ...values.MainSaturday,
+                          newvalue,
+                        ];
 
                         handleChange({
-                          target: { name: "MainSaturday", value: updatedMainSaturday },
+                          target: {
+                            name: "MainSaturday",
+                            value: updatedMainSaturday,
+                          },
                         });
-                        handleChange({ target: { name: "Autocomplete34", newvalue } });
+                        handleChange({
+                          target: { name: "Autocomplete34", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -2370,8 +2654,12 @@ const CalenderSetting = () => {
                         newvalue = "5th Saturday" + " " + value;
                         console.log(newvalue, "value of sat ");
                         // MainSaturDay.includes(newvalue);
-                        values.MainSaturday.includes("5th Saturday" + " " + value);
-                        handleChange({ target: { name: "Autocomplete35", newvalue } });
+                        values.MainSaturday.includes(
+                          "5th Saturday" + " " + value
+                        );
+                        handleChange({
+                          target: { name: "Autocomplete35", newvalue },
+                        });
                       }
                     }}
                     // value={department}
@@ -2456,7 +2744,8 @@ const CalenderSetting = () => {
             }
             label={
               <MDTypography>
-                Define statutory weekends and track statutory weekend hours separately.
+                Define statutory weekends and track statutory weekend hours
+                separately.
               </MDTypography>
             }
           />

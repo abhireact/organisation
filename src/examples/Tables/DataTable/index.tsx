@@ -17,7 +17,13 @@ import { useMemo, useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 
 // react-table components
-import { useTable, usePagination, useGlobalFilter, useAsyncDebounce, useSortBy } from "react-table";
+import {
+  useTable,
+  usePagination,
+  useGlobalFilter,
+  useAsyncDebounce,
+  useSortBy,
+} from "react-table";
 
 // @mui material components
 import Table from "@mui/material/Table";
@@ -60,7 +66,15 @@ interface Props {
   };
   pagination?: {
     variant: "contained" | "gradient";
-    color: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark" | "light";
+    color:
+      | "primary"
+      | "secondary"
+      | "info"
+      | "success"
+      | "warning"
+      | "error"
+      | "dark"
+      | "light";
   };
   isSorted?: boolean;
   noEndBorder?: boolean;
@@ -82,8 +96,12 @@ function DataTable({
   let entries: any[];
 
   if (entriesPerPage) {
-    defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : "10";
-    entries = entriesPerPage.entries ? entriesPerPage.entries : ["10", "25", "50", "100"];
+    defaultValue = entriesPerPage.defaultValue
+      ? entriesPerPage.defaultValue
+      : "10";
+    entries = entriesPerPage.entries
+      ? entriesPerPage.entries
+      : ["10", "25", "50", "100"];
   }
 
   const columns = useMemo<any>(() => table.columns, [table]);
@@ -137,13 +155,16 @@ function DataTable({
 
   // Handler for the input to set the pagination index
   const handleInputPagination = ({ target: { value } }: any) =>
-    value > pageOptions.length || value < 0 ? gotoPage(0) : gotoPage(Number(value));
+    value > pageOptions.length || value < 0
+      ? gotoPage(0)
+      : gotoPage(Number(value));
 
   // Customized page options starting from 1
   const customizedPageOptions = pageOptions.map((option: any) => option + 1);
 
   // Setting value for the pagination input
-  const handleInputPaginationValue = ({ target: value }: any) => gotoPage(Number(value.value - 1));
+  const handleInputPaginationValue = ({ target: value }: any) =>
+    gotoPage(Number(value.value - 1));
 
   // Search input value state
   const [search, setSearch] = useState(globalFilter);
@@ -169,7 +190,8 @@ function DataTable({
   };
 
   // Setting the entries starting point
-  const entriesStart = pageIndex === 0 ? pageIndex + 1 : pageIndex * pageSize + 1;
+  const entriesStart =
+    pageIndex === 0 ? pageIndex + 1 : pageIndex * pageSize + 1;
 
   // Setting the entries ending point
   let entriesEnd;
@@ -180,7 +202,9 @@ function DataTable({
 
     // Set up table headers and rows
     const tableHeaders = table.columns.map((column) => column.Header);
-    const filteredTableHeaders = tableHeaders.filter((header) => header !== "Action");
+    const filteredTableHeaders = tableHeaders.filter(
+      (header) => header !== "Action"
+    );
     const tableRows = table.rows.map((row) => {
       // Get the keys from the first row of the input data
       const keys = Object.keys(table.rows[0]);
@@ -214,7 +238,9 @@ function DataTable({
     });
 
     const headers = Object.keys(filteredTableData[0]);
-    const data = filteredTableData.map((row) => headers.map((header) => row[header]));
+    const data = filteredTableData.map((row) =>
+      headers.map((header) => row[header])
+    );
 
     // Create a new style object for the header row with a background color
     const headerStyle = {
@@ -244,7 +270,12 @@ function DataTable({
   return (
     <TableContainer sx={{ boxShadow: "none" }}>
       {entriesPerPage || canSearch || importbtn ? (
-        <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+        <MDBox
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          p={3}
+        >
           {entriesPerPage && (
             <MDBox display="flex" alignItems="center">
               <Autocomplete
@@ -298,7 +329,9 @@ function DataTable({
                 }}
               >
                 <MenuItem onClick={handleGeneratePDF}>PDF</MenuItem>
-                <MenuItem onClick={() => downloadXLSX(table.rows)}>XSL</MenuItem>
+                <MenuItem onClick={() => downloadXLSX(table.rows)}>
+                  XSL
+                </MenuItem>
               </Menu>
               <MDButton
                 variant="gradient"
@@ -336,7 +369,9 @@ function DataTable({
               {headerGroup.headers.map((column: any, key: any) => (
                 <DataTableHeadCell
                   key={key}
-                  {...column.getHeaderProps(isSorted && column.getSortByToggleProps())}
+                  {...column.getHeaderProps(
+                    isSorted && column.getSortByToggleProps()
+                  )}
                   width={column.width ? column.width : "auto"}
                   align={column.align ? column.align : "left"}
                   sorted={setSortedValue(column)}
@@ -379,7 +414,11 @@ function DataTable({
       >
         {showTotalEntries && (
           <MDBox mb={{ xs: 3, sm: 0 }}>
-            <MDTypography variant="button" color="secondary" fontWeight="regular">
+            <MDTypography
+              variant="button"
+              color="secondary"
+              fontWeight="regular"
+            >
               Showing {entriesStart} to {entriesEnd} of {rows.length} entries
             </MDTypography>
           </MDBox>
@@ -397,7 +436,11 @@ function DataTable({
             {renderPagination.length > 6 ? (
               <MDBox width="5rem" mx={1}>
                 <MDInput
-                  inputProps={{ type: "number", min: 1, max: customizedPageOptions.length }}
+                  inputProps={{
+                    type: "number",
+                    min: 1,
+                    max: customizedPageOptions.length,
+                  }}
                   value={customizedPageOptions[pageIndex]}
                   onChange={(event: any) => {
                     handleInputPagination(event);

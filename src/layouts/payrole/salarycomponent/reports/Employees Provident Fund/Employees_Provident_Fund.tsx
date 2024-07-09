@@ -114,14 +114,18 @@ const wagepayment = {
 };
 
 const Employees_Provident_Fund = () => {
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues: initialValues,
-    validationSchema: signUpSchema,
-    onSubmit: (values, action) => {
-      console.log("🚀 ~ file: Employees_Provident_Fund.tsx:23 ~ values:", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: signUpSchema,
+      onSubmit: (values, action) => {
+        console.log(
+          "🚀 ~ file: Employees_Provident_Fund.tsx:23 ~ values:",
+          values
+        );
+        action.resetForm();
+      },
+    });
 
   // console.log("🚀 ~ file: Employees_Provident_Fund.tsx:28 ~ errors:", errors);
 
@@ -164,7 +168,9 @@ const Employees_Provident_Fund = () => {
                         <MDTypography variant="h6">EPF Number</MDTypography>
                       </Grid>
                       <Grid item xs={12} sm={5}>
-                        <MDTypography variant="h6">Deduction Cycle</MDTypography>
+                        <MDTypography variant="h6">
+                          Deduction Cycle
+                        </MDTypography>
                       </Grid>
                     </Grid>
 
@@ -199,7 +205,9 @@ const Employees_Provident_Fund = () => {
                     <br />
 
                     <Grid item xs={12} sm={12}>
-                      <MDTypography variant="h6">Employee Contribution Rate</MDTypography>
+                      <MDTypography variant="h6">
+                        Employee Contribution Rate
+                      </MDTypography>
 
                       <Autocomplete
                         defaultValue="12% Of Actual PF Wages"
@@ -218,10 +226,12 @@ const Employees_Provident_Fund = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                              touched.employee_contribution && Boolean(errors.employee_contribution)
+                              touched.employee_contribution &&
+                              Boolean(errors.employee_contribution)
                             }
                             helperText={
-                              touched.employee_contribution && errors.employee_contribution
+                              touched.employee_contribution &&
+                              errors.employee_contribution
                             }
                           />
                         )}
@@ -264,7 +274,9 @@ const Employees_Provident_Fund = () => {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 value="PF wage will be computed"
-                                checked={values.wage.includes("PF wage will be computed")}
+                                checked={values.wage.includes(
+                                  "PF wage will be computed"
+                                )}
                               />
                             }
                           />
@@ -275,7 +287,9 @@ const Employees_Provident_Fund = () => {
                         ) ? (
                           <FormControlLabel
                             label={
-                              <MDTypography variant="button">Pro rate Restricted</MDTypography>
+                              <MDTypography variant="button">
+                                Pro rate Restricted
+                              </MDTypography>
                             }
                             control={
                               <Checkbox
@@ -283,7 +297,9 @@ const Employees_Provident_Fund = () => {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 value="wage will be computed"
-                                checked={values.computed.includes("wage will be computed")}
+                                checked={values.computed.includes(
+                                  "wage will be computed"
+                                )}
                               />
                             }
                           />
@@ -316,7 +332,9 @@ const Employees_Provident_Fund = () => {
                     <br />
 
                     <Grid item xs={12} sm={12}>
-                      <MDTypography variant="h6">PF Configuration when LOP Applied</MDTypography>
+                      <MDTypography variant="h6">
+                        PF Configuration when LOP Applied
+                      </MDTypography>
                     </Grid>
 
                     <Grid container>
@@ -333,7 +351,9 @@ const Employees_Provident_Fund = () => {
                               onBlur={handleBlur}
                               onChange={handleChange}
                               value="PF contribution will be pro-rated "
-                              checked={values.pfWage.includes("PF contribution will be pro-rated ")}
+                              checked={values.pfWage.includes(
+                                "PF contribution will be pro-rated "
+                              )}
                             />
                           }
                         />
@@ -341,8 +361,8 @@ const Employees_Provident_Fund = () => {
 
                       <Grid item xs={12} sm={12}>
                         <MDTypography variant="caption">
-                          PF contribution will be pro-rated based on the number of days worked by
-                          the employee.
+                          PF contribution will be pro-rated based on the number
+                          of days worked by the employee.
                         </MDTypography>
                       </Grid>
                     </Grid>
@@ -372,9 +392,9 @@ const Employees_Provident_Fund = () => {
 
                     <Grid item xs={12} sm={12}>
                       <MDTypography variant="caption">
-                        PF wage will be computed using the salary earned in that particular month
-                        (based on LOP) rather than the actual amount mentioned in the salary
-                        structure.
+                        PF wage will be computed using the salary earned in that
+                        particular month (based on LOP) rather than the actual
+                        amount mentioned in the salary structure.
                       </MDTypography>
                     </Grid>
                     <br />
@@ -387,7 +407,9 @@ const Employees_Provident_Fund = () => {
                       <Grid item xs={12} sm={12}>
                         <FormControlLabel
                           label={
-                            <MDTypography variant="button">Eligible for ABRY Scheme</MDTypography>
+                            <MDTypography variant="button">
+                              Eligible for ABRY Scheme
+                            </MDTypography>
                           }
                           control={
                             <Checkbox
@@ -395,16 +417,19 @@ const Employees_Provident_Fund = () => {
                               onBlur={handleBlur}
                               onChange={handleChange}
                               value="Eligible for ABRY Scheme"
-                              checked={values.abrySchema.includes("Eligible for ABRY Scheme")}
+                              checked={values.abrySchema.includes(
+                                "Eligible for ABRY Scheme"
+                              )}
                             />
                           }
                         />
 
                         <Grid item xs={12} sm={12}>
                           <MDTypography variant="caption">
-                            The EPF contribution of both the employee and the employer (with a few
-                            exceptions) will be paid by the Government for eligible employees who
-                            receive up to ₹ 15,000 in monthly wages.
+                            The EPF contribution of both the employee and the
+                            employer (with a few exceptions) will be paid by the
+                            Government for eligible employees who receive up to
+                            ₹ 15,000 in monthly wages.
                           </MDTypography>
                         </Grid>
                       </Grid>
@@ -412,13 +437,21 @@ const Employees_Provident_Fund = () => {
 
                     <Grid container>
                       <Grid item xs={12} sm={10.5} sx={{ textAlign: "right" }}>
-                        <MDButton variant="contained" color="secondary" type="submit">
+                        <MDButton
+                          variant="contained"
+                          color="secondary"
+                          type="submit"
+                        >
                           cancel
                         </MDButton>
                       </Grid>
 
                       <Grid item xs={12} sm={1.5} sx={{ textAlign: "right" }}>
-                        <MDButton variant="contained" color="info" type="submit">
+                        <MDButton
+                          variant="contained"
+                          color="info"
+                          type="submit"
+                        >
                           save
                         </MDButton>
                       </Grid>
@@ -430,22 +463,30 @@ const Employees_Provident_Fund = () => {
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            <Card style={{ backgroundColor: "#11ffeeff" }} sx={{ width: "100%", mt: "3" }}>
+            <Card
+              style={{ backgroundColor: "#11ffeeff" }}
+              sx={{ width: "100%", mt: "3" }}
+            >
               <MDBox p={3}>
                 <MDTypography variant="h5">Sample EPF Calculation</MDTypography>
                 <Divider />
                 <MDTypography variant="button">
-                  Let`s assume the PF wage is ₹ 20,000. The breakup of contribution will be:
+                  Let`s assume the PF wage is ₹ 20,000. The breakup of
+                  contribution will be:
                 </MDTypography>
               </MDBox>
 
               <Card sx={{ width: "85%", margin: "auto", mt: "4%" }}>
                 <MDBox p={2}>
-                  <MDTypography variant="h5">Employee`s Contribution</MDTypography>
+                  <MDTypography variant="h5">
+                    Employee`s Contribution
+                  </MDTypography>
 
                   <Grid container>
                     <Grid item xs={12} sm={8}>
-                      <MDTypography variant="caption">EPF (12% of 20000)</MDTypography>
+                      <MDTypography variant="caption">
+                        EPF (12% of 20000)
+                      </MDTypography>
                     </Grid>
                     <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
                       <MDTypography variant="caption">₹ 2400</MDTypography>
@@ -453,7 +494,9 @@ const Employees_Provident_Fund = () => {
                   </Grid>
                   <Divider />
 
-                  <MDTypography variant="h6">Employer`s Contribution</MDTypography>
+                  <MDTypography variant="h6">
+                    Employer`s Contribution
+                  </MDTypography>
                   <Grid container>
                     <Grid item xs={12} sm={8}>
                       <MDTypography variant="caption">
@@ -467,7 +510,9 @@ const Employees_Provident_Fund = () => {
 
                   <Grid container>
                     <Grid item xs={12} sm={8}>
-                      <MDTypography variant="caption">EPF (12% of 20000 - EPS)</MDTypography>
+                      <MDTypography variant="caption">
+                        EPF (12% of 20000 - EPS)
+                      </MDTypography>
                     </Grid>
                     <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
                       <MDTypography variant="caption">₹ 1150</MDTypography>
@@ -514,14 +559,17 @@ const Employees_Provident_Fund = () => {
                     </Button>
                     <Card sx={{ width: "100%", margin: "auto", mt: "4%" }}>
                       <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle variant="h6">EPF Sample Calculation</DialogTitle>
+                        <DialogTitle variant="h6">
+                          EPF Sample Calculation
+                        </DialogTitle>
                         <Divider />
 
                         <MDBox p={5}>
                           <DialogContent>
                             <DialogContentText>
-                              Let`s assume the salary packages considered for EPF is as shown as
-                              below, the calculation is based on the settings we`ve configured
+                              Let`s assume the salary packages considered for
+                              EPF is as shown as below, the calculation is based
+                              on the settings we`ve configured
                             </DialogContentText>
 
                             <Accordion>
@@ -530,15 +578,20 @@ const Employees_Provident_Fund = () => {
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                               >
-                                <Typography variant="body2">Show current configuration </Typography>
+                                <Typography variant="body2">
+                                  Show current configuration{" "}
+                                </Typography>
                               </AccordionSummary>
                               <AccordionDetails>
                                 <Typography variant="overline">
-                                  PF CONTRIBUTION SETTINGS <br /> Employer Contribution: 12% of
-                                  Actual PF Wage <br /> Employee Contribution: 12% of Actual PF{" "}
-                                  <br /> Wage LOP CONTRIBUTION Pro-rate Restricted PF Wage : disable
+                                  PF CONTRIBUTION SETTINGS <br /> Employer
+                                  Contribution: 12% of Actual PF Wage <br />{" "}
+                                  Employee Contribution: 12% of Actual PF <br />{" "}
+                                  Wage LOP CONTRIBUTION Pro-rate Restricted PF
+                                  Wage : disable
                                   <br />
-                                  Consider all components when PF wage ₹15,000 after LOP : Disabled
+                                  Consider all components when PF wage ₹15,000
+                                  after LOP : Disabled
                                 </Typography>
                               </AccordionDetails>
                             </Accordion>
@@ -546,10 +599,15 @@ const Employees_Provident_Fund = () => {
 
                           <Grid container>
                             <Grid item xs={12} sm={8}>
-                              <MDTypography variant="h6">Payroll Journal Summary</MDTypography>
+                              <MDTypography variant="h6">
+                                Payroll Journal Summary
+                              </MDTypography>
                             </Grid>
                             <Grid item xs={12} sm={4}>
-                              <MDTypography variant="h6" sx={{ textAlign: "right" }}>
+                              <MDTypography
+                                variant="h6"
+                                sx={{ textAlign: "right" }}
+                              >
                                 With 15 days LOP
                               </MDTypography>
                             </Grid>
@@ -575,8 +633,8 @@ const Employees_Provident_Fund = () => {
                 </Grid>
                 <Grid item xs={12} sm={11}>
                   <MDTypography variant="button">
-                    Do you want to preview EPF calculation for multiple cases, based on the
-                    preferences you have configured ?
+                    Do you want to preview EPF calculation for multiple cases,
+                    based on the preferences you have configured ?
                   </MDTypography>
                 </Grid>
               </Grid>

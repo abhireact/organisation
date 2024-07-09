@@ -1,4 +1,11 @@
-import { Autocomplete, FormControl, RadioGroup, FormControlLabel, Card, Grid } from "@mui/material";
+import {
+  Autocomplete,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Card,
+  Grid,
+} from "@mui/material";
 
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
@@ -25,15 +32,19 @@ const MYAttandance = () => {
   const [employee, setEmployee] = React.useState([]);
   const [data, setData] = React.useState([]);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    // validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      // validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
   useEffect(() => {
     fetchEmployee(); // Fetch data from API on component mount
@@ -41,12 +52,15 @@ const MYAttandance = () => {
 
   const fetchEmployee = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/employee`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/employee`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const employee = await response.json();
       console.log(employee, typeof employee);
@@ -132,7 +146,9 @@ const MYAttandance = () => {
             ),
             checkin: <p>{row.checkin == null ? "-----" : row.checkin}</p>,
             checkout: <p>{row.checkout == null ? "-----" : row.checkout}</p>,
-            total_hours: <p>{row.total_hours == null ? "-----" : row.total_hours}</p>,
+            total_hours: (
+              <p>{row.total_hours == null ? "-----" : row.total_hours}</p>
+            ),
             status: (
               <MDTypography
                 color={
@@ -170,8 +186,19 @@ const MYAttandance = () => {
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="h5">{"My Attendance"}</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  type="submit"
+                  onClick={handleFormSubmit}
+                >
                   {"Search"}
                 </MDButton>
               </Grid>
@@ -222,7 +249,11 @@ const MYAttandance = () => {
                 />
                 {errors.from_date && touched.from_date ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.from_date}
                   </MDTypography>
                 ) : null}
@@ -242,7 +273,11 @@ const MYAttandance = () => {
                 />
                 {errors.to_date && touched.to_date ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.to_date}
                   </MDTypography>
                 ) : null}

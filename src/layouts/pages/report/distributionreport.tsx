@@ -124,10 +124,19 @@ export default function DistributionReport() {
         console.error("Error fetching data:", error);
       });
   }, []);
-  const totalDepartmentValue = departmentData?.reduce((total, item) => total + +item.value, 0);
+  const totalDepartmentValue = departmentData?.reduce(
+    (total, item) => total + +item.value,
+    0
+  );
 
-  const totalDesignationValue = designationData?.reduce((total, item) => total + +item.value, 0);
-  const totalLocationValue = locationData?.reduce((total, item) => total + +item.value, 0);
+  const totalDesignationValue = designationData?.reduce(
+    (total, item) => total + +item.value,
+    0
+  );
+  const totalLocationValue = locationData?.reduce(
+    (total, item) => total + +item.value,
+    0
+  );
   const designationPercentageData = designationData?.map((item) => ({
     id: item.id,
     // value: (item.value / totalDesignationValue) * 100, // Keep value as number
@@ -143,7 +152,11 @@ export default function DistributionReport() {
     label: item.label,
   }));
 
-  console.log(departmentPercentageData, totalDepartmentValue, "departmentpercentagedata");
+  console.log(
+    departmentPercentageData,
+    totalDepartmentValue,
+    "departmentpercentagedata"
+  );
   const locationPercentageData = locationData?.map((item) => ({
     id: item.id,
     // value: (item.value / totalLocationValue) * 100, // Keep value as number
@@ -154,15 +167,19 @@ export default function DistributionReport() {
 
   // ?formik
   const navigate = useNavigate();
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    // validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      // validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
 
   // const handleFormSubmit = async () => {
@@ -287,7 +304,9 @@ export default function DistributionReport() {
   };
 
   // dep des location data
-  const WorkLocation = useSelector((state: any) => state.dummyData.workLocationData);
+  const WorkLocation = useSelector(
+    (state: any) => state.dummyData.workLocationData
+  );
   console.log("WorkLocation", WorkLocation);
 
   const location_name = [];
@@ -306,7 +325,9 @@ export default function DistributionReport() {
 
   console.log(location_name, "location");
 
-  const Department = useSelector((state: any) => state.dummyData.departmentData);
+  const Department = useSelector(
+    (state: any) => state.dummyData.departmentData
+  );
   console.log("Department", Department);
   const dept_name = [];
 
@@ -323,7 +344,9 @@ export default function DistributionReport() {
   }
 
   console.log(dept_name, "departmentName");
-  const Designation = useSelector((state: any) => state.dummyData.designationData);
+  const Designation = useSelector(
+    (state: any) => state.dummyData.designationData
+  );
   console.log("Designation", Designation);
   const des_name = [];
 
@@ -347,7 +370,10 @@ export default function DistributionReport() {
       const fetchData = async () => {
         try {
           let responsetabledata;
-          if (selectedOption === "department" && departmentData[clickedSliceData.dataIndex]) {
+          if (
+            selectedOption === "department" &&
+            departmentData[clickedSliceData.dataIndex]
+          ) {
             const formValues = {
               ...values,
               label: departmentData[clickedSliceData.dataIndex].label,
@@ -382,7 +408,10 @@ export default function DistributionReport() {
                 },
               }
             );
-          } else if (selectedOption === "location" && locationData[clickedSliceData.dataIndex]) {
+          } else if (
+            selectedOption === "location" &&
+            locationData[clickedSliceData.dataIndex]
+          ) {
             const formValues = {
               ...values,
               label: locationData[clickedSliceData.dataIndex].label,
@@ -470,11 +499,16 @@ export default function DistributionReport() {
             <Autocomplete
               options={options}
               getOptionLabel={(option) => option.label}
-              value={options.find((option) => option.value === selectedOption) || null}
+              value={
+                options.find((option) => option.value === selectedOption) ||
+                null
+              }
               onChange={(event, newValue) => {
                 setSelectedOption(newValue?.value || "designation");
               }}
-              renderInput={(params) => <TextField {...params} label="Select Option" />}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Option" />
+              )}
             />
           </Grid>
           <Grid item xs={12} sm={8} display="flex" justifyContent="flex-end">
@@ -510,7 +544,9 @@ export default function DistributionReport() {
                             }}
                             multiple
                             onChange={(event: any, value: any) => {
-                              handleChange({ target: { name: "gender", value } });
+                              handleChange({
+                                target: { name: "gender", value },
+                              });
                             }}
                             // value={gender}
                             // onChange={handleMainFieldChange}
@@ -534,7 +570,11 @@ export default function DistributionReport() {
                           />
                           {errors.gender && touched.gender ? (
                             // <p className="form-error">{errors.name}</p>
-                            <MDTypography variant="caption" fontWeight="regular" color="error">
+                            <MDTypography
+                              variant="caption"
+                              fontWeight="regular"
+                              color="error"
+                            >
                               {errors.gender}
                             </MDTypography>
                           ) : null}
@@ -553,7 +593,9 @@ export default function DistributionReport() {
                               return `+${more} more`;
                             }}
                             onChange={(event: any, value: any) => {
-                              handleChange({ target: { name: "designation", value } });
+                              handleChange({
+                                target: { name: "designation", value },
+                              });
                             }}
                             // value={department}
                             // onChange={handleMainFieldChange}
@@ -569,7 +611,9 @@ export default function DistributionReport() {
                                 value={values.designation}
                                 {...params}
                                 onBlur={handleBlur}
-                                error={errors.designation && touched.designation}
+                                error={
+                                  errors.designation && touched.designation
+                                }
                                 success={!errors.designation}
                                 variant="standard"
                               />
@@ -577,7 +621,11 @@ export default function DistributionReport() {
                           />
                           {errors.designation && touched.designation ? (
                             // <p className="form-error">{errors.name}</p>
-                            <MDTypography variant="caption" fontWeight="regular" color="error">
+                            <MDTypography
+                              variant="caption"
+                              fontWeight="regular"
+                              color="error"
+                            >
                               {errors.designation}
                             </MDTypography>
                           ) : null}
@@ -622,7 +670,9 @@ export default function DistributionReport() {
                               return `+${more} more`;
                             }}
                             onChange={(event: any, value: any) => {
-                              handleChange({ target: { name: "location", value } });
+                              handleChange({
+                                target: { name: "location", value },
+                              });
                               // Call fetchRoles function with the selected location value
                               // fetchRoles(value);
                             }}
@@ -647,7 +697,11 @@ export default function DistributionReport() {
 
                           {errors.location && touched.location ? (
                             // <p className="form-error">{errors.name}</p>
-                            <MDTypography variant="caption" fontWeight="regular" color="error">
+                            <MDTypography
+                              variant="caption"
+                              fontWeight="regular"
+                              color="error"
+                            >
                               {errors.location}
                             </MDTypography>
                           ) : null}
@@ -671,7 +725,9 @@ export default function DistributionReport() {
                             }}
                             multiple
                             onChange={(event: any, value: any) => {
-                              handleChange({ target: { name: "gender", value } });
+                              handleChange({
+                                target: { name: "gender", value },
+                              });
                             }}
                             // value={gender}
                             // onChange={handleMainFieldChange}
@@ -695,7 +751,11 @@ export default function DistributionReport() {
                           />
                           {errors.gender && touched.gender ? (
                             // <p className="form-error">{errors.name}</p>
-                            <MDTypography variant="caption" fontWeight="regular" color="error">
+                            <MDTypography
+                              variant="caption"
+                              fontWeight="regular"
+                              color="error"
+                            >
                               {errors.gender}
                             </MDTypography>
                           ) : null}
@@ -714,7 +774,9 @@ export default function DistributionReport() {
                               return `+${more} more`;
                             }}
                             onChange={(event: any, value: any) => {
-                              handleChange({ target: { name: "department", value } });
+                              handleChange({
+                                target: { name: "department", value },
+                              });
                             }}
                             // value={department}
                             // onChange={handleMainFieldChange}
@@ -738,7 +800,11 @@ export default function DistributionReport() {
                           />
                           {errors.department && touched.department ? (
                             // <p className="form-error">{errors.name}</p>
-                            <MDTypography variant="caption" fontWeight="regular" color="error">
+                            <MDTypography
+                              variant="caption"
+                              fontWeight="regular"
+                              color="error"
+                            >
                               {errors.department}
                             </MDTypography>
                           ) : null}
@@ -783,7 +849,9 @@ export default function DistributionReport() {
                               return `+${more} more`;
                             }}
                             onChange={(event: any, value: any) => {
-                              handleChange({ target: { name: "location", value } });
+                              handleChange({
+                                target: { name: "location", value },
+                              });
                               // Call fetchRoles function with the selected location value
                               // fetchRoles(value);
                             }}
@@ -808,7 +876,11 @@ export default function DistributionReport() {
 
                           {errors.location && touched.location ? (
                             // <p className="form-error">{errors.name}</p>
-                            <MDTypography variant="caption" fontWeight="regular" color="error">
+                            <MDTypography
+                              variant="caption"
+                              fontWeight="regular"
+                              color="error"
+                            >
                               {errors.location}
                             </MDTypography>
                           ) : null}
@@ -832,7 +904,9 @@ export default function DistributionReport() {
                             }}
                             multiple
                             onChange={(event: any, value: any) => {
-                              handleChange({ target: { name: "gender", value } });
+                              handleChange({
+                                target: { name: "gender", value },
+                              });
                             }}
                             // value={gender}
                             // onChange={handleMainFieldChange}
@@ -856,7 +930,11 @@ export default function DistributionReport() {
                           />
                           {errors.gender && touched.gender ? (
                             // <p className="form-error">{errors.name}</p>
-                            <MDTypography variant="caption" fontWeight="regular" color="error">
+                            <MDTypography
+                              variant="caption"
+                              fontWeight="regular"
+                              color="error"
+                            >
                               {errors.gender}
                             </MDTypography>
                           ) : null}
@@ -875,7 +953,9 @@ export default function DistributionReport() {
                               return `+${more} more`;
                             }}
                             onChange={(event: any, value: any) => {
-                              handleChange({ target: { name: "department", value } });
+                              handleChange({
+                                target: { name: "department", value },
+                              });
                             }}
                             // value={department}
                             // onChange={handleMainFieldChange}
@@ -899,7 +979,11 @@ export default function DistributionReport() {
                           />
                           {errors.department && touched.department ? (
                             // <p className="form-error">{errors.name}</p>
-                            <MDTypography variant="caption" fontWeight="regular" color="error">
+                            <MDTypography
+                              variant="caption"
+                              fontWeight="regular"
+                              color="error"
+                            >
                               {errors.department}
                             </MDTypography>
                           ) : null}
@@ -944,7 +1028,9 @@ export default function DistributionReport() {
                               return `+${more} more`;
                             }}
                             onChange={(event: any, value: any) => {
-                              handleChange({ target: { name: "designation", value } });
+                              handleChange({
+                                target: { name: "designation", value },
+                              });
                               // Call fetchRoles function with the selected location value
                               // fetchRoles(value);
                             }}
@@ -960,7 +1046,9 @@ export default function DistributionReport() {
                                 value={values.designation}
                                 {...params}
                                 onBlur={handleBlur}
-                                error={errors.designation && touched.designation}
+                                error={
+                                  errors.designation && touched.designation
+                                }
                                 success={!errors.designation}
                                 variant="standard"
                               />
@@ -969,7 +1057,11 @@ export default function DistributionReport() {
 
                           {errors.designation && touched.designation ? (
                             // <p className="form-error">{errors.name}</p>
-                            <MDTypography variant="caption" fontWeight="regular" color="error">
+                            <MDTypography
+                              variant="caption"
+                              fontWeight="regular"
+                              color="error"
+                            >
                               {errors.designation}
                             </MDTypography>
                           ) : null}
@@ -980,8 +1072,19 @@ export default function DistributionReport() {
                     return null; // Handle default case if necessary
                 }
               })()}
-              <Grid item xs={12} sm={2} display="flex" justifyContent="flex-end">
-                <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+              <Grid
+                item
+                xs={12}
+                sm={2}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  type="submit"
+                  onClick={handleFormSubmit}
+                >
                   {"Save"}
                 </MDButton>
               </Grid>
@@ -991,7 +1094,11 @@ export default function DistributionReport() {
           )}
         </Grid>
         <Grid container>
-          <div style={{ display: selectedOption === "designation" ? "block" : "none" }}>
+          <div
+            style={{
+              display: selectedOption === "designation" ? "block" : "none",
+            }}
+          >
             {designationData ? (
               <PieChart
                 series={[
@@ -1012,7 +1119,11 @@ export default function DistributionReport() {
               ""
             )}
           </div>
-          <div style={{ display: selectedOption === "department" ? "block" : "none" }}>
+          <div
+            style={{
+              display: selectedOption === "department" ? "block" : "none",
+            }}
+          >
             {departmentData ? (
               <PieChart
                 series={[
@@ -1033,7 +1144,11 @@ export default function DistributionReport() {
               ""
             )}
           </div>
-          <div style={{ display: selectedOption === "location" ? "block" : "none" }}>
+          <div
+            style={{
+              display: selectedOption === "location" ? "block" : "none",
+            }}
+          >
             {locationData ? (
               <PieChart
                 series={[

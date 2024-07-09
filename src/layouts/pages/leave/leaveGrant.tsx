@@ -38,7 +38,10 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import MDButton from "components/MDButton";
 import axios from "axios";
-import { storeLeaveGrantData, storeRestrictionData } from "Redux/action/dummyDataActions";
+import {
+  storeLeaveGrantData,
+  storeRestrictionData,
+} from "Redux/action/dummyDataActions";
 import { useDispatch } from "react-redux";
 const initialValues = {
   min_limit_for_request: "",
@@ -59,16 +62,21 @@ const selectData = {
 };
 export default function LeaveGrant() {
   const [leavegrantData, setLeavegrantData] = React.useState({});
-  const { values, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(values.gender, values.martial_status, "rtretrtrfr");
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, touched, handleBlur, handleChange, handleSubmit } = useFormik(
+    {
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(values.gender, values.martial_status, "rtretrtrfr");
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    }
+  );
   const dispatched = useDispatch();
   const token = Cookies.get("token");
   const [isPastChecked, setIsPastChecked] = React.useState(false);
@@ -106,11 +114,14 @@ export default function LeaveGrant() {
     try {
       const formValues = {
         ...values,
-        allow_request_for_past_dates: values.pastDate + " " + values.pastday_value + " " + "days",
+        allow_request_for_past_dates:
+          values.pastDate + " " + values.pastday_value + " " + "days",
         allow_request_for_future_dates:
           values.futureDate + " " + values.futureday_value + " " + "days",
         max_no_of_request_allowed:
-          values.max_no_of_request_allowed + " " + values.maximum_number_of_specific_period_input,
+          values.max_no_of_request_allowed +
+          " " +
+          values.maximum_number_of_specific_period_input,
       };
       console.log(formValues, "formdata");
       setLeavegrantData(formValues);
@@ -226,7 +237,10 @@ export default function LeaveGrant() {
                   // multiple
                   onChange={(event, value) => {
                     handleChange({
-                      target: { name: "maximum_number_of_specific_period_input", value },
+                      target: {
+                        name: "maximum_number_of_specific_period_input",
+                        value,
+                      },
                     });
                   }}
                   // value={department}
@@ -354,7 +368,9 @@ export default function LeaveGrant() {
             )}
             <Grid container spacing={3} pl={2} pt={1}>
               <FormControlLabel
-                label={<MDTypography variant="body2"> Future Date</MDTypography>}
+                label={
+                  <MDTypography variant="body2"> Future Date</MDTypography>
+                }
                 control={
                   <Checkbox
                     checked={isFutureChecked}
@@ -400,7 +416,12 @@ export default function LeaveGrant() {
           </FormControl>
         </Grid>
       </Box>
-      <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+      <MDButton
+        variant="gradient"
+        color="info"
+        type="submit"
+        onClick={handleFormSubmit}
+      >
         Save
       </MDButton>
     </form>

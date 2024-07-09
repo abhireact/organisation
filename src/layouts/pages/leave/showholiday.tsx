@@ -60,15 +60,18 @@ const ShowHoliday = () => {
   const handleDeleteData = async (row: any) => {
     console.log(row, "Delete Data");
     try {
-      const deletedata = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/holiday`, {
-        data: {
-          ...row,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const deletedata = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/holiday`,
+        {
+          data: {
+            ...row,
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (deletedata.status == 200) {
         message.success("Holiday Deleted successFully");
         window.location.reload();

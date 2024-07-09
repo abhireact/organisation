@@ -91,8 +91,12 @@ const Showrole = () => {
     ],
 
     rows: data.map((row, index) => ({
-      role_display_name: <MDTypography variant="p">{row.role_display_name}</MDTypography>,
-      location_name: <MDTypography variant="p">{row.location_name}</MDTypography>,
+      role_display_name: (
+        <MDTypography variant="p">{row.role_display_name}</MDTypography>
+      ),
+      location_name: (
+        <MDTypography variant="p">{row.location_name}</MDTypography>
+      ),
       action: (
         <MDTypography variant="p">
           <IconButton
@@ -123,7 +127,11 @@ const Showrole = () => {
       <DashboardNavbar />
       <MDTypography variant="h5">ROLES</MDTypography>
       <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <MDButton variant="outlined" color="info" onClick={() => handleClickOpen()}>
+        <MDButton
+          variant="outlined"
+          color="info"
+          onClick={() => handleClickOpen()}
+        >
           + Add Role
         </MDButton>
         <Dialog open={open} onClose={handleClose}>
@@ -132,7 +140,12 @@ const Showrole = () => {
         <Dialog open={openupdate} onClose={handleCloseupdate}>
           <Editrole setOpenupdate={setOpenupdate} editData={editData} />
         </Dialog>
-        <Dialog open={openupdate2} onClose={handleCloseupdate2} fullWidth={true} maxWidth="lg">
+        <Dialog
+          open={openupdate2}
+          onClose={handleCloseupdate2}
+          fullWidth={true}
+          maxWidth="lg"
+        >
           <Rbac setOpenupdate2={setOpenupdate2} editData2={editData2} />
         </Dialog>
       </Grid>

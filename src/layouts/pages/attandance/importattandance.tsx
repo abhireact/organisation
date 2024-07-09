@@ -33,14 +33,15 @@ const Importattandance = () => {
   const navigate = useNavigate();
   const [mainData, setMainData] = useState<MainData>({});
   const token = Cookies.get("token");
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    // validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      // validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        action.resetForm();
+      },
+    });
 
   const handleFileChange = (e: { target: { files: any[] } }) => {
     const file = e.target.files[0];
@@ -51,7 +52,9 @@ const Importattandance = () => {
       const workbook = XLSX.read(fileData, { type: "array" });
 
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const jsonData: string[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      const jsonData: string[][] = XLSX.utils.sheet_to_json(worksheet, {
+        header: 1,
+      });
 
       // Filter out undefined or empty rows
       const filteredData: string[][] = jsonData.filter(
@@ -63,13 +66,15 @@ const Importattandance = () => {
       }
 
       const headers = filteredData[0] as string[];
-      const dataKeys = headers?.map((header: string) => header.toLowerCase().replace(/\s+/g, ""));
+      const dataKeys = headers?.map((header: string) =>
+        header.toLowerCase().replace(/\s+/g, "")
+      );
       const transformedData: MainData = {} as MainData;
 
       headers?.forEach((header: any, index: number) => {
-        transformedData[dataKeys[index]] = (filteredData.slice(1) as string[][]).map(
-          (row: string[]) => row[index]
-        );
+        transformedData[dataKeys[index]] = (
+          filteredData.slice(1) as string[][]
+        ).map((row: string[]) => row[index]);
       });
       setMainData(transformedData);
       setData(dataKeys);
@@ -98,7 +103,10 @@ const Importattandance = () => {
   if (invalidItems?.length === 0) {
     console.log("mainData", mainData[emplyid]);
   } else {
-    console.error("Invalid data: The following items in the array are not valid:", invalidItems);
+    console.error(
+      "Invalid data: The following items in the array are not valid:",
+      invalidItems
+    );
   }
 
   const userSelectedDateFormat = values.dateFormat || "dd/mm/yyyy"; // Example date format chosen by the user
@@ -239,7 +247,11 @@ const Importattandance = () => {
               />
               {errors.EmployeeID && touched.EmployeeID ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.EmployeeID}
                 </MDTypography>
               ) : null}
@@ -273,7 +285,11 @@ const Importattandance = () => {
               />
               {errors.checkIn && touched.checkIn ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.checkIn}
                 </MDTypography>
               ) : null}
@@ -307,7 +323,11 @@ const Importattandance = () => {
               />
               {errors.checkOut && touched.checkOut ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.checkOut}
                 </MDTypography>
               ) : null}
@@ -352,7 +372,11 @@ const Importattandance = () => {
               />
               {errors.dateFormat && touched.dateFormat ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.dateFormat}
                 </MDTypography>
               ) : null}

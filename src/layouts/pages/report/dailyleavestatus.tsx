@@ -153,9 +153,14 @@ const LeaveData: React.FC<LeaveDataProps> = ({ targetDate }) => {
                 }}
                 key={index}
               >
-                <MDTypography variant="body1"> {entry.employee_name}</MDTypography>
+                <MDTypography variant="body1">
+                  {" "}
+                  {entry.employee_name}
+                </MDTypography>
                 <MDTypography variant="body2">{entry.leave_type}</MDTypography>
-                <MDTypography variant="body2">{entry.reason_for_leave}</MDTypography>
+                <MDTypography variant="body2">
+                  {entry.reason_for_leave}
+                </MDTypography>
                 <MDTypography variant="overline" color="info">
                   {entry.employee_email}
                 </MDTypography>

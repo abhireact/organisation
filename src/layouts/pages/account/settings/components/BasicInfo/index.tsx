@@ -49,7 +49,11 @@ function BasicInfo(): JSX.Element {
                   defaultValue="Male"
                   options={selectData.gender}
                   renderInput={(params) => (
-                    <FormField {...params} label="I'm" InputLabelProps={{ shrink: true }} />
+                    <FormField
+                      {...params}
+                      label="I'm"
+                      InputLabelProps={{ shrink: true }}
+                    />
                   )}
                 />
               </Grid>
@@ -73,7 +77,10 @@ function BasicInfo(): JSX.Element {
                       defaultValue="1"
                       options={selectData.days}
                       renderInput={(params) => (
-                        <FormField {...params} InputLabelProps={{ shrink: true }} />
+                        <FormField
+                          {...params}
+                          InputLabelProps={{ shrink: true }}
+                        />
                       )}
                     />
                   </Grid>
@@ -82,7 +89,10 @@ function BasicInfo(): JSX.Element {
                       defaultValue="2021"
                       options={selectData.years}
                       renderInput={(params) => (
-                        <FormField {...params} InputLabelProps={{ shrink: true }} />
+                        <FormField
+                          {...params}
+                          InputLabelProps={{ shrink: true }}
+                        />
                       )}
                     />
                   </Grid>
@@ -122,7 +132,9 @@ function BasicInfo(): JSX.Element {
               multiple
               defaultValue={["react", "angular"]}
               options={selectData.skills}
-              renderInput={(params) => <FormField {...params} InputLabelProps={{ shrink: true }} />}
+              renderInput={(params) => (
+                <FormField {...params} InputLabelProps={{ shrink: true }} />
+              )}
             />
           </Grid>
         </Grid>

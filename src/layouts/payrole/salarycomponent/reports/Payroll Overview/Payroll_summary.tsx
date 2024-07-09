@@ -14,7 +14,9 @@ function Payroll_summary(): JSX.Element {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/mg_earning_type`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/mg_earning_type`
+      );
       if (response.status == 200) {
         setEarnings(response.data);
       }
@@ -53,7 +55,9 @@ function Payroll_summary(): JSX.Element {
               <MDTypography variant="h6">Earnings</MDTypography>
             </Grid>
             <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">{earnings[0]?.earning_name}</MDTypography>
+              <MDTypography variant="button">
+                {earnings[0]?.earning_name}
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
               <MDTypography variant="button">{value}</MDTypography>

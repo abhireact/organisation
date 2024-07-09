@@ -84,7 +84,11 @@ const Updatebreak = (props: any) => {
               mt={10}
             />
           </Grid>
-          <Grid container sm={12} sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid
+            container
+            sm={12}
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
             <Grid mt={4}>
               <MDButton
                 color="info"

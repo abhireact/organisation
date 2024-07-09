@@ -33,7 +33,13 @@ interface Props {
   align?: "left" | "right" | "center";
 }
 
-function DataTableHeadCell({ width, children, sorted, align, ...rest }: Props): JSX.Element {
+function DataTableHeadCell({
+  width,
+  children,
+  sorted,
+  align,
+  ...rest
+}: Props): JSX.Element {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 

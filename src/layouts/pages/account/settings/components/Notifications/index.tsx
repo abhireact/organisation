@@ -35,8 +35,8 @@ function Notifications(): JSX.Element {
           <MDTypography variant="h5">Notifications</MDTypography>
         </MDBox>
         <MDTypography variant="button" color="text">
-          Choose how you receive notifications. These notification settings apply to the things
-          you’re watching.
+          Choose how you receive notifications. These notification settings
+          apply to the things you’re watching.
         </MDTypography>
       </MDBox>
       <MDBox pb={3} px={3}>
@@ -62,10 +62,18 @@ function Notifications(): JSX.Element {
               <TableRow>
                 <TableCell padding={[1, 1, 1, 0.5]}>
                   <MDBox lineHeight={1.4}>
-                    <MDTypography display="block" variant="button" fontWeight="regular">
+                    <MDTypography
+                      display="block"
+                      variant="button"
+                      fontWeight="regular"
+                    >
                       Mentions
                     </MDTypography>
-                    <MDTypography variant="caption" color="text" fontWeight="regular">
+                    <MDTypography
+                      variant="caption"
+                      color="text"
+                      fontWeight="regular"
+                    >
                       Notify when another user mentions you in a comment
                     </MDTypography>
                   </MDBox>
@@ -83,10 +91,18 @@ function Notifications(): JSX.Element {
               <TableRow>
                 <TableCell padding={[1, 1, 1, 0.5]}>
                   <MDBox lineHeight={1.4}>
-                    <MDTypography display="block" variant="button" fontWeight="regular">
+                    <MDTypography
+                      display="block"
+                      variant="button"
+                      fontWeight="regular"
+                    >
                       Comments
                     </MDTypography>
-                    <MDTypography variant="caption" color="text" fontWeight="regular">
+                    <MDTypography
+                      variant="caption"
+                      color="text"
+                      fontWeight="regular"
+                    >
                       Notify when another user comments your item.
                     </MDTypography>
                   </MDBox>
@@ -104,10 +120,18 @@ function Notifications(): JSX.Element {
               <TableRow>
                 <TableCell padding={[1, 1, 1, 0.5]}>
                   <MDBox lineHeight={1.4}>
-                    <MDTypography display="block" variant="button" fontWeight="regular">
+                    <MDTypography
+                      display="block"
+                      variant="button"
+                      fontWeight="regular"
+                    >
                       Follows
                     </MDTypography>
-                    <MDTypography variant="caption" color="text" fontWeight="regular">
+                    <MDTypography
+                      variant="caption"
+                      color="text"
+                      fontWeight="regular"
+                    >
                       Notify when another user follows you.
                     </MDTypography>
                   </MDBox>

@@ -138,15 +138,19 @@ const initialValues = {
 const valueFormatter = (value: number) => `${value}leaves`;
 
 export default function LeaveReport() {
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    // validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      // validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
   const [selectedLocation, setSelectedLocation] = useState("bengaluru");
   const [employeAddition, setEmployeAddition] = useState(null);
@@ -220,7 +224,9 @@ export default function LeaveReport() {
   // console.log(location_name, "location");
 
   // dep des location data
-  const WorkLocation = useSelector((state: any) => state.dummyData.workLocationData);
+  const WorkLocation = useSelector(
+    (state: any) => state.dummyData.workLocationData
+  );
   console.log("WorkLocation", WorkLocation);
 
   const location_name = [];
@@ -239,7 +245,9 @@ export default function LeaveReport() {
 
   console.log(location_name, "location");
 
-  const Department = useSelector((state: any) => state.dummyData.departmentData);
+  const Department = useSelector(
+    (state: any) => state.dummyData.departmentData
+  );
   console.log("Department", Department);
   const dept_name = [];
 
@@ -256,7 +264,9 @@ export default function LeaveReport() {
   }
 
   console.log(dept_name, "departmentName");
-  const Designation = useSelector((state: any) => state.dummyData.designationData);
+  const Designation = useSelector(
+    (state: any) => state.dummyData.designationData
+  );
   console.log("Designation", Designation);
   const des_name = [];
 
@@ -348,7 +358,9 @@ export default function LeaveReport() {
             onChange={(event, newValue) => {
               setSelectedLocation(newValue as string);
             }}
-            renderInput={(params) => <TextField {...params} label="Select Work Location" />}
+            renderInput={(params) => (
+              <TextField {...params} label="Select Work Location" />
+            )}
           />
         </Grid>
 

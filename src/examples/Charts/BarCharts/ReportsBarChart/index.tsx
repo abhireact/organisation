@@ -32,7 +32,14 @@ import configs from "examples/Charts/BarCharts/ReportsBarChart/configs";
 
 // Declaring props types for ReportsBarChart
 interface Props {
-  color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark";
+  color?:
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "dark";
   title: string;
   description?: string | ReactNode;
   date: string;
@@ -46,7 +53,13 @@ interface Props {
   [key: string]: any;
 }
 
-function ReportsBarChart({ color, title, description, date, chart }: Props): JSX.Element {
+function ReportsBarChart({
+  color,
+  title,
+  description,
+  date,
+  chart,
+}: Props): JSX.Element {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
 
   return (
@@ -64,7 +77,7 @@ function ReportsBarChart({ color, title, description, date, chart }: Props): JSX
               mt={-5}
               height="12.5rem"
             >
-              <Bar data={data} options={options} />
+              {/* <Bar data={data} options={options} /> */}
             </MDBox>
           ),
           [chart, color]
@@ -73,12 +86,22 @@ function ReportsBarChart({ color, title, description, date, chart }: Props): JSX
           <MDTypography variant="h6" textTransform="capitalize">
             {title}
           </MDTypography>
-          <MDTypography component="div" variant="button" color="text" fontWeight="light">
+          <MDTypography
+            component="div"
+            variant="button"
+            color="text"
+            fontWeight="light"
+          >
             {description}
           </MDTypography>
           <Divider />
           <MDBox display="flex" alignItems="center">
-            <MDTypography variant="button" color="text" lineHeight={1} sx={{ mt: 0.15, mr: 0.5 }}>
+            <MDTypography
+              variant="button"
+              color="text"
+              lineHeight={1}
+              sx={{ mt: 0.15, mr: 0.5 }}
+            >
               <Icon>schedule</Icon>
             </MDTypography>
             <MDTypography variant="button" color="text" fontWeight="light">

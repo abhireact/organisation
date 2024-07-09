@@ -29,12 +29,23 @@ interface Props {
   [key: string]: any;
 }
 
-function SalesTableCell({ title, content, image, noBorder, ...rest }: Props): JSX.Element {
+function SalesTableCell({
+  title,
+  content,
+  image,
+  noBorder,
+  ...rest
+}: Props): JSX.Element {
   let template;
 
   if (image) {
     template = (
-      <TableCell {...rest} align="left" width="30%" sx={{ border: noBorder && 0 }}>
+      <TableCell
+        {...rest}
+        align="left"
+        width="30%"
+        sx={{ border: noBorder && 0 }}
+      >
         <MDBox display="flex" alignItems="center" width="max-content">
           <MDBox
             component="img"
@@ -52,7 +63,11 @@ function SalesTableCell({ title, content, image, noBorder, ...rest }: Props): JS
             >
               {title}:
             </MDTypography>
-            <MDTypography variant="button" fontWeight="regular" textTransform="capitalize">
+            <MDTypography
+              variant="button"
+              fontWeight="regular"
+              textTransform="capitalize"
+            >
               {content}
             </MDTypography>
           </MDBox>
@@ -71,7 +86,11 @@ function SalesTableCell({ title, content, image, noBorder, ...rest }: Props): JS
           >
             {title}:
           </MDTypography>
-          <MDTypography variant="button" fontWeight="regular" textTransform="capitalize">
+          <MDTypography
+            variant="button"
+            fontWeight="regular"
+            textTransform="capitalize"
+          >
             {content}
           </MDTypography>
         </MDBox>

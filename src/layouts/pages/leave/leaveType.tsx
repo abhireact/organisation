@@ -59,12 +59,15 @@ const LeaveType = () => {
 
   const fetchAPI = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/mg_leave_type`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/mg_leave_type`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const data = await response.json();
 
@@ -83,13 +86,16 @@ const LeaveType = () => {
     try {
       // Make a POST request to save the data
       console.log(formData, "bhjdfjkvjk");
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/mg_value_set`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/mg_value_set`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       // Handle the response or any necessary actions after successful save
       console.log(response); // Assuming the response contains the saved data
@@ -110,7 +116,9 @@ const LeaveType = () => {
       return;
     }
 
-    const confirmDelete = window.confirm("Are you sure you want to delete the data?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete the data?"
+    );
 
     if (confirmDelete) {
       try {
@@ -135,7 +143,9 @@ const LeaveType = () => {
             return updatedData.filter((row) => Object.keys(row).length > 0);
           });
 
-          setEditData((prevData: any[]) => prevData.filter((_, i) => i !== index));
+          setEditData((prevData: any[]) =>
+            prevData.filter((_, i) => i !== index)
+          );
           setEditingIndex(-1);
           console.log("Row deleted successfully!");
         } else {
@@ -199,14 +209,22 @@ const LeaveType = () => {
             index: any
           ) => ({
             leave_type_name: (
-              <p onChange={(e: any) => handleDataChange(e, "id", index)}>{row.leave_type_name}</p>
+              <p onChange={(e: any) => handleDataChange(e, "id", index)}>
+                {row.leave_type_name}
+              </p>
             ),
             leave_type: (
-              <p onChange={(e: any) => handleDataChange(e, "leave_type", index)}>
+              <p
+                onChange={(e: any) => handleDataChange(e, "leave_type", index)}
+              >
                 {row.leave_type}
               </p>
             ),
-            unit: <p onChange={(e: any) => handleDataChange(e, "unit", index)}>{row.unit}</p>,
+            unit: (
+              <p onChange={(e: any) => handleDataChange(e, "unit", index)}>
+                {row.unit}
+              </p>
+            ),
           })
         )
       : [],
@@ -227,15 +245,33 @@ const LeaveType = () => {
             <MDBox pt={6} pb={3}>
               <Card>
                 <MDBox p={3} lineHeight={1}>
-                  <Grid container spacing={1} display="flex" justifyContent="flex-end">
+                  <Grid
+                    container
+                    spacing={1}
+                    display="flex"
+                    justifyContent="flex-end"
+                  >
                     <Grid item xs={12} sm={9}>
                       <MDTypography variant="h5" fontWeight="medium">
                         Show Leave Type
                       </MDTypography>
                     </Grid>
 
-                    <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                      <Grid item xs={12} sm={0} display="flex" justifyContent="flex-end" mr={1}>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={3}
+                      display="flex"
+                      justifyContent="flex-end"
+                    >
+                      <Grid
+                        item
+                        xs={12}
+                        sm={0}
+                        display="flex"
+                        justifyContent="flex-end"
+                        mr={1}
+                      >
                         <Link to={"/pages/leave/newleavetype"}>
                           <MDButton
                             variant="gradient"

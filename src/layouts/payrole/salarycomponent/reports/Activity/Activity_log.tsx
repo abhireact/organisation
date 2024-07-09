@@ -24,12 +24,14 @@ const Activity_log = () => {
     {
       time: "09/10/2023 05:32 PM",
       activity_details: "",
-      description: "Payroll tax preference has been updated by jitendra bedanta",
+      description:
+        "Payroll tax preference has been updated by jitendra bedanta",
     },
     {
       time: "04/10/2023 11:42 AM",
       activity_details: "sagar kumar ratha",
-      description: "Pre tax deduction details have been updated for sagar by jitendra bedanta",
+      description:
+        "Pre tax deduction details have been updated for sagar by jitendra bedanta",
     },
     {
       time: "04/10/2023 11:40 AM",
@@ -62,7 +64,12 @@ const Activity_log = () => {
       activity_details: data.activity_details,
       description: data.description,
       show_version: (
-        <MDButton variant="text" color="info" type="submit" onClick={handleButtonClick}>
+        <MDButton
+          variant="text"
+          color="info"
+          type="submit"
+          onClick={handleButtonClick}
+        >
           SHOW
         </MDButton>
       ),

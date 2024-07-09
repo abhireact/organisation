@@ -65,7 +65,13 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
     "fixed" | "absolute" | "relative" | "static" | "sticky"
   >();
   const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
+  const {
+    miniSidenav,
+    transparentNavbar,
+    fixedNavbar,
+    openConfigurator,
+    darkMode,
+  } = controller;
   const [openMenu, setOpenMenu] = useState<any>(false);
   const route = useLocation().pathname.split("/").slice(1);
 
@@ -79,7 +85,10 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
 
     // A function that sets the transparent state of the navbar.
     function handleTransparentNavbar() {
-      setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) || !fixedNavbar);
+      setTransparentNavbar(
+        dispatch,
+        (fixedNavbar && window.scrollY === 0) || !fixedNavbar
+      );
     }
 
     /** 
@@ -96,7 +105,8 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
   }, [dispatch, fixedNavbar]);
 
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
+  const handleConfiguratorOpen = () =>
+    setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event: any) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
@@ -114,8 +124,14 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
       sx={{ mt: 2 }}
     >
       <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
-      <NotificationItem icon={<Icon>podcasts</Icon>} title="Manage Podcast sessions" />
-      <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" />
+      <NotificationItem
+        icon={<Icon>podcasts</Icon>}
+        title="Manage Podcast sessions"
+      />
+      <NotificationItem
+        icon={<Icon>shopping_cart</Icon>}
+        title="Payment successfully completed"
+      />
     </Menu>
   );
 
@@ -142,7 +158,9 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
     <AppBar
       position={absolute ? "absolute" : navbarType}
       color="inherit"
-      sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
+      sx={(theme) =>
+        navbar(theme, { transparentNavbar, absolute, light, darkMode })
+      }
     >
       <Toolbar sx={navbarContainer}>
         <MDBox
@@ -152,7 +170,12 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
           sx={(theme) => navbarRow(theme, { isMini })}
         >
           {/* <Breadcrumbs icon="home" title={routees[routees.length - 1]} route={""} light={light} /> */}
-          <IconButton sx={navbarDesktopMenu} onClick={handleMiniSidenav} size="small" disableRipple>
+          <IconButton
+            sx={navbarDesktopMenu}
+            onClick={handleMiniSidenav}
+            size="small"
+            disableRipple
+          >
             <Icon fontSize="medium" sx={iconsStyle}>
               {miniSidenav ? "menu_open" : "menu"}
             </Icon>

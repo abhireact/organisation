@@ -32,7 +32,15 @@ import configs from "examples/Charts/PolarChart/configs";
 // Declaring props types for PolarChart
 interface Props {
   icon?: {
-    color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "light" | "dark";
+    color?:
+      | "primary"
+      | "secondary"
+      | "info"
+      | "success"
+      | "warning"
+      | "error"
+      | "light"
+      | "dark";
     component: ReactNode;
   };
   title?: string;
@@ -86,7 +94,7 @@ function PolarChart({ icon, title, description, chart }: Props): JSX.Element {
       {useMemo(
         () => (
           <MDBox p={4}>
-            <PolarArea data={data} options={options} />
+            {/* <PolarArea data={data} options={options} /> */}
           </MDBox>
         ),
         [chart]

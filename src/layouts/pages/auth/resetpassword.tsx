@@ -130,9 +130,9 @@ function ResetPassword() {
                 placeholder="************"
                 InputLabelProps={{ shrink: true }}
                 value={oldPassword}
-                onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
-                  setOldPassword(e.target.value)
-                }
+                onChange={(e: {
+                  target: { value: React.SetStateAction<string> };
+                }) => setOldPassword(e.target.value)}
               />
             </MDBox>
             <MDBox mb={2}>
@@ -145,14 +145,18 @@ function ResetPassword() {
                 placeholder="************"
                 InputLabelProps={{ shrink: true }}
                 value={newPassword}
-                onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
-                  setNewPassword(e.target.value)
-                }
+                onChange={(e: {
+                  target: { value: React.SetStateAction<string> };
+                }) => setNewPassword(e.target.value)}
               />
             </MDBox>
 
             <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch required checked={rememberMe} onChange={handleSetRememberMe} />
+              <Switch
+                required
+                checked={rememberMe}
+                onChange={handleSetRememberMe}
+              />
               <MDTypography
                 variant="button"
                 fontWeight="regular"

@@ -79,7 +79,11 @@ function Accounts(): JSX.Element {
                 <MDTypography variant="button" color="text">
                   Show less
                 </MDTypography>
-                <MDTypography variant="button" color="text" sx={{ lineHeight: 0 }}>
+                <MDTypography
+                  variant="button"
+                  color="text"
+                  sx={{ lineHeight: 0 }}
+                >
                   <Icon fontSize="small">expand_less</Icon>
                 </MDTypography>
               </MDBox>
@@ -104,9 +108,10 @@ function Accounts(): JSX.Element {
         </MDBox>
         <MDBox ml={2} pl={6} pt={2} lineHeight={1}>
           <MDTypography variant="button" color="text">
-            You haven&apos;t added your Slack yet or you aren&apos;t authorized. Please add our
-            Slack Bot to your account by clicking on here. When you&apos;ve added the bot, send your
-            verification code that you have received.
+            You haven&apos;t added your Slack yet or you aren&apos;t authorized.
+            Please add our Slack Bot to your account by clicking on here. When
+            you&apos;ve added the bot, send your verification code that you have
+            received.
           </MDTypography>
           <MDBox
             bgColor={darkMode ? "grey-900" : "grey-100"}
@@ -123,7 +128,10 @@ function Accounts(): JSX.Element {
             <MDTypography variant="button" fontWeight="medium" color="text">
               Verification Code
             </MDTypography>
-            <MDBox width={{ xs: "100%", sm: "25%", md: "15%" }} mt={{ xs: 1, sm: 0 }}>
+            <MDBox
+              width={{ xs: "100%", sm: "25%", md: "15%" }}
+              mt={{ xs: 1, sm: 0 }}
+            >
               <Tooltip title="Copy" placement="top">
                 <MDInput size="small" value="1172913" />
               </Tooltip>

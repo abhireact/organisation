@@ -90,7 +90,9 @@ const Salary_Withhold_Report = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={4} sx={{ textAlign: "start" }}>
-                  <MDTypography variant="subtitle2">Salary Withheld Employees</MDTypography>
+                  <MDTypography variant="subtitle2">
+                    Salary Withheld Employees
+                  </MDTypography>
                   <MDTypography variant="button" color="text">
                     ₹ 93794376
                   </MDTypography>
@@ -106,7 +108,9 @@ const Salary_Withhold_Report = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={4} sx={{ textAlign: "start" }}>
-                  <MDTypography variant="subtitle2">Amount to settle</MDTypography>
+                  <MDTypography variant="subtitle2">
+                    Amount to settle
+                  </MDTypography>
                   <MDTypography variant="button" color="text">
                     ₹ 384768645.00
                   </MDTypography>

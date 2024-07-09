@@ -38,7 +38,15 @@ import colors from "assets/theme/base/colors";
 // Declaring props types for GradientLineChart
 interface Props {
   icon?: {
-    color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "light" | "dark";
+    color?:
+      | "primary"
+      | "secondary"
+      | "info"
+      | "success"
+      | "warning"
+      | "error"
+      | "light"
+      | "dark";
     component: ReactNode;
   };
   title?: string;
@@ -48,14 +56,28 @@ interface Props {
     labels: string[];
     datasets: {
       label: string;
-      color: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "light" | "dark";
+      color:
+        | "primary"
+        | "secondary"
+        | "info"
+        | "success"
+        | "warning"
+        | "error"
+        | "light"
+        | "dark";
       data: number[];
     }[];
   };
   [key: string]: any;
 }
 
-function GradientLineChart({ icon, title, description, height, chart }: Props): JSX.Element {
+function GradientLineChart({
+  icon,
+  title,
+  description,
+  height,
+  chart,
+}: Props): JSX.Element {
   const chartRef = useRef(null);
   const [chartData, setChartData] = useState({});
   const { data, options }: any = chartData;
@@ -74,7 +96,9 @@ function GradientLineChart({ icon, title, description, height, chart }: Props): 
           maxBarThickness: 6,
           backgroundColor: gradientChartLine(
             chartRef.current.children[0],
-            colors[dataset.color] ? colors[dataset.color || "dark"].main : colors.dark.main
+            colors[dataset.color]
+              ? colors[dataset.color || "dark"].main
+              : colors.dark.main
           ),
         }))
       : [];
@@ -117,7 +141,7 @@ function GradientLineChart({ icon, title, description, height, chart }: Props): 
       {useMemo(
         () => (
           <MDBox ref={chartRef} sx={{ height }}>
-            <Line data={data} options={options} />
+            {/* <Line data={data} options={options} /> */}
           </MDBox>
         ),
         [chartData, height]

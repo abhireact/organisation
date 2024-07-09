@@ -27,10 +27,12 @@ const TakeAttandance = () => {
         },
       })
       .then((response) => {
-        const employeesWithCheckInStatus = response.data.map((employee: any) => ({
-          ...employee,
-          isCheckedIn: false,
-        }));
+        const employeesWithCheckInStatus = response.data.map(
+          (employee: any) => ({
+            ...employee,
+            isCheckedIn: false,
+          })
+        );
         setData(employeesWithCheckInStatus);
       })
       .catch((error) => {
@@ -60,7 +62,9 @@ const TakeAttandance = () => {
 
     // Convert GMT to IST
     const istOffset = 5.5; // IST is GMT+5:30
-    const current_time = new Date(currentGMTTime.getTime() + istOffset * 60 * 60 * 1000);
+    const current_time = new Date(
+      currentGMTTime.getTime() + istOffset * 60 * 60 * 1000
+    );
 
     console.log("Current IST Time: " + current_time.toISOString()); // Output the IST time
     console.log(typeof current_time, "typeof current_time,");
@@ -69,12 +73,22 @@ const TakeAttandance = () => {
     setData(updatedData);
     const main_data = data[index];
     console.log(main_data, "maindata");
-    console.log(main_data.first_name, main_data.email, typeof current_time, "handlecheckin");
+    console.log(
+      main_data.first_name,
+      main_data.email,
+      typeof current_time,
+      "handlecheckin"
+    );
 
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/attendance`,
-        { email: main_data.email, checkin: current_time, checkout: null, location: locationdata },
+        {
+          email: main_data.email,
+          checkin: current_time,
+          checkout: null,
+          location: locationdata,
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -100,18 +114,30 @@ const TakeAttandance = () => {
 
     // Convert GMT to IST
     const istOffset = 5.5; // IST is GMT+5:30
-    const current_time = new Date(currentGMTTime.getTime() + istOffset * 60 * 60 * 1000);
+    const current_time = new Date(
+      currentGMTTime.getTime() + istOffset * 60 * 60 * 1000
+    );
     console.log(currentGMTTime, current_time, "time");
     console.log("Current IST Time: " + current_time.toISOString()); // Output the IST time
     updatedData[index].isCheckedIn = false;
     setData(updatedData);
     const main_data = data[index];
     console.log(main_data, "maindata");
-    console.log(main_data.first_name, main_data.email, typeof current_time, "handlecheckout");
+    console.log(
+      main_data.first_name,
+      main_data.email,
+      typeof current_time,
+      "handlecheckout"
+    );
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/attendance`,
-        { email: main_data.email, checkin: null, checkout: current_time, location: locationdata },
+        {
+          email: main_data.email,
+          checkin: null,
+          checkout: current_time,
+          location: locationdata,
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -212,7 +238,12 @@ const TakeAttandance = () => {
           <MDButton
             variant="gradient"
             color="info"
-            sx={{ display: "flex", flexDirection: "row", justifyContent: "end", textAlign: "end" }}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "end",
+              textAlign: "end",
+            }}
           >
             <FileDownloadIcon />
           </MDButton>

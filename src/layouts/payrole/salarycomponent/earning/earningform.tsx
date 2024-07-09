@@ -37,13 +37,21 @@ function CreatePage() {
   const validationSchema =
     calculationType === "Flat Amount"
       ? yup.object({
-          earning_name: yup.string().required("Earning name should be provided"),
-          display_name: yup.string().required("Display name should be provided"),
+          earning_name: yup
+            .string()
+            .required("Earning name should be provided"),
+          display_name: yup
+            .string()
+            .required("Display name should be provided"),
           enter_amount_or_percent: yup.number().required("Fix the format"),
         })
       : yup.object({
-          earning_name: yup.string().required("Earning name should be provided"),
-          display_name: yup.string().required("Display name should be provided"),
+          earning_name: yup
+            .string()
+            .required("Earning name should be provided"),
+          display_name: yup
+            .string()
+            .required("Display name should be provided"),
           enter_amount_or_percent: yup
             .number()
             .required("Percent should be provided")
@@ -66,37 +74,44 @@ function CreatePage() {
     location_name: "Banglore",
     organization_name: "Mindcom",
   };
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      validationSchema: validationSchema,
-      enableReinitialize: true,
-      onSubmit: async (values, action) => {
-        console.log("values", values);
-        values.calculation_type =
-          calculationType === "Flat Amount"
-            ? "Flat Amount"
-            : calculationType.replace("Percentage", "%");
-        try {
-          const response = await axios.post(
-            `${process.env.REACT_APP_BACKEND_URL}/mg_earning_type`,
-            values,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          if (response.status === 200) {
-            message.success(response.data.message);
-            action.resetForm();
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema: validationSchema,
+    enableReinitialize: true,
+    onSubmit: async (values, action) => {
+      console.log("values", values);
+      values.calculation_type =
+        calculationType === "Flat Amount"
+          ? "Flat Amount"
+          : calculationType.replace("Percentage", "%");
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/mg_earning_type`,
+          values,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
-        } catch (error) {
-          console.error("Error saving data:", error);
+        );
+        if (response.status === 200) {
+          message.success(response.data.message);
+          action.resetForm();
         }
-      },
-    });
+      } catch (error) {
+        console.error("Error saving data:", error);
+      }
+    },
+  });
   useEffect(() => {
     if (values.earning_type_name === "Basic Salary") {
       const updatedsalary_directives = [
@@ -121,7 +136,13 @@ function CreatePage() {
               <Grid item xs={12} sm={6}>
                 <MDTypography variant="h5">Create Earning</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={6} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <Link href="/payrole/earning">
                   <MDButton variant="outlined" color="error">
                     {"Back to Earning"}
@@ -136,7 +157,9 @@ function CreatePage() {
               <Grid item xs={12} sm={6}>
                 <Autocomplete
                   onChange={(_event, value) => {
-                    handleChange({ target: { name: "earning_type_name", value } });
+                    handleChange({
+                      target: { name: "earning_type_name", value },
+                    });
                   }}
                   options={[
                     "Basic Salary",
@@ -195,7 +218,8 @@ function CreatePage() {
                   />
                 </Grid>
               </Grid>
-              {values.earning_type_name == "Basic Salary" && values.mark_as_active == false ? (
+              {values.earning_type_name == "Basic Salary" &&
+              values.mark_as_active == false ? (
                 <Grid container spacing={3} pt={3}>
                   <Grid item xs={12} sm={6}>
                     <MDTypography
@@ -238,7 +262,11 @@ function CreatePage() {
               ) : null}
               <Grid container spacing={3} pt={3}>
                 <Grid item xs={12} sm={6}>
-                  <MDTypography variant="caption" fontWeight="regular" color="text">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="text"
+                  >
                     Calculation Type*
                     <RadioGroup
                       row
@@ -268,8 +296,14 @@ function CreatePage() {
                   </MDTypography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <MDTypography variant="caption" fontWeight="regular" color="text">
-                    {calculationType == "Flat Amount" ? "Enter Amount" : "Enter Percentage"}
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="text"
+                  >
+                    {calculationType == "Flat Amount"
+                      ? "Enter Amount"
+                      : "Enter Percentage"}
                     <br />
                     <TextField
                       id="outlined-basic"
@@ -305,7 +339,9 @@ function CreatePage() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("This is a taxable earning")}
+                      checked={values.salary_directives.includes(
+                        "This is a taxable earning"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="This is a taxable earning"
@@ -316,7 +352,9 @@ function CreatePage() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("Attendance Dependant (LOP)")}
+                      checked={values.salary_directives.includes(
+                        "Attendance Dependant (LOP)"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="Attendance Dependant (LOP)"
@@ -351,7 +389,9 @@ function CreatePage() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("Show this component in payslip")}
+                      checked={values.salary_directives.includes(
+                        "Show this component in payslip"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="Show this component in payslip"
@@ -363,7 +403,9 @@ function CreatePage() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("Consider for ESI Contribution")}
+                      checked={values.salary_directives.includes(
+                        "Consider for ESI Contribution"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="Consider for ESI Contribution"
@@ -375,7 +417,9 @@ function CreatePage() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("Consider for EPF Contribution")}
+                      checked={values.salary_directives.includes(
+                        "Consider for EPF Contribution"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="Consider for EPF Contribution"

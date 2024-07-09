@@ -36,33 +36,40 @@ function EditPage(props: any) {
   const [date, setDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const initialValues = props.data;
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      enableReinitialize: true,
-      onSubmit: async (values, action) => {
-        console.log(values, calculationType, "values in earning");
-        values.calculation_type = calculationType;
-        axios
-          .put(
-            `${process.env.REACT_APP_BACKEND_URL}/mg_earning_type/?earning_name=${props.data.earning_name}`,
-            values,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((response) => {
-            message.success(response.data.message);
-            props.onSuccess();
-          })
-          .catch((error) => {
-            message.error(error.response.data.detail);
-          });
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: async (values, action) => {
+      console.log(values, calculationType, "values in earning");
+      values.calculation_type = calculationType;
+      axios
+        .put(
+          `${process.env.REACT_APP_BACKEND_URL}/mg_earning_type/?earning_name=${props.data.earning_name}`,
+          values,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          message.success(response.data.message);
+          props.onSuccess();
+        })
+        .catch((error) => {
+          message.error(error.response.data.detail);
+        });
+    },
+  });
 
   return (
     <>
@@ -104,7 +111,11 @@ function EditPage(props: any) {
               </Grid>
               <Grid container spacing={3} pt={3}>
                 <Grid item xs={12} sm={6}>
-                  <MDTypography variant="caption" fontWeight="regular" color="text">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="text"
+                  >
                     Calculation Type*
                     <RadioGroup
                       row
@@ -119,7 +130,9 @@ function EditPage(props: any) {
                       />
                       <FormControlLabel
                         value={
-                          values.earning_type_name === "Basic Salary" ? "% of CTC" : "% of Basic"
+                          values.earning_type_name === "Basic Salary"
+                            ? "% of CTC"
+                            : "% of Basic"
                         }
                         control={<Radio />}
                         label={
@@ -132,8 +145,14 @@ function EditPage(props: any) {
                   </MDTypography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <MDTypography variant="caption" fontWeight="regular" color="text">
-                    {calculationType == "Flat Amount" ? "Enter Amount" : "Enter Percentage"}
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="text"
+                  >
+                    {calculationType == "Flat Amount"
+                      ? "Enter Amount"
+                      : "Enter Percentage"}
                     <br />
                     <TextField
                       id="outlined-basic"
@@ -168,7 +187,9 @@ function EditPage(props: any) {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("This is a taxable earning")}
+                      checked={values.salary_directives.includes(
+                        "This is a taxable earning"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="This is a taxable earning"
@@ -179,7 +200,9 @@ function EditPage(props: any) {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("Attendance Dependant (LOP)")}
+                      checked={values.salary_directives.includes(
+                        "Attendance Dependant (LOP)"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="Attendance Dependant (LOP)"
@@ -214,7 +237,9 @@ function EditPage(props: any) {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("Show this component in payslip")}
+                      checked={values.salary_directives.includes(
+                        "Show this component in payslip"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="Show this component in payslip"
@@ -226,7 +251,9 @@ function EditPage(props: any) {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("Consider for ESI Contribution")}
+                      checked={values.salary_directives.includes(
+                        "Consider for ESI Contribution"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="Consider for ESI Contribution"
@@ -238,7 +265,9 @@ function EditPage(props: any) {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={values.salary_directives.includes("Consider for EPF Contribution")}
+                      checked={values.salary_directives.includes(
+                        "Consider for EPF Contribution"
+                      )}
                       onChange={handleChange}
                       name="salary_directives"
                       value="Consider for EPF Contribution"

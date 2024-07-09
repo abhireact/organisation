@@ -82,12 +82,15 @@ function CreateLeavePage() {
 
   const fetchWorkLocation = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/worklocation`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/worklocation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const Worklocation = await response.json();
 
@@ -109,12 +112,15 @@ function CreateLeavePage() {
 
   const fetchDepartment = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/department`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/department`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const department = await response.json();
       console.log(department, typeof department);
@@ -134,12 +140,15 @@ function CreateLeavePage() {
 
   const fetchDesignation = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/designation`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/designation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const designation = await response.json();
       console.log(designation, typeof designation);
@@ -159,12 +168,15 @@ function CreateLeavePage() {
 
   const fetchEmployee = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/employee`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/employee`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const employee = await response.json();
       console.log(employee, typeof employee);

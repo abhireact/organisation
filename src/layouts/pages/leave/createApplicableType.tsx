@@ -70,7 +70,15 @@ const selectData = {
   gender: ["male", "female"],
 
   skills: ["react", "vue", "angular", "svelte", "javascript"],
-  departments: ["All Departments", "HR", "Product", "Sales", "Services", "IT", "Marketing"],
+  departments: [
+    "All Departments",
+    "HR",
+    "Product",
+    "Sales",
+    "Services",
+    "IT",
+    "Marketing",
+  ],
   designation: [
     "Head of Department",
     "Executive",
@@ -79,7 +87,14 @@ const selectData = {
     "Public Relationionship Officer",
     "Developer",
   ],
-  location: ["sacramento", "New York", "Bruges", "Mumbai", "Busan", "Banaswadi"],
+  location: [
+    "sacramento",
+    "New York",
+    "Bruges",
+    "Mumbai",
+    "Busan",
+    "Banaswadi",
+  ],
   role: ["admin", "employee", "tl", "team incharge", "manager"],
   employee: ["All Employment"],
   source_of_hire: ["referral", "web", "advertisement", "direct", "newspaper"],
@@ -87,7 +102,12 @@ const selectData = {
   employee_type: ["trainee", "temporary", "permanent", "on contact"],
 };
 
-function TabPanel(props: { [x: string]: any; children: any; value: any; index: any }) {
+function TabPanel(props: {
+  [x: string]: any;
+  children: any;
+  value: any;
+  index: any;
+}) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -131,7 +151,9 @@ const fabGreenStyle = {
   },
 };
 const CreateApplicableType = () => {
-  const WorkLocation = useSelector((state: any) => state.dummyData.workLocationData);
+  const WorkLocation = useSelector(
+    (state: any) => state.dummyData.workLocationData
+  );
   console.log("WorkLocation", WorkLocation);
 
   const location_name = [];
@@ -150,7 +172,9 @@ const CreateApplicableType = () => {
 
   console.log(location_name, "location");
 
-  const Department = useSelector((state: any) => state.dummyData.departmentData);
+  const Department = useSelector(
+    (state: any) => state.dummyData.departmentData
+  );
   console.log("Department", Department);
   const dept_name = [];
 
@@ -167,7 +191,9 @@ const CreateApplicableType = () => {
   }
 
   console.log(dept_name, "departmentName");
-  const Designation = useSelector((state: any) => state.dummyData.designationData);
+  const Designation = useSelector(
+    (state: any) => state.dummyData.designationData
+  );
   console.log("Designation", Designation);
   const des_name = [];
 
@@ -184,7 +210,9 @@ const CreateApplicableType = () => {
   }
 
   console.log(des_name, "DesignationName");
-  const EmployeeData = useSelector((state: any) => state.dummyData.employeeData);
+  const EmployeeData = useSelector(
+    (state: any) => state.dummyData.employeeData
+  );
   console.log("Employee", EmployeeData);
   const emoployee_name = [];
 
@@ -206,23 +234,29 @@ const CreateApplicableType = () => {
   const dispatched = useDispatch();
 
   const [value, setValue] = React.useState(0);
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(values.gender, values.martial_status, "rtretrtrfr");
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(values.gender, values.martial_status, "rtretrtrfr");
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
   React.useEffect(() => {
     dispatched(storeApplicableData(applicableData));
     // console.log(dispatched, "dispatfrhjufwefhevhjwvfhj");
   }, [dispatched, applicableData]);
   console.log("myname", token);
-  const checkMainbtnClick = useSelector((state: any) => state.dummyData.academicName);
+  const checkMainbtnClick = useSelector(
+    (state: any) => state.dummyData.academicName
+  );
   console.log("checkMainbtnClick", checkMainbtnClick);
   //   const addMoreFields = () => {
   //     setAdditionalFields([...additionalFields, additionalFields.length]);
@@ -237,11 +271,14 @@ const CreateApplicableType = () => {
   const [role, setRole] = React.useState([]);
   const [exception_role, setExceptionRole] = React.useState([]);
   const [source_of_hire, setSourceofHire] = React.useState([]);
-  const [exception_source_of_hire, setExceptionSourceofHire] = React.useState([]);
+  const [exception_source_of_hire, setExceptionSourceofHire] = React.useState(
+    []
+  );
   const [employee_type, setEmployment] = React.useState([]);
   const [exception_employee_type, setExceptionEmployment] = React.useState([]);
   const [onboarding_status, setOnboardingStatus] = React.useState([]);
-  const [exception_onboarding_status, setExceptionOnboardingStatus] = React.useState([]);
+  const [exception_onboarding_status, setExceptionOnboardingStatus] =
+    React.useState([]);
 
   const role_display_name = [];
 
@@ -285,42 +322,72 @@ const CreateApplicableType = () => {
   React.useEffect(() => {
     dispatched(storeRoleseData(roles));
   }, [dispatched, roles]);
-  const handleMainFieldChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleMainFieldChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setMainFieldValue(value);
   };
 
-  const handleExceptionFieldChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleExceptionFieldChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setExceptionFieldValue(value);
   };
-  const handleLocationChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleLocationChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setLocation(value);
   };
 
-  const handleExceptionLocationChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleExceptionLocationChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setExceptionLocation(value);
   };
   const handleRoleChange = (event: any, value: React.SetStateAction<any[]>) => {
     setRole(value);
   };
 
-  const handleExceptionRoleChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleExceptionRoleChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setExceptionRole(value);
   };
-  const handleSourceofHireChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleSourceofHireChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setSourceofHire(value);
   };
 
-  const handleExceptionSourceofHireChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleExceptionSourceofHireChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setExceptionSourceofHire(value);
   };
-  const handleEmploymentChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleEmploymentChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setEmployment(value);
   };
 
-  const handleExceptionEmploymentChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleExceptionEmploymentChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setExceptionEmployment(value);
   };
-  const handleOnboardingStatusChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleOnboardingStatusChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setOnboardingStatus(value);
   };
 
@@ -330,14 +397,23 @@ const CreateApplicableType = () => {
   ) => {
     setExceptionOnboardingStatus(value);
   };
-  const handleDesignationChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleDesignationChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setDesignation(value);
   };
 
-  const handleExceptionDesignationChange = (event: any, value: React.SetStateAction<any[]>) => {
+  const handleExceptionDesignationChange = (
+    event: any,
+    value: React.SetStateAction<any[]>
+  ) => {
     setExceptionDesignation(value);
   };
-  const handleChanged = (event: any, newValue: React.SetStateAction<number>) => {
+  const handleChanged = (
+    event: any,
+    newValue: React.SetStateAction<number>
+  ) => {
     setValue(newValue);
   };
   const handleChangeIndex = (index: React.SetStateAction<number>) => {
@@ -743,7 +819,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "source_of_hire", value } });
+                      handleChange({
+                        target: { name: "source_of_hire", value },
+                      });
                     }}
                     // value={source_of_hire}
                     // onChange={handleMainFieldChange}
@@ -783,7 +861,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "employee_type", value } });
+                      handleChange({
+                        target: { name: "employee_type", value },
+                      });
                     }}
                     // value={employee_type}
                     // onChange={handleMainFieldChange}
@@ -823,7 +903,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "onboarding_status", value } });
+                      handleChange({
+                        target: { name: "onboarding_status", value },
+                      });
                     }}
                     // value={onboarding_status}
                     // onChange={handleMainFieldChange}
@@ -867,7 +949,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "exception_department", value } });
+                      handleChange({
+                        target: { name: "exception_department", value },
+                      });
                     }}
                     // value={exception_department}
                     // onChange={handleMainFieldChange}
@@ -909,7 +993,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "exception_designation", value } });
+                      handleChange({
+                        target: { name: "exception_designation", value },
+                      });
                     }}
                     // value={onboarding_status}
                     // onChange={handleMainFieldChange}
@@ -951,7 +1037,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "exceptional_location", value } });
+                      handleChange({
+                        target: { name: "exceptional_location", value },
+                      });
                     }}
                     // value={exceptional_location}
                     // onChange={handleMainFieldChange}
@@ -993,7 +1081,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "exception_role", value } });
+                      handleChange({
+                        target: { name: "exception_role", value },
+                      });
                     }}
                     // value={exception_role}
                     // onChange={handleMainFieldChange}
@@ -1035,7 +1125,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "exception_source_of_hire", value } });
+                      handleChange({
+                        target: { name: "exception_source_of_hire", value },
+                      });
                     }}
                     // value={exception_source_of_hire}
                     // onChange={handleMainFieldChange}
@@ -1077,7 +1169,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "exception_employee_type", value } });
+                      handleChange({
+                        target: { name: "exception_employee_type", value },
+                      });
                     }}
                     // value={exception_employee_type}
                     // onChange={handleMainFieldChange}
@@ -1119,7 +1213,9 @@ const CreateApplicableType = () => {
                   <Autocomplete
                     multiple
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "exception_onboarding_status", value } });
+                      handleChange({
+                        target: { name: "exception_onboarding_status", value },
+                      });
                     }}
                     // value={onboarding_status}
                     // onChange={handleMainFieldChange}
@@ -1156,7 +1252,12 @@ const CreateApplicableType = () => {
           labelPlacement="end"
         />
       </Box>
-      <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+      <MDButton
+        variant="gradient"
+        color="info"
+        type="submit"
+        onClick={handleFormSubmit}
+      >
         Save
       </MDButton>
       {/* </Card> */}

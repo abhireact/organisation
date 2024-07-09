@@ -76,13 +76,16 @@ const Designations = () => {
   const handleDeleteTask = async (des_name: any) => {
     console.log(des_name, "ehcfdki");
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/designation/`, {
-        data: { des_name: des_name },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/designation/`,
+        {
+          data: { des_name: des_name },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response.status, "error messahe ");
 
       if (response.status == 200) {
@@ -92,7 +95,9 @@ const Designations = () => {
     } catch (error: unknown) {
       console.error("Error deleting task:", error);
       const myError = error as MyError;
-      message.error(myError?.response?.data?.detail || "An unexpected error occurred");
+      message.error(
+        myError?.response?.data?.detail || "An unexpected error occurred"
+      );
     }
   };
 
@@ -124,7 +129,9 @@ const Designations = () => {
       action: (
         <MDTypography variant="p">
           {rbacData ? (
-            rbacData?.find((element: string) => element === "designationupdate") ? (
+            rbacData?.find(
+              (element: string) => element === "designationupdate"
+            ) ? (
               <IconButton
                 onClick={() => {
                   handleOpenupdate(index);
@@ -139,7 +146,9 @@ const Designations = () => {
             ""
           )}
           {rbacData ? (
-            rbacData?.find((element: string) => element === "designationdelete") ? (
+            rbacData?.find(
+              (element: string) => element === "designationdelete"
+            ) ? (
               <IconButton onClick={() => handleDeleteTask(row.des_name)}>
                 <DeleteIcon />
               </IconButton>
@@ -200,9 +209,16 @@ const Designations = () => {
           <MDTypography variant="h5">{"Designations"}</MDTypography>
         </Grid>
         {rbacData ? (
-          rbacData?.find((element: string) => element === "designationcreate") ? (
+          rbacData?.find(
+            (element: string) => element === "designationcreate"
+          ) ? (
             <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-              <MDButton variant="gradient" color="info" type="submit" onClick={handleOpen}>
+              <MDButton
+                variant="gradient"
+                color="info"
+                type="submit"
+                onClick={handleOpen}
+              >
                 + New Designations
               </MDButton>
             </Grid>
@@ -228,8 +244,13 @@ const Designations = () => {
                     value={formik.values.designations}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.touched.designations && Boolean(formik.errors.designations)}
-                    helperText={formik.touched.designations && formik.errors.designations}
+                    error={
+                      formik.touched.designations &&
+                      Boolean(formik.errors.designations)
+                    }
+                    helperText={
+                      formik.touched.designations && formik.errors.designations
+                    }
                     mb={10}
                     mt={10}
                   />
@@ -265,7 +286,11 @@ const Designations = () => {
       </Card>
 
       <Dialog open={openupdate} onClose={handleCloseupdate}>
-        <Updatedes openupdate={openupdate} setOpenupdate={setOpenupdate} task={editTaskData} />
+        <Updatedes
+          openupdate={openupdate}
+          setOpenupdate={setOpenupdate}
+          task={editTaskData}
+        />
       </Dialog>
       {rbacData ? (
         rbacData?.find((element: string) => element === "designationread") ? (

@@ -164,7 +164,9 @@ export default function EmployeeAdditionreport() {
               onChange={(event, newValue) => {
                 setSelectedLocation(newValue);
               }}
-              renderInput={(params) => <TextField {...params} label="Select Work Location" />}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Work Location" />
+              )}
             />
           </Grid>
         </Grid>
@@ -192,7 +194,9 @@ export default function EmployeeAdditionreport() {
           <BarChart
             dataset={filteredData.length > 0 ? filteredData : dataset}
             xAxis={[{ scaleType: "band", dataKey: "month" }]}
-            series={[{ dataKey: "leaves", label: selectedLocation, valueFormatter }]}
+            series={[
+              { dataKey: "leaves", label: selectedLocation, valueFormatter },
+            ]}
             {...chartSetting}
             // onClick={(event: any, data: any) => {
             //   // Additional action when a bar is clicked

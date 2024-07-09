@@ -13,6 +13,8 @@ const validationSchema = yup.object({
   tax_payment_frequency: yup.string().required("It is required"),
   deductor_name: yup.string().required("Dedcutor name  should be provided "),
 
-  deductor_father_name: yup.string().required("Deductor Father name should be in correct format"),
+  deductor_father_name: yup
+    .string()
+    .required("Deductor Father name should be in correct format"),
 });
 export default validationSchema;

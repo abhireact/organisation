@@ -9,9 +9,18 @@ const dataTableData = {
   columns: [
     { Header: "EMPLOYEE ID", accessor: "employee_id" },
     { Header: "EMPLOYEE NAME", accessor: "employee_name" },
-    { Header: "VALUE OF PERQUISITE AS PER RULES", accessor: "value_of_perquisite" },
-    { Header: "AMOUNT RECOVERED FROM THE EMPLOYEE, IF ANY", accessor: "amount_recovered" },
-    { Header: "AMOUNT OF PERQUISITE CHARGEABLE TO TAX", accessor: "amount_of_perquisite" },
+    {
+      Header: "VALUE OF PERQUISITE AS PER RULES",
+      accessor: "value_of_perquisite",
+    },
+    {
+      Header: "AMOUNT RECOVERED FROM THE EMPLOYEE, IF ANY",
+      accessor: "amount_recovered",
+    },
+    {
+      Header: "AMOUNT OF PERQUISITE CHARGEABLE TO TAX",
+      accessor: "amount_of_perquisite",
+    },
   ],
   rows: [
     {

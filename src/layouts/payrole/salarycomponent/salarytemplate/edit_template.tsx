@@ -29,7 +29,9 @@ const SalaryTemp = (props: any) => {
   const handleCloseupdate = () => {
     setOpenupdate(false);
   };
-  const [description, setDescription] = useState(editdata?.template_description);
+  const [description, setDescription] = useState(
+    editdata?.template_description
+  );
   const navigate = useNavigate();
   // EARNINGS
   const [data, setData] = useState([]);
@@ -47,7 +49,8 @@ const SalaryTemp = (props: any) => {
         enter_amount_or_percent: any;
       }) => {
         if (earning.calculation_type === "% of CTC") {
-          const monthly_amount = ((earning.enter_amount_or_percent / 100) * annualctc) / 12;
+          const monthly_amount =
+            ((earning.enter_amount_or_percent / 100) * annualctc) / 12;
           setBasicpercent(earning.enter_amount_or_percent);
           return {
             earning_type_name: earning.earning_type_name,
@@ -57,7 +60,8 @@ const SalaryTemp = (props: any) => {
             annual_amount: monthly_amount * 12,
           };
         } else if (earning.calculation_type === "% of Basic") {
-          const ctc_amount = ((earning.enter_amount_or_percent / 100) * annualctc) / 12;
+          const ctc_amount =
+            ((earning.enter_amount_or_percent / 100) * annualctc) / 12;
           const monthly_amount = ctc_amount * (basicpercent / 100);
           return {
             earning_type_name: earning.earning_type_name,
@@ -86,7 +90,11 @@ const SalaryTemp = (props: any) => {
 
   function transformDeductionsArray(deductionsArray: any[]) {
     return deductionsArray.map(
-      (deduction: { monthly_amount: number; pre_name_slip: any; calculation_type: any }) => {
+      (deduction: {
+        monthly_amount: number;
+        pre_name_slip: any;
+        calculation_type: any;
+      }) => {
         const monthly_amount = deduction.monthly_amount || 0;
         return {
           pre_name_slip: deduction.pre_name_slip,
@@ -112,7 +120,9 @@ const SalaryTemp = (props: any) => {
     setShowElements([...showElements, addfield]);
   };
   const handleRemoveField = (cancelledElement: any) => {
-    const updatedElements = showElements.filter((element) => element !== cancelledElement);
+    const updatedElements = showElements.filter(
+      (element) => element !== cancelledElement
+    );
     setShowElements(updatedElements);
     console.log(showElements, "remove field");
   };
@@ -135,7 +145,9 @@ const SalaryTemp = (props: any) => {
     console.log(showdeductions, " add field deductions ");
   };
   const handleRemove = (cancelledElement: any) => {
-    const updateddeductions = showdeductions.filter((element) => element !== cancelledElement);
+    const updateddeductions = showdeductions.filter(
+      (element) => element !== cancelledElement
+    );
     setShowdeductions(updateddeductions);
     console.log(showdeductions, " remove field deductions ");
   };
@@ -158,16 +170,23 @@ const SalaryTemp = (props: any) => {
           }
         );
         if (response.status === 200) {
-          setBasicpercent(response.data.earning_types[1].enter_amount_or_percent); // need to cha
+          setBasicpercent(
+            response.data.earning_types[1].enter_amount_or_percent
+          ); // need to cha
           console.log(
             Number(response.data.earning_types[1].enter_amount_or_percent),
             "basic percent 'change api index' "
           );
           console.log(response.data, " api data");
-          const transformarray = transformEarningsArray(response.data.earning_types);
+          const transformarray = transformEarningsArray(
+            response.data.earning_types
+          );
 
           setData(transformEarningsArray(transformarray.slice(2, 4)));
-          console.log(transformEarningsArray(transformarray.slice(2, 4)), " transform api data");
+          console.log(
+            transformEarningsArray(transformarray.slice(2, 4)),
+            " transform api data"
+          );
           setShowElements(transformEarningsArray(editdata?.earnings_type_name)); // Edit elements
           setBasicpercent(transformarray[1].enter_amount_or_percent);
           console.log(showElements, "default element");
@@ -176,7 +195,9 @@ const SalaryTemp = (props: any) => {
             transformDeductionsArray(response.data.pre_tax_deductions),
             " transform deduction api data "
           );
-          setDatadeduction(transformDeductionsArray(response.data.pre_tax_deductions));
+          setDatadeduction(
+            transformDeductionsArray(response.data.pre_tax_deductions)
+          );
           setShowdeductions(transformDeductionsArray(editdata?.pre_tax_name)); // Edit deductions
         }
       } catch (error) {
@@ -187,8 +208,16 @@ const SalaryTemp = (props: any) => {
   }, []);
   const dataTableData = {
     columns: [
-      { Header: "SALARY COMPONENTS", accessor: "earning_type_name", width: "20%" },
-      { Header: "CALCULATION TYPE", accessor: "calculation_type", width: "20%" },
+      {
+        Header: "SALARY COMPONENTS",
+        accessor: "earning_type_name",
+        width: "20%",
+      },
+      {
+        Header: "CALCULATION TYPE",
+        accessor: "calculation_type",
+        width: "20%",
+      },
       { Header: "MONTHLY AMOUNT", accessor: "monthly_amount", width: "20%" },
       { Header: "ANNUAL  AMOUNT", accessor: "annual_amount", width: "20%" },
       { Header: "ACTION", accessor: "action", width: "20%" },
@@ -197,11 +226,16 @@ const SalaryTemp = (props: any) => {
     rows: showElements.map((row, _index) => ({
       calculation_type: (
         <div>
-          {row.calculation_type === "% of Basic" || row.calculation_type === "% of CTC" ? (
+          {row.calculation_type === "% of Basic" ||
+          row.calculation_type === "% of CTC" ? (
             <MDTypography variant="p">
               <MDInput
                 onChange={(e: { target: { value: any } }) => {
-                  handleChange(_index, "enter_amount_or_percent", e.target.value);
+                  handleChange(
+                    _index,
+                    "enter_amount_or_percent",
+                    e.target.value
+                  );
                   // if (row.calculation_type === "% of Basic") {
                   //   setBasicpercent(showElements[_index].enter_amount_or_percent);
                   // }
@@ -217,7 +251,9 @@ const SalaryTemp = (props: any) => {
           <MDTypography variant="p"> {row.calculation_type} </MDTypography>
         </div>
       ),
-      earning_type_name: <MDTypography variant="p">{row.earning_type_name}</MDTypography>,
+      earning_type_name: (
+        <MDTypography variant="p">{row.earning_type_name}</MDTypography>
+      ),
       monthly_amount: (
         <MDTypography variant="p">
           {" "}
@@ -225,7 +261,8 @@ const SalaryTemp = (props: any) => {
             sx={{ width: "100px" }}
             type="number"
             disabled={
-              row.calculation_type === "% of CTC" || row.calculation_type === "% of Basic"
+              row.calculation_type === "% of CTC" ||
+              row.calculation_type === "% of Basic"
                 ? true
                 : false
             }
@@ -258,7 +295,10 @@ const SalaryTemp = (props: any) => {
             </MDButton>
           ) : (
             <MDButton>
-              <RemoveCircleOutlineIcon onClick={() => handleRemoveField(row)} color="primary" />
+              <RemoveCircleOutlineIcon
+                onClick={() => handleRemoveField(row)}
+                color="primary"
+              />
             </MDButton>
           )}
         </>
@@ -276,8 +316,12 @@ const SalaryTemp = (props: any) => {
     ],
 
     rows: showdeductions.map((row, _index) => ({
-      pre_name_slip: <MDTypography variant="p">{row.pre_name_slip}</MDTypography>,
-      calculation_type: <MDTypography variant="p"> {row.calculation_type} </MDTypography>,
+      pre_name_slip: (
+        <MDTypography variant="p">{row.pre_name_slip}</MDTypography>
+      ),
+      calculation_type: (
+        <MDTypography variant="p"> {row.calculation_type} </MDTypography>
+      ),
       monthly_amount: (
         <MDTypography variant="p">
           <MDInput
@@ -286,7 +330,11 @@ const SalaryTemp = (props: any) => {
             onChange={(e: { target: { value: any } }) => {
               let monthlyAmount = e.target.value;
 
-              handleChangedeductions(_index, "monthly_amount", Number(monthlyAmount));
+              handleChangedeductions(
+                _index,
+                "monthly_amount",
+                Number(monthlyAmount)
+              );
               // Calculate and update annual amount
             }}
             value={showdeductions[_index].monthly_amount}
@@ -305,7 +353,10 @@ const SalaryTemp = (props: any) => {
       ),
       action: (
         <MDButton>
-          <RemoveCircleOutlineIcon onClick={() => handleRemove(row)} color="primary" />
+          <RemoveCircleOutlineIcon
+            onClick={() => handleRemove(row)}
+            color="primary"
+          />
         </MDButton>
       ),
     })),
@@ -401,7 +452,9 @@ const SalaryTemp = (props: any) => {
                     >
                       <Grid container>
                         <Grid item sm={10}>
-                          <Typography variant="overline">{info?.earning_type_name}</Typography>
+                          <Typography variant="overline">
+                            {info?.earning_type_name}
+                          </Typography>
                         </Grid>
                         <Grid item sm={2}>
                           <MDButton
@@ -430,14 +483,18 @@ const SalaryTemp = (props: any) => {
                     <div
                       key={index}
                       style={{
-                        display: showdeductions.some((a) => a.pre_name_slip === info.pre_name_slip)
+                        display: showdeductions.some(
+                          (a) => a.pre_name_slip === info.pre_name_slip
+                        )
                           ? "none"
                           : "block",
                       }}
                     >
                       <Grid container>
                         <Grid item sm={10}>
-                          <Typography variant="overline">{info?.pre_name_slip}</Typography>
+                          <Typography variant="overline">
+                            {info?.pre_name_slip}
+                          </Typography>
                         </Grid>
                         <Grid item sm={2}>
                           <MDButton
@@ -461,43 +518,67 @@ const SalaryTemp = (props: any) => {
         <Grid item sm={9}>
           <Card sx={{ borderRadius: 0 }}>
             <Grid container px={4} pt={2}>
-              <Grid item sm={6} sx={{ display: "flex", justifyContent: "center" }}>
+              <Grid
+                item
+                sm={6}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
                 <MDTypography variant="h6">Template Name</MDTypography>
               </Grid>
-              <Grid item sm={6} sx={{ display: "flex", justifyContent: "center" }}>
+              <Grid
+                item
+                sm={6}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
                 <MDTypography variant="h6">Description</MDTypography>
               </Grid>
             </Grid>
             <Grid container px={4}>
-              <Grid item sm={6} sx={{ display: "flex", justifyContent: "center" }}>
+              <Grid
+                item
+                sm={6}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
                 <MDInput
                   required
-                  onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
-                    setTemplate(e.target.value)
-                  }
+                  onChange={(e: {
+                    target: { value: React.SetStateAction<string> };
+                  }) => setTemplate(e.target.value)}
                   value={template}
                 />
               </Grid>
-              <Grid item sm={6} sx={{ display: "flex", justifyContent: "center" }}>
+              <Grid
+                item
+                sm={6}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
                 <MDInput
                   required
-                  onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
-                    setDescription(e.target.value)
-                  }
+                  onChange={(e: {
+                    target: { value: React.SetStateAction<string> };
+                  }) => setDescription(e.target.value)}
                   value={description}
                 />
               </Grid>
             </Grid>
             <Grid container p={4}>
-              <Grid item sm={12} sx={{ display: "flex", justifyContent: "center" }}>
+              <Grid
+                item
+                sm={12}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
                 <MDTypography variant="h6">Annual CTC *</MDTypography>
               </Grid>
-              <Grid item sm={12} sx={{ display: "flex", justifyContent: "center" }}>
+              <Grid
+                item
+                sm={12}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
                 <MDInput
                   required
-                  onChange={(e: { target: { value: React.SetStateAction<number> } }) =>
-                    setAnnualctc(e.target.value)
-                  }
+                  onChange={(e: {
+                    target: { value: React.SetStateAction<number> };
+                  }) => setAnnualctc(e.target.value)}
                   value={annualctc}
                 />
               </Grid>
@@ -514,7 +595,10 @@ const SalaryTemp = (props: any) => {
             {showdeductions.length === 0 ? (
               ""
             ) : (
-              <Grid sx={{ display: "flex", justifyContent: "flex-start" }} pl={2}>
+              <Grid
+                sx={{ display: "flex", justifyContent: "flex-start" }}
+                pl={2}
+              >
                 <MDTypography variant="h6">DEDUCTIONS</MDTypography>
               </Grid>
             )}

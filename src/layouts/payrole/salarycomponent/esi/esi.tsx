@@ -28,7 +28,9 @@ function CreateEsi(props: any) {
       .string()
       .matches(/^\d{17}$/, "Please provide a valid 17-digit ESI number")
       .required("Please provide a valid ESI number"),
-    esi_deduction_cycle: yup.string().required("Please provide ESI deduction cycle"),
+    esi_deduction_cycle: yup
+      .string()
+      .required("Please provide ESI deduction cycle"),
 
     employees_contribution: yup
       .string()
@@ -41,59 +43,66 @@ function CreateEsi(props: any) {
     initialValues = props.data;
   }
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      validationSchema: validationSchema,
-      enableReinitialize: true,
-      onSubmit: async (values, action) => {
-        if (props.data.esi_number) {
-          try {
-            axios
-              .put(
-                `${process.env.REACT_APP_BACKEND_URL}/mg_esi/?esi_number=${props.data.esi_number}`,
-                values,
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                  },
-                }
-              )
-              .then((response) => {
-                action.resetForm();
-                props.onSuccess();
-                message.success(response.data.message);
-              })
-              .catch((error) => {
-                message.error(error.response.data.detail);
-              });
-          } catch (error) {
-            // console.error("Error saving data:", error);
-          }
-        } else {
-          try {
-            axios
-              .post(`${process.env.REACT_APP_BACKEND_URL}/mg_esi`, values, {
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema: validationSchema,
+    enableReinitialize: true,
+    onSubmit: async (values, action) => {
+      if (props.data.esi_number) {
+        try {
+          axios
+            .put(
+              `${process.env.REACT_APP_BACKEND_URL}/mg_esi/?esi_number=${props.data.esi_number}`,
+              values,
+              {
                 headers: {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,
                 },
-              })
-              .then((response) => {
-                action.resetForm();
-                props.onSuccess();
-                message.success(response.data.message);
-              })
-              .catch((error) => {
-                message.error(error.response.data.detail);
-              });
-          } catch (error) {
-            console.error("Error saving data:", error);
-          }
+              }
+            )
+            .then((response) => {
+              action.resetForm();
+              props.onSuccess();
+              message.success(response.data.message);
+            })
+            .catch((error) => {
+              message.error(error.response.data.detail);
+            });
+        } catch (error) {
+          // console.error("Error saving data:", error);
         }
-      },
-    });
+      } else {
+        try {
+          axios
+            .post(`${process.env.REACT_APP_BACKEND_URL}/mg_esi`, values, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              action.resetForm();
+              props.onSuccess();
+              message.success(response.data.message);
+            })
+            .catch((error) => {
+              message.error(error.response.data.detail);
+            });
+        } catch (error) {
+          console.error("Error saving data:", error);
+        }
+      }
+    },
+  });
   const navigate = useNavigate();
   return (
     <DashboardLayout>
@@ -103,9 +112,17 @@ function CreateEsi(props: any) {
           <MDBox p={3}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={8}>
-                <MDTypography variant="h5">Employees&apos; State Insurance</MDTypography>
+                <MDTypography variant="h5">
+                  Employees&apos; State Insurance
+                </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={4} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <Link href="esi" variant="body2">
                   <MDButton variant="gradient" color="error">
                     {"cancel"}
@@ -141,8 +158,13 @@ function CreateEsi(props: any) {
                   variant="standard"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.esi_deduction_cycle && Boolean(errors.esi_deduction_cycle)}
-                  helperText={touched.esi_deduction_cycle && errors.esi_deduction_cycle}
+                  error={
+                    touched.esi_deduction_cycle &&
+                    Boolean(errors.esi_deduction_cycle)
+                  }
+                  helperText={
+                    touched.esi_deduction_cycle && errors.esi_deduction_cycle
+                  }
                 />
               </Grid>
             </Grid>
@@ -157,8 +179,14 @@ function CreateEsi(props: any) {
                   variant="standard"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.employees_contribution && Boolean(errors.employees_contribution)}
-                  helperText={touched.employees_contribution && errors.employees_contribution}
+                  error={
+                    touched.employees_contribution &&
+                    Boolean(errors.employees_contribution)
+                  }
+                  helperText={
+                    touched.employees_contribution &&
+                    errors.employees_contribution
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -171,8 +199,14 @@ function CreateEsi(props: any) {
                   variant="standard"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.employers_contribution && Boolean(errors.employers_contribution)}
-                  helperText={touched.employers_contribution && errors.employers_contribution}
+                  error={
+                    touched.employers_contribution &&
+                    Boolean(errors.employers_contribution)
+                  }
+                  helperText={
+                    touched.employers_contribution &&
+                    errors.employers_contribution
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={12} p={2}>
@@ -197,10 +231,11 @@ function CreateEsi(props: any) {
 
           <MDBox p={2} bgColor="#FFBF00" m={2}>
             <MDTypography variant="caption" color="black">
-              Note: ESI deductions will be made only if the employee&apos;s monthly salary is less
-              than or equal to ₹21,000. If the employee gets a salary revision which increases their
-              monthly salary above ₹21,000, they would have to continue making ESI contributions
-              till the end of the contribution period in which the salary was revised
+              Note: ESI deductions will be made only if the employee&apos;s
+              monthly salary is less than or equal to ₹21,000. If the employee
+              gets a salary revision which increases their monthly salary above
+              ₹21,000, they would have to continue making ESI contributions till
+              the end of the contribution period in which the salary was revised
               (April-September or October-March).
             </MDTypography>
           </MDBox>

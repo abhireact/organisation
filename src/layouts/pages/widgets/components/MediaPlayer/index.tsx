@@ -37,7 +37,10 @@ function MediaPlayer(): JSX.Element {
 
   return (
     <Card
-      sx={({ functions: { linearGradient, rgba }, palette: { gradients } }) => ({
+      sx={({
+        functions: { linearGradient, rgba },
+        palette: { gradients },
+      }) => ({
         backgroundImage: `${linearGradient(
           rgba(gradients.dark.main, 0.85),
           rgba(gradients.dark.state, 0.85)

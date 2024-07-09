@@ -43,28 +43,43 @@ const Calendarattandence = () => {
   ];
 
   // Dummy employee data for demonstration
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    // validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      // validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
 
   const getDaysInMonth = (month: number, year: number) => {
     return new Date(year, month + 1, 0).getDate();
   };
 
-  const daysInMonth = getDaysInMonth(currentDate.getMonth(), currentDate.getFullYear());
+  const daysInMonth = getDaysInMonth(
+    currentDate.getMonth(),
+    currentDate.getFullYear()
+  );
 
   const handleFormSubmit = async (currentDate: Date) => {
     console.log(currentDate, "current dat");
     // Assuming currentDate is your current date
-    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    const firstDayOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    );
+    const lastDayOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    );
 
     // Format the dates as "YYYY-MM-DD"
     const fromDateFormatted = formatDate(firstDayOfMonth);
@@ -122,7 +137,9 @@ const Calendarattandence = () => {
       currentDate.getMonth(),
       dayOfMonth
     ).getDay();
-    const dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][dayOfWeek];
+    const dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][
+      dayOfWeek
+    ];
     return { dayName, dayOfMonth };
   });
   const getStatusLabel = (status: string): string => {
@@ -157,9 +174,19 @@ const Calendarattandence = () => {
               className="arrow"
               onClick={() => {
                 handleFormSubmit(
-                  new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+                  new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth() - 1,
+                    1
+                  )
                 ); // Call handleformsubmit
-                setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+                setCurrentDate(
+                  new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth() - 1,
+                    1
+                  )
+                );
               }}
             >
               <ArrowBackIosIcon />
@@ -171,9 +198,19 @@ const Calendarattandence = () => {
               className="arrow"
               onClick={() => {
                 handleFormSubmit(
-                  new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+                  new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth() + 1,
+                    1
+                  )
                 ); // Call handleformsubmit
-                setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+                setCurrentDate(
+                  new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth() + 1,
+                    1
+                  )
+                );
               }}
             >
               <ArrowForwardIosIcon />{" "}
@@ -183,11 +220,19 @@ const Calendarattandence = () => {
           <DataTable
             table={{
               columns: [
-                { Header: "Employee Name", accessor: "employee_name", width: "30%" },
+                {
+                  Header: "Employee Name",
+                  accessor: "employee_name",
+                  width: "30%",
+                },
                 { Header: "Email", accessor: "email", width: "30%" },
                 ...daysData.map((day, index) => ({
-                  Header: `${day.dayName} ${day.dayOfMonth.toString().padStart(2, "0")}`, // Add leading zeros
-                  accessor: `day_${(index + 1).toString().padStart(2, "0")}.status`, // Access status for each day with leading zeros
+                  Header: `${day.dayName} ${day.dayOfMonth
+                    .toString()
+                    .padStart(2, "0")}`, // Add leading zeros
+                  accessor: `day_${(index + 1)
+                    .toString()
+                    .padStart(2, "0")}.status`, // Access status for each day with leading zeros
                 })),
               ],
 
@@ -201,7 +246,9 @@ const Calendarattandence = () => {
                       entry: { status: string; date: string }
                     ) => {
                       const statusLabel = getStatusLabel(entry.status);
-                      acc[`day_${entry.date.split("-")[2]}`] = { status: statusLabel };
+                      acc[`day_${entry.date.split("-")[2]}`] = {
+                        status: statusLabel,
+                      };
                       return acc;
                     },
                     {}

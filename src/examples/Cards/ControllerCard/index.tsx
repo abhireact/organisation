@@ -28,7 +28,14 @@ import { useMaterialUIController } from "context";
 
 // Declaring props types for ControllerCard
 interface Props {
-  color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark";
+  color?:
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "dark";
   state?: boolean;
   icon: ReactNode;
   title: string;
@@ -37,7 +44,14 @@ interface Props {
   [key: string]: any;
 }
 
-function ControllerCard({ color, state, icon, title, description, onChange }: Props): JSX.Element {
+function ControllerCard({
+  color,
+  state,
+  icon,
+  title,
+  description,
+  onChange,
+}: Props): JSX.Element {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
@@ -71,7 +85,11 @@ function ControllerCard({ color, state, icon, title, description, onChange }: Pr
         </MDBox>
         {icon}
         <MDBox mt={1} lineHeight={1}>
-          <MDTypography variant="body2" color={state ? "white" : "text"} textTransform="capitalize">
+          <MDTypography
+            variant="body2"
+            color={state ? "white" : "text"}
+            textTransform="capitalize"
+          >
             {title}
           </MDTypography>
           {description ? (

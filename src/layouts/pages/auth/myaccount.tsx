@@ -178,7 +178,11 @@ export default function MYAccount() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose} component={Link} to="/pages/authentication/myprofile">
+        <MenuItem
+          onClick={handleClose}
+          component={Link}
+          to="/pages/authentication/myprofile"
+        >
           <Avatar /> My Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>

@@ -21,50 +21,51 @@ const UpdateApplyleave = (props: any) => {
   const handleCloseupdate = () => {
     setOpenupdate(false);
   };
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      employee_name: data?.employee_name,
-      employee_email: data?.employee_email,
-      leave_type: data?.leave_type,
-      team_email: data?.team_email,
-      from_date: data?.from_date,
-      to_date: data?.to_date,
-      reason_for_leave: data?.reason_for_leave,
-      manager_reason: data.manager_reason,
-      created_at: data?.created_at,
-      status: true,
-    },
-    onSubmit: (values, action) => {
-      axios
-        .put(
-          `${process.env.REACT_APP_BACKEND_URL}/apply_leave`,
-          {
-            ...values,
-            old_from_date: data?.from_date,
-            old_to_date: data?.to_date,
-            old_email: data?.employee_email,
-            old_status: true,
-            old_team_email: data?.team_email,
-            old_reason_leave: data?.reason_for_leave,
-            old_leave_type: data?.leave_type,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        employee_name: data?.employee_name,
+        employee_email: data?.employee_email,
+        leave_type: data?.leave_type,
+        team_email: data?.team_email,
+        from_date: data?.from_date,
+        to_date: data?.to_date,
+        reason_for_leave: data?.reason_for_leave,
+        manager_reason: data.manager_reason,
+        created_at: data?.created_at,
+        status: true,
+      },
+      onSubmit: (values, action) => {
+        axios
+          .put(
+            `${process.env.REACT_APP_BACKEND_URL}/apply_leave`,
+            {
+              ...values,
+              old_from_date: data?.from_date,
+              old_to_date: data?.to_date,
+              old_email: data?.employee_email,
+              old_status: true,
+              old_team_email: data?.team_email,
+              old_reason_leave: data?.reason_for_leave,
+              old_leave_type: data?.leave_type,
             },
-          }
-        )
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      console.log(values, "values");
-      action.resetForm();
-    },
-  });
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        console.log(values, "values");
+        action.resetForm();
+      },
+    });
   return (
     <Card>
       <form onSubmit={handleSubmit}>
@@ -165,7 +166,9 @@ const UpdateApplyleave = (props: any) => {
                 value={values.reason_for_leave}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={touched.reason_for_leave && Boolean(errors.reason_for_leave)}
+                error={
+                  touched.reason_for_leave && Boolean(errors.reason_for_leave)
+                }
                 helperText={touched.reason_for_leave && errors.reason_for_leave}
               />
             </Grid>

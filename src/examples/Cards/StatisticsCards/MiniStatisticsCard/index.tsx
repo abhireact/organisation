@@ -29,18 +29,41 @@ import { useMaterialUIController } from "context";
 
 // Decalaring props types for MiniStatisticsCard
 interface Props {
-  bgColor?: "white" | "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark";
+  bgColor?:
+    | "white"
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "dark";
   title?: {
     fontWeight?: "light" | "regular" | "medium" | "bold";
     text?: string;
   };
   count: string | number;
   percentage?: {
-    color: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark" | "white";
+    color:
+      | "primary"
+      | "secondary"
+      | "info"
+      | "success"
+      | "warning"
+      | "error"
+      | "dark"
+      | "white";
     text: string | number;
   };
   icon: {
-    color: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark";
+    color:
+      | "primary"
+      | "secondary"
+      | "info"
+      | "success"
+      | "warning"
+      | "error"
+      | "dark";
     component: ReactNode;
   };
   direction?: "right" | "left";
@@ -110,7 +133,11 @@ function MiniStatisticsCard({
                   color={bgColor === "white" ? "dark" : "white"}
                 >
                   {count}{" "}
-                  <MDTypography variant="button" color={percentage.color} fontWeight="bold">
+                  <MDTypography
+                    variant="button"
+                    color={percentage.color}
+                    fontWeight="bold"
+                  >
                     {percentage.text}
                   </MDTypography>
                 </MDTypography>

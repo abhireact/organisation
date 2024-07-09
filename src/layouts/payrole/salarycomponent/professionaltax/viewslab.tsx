@@ -52,7 +52,9 @@ const DataTable: React.FC<DataTableProps> = ({ data, stateToFind }) => {
           <MDTypography variant="subtitle2">{salary}</MDTypography>
         </td>
         <td style={tdStyle}>
-          <MDTypography variant="subtitle2">{matchingState.monthly_tax_amount[index]}</MDTypography>
+          <MDTypography variant="subtitle2">
+            {matchingState.monthly_tax_amount[index]}
+          </MDTypography>
         </td>
       </tr>
     ));
@@ -60,7 +62,9 @@ const DataTable: React.FC<DataTableProps> = ({ data, stateToFind }) => {
 
   return (
     <div>
-      <MDTypography variant="subtitle1">Tax Slabs for {stateToFind}</MDTypography>
+      <MDTypography variant="subtitle1">
+        Tax Slabs for {stateToFind}
+      </MDTypography>
       <table style={tableStyle}>
         <thead>
           <tr>

@@ -17,7 +17,17 @@ import * as Yup from "yup";
 import checkout from "layouts/pages/users/new-user/schemas/form";
 
 const {
-  formField: { firstName, lastName, email, password, repeatPassword, address1, city, zip, twitter },
+  formField: {
+    firstName,
+    lastName,
+    email,
+    password,
+    repeatPassword,
+    address1,
+    city,
+    zip,
+    twitter,
+  },
 } = checkout;
 
 const validations = [
@@ -25,8 +35,12 @@ const validations = [
     [firstName.name]: Yup.string().required(firstName.errorMsg),
     [lastName.name]: Yup.string().required(lastName.errorMsg),
     [email.name]: Yup.string().required(email.errorMsg).email(email.invalidMsg),
-    [password.name]: Yup.string().required(password.errorMsg).min(6, password.invalidMsg),
-    [password.name]: Yup.string().required(password.errorMsg).min(6, password.invalidMsg),
+    [password.name]: Yup.string()
+      .required(password.errorMsg)
+      .min(6, password.invalidMsg),
+    [password.name]: Yup.string()
+      .required(password.errorMsg)
+      .min(6, password.invalidMsg),
     [repeatPassword.name]: Yup.string()
       .required(repeatPassword.errorMsg)
       .oneOf([Yup.ref("password"), null], repeatPassword.invalidMsg),

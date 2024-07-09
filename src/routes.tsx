@@ -108,11 +108,14 @@ let submm: string[] = [];
 const token = Cookies.get("token");
 try {
   if (token) {
-    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/mg_rbac_current_user`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/mg_rbac_current_user`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (response.status == 200) {
       submm = response.data;
     }

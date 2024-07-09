@@ -52,12 +52,15 @@ const LTWreport = () => {
   const [data, setData] = useState([]);
   const fetchLeaves = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/mg_leave_type`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/mg_leave_type`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       let leavelist = response.data;
       console.log(leavelist);
       setLeaves(leavelist);
@@ -93,7 +96,11 @@ const LTWreport = () => {
   const totalSums = data.map((employee, index) => {
     const totalSum = employee.emp_leave_report
       .filter((report: { total: string }) => report.total !== "N/A")
-      .reduce((acc: number, report: { total: string }) => acc + parseInt(report.total), 0);
+      .reduce(
+        (acc: number, report: { total: string }) =>
+          acc + parseInt(report.total),
+        0
+      );
 
     return totalSum;
   });
@@ -152,21 +159,30 @@ const LTWreport = () => {
                         | string
                         | number
                         | boolean
-                        | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
                         | React.ReactFragment
                         | React.ReactPortal;
                       no_leaves:
                         | string
                         | number
                         | boolean
-                        | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
                         | React.ReactFragment
                         | React.ReactPortal;
                       total:
                         | string
                         | number
                         | boolean
-                        | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
                         | React.ReactFragment
                         | React.ReactPortal;
                     },

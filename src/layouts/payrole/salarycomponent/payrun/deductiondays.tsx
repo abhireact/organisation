@@ -50,34 +50,39 @@ export default function DeductionDays() {
         console.error("Error fetching data:", error);
       });
   };
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    enableReinitialize: true,
-    onSubmit: () => {
-      const submit_value = data
-        .filter((item) => item.leavedays != 0)
-        .map((item) => ({
-          employee_email: item.email,
-          deducted_days: item.leavedays,
-          month: values.month,
-        }));
-      console.log(submit_value, "submit value");
-      axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/mg_employee_payable`, submit_value, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          message.success("Successfully Done");
-          fetchData();
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      enableReinitialize: true,
+      onSubmit: () => {
+        const submit_value = data
+          .filter((item) => item.leavedays != 0)
+          .map((item) => ({
+            employee_email: item.email,
+            deducted_days: item.leavedays,
+            month: values.month,
+          }));
+        console.log(submit_value, "submit value");
+        axios
+          .post(
+            `${process.env.REACT_APP_BACKEND_URL}/mg_employee_payable`,
+            submit_value,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            message.success("Successfully Done");
+            fetchData();
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      },
+    });
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/mg_employee_payable`, {

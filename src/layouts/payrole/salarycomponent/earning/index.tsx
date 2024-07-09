@@ -133,11 +133,16 @@ function Earning() {
     rows: earnings.map((data, index) => ({
       name: data.display_name,
       earning_type: data.earning_type_name,
-      calculation_type: data.enter_amount_or_percent + " " + data.calculation_type,
-      consider_for_epf: data.salary_directives.includes("Consider for EPF Contribution")
+      calculation_type:
+        data.enter_amount_or_percent + " " + data.calculation_type,
+      consider_for_epf: data.salary_directives.includes(
+        "Consider for EPF Contribution"
+      )
         ? "Yes"
         : "No",
-      consider_for_esi: data.salary_directives.includes("Consider for ESI Contribution")
+      consider_for_esi: data.salary_directives.includes(
+        "Consider for ESI Contribution"
+      )
         ? "Yes"
         : "No",
       status: (
@@ -179,7 +184,10 @@ function Earning() {
             <MDTypography variant="h5">Earning</MDTypography>
           </Grid>
           <Grid item xs={12} sm={4} display="flex" justifyContent="flex-end">
-            <Link href="/payrole/salarycomponent/earning/createearning" variant="body2">
+            <Link
+              href="/payrole/salarycomponent/earning/createearning"
+              variant="body2"
+            >
               <MDButton variant="gradient" color="info" type="submit">
                 {"+Create Earning"}
               </MDButton>

@@ -38,17 +38,20 @@ const ShowEmployee = () => {
   const rbacData = useSelector((state: any) => state.dummyData?.rbacData);
   const handleDelete = async (first_name: any, last_name: any, email: any) => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/employee/`, {
-        data: {
-          first_name: first_name,
-          last_name: last_name,
-          email: email,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/employee/`,
+        {
+          data: {
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.status == 200) {
         message.success("Deleted succefully ");
@@ -59,7 +62,9 @@ const ShowEmployee = () => {
     } catch (error: unknown) {
       console.error("Error deleting task:", error);
       const myError = error as MyError;
-      message.error(myError?.response?.data?.detail || "An unexpected error occurred");
+      message.error(
+        myError?.response?.data?.detail || "An unexpected error occurred"
+      );
     }
   };
   const handleUpdate = async (data: any) => {
@@ -121,7 +126,11 @@ const ShowEmployee = () => {
     rows: data.map((row, index) => ({
       emp_name: (
         <>
-          {row.gender === "female" ? <Avatar src={"woman.png"} /> : <Avatar src={"man.png"} />}
+          {row.gender === "female" ? (
+            <Avatar src={"woman.png"} />
+          ) : (
+            <Avatar src={"man.png"} />
+          )}
           <MDTypography variant="p">
             {row.first_name} {row.last_name}
           </MDTypography>
@@ -136,7 +145,9 @@ const ShowEmployee = () => {
       action: (
         <MDTypography variant="p">
           {rbacData ? (
-            rbacData?.find((element: string) => element === "showemployeeupdate") ? (
+            rbacData?.find(
+              (element: string) => element === "showemployeeupdate"
+            ) ? (
               <IconButton onClick={() => handleUpdate(row)}>
                 <CreateRoundedIcon />
               </IconButton>
@@ -147,8 +158,14 @@ const ShowEmployee = () => {
             ""
           )}
           {rbacData ? (
-            rbacData?.find((element: string) => element === "showemployeedelete") ? (
-              <IconButton onClick={() => handleDelete(row.first_name, row.last_name, row.email)}>
+            rbacData?.find(
+              (element: string) => element === "showemployeedelete"
+            ) ? (
+              <IconButton
+                onClick={() =>
+                  handleDelete(row.first_name, row.last_name, row.email)
+                }
+              >
                 <DeleteIcon />
               </IconButton>
             ) : (
@@ -174,8 +191,16 @@ const ShowEmployee = () => {
         </Grid>
         <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
           {rbacData ? (
-            rbacData?.find((element: string) => element === "showemployeecreate") ? (
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+            rbacData?.find(
+              (element: string) => element === "showemployeecreate"
+            ) ? (
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDButton
                   variant="gradient"
                   color="info"

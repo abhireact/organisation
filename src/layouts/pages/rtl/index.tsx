@@ -131,7 +131,11 @@ function RTL(): JSX.Element {
               </MDBox>
             </Grid>
             <Grid item xs={12} lg={4}>
-              <MasterCard number={4562112245947852} holder="جاك بيترسون" expires="11/22" />
+              <MasterCard
+                number={4562112245947852}
+                holder="جاك بيترسون"
+                expires="11/22"
+              />
             </Grid>
           </Grid>
         </MDBox>
@@ -144,7 +148,10 @@ function RTL(): JSX.Element {
               <ControllerCard
                 state={lights}
                 icon={
-                  <Icon className={lights ? "text-white" : "text-dark"} fontSize="large">
+                  <Icon
+                    className={lights ? "text-white" : "text-dark"}
+                    fontSize="large"
+                  >
                     lightbulb
                   </Icon>
                 }
@@ -166,7 +173,11 @@ function RTL(): JSX.Element {
                 title={
                   <>
                     754&nbsp;
-                    <MDTypography variant="button" color="secondary" fontWeight="medium">
+                    <MDTypography
+                      variant="button"
+                      color="secondary"
+                      fontWeight="medium"
+                    >
                       م
                     </MDTypography>
                   </>

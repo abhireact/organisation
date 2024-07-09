@@ -19,12 +19,15 @@ const ListView = () => {
   const [LeaveData, setleaveData] = useState([]);
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/currentleave/me`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/currentleave/me`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setleaveData(response.data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -70,10 +73,16 @@ const ListView = () => {
                 {data.leave_type}
               </MDTypography>
               <CardContent>
-                <Avatar src={data?.leave_image} alt="image link" variant="square" />
+                <Avatar
+                  src={data?.leave_image}
+                  alt="image link"
+                  variant="square"
+                />
               </CardContent>
               <MDTypography variant="body2" fontWeight="regular">
-                {data.number_of_leaves ? `Available: ${data.number_of_leaves}` : "Available:"}
+                {data.number_of_leaves
+                  ? `Available: ${data.number_of_leaves}`
+                  : "Available:"}
               </MDTypography>
               <MDTypography variant="body2" fontWeight="regular">
                 {data.booked ? ` Booked: ${data.booked}` : "Booked:"}

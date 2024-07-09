@@ -57,7 +57,8 @@ function IllustrationLayout({
         routes={pageRoutes}
         action={{
           type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-2-pro-react-ts",
+          route:
+            "https://creative-tim.com/product/material-dashboard-2-pro-react-ts",
           label: "buy now",
           color: "info",
         }}
@@ -81,7 +82,12 @@ function IllustrationLayout({
           />
         </Grid>
         <Grid item xs={11} sm={8} md={6} lg={4} xl={3} sx={{ mx: "auto" }}>
-          <MDBox display="flex" flexDirection="column" justifyContent="center" height="100vh">
+          <MDBox
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            height="100vh"
+          >
             <MDBox py={3} px={3} textAlign="center">
               {!header ? (
                 <>

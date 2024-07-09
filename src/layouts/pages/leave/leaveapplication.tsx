@@ -24,7 +24,10 @@ import Viewleave from "./viewLeaves";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 import { C } from "@fullcalendar/core/internal-common";
-function getDaysDifference(startDateStr: string, endDateStr: string): number | string {
+function getDaysDifference(
+  startDateStr: string,
+  endDateStr: string
+): number | string {
   // Parse the date strings into Date objects
   const startDate = new Date(startDateStr);
   const endDate = new Date(endDateStr);
@@ -85,12 +88,15 @@ const LeaveApplication = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/apply_leave/manager_leave_applications`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/apply_leave/manager_leave_applications`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         setData(response.data);
 
@@ -116,7 +122,9 @@ const LeaveApplication = () => {
     ],
 
     rows: data.map((row, index) => ({
-      employee_name: <MDTypography variant="p">{row.employee_name}</MDTypography>,
+      employee_name: (
+        <MDTypography variant="p">{row.employee_name}</MDTypography>
+      ),
       leave_type: <MDTypography variant="p">{row.leave_type}</MDTypography>,
       type: <MDTypography variant="p">{row.type}</MDTypography>,
       created_at: <MDTypography variant="p">{row.created_at}</MDTypography>,
@@ -126,7 +134,9 @@ const LeaveApplication = () => {
         </MDTypography>
       ),
       leave_days: (
-        <MDTypography variant="p">{getDaysDifference(row.from_date, row.to_date)}</MDTypography>
+        <MDTypography variant="p">
+          {getDaysDifference(row.from_date, row.to_date)}
+        </MDTypography>
       ),
       to_date: <MDTypography variant="p">{row.to_date}</MDTypography>,
       action:
@@ -160,10 +170,18 @@ const LeaveApplication = () => {
       <DashboardNavbar />
       <Card>
         <Dialog open={openupdate} onClose={handleCloseupdate}>
-          <UpdateApplyleave openupdate={openupdate} setOpenupdate={setOpenupdate} data={editData} />
+          <UpdateApplyleave
+            openupdate={openupdate}
+            setOpenupdate={setOpenupdate}
+            data={editData}
+          />
         </Dialog>
         <Dialog open={openview} onClose={handleCloseview}>
-          <Viewleave openview={openview} setOpenview={setOpenview} data={Viewdata} />
+          <Viewleave
+            openview={openview}
+            setOpenview={setOpenview}
+            data={Viewdata}
+          />
         </Dialog>
         <Grid container spacing={3} p={2}>
           <Grid item xs={12} sm={9}>

@@ -33,7 +33,9 @@ export default styled(LinearProgress)(
         ? linearGradient(gradients[color].main, gradients[color].state)
         : linearGradient(gradients.info.main, gradients.info.state);
     } else {
-      backgroundValue = palette[color] ? palette[color].main : palette.info.main;
+      backgroundValue = palette[color]
+        ? palette[color].main
+        : palette.info.main;
     }
 
     return {

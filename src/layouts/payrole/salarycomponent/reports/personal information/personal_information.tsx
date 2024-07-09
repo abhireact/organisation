@@ -40,7 +40,10 @@ const Salary_Withhold_Report = () => {
                       Jitendra
                     </MDTypography>
                     <Grid item xs={12} sm={12}>
-                      <MDTypography variant="body2" sx={{ textAlign: "center" }}>
+                      <MDTypography
+                        variant="body2"
+                        sx={{ textAlign: "center" }}
+                      >
                         Manager
                       </MDTypography>
                     </Grid>
@@ -53,7 +56,9 @@ const Salary_Withhold_Report = () => {
                     <MailOutlineIcon />
                   </Grid>
                   <Grid item xs={12} sm={10} sx={{ textAlign: "start" }}>
-                    <MDTypography variant="overline">jitendrabedanta42@mindc..</MDTypography>
+                    <MDTypography variant="overline">
+                      jitendrabedanta42@mindc..
+                    </MDTypography>
                   </Grid>
                 </Grid>
 
@@ -79,7 +84,9 @@ const Salary_Withhold_Report = () => {
                     <BrowserUpdatedOutlinedIcon />
                   </Grid>
                   <Grid item xs={12} sm={10} sx={{ textAlign: "start" }}>
-                    <MDTypography variant="overline">DOJ-06/07/2022</MDTypography>
+                    <MDTypography variant="overline">
+                      DOJ-06/07/2022
+                    </MDTypography>
                   </Grid>
                 </Grid>
                 <Grid container>
@@ -93,7 +100,9 @@ const Salary_Withhold_Report = () => {
                 <br />
 
                 <Grid item xs={12} sm={12}>
-                  <MDTypography variant="subtitle2">STATURIOUS DETAILS</MDTypography>
+                  <MDTypography variant="subtitle2">
+                    STATURIOUS DETAILS
+                  </MDTypography>
                 </Grid>
                 <Grid item xs={12} sm={12}>
                   <MDTypography variant="caption">PAN</MDTypography>
@@ -107,35 +116,47 @@ const Salary_Withhold_Report = () => {
           <Grid item xs={12} sm={9}>
             <Card sx={{ width: "100%", mt: "3" }}>
               <MDBox p={3}>
-                <MDTypography variant="body1">Personal Information</MDTypography>
+                <MDTypography variant="body1">
+                  Personal Information
+                </MDTypography>
                 <br />
                 <Grid container>
                   <Grid item xs={12} sm={1}>
                     <EventNoteOutlinedIcon />
                   </Grid>
                   <Grid item xs={12} sm={3} sx={{ textAlign: "start" }}>
-                    <MDTypography variant="subtitle2">Date of Birth</MDTypography>
+                    <MDTypography variant="subtitle2">
+                      Date of Birth
+                    </MDTypography>
                     <MDTypography variant="overline">01/04/2004</MDTypography>
                   </Grid>
                   <Grid item xs={12} sm={1}>
                     <PhoneAndroidOutlinedIcon />
                   </Grid>
                   <Grid item xs={12} sm={3} sx={{ textAlign: "start" }}>
-                    <MDTypography variant="subtitle2">Mobile Number</MDTypography>
+                    <MDTypography variant="subtitle2">
+                      Mobile Number
+                    </MDTypography>
                     <MDTypography variant="overline">7847916088</MDTypography>
                   </Grid>
                   <Grid item xs={12} sm={1}>
                     <MailOutlinedIcon />
                   </Grid>
                   <Grid item xs={12} sm={3} sx={{ textAlign: "start" }}>
-                    <MDTypography variant="subtitle2">Contact Mail</MDTypography>
-                    <MDTypography variant="overline">jitendrabedanta@gmail.com</MDTypography>
+                    <MDTypography variant="subtitle2">
+                      Contact Mail
+                    </MDTypography>
+                    <MDTypography variant="overline">
+                      jitendrabedanta@gmail.com
+                    </MDTypography>
                   </Grid>
                 </Grid>
                 <br />
                 <Grid container>
                   <Grid item xs={12} sm={4} sx={{ textAlign: "start" }}>
-                    <MDTypography variant="subtitle2">Father`s Name</MDTypography>
+                    <MDTypography variant="subtitle2">
+                      Father`s Name
+                    </MDTypography>
                     <MDTypography variant="overline">AnantaKishor</MDTypography>
                   </Grid>
                   <Grid item xs={12} sm={3} sx={{ textAlign: "start" }}>

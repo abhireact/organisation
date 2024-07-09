@@ -95,8 +95,13 @@ const Updatedep = (props: any) => {
                 value={formik.values.departmentname}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.departmentname && Boolean(formik.errors.departmentname)}
-                helperText={formik.touched.departmentname && formik.errors.departmentname}
+                error={
+                  formik.touched.departmentname &&
+                  Boolean(formik.errors.departmentname)
+                }
+                helperText={
+                  formik.touched.departmentname && formik.errors.departmentname
+                }
                 mb={10}
                 mt={10}
               />
@@ -111,8 +116,13 @@ const Updatedep = (props: any) => {
                 value={formik.values.departmentcode}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.departmentcode && Boolean(formik.errors.departmentcode)}
-                helperText={formik.touched.departmentcode && formik.errors.departmentcode}
+                error={
+                  formik.touched.departmentcode &&
+                  Boolean(formik.errors.departmentcode)
+                }
+                helperText={
+                  formik.touched.departmentcode && formik.errors.departmentcode
+                }
                 mb={10}
                 mt={10}
               />
@@ -126,8 +136,13 @@ const Updatedep = (props: any) => {
                 value={formik.values.description}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.description && Boolean(formik.errors.description)}
-                helperText={formik.touched.description && formik.errors.description}
+                error={
+                  formik.touched.description &&
+                  Boolean(formik.errors.description)
+                }
+                helperText={
+                  formik.touched.description && formik.errors.description
+                }
                 mb={10}
                 mt={10}
                 sx={{ width: "80%" }}

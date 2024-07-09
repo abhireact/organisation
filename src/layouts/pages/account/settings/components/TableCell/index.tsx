@@ -28,7 +28,13 @@ interface Props {
   noBorder?: boolean;
 }
 
-function TableCell({ width, align, padding, noBorder, children }: Props): JSX.Element {
+function TableCell({
+  width,
+  align,
+  padding,
+  noBorder,
+  children,
+}: Props): JSX.Element {
   return (
     <MDBox
       component="th"

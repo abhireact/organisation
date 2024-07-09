@@ -35,12 +35,15 @@ const Extrawork = (props: any) => {
 
   const fetchLocations = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/worklocation`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/worklocation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response.data);
       setLocations(response.data);
     } catch (error) {

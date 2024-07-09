@@ -49,35 +49,47 @@ function CreatePage() {
   const [calculationtype, setCalculationType] = useState("Flat Amount");
   const [date, setDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      enableReinitialize: true,
-      onSubmit: async (values, action) => {
-        try {
-          const formvalue = {
-            ...values,
-            deduction_with: values.deduction_with.group + "-" + values.deduction_with.name,
-          };
-          axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/mg_pre_tax_deduction`, formvalue, {
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: async (values, action) => {
+      try {
+        const formvalue = {
+          ...values,
+          deduction_with:
+            values.deduction_with.group + "-" + values.deduction_with.name,
+        };
+        axios
+          .post(
+            `${process.env.REACT_APP_BACKEND_URL}/mg_pre_tax_deduction`,
+            formvalue,
+            {
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
-            })
-            .then((response) => {
-              message.success(response.data.message);
-              action.resetForm();
-            })
-            .catch((error) => {
-              message.error(error.response.data.detail);
-            });
-        } catch (error) {
-          console.error("Error saving data:", error);
-        }
-      },
-    });
+            }
+          )
+          .then((response) => {
+            message.success(response.data.message);
+            action.resetForm();
+          })
+          .catch((error) => {
+            message.error(error.response.data.detail);
+          });
+      } catch (error) {
+        console.error("Error saving data:", error);
+      }
+    },
+  });
   //   console.log(values, calculationtype, date, endDate);
   const handleFormSubmit = async () => {
     // console.log();
@@ -226,7 +238,9 @@ function CreatePage() {
               <Grid item xs={12} sm={12} p={2}>
                 <Card sx={{ width: "80%", margin: "auto", mt: "2%" }}>
                   <Grid p={2}>
-                    <MDTypography variant="h7">Tax deduction guidelines for NPS</MDTypography>
+                    <MDTypography variant="h7">
+                      Tax deduction guidelines for NPS
+                    </MDTypography>
                     <Grid pl={4}>
                       <ul>
                         <li>
@@ -257,7 +271,14 @@ function CreatePage() {
               </Grid>
             ) : null}
           </Grid>
-          <Grid item xs={12} sm={3} p={3} display="flex" justifyContent="flex-end">
+          <Grid
+            item
+            xs={12}
+            sm={3}
+            p={3}
+            display="flex"
+            justifyContent="flex-end"
+          >
             <MDButton
               pr={2}
               variant="outlined"
@@ -267,7 +288,12 @@ function CreatePage() {
             >
               {"Back"}
             </MDButton>
-            <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+            <MDButton
+              variant="gradient"
+              color="info"
+              type="submit"
+              onClick={handleFormSubmit}
+            >
               {"Save"}
             </MDButton>
           </Grid>

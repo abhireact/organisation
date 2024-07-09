@@ -13,10 +13,13 @@ function getCurrentFinancialYearMonths(): MonthYear[] {
   // Determine the start month of the financial year (e.g., April)
   const financialYearStartMonth = 3; // April (0-indexed)
   const startMonth =
-    currentMonth >= financialYearStartMonth ? financialYearStartMonth : financialYearStartMonth - 1;
+    currentMonth >= financialYearStartMonth
+      ? financialYearStartMonth
+      : financialYearStartMonth - 1;
 
   // Calculate the start year of the financial year
-  const startYear = currentMonth >= financialYearStartMonth ? currentYear : currentYear - 1;
+  const startYear =
+    currentMonth >= financialYearStartMonth ? currentYear : currentYear - 1;
 
   const months: MonthYear[] = [];
   for (let i = 0; i < 12; i++) {

@@ -168,18 +168,24 @@ const CompensatoryrequestSchedular = () => {
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-  const [selectedDesignations, setSelectedDesignations] = useState<string[]>([]);
+  const [selectedDesignations, setSelectedDesignations] = useState<string[]>(
+    []
+  );
   const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
 
   useEffect(() => {
     axios
@@ -266,12 +272,16 @@ const CompensatoryrequestSchedular = () => {
       };
       ("");
       console.log(formValues, "formdata");
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/payperiod`, formValues, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/payperiod`,
+        formValues,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log(response);
 
@@ -356,7 +366,10 @@ const CompensatoryrequestSchedular = () => {
                 />
               }
               label={
-                <MDTypography variant="body2"> Include overtime done on working day</MDTypography>
+                <MDTypography variant="body2">
+                  {" "}
+                  Include overtime done on working day
+                </MDTypography>
               }
               labelPlacement="end"
             />

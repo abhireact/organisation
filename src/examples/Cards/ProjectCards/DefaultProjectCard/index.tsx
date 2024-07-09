@@ -108,7 +108,12 @@ function DefaultProjectCard({
         />
       </MDBox>
       <MDBox mt={1} mx={0.5}>
-        <MDTypography variant="button" fontWeight="regular" color="text" textTransform="capitalize">
+        <MDTypography
+          variant="button"
+          fontWeight="regular"
+          color="text"
+          textTransform="capitalize"
+        >
           {label}
         </MDTypography>
         <MDBox mb={1}>
@@ -139,7 +144,11 @@ function DefaultProjectCard({
             {description}
           </MDTypography>
         </MDBox>
-        <MDBox display="flex" justifyContent="space-between" alignItems="center">
+        <MDBox
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           {action.type === "internal" ? (
             <MDButton
               component={Link}

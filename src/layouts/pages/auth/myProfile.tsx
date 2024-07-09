@@ -48,7 +48,9 @@ const MYProfile = () => {
 
           <Grid item sm={6}>
             <Grid item sm={5}>
-              <MDTypography variant="subtitle1">{data[0]?.username}</MDTypography>
+              <MDTypography variant="subtitle1">
+                {data[0]?.username}
+              </MDTypography>
             </Grid>
             <Grid item sm={5}>
               <MDTypography variant="subtitle2">{data[0]?.email}</MDTypography>

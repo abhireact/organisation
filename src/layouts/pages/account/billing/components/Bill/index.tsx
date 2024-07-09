@@ -57,11 +57,20 @@ function Bill({ name, company, email, vat, noGutter }: Props): JSX.Element {
           flexDirection={{ xs: "column", sm: "row" }}
           mb={2}
         >
-          <MDTypography variant="button" fontWeight="medium" textTransform="capitalize">
+          <MDTypography
+            variant="button"
+            fontWeight="medium"
+            textTransform="capitalize"
+          >
             {name}
           </MDTypography>
 
-          <MDBox display="flex" alignItems="center" mt={{ xs: 2, sm: 0 }} ml={{ xs: -1.5, sm: 0 }}>
+          <MDBox
+            display="flex"
+            alignItems="center"
+            mt={{ xs: 2, sm: 0 }}
+            ml={{ xs: -1.5, sm: 0 }}
+          >
             <MDBox mr={1}>
               <MDButton variant="text" color="error">
                 <Icon>delete</Icon>&nbsp;delete
@@ -75,7 +84,11 @@ function Bill({ name, company, email, vat, noGutter }: Props): JSX.Element {
         <MDBox mb={1} lineHeight={0}>
           <MDTypography variant="caption" color="text">
             Company Name:&nbsp;&nbsp;&nbsp;
-            <MDTypography variant="caption" fontWeight="medium" textTransform="capitalize">
+            <MDTypography
+              variant="caption"
+              fontWeight="medium"
+              textTransform="capitalize"
+            >
               {company}
             </MDTypography>
           </MDTypography>

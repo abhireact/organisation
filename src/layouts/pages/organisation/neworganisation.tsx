@@ -100,15 +100,19 @@ const initialValues = {
 const Orgprofile = () => {
   const navigate = useNavigate();
   // const { t } = useTranslation("translation");
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: validationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: validationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
   console.log(token, "token");
 
@@ -159,7 +163,9 @@ const Orgprofile = () => {
           <MDBox p={4}>
             <Grid container spacing={3} pb={5}>
               <Grid item xs={12} sm={9}>
-                <MDTypography variant="h5">{" Create Organisation"}</MDTypography>
+                <MDTypography variant="h5">
+                  {" Create Organisation"}
+                </MDTypography>
               </Grid>
               {/* <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
                 <MDButton variant="gradient" color="info" type="submit">
@@ -179,7 +185,8 @@ const Orgprofile = () => {
                 </Stack>
                 <Stack mt={5} p={2}>
                   <MDTypography variant="body2" className="droptwo">
-                    Preferred Image Size: 240 x 240 pixels @ 72 DPI, Maximum size of 1MB.{" "}
+                    Preferred Image Size: 240 x 240 pixels @ 72 DPI, Maximum
+                    size of 1MB.{" "}
                   </MDTypography>
                 </Stack>
               </Grid>
@@ -331,12 +338,20 @@ const Orgprofile = () => {
                 <Dialog open={openupdate} onClose={handleCloseupdate}>
                   <DialogTitle>Filing Address</DialogTitle>
                   <DialogContent>
-                    <Extrawork openupdate={openupdate} setOpenupdate={setOpenupdate} />
+                    <Extrawork
+                      openupdate={openupdate}
+                      setOpenupdate={setOpenupdate}
+                    />
                   </DialogContent>
                 </Dialog>
               </Grid>
 
-              <MDButton color="info" variant="contained" type="submit" onClick={handleFormSubmit}>
+              <MDButton
+                color="info"
+                variant="contained"
+                type="submit"
+                onClick={handleFormSubmit}
+              >
                 Submit
               </MDButton>
             </Grid>

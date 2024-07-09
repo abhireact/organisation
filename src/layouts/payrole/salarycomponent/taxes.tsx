@@ -59,12 +59,15 @@ function Taxes() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/mg_taxes`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/mg_taxes`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (response.status === 200) {
           console.log(response.data);
           initialValues = response.data[0];
@@ -113,31 +116,42 @@ function Taxes() {
     fetchEmp();
   }, []);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      validationSchema: validationSchema,
-      enableReinitialize: true,
-      onSubmit: async (values, action) => {
-        if (savedata === "create") {
-          handleFormSubmit();
-        } else {
-          handleFormEditSubmit();
-        }
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema: validationSchema,
+    enableReinitialize: true,
+    onSubmit: async (values, action) => {
+      if (savedata === "create") {
+        handleFormSubmit();
+      } else {
+        handleFormEditSubmit();
+      }
+    },
+  });
   //   console.log(values, calculationtype, date, endDate);
   const handleFormSubmit = async () => {
     console.log({ ...values }, "submit values");
     try {
       let sendData = values;
 
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/mg_taxes`, sendData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/mg_taxes`,
+        sendData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status === 200) {
         console.log("Employee Created Successfully");
       }
@@ -150,12 +164,16 @@ function Taxes() {
       let sendData = values;
 
       axios
-        .put(`${process.env.REACT_APP_BACKEND_URL}/mg_taxes/?pan_name=${pannumber}`, sendData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .put(
+          `${process.env.REACT_APP_BACKEND_URL}/mg_taxes/?pan_name=${pannumber}`,
+          sendData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((response) => {
           message.success(response.data.message);
         })
@@ -231,8 +249,14 @@ function Taxes() {
                   variant="standard"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.tax_payment_frequency && Boolean(errors.tax_payment_frequency)}
-                  helperText={touched.tax_payment_frequency && errors.tax_payment_frequency}
+                  error={
+                    touched.tax_payment_frequency &&
+                    Boolean(errors.tax_payment_frequency)
+                  }
+                  helperText={
+                    touched.tax_payment_frequency &&
+                    errors.tax_payment_frequency
+                  }
                 />
               </Grid>
             </Grid>
@@ -252,7 +276,12 @@ function Taxes() {
                   <FormControlLabel
                     control={<></>}
                     label={
-                      <MDTypography variant="button" color="text" sx={{ fontWeight: "bold" }} p={2}>
+                      <MDTypography
+                        variant="button"
+                        color="text"
+                        sx={{ fontWeight: "bold" }}
+                        p={2}
+                      >
                         Deductor&apos;s Type*
                       </MDTypography>
                     }
@@ -260,12 +289,16 @@ function Taxes() {
                   <FormControlLabel
                     value="Employee"
                     control={<Radio />}
-                    label={<MDTypography variant="button">Employee</MDTypography>}
+                    label={
+                      <MDTypography variant="button">Employee</MDTypography>
+                    }
                   />
                   <FormControlLabel
                     value="Non-Employee"
                     control={<Radio />}
-                    label={<MDTypography variant="button">Non-Employee</MDTypography>}
+                    label={
+                      <MDTypography variant="button">Non-Employee</MDTypography>
+                    }
                   />
                 </RadioGroup>
               </Grid>
@@ -275,7 +308,9 @@ function Taxes() {
                 {values.deductor_type === "Employee" ? (
                   <Autocomplete
                     onChange={(event, value) => {
-                      handleChange({ target: { name: "deductor_name", value } });
+                      handleChange({
+                        target: { name: "deductor_name", value },
+                      });
                     }}
                     options={employees}
                     defaultValue={employee}
@@ -303,7 +338,9 @@ function Taxes() {
                     variant="standard"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    error={touched.deductor_name && Boolean(errors.deductor_name)}
+                    error={
+                      touched.deductor_name && Boolean(errors.deductor_name)
+                    }
                     helperText={touched.deductor_name && errors.deductor_name}
                   />
                 )}
@@ -318,8 +355,13 @@ function Taxes() {
                   variant="standard"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.deductor_father_name && Boolean(errors.deductor_father_name)}
-                  helperText={touched.deductor_father_name && errors.deductor_father_name}
+                  error={
+                    touched.deductor_father_name &&
+                    Boolean(errors.deductor_father_name)
+                  }
+                  helperText={
+                    touched.deductor_father_name && errors.deductor_father_name
+                  }
                 />
               </Grid>
             </Grid>
@@ -335,13 +377,26 @@ function Taxes() {
                     variant="standard"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    error={touched.deductor_designation && Boolean(errors.deductor_designation)}
-                    helperText={touched.deductor_designation && errors.deductor_designation}
+                    error={
+                      touched.deductor_designation &&
+                      Boolean(errors.deductor_designation)
+                    }
+                    helperText={
+                      touched.deductor_designation &&
+                      errors.deductor_designation
+                    }
                   />
                 </Grid>
               ) : null}
             </Grid>
-            <Grid item xs={12} sm={3} p={3} display="flex" justifyContent="flex-end">
+            <Grid
+              item
+              xs={12}
+              sm={3}
+              p={3}
+              display="flex"
+              justifyContent="flex-end"
+            >
               <MDButton variant="gradient" color="info" type="submit">
                 {"Save"}
               </MDButton>

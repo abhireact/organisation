@@ -135,12 +135,15 @@ export default function LeaveDashboard() {
   // get designationdata
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/apply_leave/report/designation`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/apply_leave/report/designation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         setDesignationData(response.data);
         // setTasks(response.data); //updating dialog box
@@ -154,12 +157,15 @@ export default function LeaveDashboard() {
   // get departmentdata
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/apply_leave/report/department`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/apply_leave/report/department`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         setDepartmentData(response.data);
         // setTasks(response.data); //updating dialog box
@@ -459,7 +465,11 @@ export default function LeaveDashboard() {
                   dataset={dataset}
                   xAxis={[{ scaleType: "band", dataKey: "month" }]}
                   series={[
-                    { dataKey: "bengaluru", label: "Bengaluru", valueFormatter },
+                    {
+                      dataKey: "bengaluru",
+                      label: "Bengaluru",
+                      valueFormatter,
+                    },
                     { dataKey: "newdelhi", label: "New Delhi", valueFormatter },
                     { dataKey: "mumbai", label: "Mumbai", valueFormatter },
                     { dataKey: "lucknow", label: "Lucknow", valueFormatter },

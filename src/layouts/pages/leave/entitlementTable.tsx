@@ -1450,7 +1450,10 @@ import LeaveGrant from "./leaveGrant";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ClearIcon from "@mui/icons-material/Clear";
-import { updateSectionName, storeEntitlementData } from "Redux/action/dummyDataActions";
+import {
+  updateSectionName,
+  storeEntitlementData,
+} from "Redux/action/dummyDataActions";
 const initialValues = {
   entitlements: [
     {
@@ -1490,10 +1493,18 @@ const selectData = {
   date: ["1st", "2nd", "3rd"],
   type_accural: ["Yearly", "Monthly", "Weekly"],
   accural_in: ["Current Accural", "Next Accural"],
-  resetCarryForward: ["Carry Forward", "Carry Forward with Expiry", "Carry Forward with OverLimit"],
+  resetCarryForward: [
+    "Carry Forward",
+    "Carry Forward with Expiry",
+    "Carry Forward with OverLimit",
+  ],
   unit: ["Unit", "Percentage"],
   effectiveFrom: ["Date of Confirmation", "Date of Joining"],
-  ProrateAccrual: ["Start of Policy", "Start and End of Policy", "Do not prorate"],
+  ProrateAccrual: [
+    "Start of Policy",
+    "Start and End of Policy",
+    "Do not prorate",
+  ],
   DeductibleHolidays: ["All Holiday", "Holiday on workdays"],
 };
 const Transition = React.forwardRef(function Transition(
@@ -1525,7 +1536,9 @@ const EntitlementTable = (props: any) => {
     // console.log(dispatched, "dispatfrhjufwefhevhjwvfhj");
   }, [dispatched, entitlementData]);
 
-  const checkMainbtnClick = useSelector((state: any) => state.dummyData.academicName);
+  const checkMainbtnClick = useSelector(
+    (state: any) => state.dummyData.academicName
+  );
   console.log("checkMainbtnClick", checkMainbtnClick);
   // const checkMainbtnClick = useSelector((state: any) => state.dummyData.className);
   // console.log("checkMainbtnClick", checkMainbtnClick);
@@ -1613,19 +1626,35 @@ const EntitlementTable = (props: any) => {
       entitlements: prevState.entitlements.slice(0, -1),
     }));
   };
-  const handleFieldChange = (fieldIndex: number, fieldName: string, value: string) => {
+  const handleFieldChange = (
+    fieldIndex: number,
+    fieldName: string,
+    value: string
+  ) => {
     const updatedValues = values.entitlements.map((entitlement, index) =>
-      index === fieldIndex ? { ...entitlement, [fieldName]: value } : entitlement
+      index === fieldIndex
+        ? { ...entitlement, [fieldName]: value }
+        : entitlement
     );
     setValues({ ...values, entitlements: updatedValues });
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setValues } = useFormik({
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setValues,
+  } = useFormik({
     initialValues,
     onSubmit: handleFormSubmit,
   });
   console.log(props, "props");
-  const leaveBalanceBasedon = useSelector((state: any) => state.dummyData.sectionName);
+  const leaveBalanceBasedon = useSelector(
+    (state: any) => state.dummyData.sectionName
+  );
   console.log("leaveBalanceBasedon", leaveBalanceBasedon);
 
   const x = "abc";
@@ -1648,7 +1677,11 @@ const EntitlementTable = (props: any) => {
                   name={`entitlements[${fieldIndex}].efective_after_input`}
                   value={entitlement.efective_after_input}
                   onChange={(event: { target: { value: string } }) =>
-                    handleFieldChange(fieldIndex, "efective_after_input", event.target.value)
+                    handleFieldChange(
+                      fieldIndex,
+                      "efective_after_input",
+                      event.target.value
+                    )
                   }
                   sx={{ width: "40%" }}
                 />
@@ -1658,7 +1691,11 @@ const EntitlementTable = (props: any) => {
                   value={entitlement.efective_after_select}
                   defaultValue="Year"
                   onChange={(_, value) =>
-                    handleFieldChange(fieldIndex, "efective_after_select", value)
+                    handleFieldChange(
+                      fieldIndex,
+                      "efective_after_select",
+                      value
+                    )
                   }
                   options={selectData.effectiveAter}
                   renderInput={(params) => (
@@ -1667,7 +1704,11 @@ const EntitlementTable = (props: any) => {
                       InputLabelProps={{ shrink: true }}
                       name={`entitlements[${fieldIndex}].efective_after_select`}
                       onChange={(event: { target: { value: string } }) =>
-                        handleFieldChange(fieldIndex, "efective_after_select", event.target.value)
+                        handleFieldChange(
+                          fieldIndex,
+                          "efective_after_select",
+                          event.target.value
+                        )
                       }
                       value={entitlement.efective_after_select}
                       {...params}
@@ -1699,7 +1740,11 @@ const EntitlementTable = (props: any) => {
                       InputLabelProps={{ shrink: true }}
                       name={`entitlements[${fieldIndex}].efective_after_from`}
                       onChange={(event: { target: { value: string } }) =>
-                        handleFieldChange(fieldIndex, "efective_after_from", event.target.value)
+                        handleFieldChange(
+                          fieldIndex,
+                          "efective_after_from",
+                          event.target.value
+                        )
                       }
                       value={entitlement.efective_after_from}
                       {...params}
@@ -1732,7 +1777,11 @@ const EntitlementTable = (props: any) => {
                         defaultValue="Yearly"
                         value={entitlement.accural_select1}
                         onChange={(_, value) =>
-                          handleFieldChange(fieldIndex, "accural_select1", value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "accural_select1",
+                            value
+                          )
                         }
                         options={selectData.effectiveFrom}
                         renderInput={(params) => (
@@ -1741,7 +1790,11 @@ const EntitlementTable = (props: any) => {
                             InputLabelProps={{ shrink: true }}
                             name={`entitlements[${fieldIndex}].accural_select1`}
                             onChange={(event: { target: { value: string } }) =>
-                              handleFieldChange(fieldIndex, "accural_select1", event.target.value)
+                              handleFieldChange(
+                                fieldIndex,
+                                "accural_select1",
+                                event.target.value
+                              )
                             }
                             value={entitlement.accural_select1}
                             {...params}
@@ -1761,7 +1814,11 @@ const EntitlementTable = (props: any) => {
                         defaultValue="1st"
                         value={entitlement.accural_select2}
                         onChange={(_, value) =>
-                          handleFieldChange(fieldIndex, "accural_select2", value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "accural_select2",
+                            value
+                          )
                         }
                         options={selectData.date}
                         renderInput={(params) => (
@@ -1770,7 +1827,11 @@ const EntitlementTable = (props: any) => {
                             InputLabelProps={{ shrink: true }}
                             name={`entitlements[${fieldIndex}].accural_select2`}
                             onChange={(event: { target: { value: string } }) =>
-                              handleFieldChange(fieldIndex, "accural_select2", event.target.value)
+                              handleFieldChange(
+                                fieldIndex,
+                                "accural_select2",
+                                event.target.value
+                              )
                             }
                             value={entitlement.accural_select2}
                             {...params}
@@ -1785,7 +1846,11 @@ const EntitlementTable = (props: any) => {
                         defaultValue="Jan"
                         value={entitlement.accural_select3}
                         onChange={(_, value) =>
-                          handleFieldChange(fieldIndex, "accural_select3", value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "accural_select3",
+                            value
+                          )
                         }
                         options={selectData.month}
                         renderInput={(params) => (
@@ -1794,7 +1859,11 @@ const EntitlementTable = (props: any) => {
                             InputLabelProps={{ shrink: true }}
                             name={`entitlements[${fieldIndex}].accural_select3`}
                             onChange={(event: { target: { value: string } }) =>
-                              handleFieldChange(fieldIndex, "accural_select3", event.target.value)
+                              handleFieldChange(
+                                fieldIndex,
+                                "accural_select3",
+                                event.target.value
+                              )
                             }
                             value={entitlement.accural_select3}
                             {...params}
@@ -1816,7 +1885,11 @@ const EntitlementTable = (props: any) => {
                         name={`entitlements[${fieldIndex}].accural_input`}
                         value={entitlement.accural_input}
                         onChange={(event: { target: { value: string } }) =>
-                          handleFieldChange(fieldIndex, "accural_input", event.target.value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "accural_input",
+                            event.target.value
+                          )
                         }
                         sx={{ width: "100%" }}
                       />
@@ -1830,7 +1903,11 @@ const EntitlementTable = (props: any) => {
                         defaultValue="Current Accural "
                         value={entitlement.accural_select4}
                         onChange={(_, value) =>
-                          handleFieldChange(fieldIndex, "accural_select4", value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "accural_select4",
+                            value
+                          )
                         }
                         options={selectData.accural_in}
                         renderInput={(params) => (
@@ -1839,7 +1916,11 @@ const EntitlementTable = (props: any) => {
                             InputLabelProps={{ shrink: true }}
                             name={`entitlements[${fieldIndex}].accural_select4`}
                             onChange={(event: { target: { value: string } }) =>
-                              handleFieldChange(fieldIndex, "accural_select4", event.target.value)
+                              handleFieldChange(
+                                fieldIndex,
+                                "accural_select4",
+                                event.target.value
+                              )
                             }
                             value={entitlement.accural_select4}
                             {...params}
@@ -1854,7 +1935,10 @@ const EntitlementTable = (props: any) => {
             ) : (
               <Grid container spacing={2} p={2}>
                 <Grid>
-                  <FormControlLabel label="Leave Grant" control={<Checkbox checked />} />
+                  <FormControlLabel
+                    label="Leave Grant"
+                    control={<Checkbox checked />}
+                  />
                 </Grid>
                 <Grid>
                   {/* <MDTypography
@@ -1869,7 +1953,10 @@ const EntitlementTable = (props: any) => {
                   </MDTypography> */}
                   {/* <MDButton> Set leave grant restrictions</MDButton> */}
                   <div>
-                    <Button onClick={handleClickOpen}> Set leave grant Restrictions</Button>
+                    <Button onClick={handleClickOpen}>
+                      {" "}
+                      Set leave grant Restrictions
+                    </Button>
                     <Dialog
                       open={open}
                       TransitionComponent={Transition}
@@ -1886,14 +1973,27 @@ const EntitlementTable = (props: any) => {
                       <Grid container>
                         <Grid sm={11}>
                           {" "}
-                          <DialogTitle>{"Leave Grant Restrictions"}</DialogTitle>
+                          <DialogTitle>
+                            {"Leave Grant Restrictions"}
+                          </DialogTitle>
                         </Grid>
 
-                        <Grid justifyContent={"right"} textAlign={"right"} sm={1}>
+                        <Grid
+                          justifyContent={"right"}
+                          textAlign={"right"}
+                          sm={1}
+                        >
                           {" "}
-                          <Button onClick={handleClose} sx={{ bgcolor: "black", padding: 0 }}>
+                          <Button
+                            onClick={handleClose}
+                            sx={{ bgcolor: "black", padding: 0 }}
+                          >
                             {" "}
-                            <ClearIcon color="primary" fontSize="large" sx={{ padding: 0 }} />
+                            <ClearIcon
+                              color="primary"
+                              fontSize="large"
+                              sx={{ padding: 0 }}
+                            />
                             {/* <HomeIcon sx={{ fontSize: 50 }} /> */}
                           </Button>
                         </Grid>
@@ -1929,7 +2029,9 @@ const EntitlementTable = (props: any) => {
                     // multiple
                     defaultValue="Yearly"
                     value={entitlement.reset_select1}
-                    onChange={(_, value) => handleFieldChange(fieldIndex, "reset_select1", value)}
+                    onChange={(_, value) =>
+                      handleFieldChange(fieldIndex, "reset_select1", value)
+                    }
                     options={selectData.type_accural}
                     renderInput={(params) => (
                       <FormField
@@ -1937,7 +2039,11 @@ const EntitlementTable = (props: any) => {
                         InputLabelProps={{ shrink: true }}
                         name={`entitlements[${fieldIndex}].reset_select1`}
                         onChange={(event: { target: { value: string } }) =>
-                          handleFieldChange(fieldIndex, "reset_select1", event.target.value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "reset_select1",
+                            event.target.value
+                          )
                         }
                         value={entitlement.reset_select1}
                         {...params}
@@ -1956,7 +2062,9 @@ const EntitlementTable = (props: any) => {
                     // multiple
                     defaultValue="1st"
                     value={entitlement.reset_select2}
-                    onChange={(_, value) => handleFieldChange(fieldIndex, "reset_select2", value)}
+                    onChange={(_, value) =>
+                      handleFieldChange(fieldIndex, "reset_select2", value)
+                    }
                     options={selectData.date}
                     renderInput={(params) => (
                       <FormField
@@ -1964,7 +2072,11 @@ const EntitlementTable = (props: any) => {
                         InputLabelProps={{ shrink: true }}
                         name={`entitlements[${fieldIndex}].reset_select2`}
                         onChange={(event: { target: { value: string } }) =>
-                          handleFieldChange(fieldIndex, "reset_select2", event.target.value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "reset_select2",
+                            event.target.value
+                          )
                         }
                         value={entitlement.reset_select2}
                         {...params}
@@ -1978,7 +2090,9 @@ const EntitlementTable = (props: any) => {
                     // multiple
                     defaultValue="Jan"
                     value={entitlement.reset_select3}
-                    onChange={(_, value) => handleFieldChange(fieldIndex, "reset_select3", value)}
+                    onChange={(_, value) =>
+                      handleFieldChange(fieldIndex, "reset_select3", value)
+                    }
                     options={selectData.month}
                     renderInput={(params) => (
                       <FormField
@@ -1986,7 +2100,11 @@ const EntitlementTable = (props: any) => {
                         InputLabelProps={{ shrink: true }}
                         name={`entitlements[${fieldIndex}].reset_select3`}
                         onChange={(event: { target: { value: string } }) =>
-                          handleFieldChange(fieldIndex, "reset_select3", event.target.value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "reset_select3",
+                            event.target.value
+                          )
                         }
                         value={entitlement.reset_select3}
                         {...params}
@@ -2021,7 +2139,9 @@ const EntitlementTable = (props: any) => {
                     // multiple
                     defaultValue="Carry Forward"
                     value={entitlement.reset_select4}
-                    onChange={(_, value) => handleFieldChange(fieldIndex, "reset_select4", value)}
+                    onChange={(_, value) =>
+                      handleFieldChange(fieldIndex, "reset_select4", value)
+                    }
                     options={selectData.resetCarryForward}
                     renderInput={(params) => (
                       <FormField
@@ -2029,7 +2149,11 @@ const EntitlementTable = (props: any) => {
                         InputLabelProps={{ shrink: true }}
                         name={`entitlements[${fieldIndex}].reset_select4`}
                         onChange={(event: { target: { value: string } }) =>
-                          handleFieldChange(fieldIndex, "reset_select4", event.target.value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "reset_select4",
+                            event.target.value
+                          )
                         }
                         value={entitlement.reset_select4}
                         {...params}
@@ -2048,7 +2172,11 @@ const EntitlementTable = (props: any) => {
                     name={`entitlements[${fieldIndex}].reset_input1`}
                     value={entitlement.reset_input1}
                     onChange={(event: { target: { value: string } }) =>
-                      handleFieldChange(fieldIndex, "reset_input1", event.target.value)
+                      handleFieldChange(
+                        fieldIndex,
+                        "reset_input1",
+                        event.target.value
+                      )
                     }
                     sx={{ width: "40%" }}
                   />
@@ -2058,7 +2186,9 @@ const EntitlementTable = (props: any) => {
                     // multiple
                     defaultValue="Unit"
                     value={entitlement.reset_select5}
-                    onChange={(_, value) => handleFieldChange(fieldIndex, "reset_select5", value)}
+                    onChange={(_, value) =>
+                      handleFieldChange(fieldIndex, "reset_select5", value)
+                    }
                     options={selectData.unit}
                     renderInput={(params) => (
                       <FormField
@@ -2066,7 +2196,11 @@ const EntitlementTable = (props: any) => {
                         InputLabelProps={{ shrink: true }}
                         name={`entitlements[${fieldIndex}].reset_select5`}
                         onChange={(event: { target: { value: string } }) =>
-                          handleFieldChange(fieldIndex, "reset_select5", event.target.value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "reset_select5",
+                            event.target.value
+                          )
                         }
                         value={entitlement.reset_select5}
                         {...params}
@@ -2088,7 +2222,11 @@ const EntitlementTable = (props: any) => {
                     name={`entitlements[${fieldIndex}].reset_input2`}
                     value={entitlement.reset_input2}
                     onChange={(event: { target: { value: string } }) =>
-                      handleFieldChange(fieldIndex, "reset_input2", event.target.value)
+                      handleFieldChange(
+                        fieldIndex,
+                        "reset_input2",
+                        event.target.value
+                      )
                     }
                     sx={{ width: "40%" }}
                   />
@@ -2108,7 +2246,11 @@ const EntitlementTable = (props: any) => {
                     name={`entitlements[${fieldIndex}].reset_input3`}
                     value={entitlement.reset_input3}
                     onChange={(event: { target: { value: string } }) =>
-                      handleFieldChange(fieldIndex, "reset_input3", event.target.value)
+                      handleFieldChange(
+                        fieldIndex,
+                        "reset_input3",
+                        event.target.value
+                      )
                     }
                     sx={{ width: "40%" }}
                   />
@@ -2118,7 +2260,9 @@ const EntitlementTable = (props: any) => {
                     // multiple
                     defaultValue="Unit"
                     // value={entitlement.reset_select6}
-                    onChange={(_, value) => handleFieldChange(fieldIndex, "reset_select6", value)}
+                    onChange={(_, value) =>
+                      handleFieldChange(fieldIndex, "reset_select6", value)
+                    }
                     options={selectData.unit}
                     renderInput={(params) => (
                       <FormField
@@ -2126,7 +2270,11 @@ const EntitlementTable = (props: any) => {
                         InputLabelProps={{ shrink: true }}
                         name={`entitlements[${fieldIndex}].reset_select6`}
                         onChange={(event: { target: { value: string } }) =>
-                          handleFieldChange(fieldIndex, "reset_select6", event.target.value)
+                          handleFieldChange(
+                            fieldIndex,
+                            "reset_select6",
+                            event.target.value
+                          )
                         }
                         value={entitlement.reset_select6}
                         {...params}
@@ -2146,7 +2294,11 @@ const EntitlementTable = (props: any) => {
                     name={`entitlements[${fieldIndex}].reset_input4`}
                     value={entitlement.reset_input4}
                     onChange={(event: { target: { value: string } }) =>
-                      handleFieldChange(fieldIndex, "reset_input4", event.target.value)
+                      handleFieldChange(
+                        fieldIndex,
+                        "reset_input4",
+                        event.target.value
+                      )
                     }
                     sx={{ width: "40%" }}
                   />
@@ -2165,7 +2317,11 @@ const EntitlementTable = (props: any) => {
                   name={`entitlements[${fieldIndex}].opening_balance`}
                   value={entitlement.opening_balance}
                   onChange={(event: { target: { value: string } }) =>
-                    handleFieldChange(fieldIndex, "opening_balance", event.target.value)
+                    handleFieldChange(
+                      fieldIndex,
+                      "opening_balance",
+                      event.target.value
+                    )
                   }
                   sx={{ width: "40%" }}
                 />
@@ -2178,7 +2334,9 @@ const EntitlementTable = (props: any) => {
                   // multiple
                   defaultValue="Start of Policy"
                   // value={entitlement.prorate_accural}
-                  onChange={(_, value) => handleFieldChange(fieldIndex, "prorate_accural", value)}
+                  onChange={(_, value) =>
+                    handleFieldChange(fieldIndex, "prorate_accural", value)
+                  }
                   options={selectData.ProrateAccrual}
                   renderInput={(params) => (
                     <FormField
@@ -2186,7 +2344,11 @@ const EntitlementTable = (props: any) => {
                       InputLabelProps={{ shrink: true }}
                       name={`entitlements[${fieldIndex}].prorate_accural`}
                       onChange={(event: { target: { value: string } }) =>
-                        handleFieldChange(fieldIndex, "prorate_accural", event.target.value)
+                        handleFieldChange(
+                          fieldIndex,
+                          "prorate_accural",
+                          event.target.value
+                        )
                       }
                       value={entitlement.prorate_accural}
                       {...params}
@@ -2208,7 +2370,11 @@ const EntitlementTable = (props: any) => {
                   name={`entitlements[${fieldIndex}].maximum_balance`}
                   value={entitlement.maximum_balance}
                   onChange={(event: { target: { value: string } }) =>
-                    handleFieldChange(fieldIndex, "maximum_balance", event.target.value)
+                    handleFieldChange(
+                      fieldIndex,
+                      "maximum_balance",
+                      event.target.value
+                    )
                   }
                   sx={{ width: "40%" }}
                 />
@@ -2231,7 +2397,11 @@ const EntitlementTable = (props: any) => {
                       InputLabelProps={{ shrink: true }}
                       name={`entitlements[${fieldIndex}].deduction_holidays`}
                       onChange={(event: { target: { value: string } }) =>
-                        handleFieldChange(fieldIndex, "deduction_holidays", event.target.value)
+                        handleFieldChange(
+                          fieldIndex,
+                          "deduction_holidays",
+                          event.target.value
+                        )
                       }
                       value={entitlement.deduction_holidays}
                       {...params}
@@ -2245,10 +2415,20 @@ const EntitlementTable = (props: any) => {
         </div>
       ))}
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <MDButton color="info" fontWeight="medium" onClick={addNewPolicy} textGradient>
+        <MDButton
+          color="info"
+          fontWeight="medium"
+          onClick={addNewPolicy}
+          textGradient
+        >
           Add New Policy
         </MDButton>
-        <MDButton color="info" fontWeight="medium" onClick={removeLastPolicy} textGradient>
+        <MDButton
+          color="info"
+          fontWeight="medium"
+          onClick={removeLastPolicy}
+          textGradient
+        >
           Cancel
         </MDButton>
       </div>

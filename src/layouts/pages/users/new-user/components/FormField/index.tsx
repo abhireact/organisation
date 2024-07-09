@@ -31,9 +31,21 @@ interface Props {
 function FormField({ label, name, ...rest }: Props): JSX.Element {
   return (
     <MDBox mb={1.5}>
-      <Field {...rest} name={name} as={MDInput} variant="standard" label={label} fullWidth />
+      <Field
+        {...rest}
+        name={name}
+        as={MDInput}
+        variant="standard"
+        label={label}
+        fullWidth
+      />
       <MDBox mt={0.75}>
-        <MDTypography component="div" variant="caption" color="error" fontWeight="regular">
+        <MDTypography
+          component="div"
+          variant="caption"
+          color="error"
+          fontWeight="regular"
+        >
           {(<ErrorMessage name={name} />) as any}
         </MDTypography>
       </MDBox>

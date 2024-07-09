@@ -64,15 +64,22 @@ function PayrunRecoed(props: any) {
   const [allData, SetAllData] = useState<PayrunData | null>(null);
   const [popupData, setPupupData] = useState<PopupData>({});
   const navigate = useNavigate();
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      enableReinitialize: true,
-      onSubmit: (values, action) => {
-        console.log("values", values);
-        action.resetForm();
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: (values, action) => {
+      console.log("values", values);
+      action.resetForm();
+    },
+  });
   useEffect(() => {
     const searchData = props.data;
 
@@ -255,13 +262,25 @@ function PayrunRecoed(props: any) {
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="h6">{popupData?.name}</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button">Net Pay</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="body2">Emp. ID: 80deb</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="h6">{popupData?.net_pay}</MDTypography>
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -272,21 +291,45 @@ function PayrunRecoed(props: any) {
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="body2">Payable Days</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                <MDTypography variant="body2">{popupData.num_of_days}</MDTypography>
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDTypography variant="body2">
+                  {popupData.num_of_days}
+                </MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="body2">LOP</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="body2">{popupData.lop}</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
-                <MDTypography variant="button" fontWeight="bold" color="success">
+                <MDTypography
+                  variant="button"
+                  fontWeight="bold"
+                  color="success"
+                >
                   EARNINGS
                 </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button" fontWeight="bold">
                   AMOUNT{" "}
                 </MDTypography>
@@ -303,19 +346,39 @@ function PayrunRecoed(props: any) {
               {popupData.earnings?.map((earningData: any, index: number) => (
                 <React.Fragment key={index}>
                   <Grid item xs={12} sm={9}>
-                    <MDTypography variant="button">{earningData.earnings_name}</MDTypography>
+                    <MDTypography variant="button">
+                      {earningData.earnings_name}
+                    </MDTypography>
                   </Grid>
-                  <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                    <MDTypography variant="button">{earningData.monthly_amount}</MDTypography>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={3}
+                    display="flex"
+                    justifyContent="flex-end"
+                  >
+                    <MDTypography variant="button">
+                      {earningData.monthly_amount}
+                    </MDTypography>
                   </Grid>
                 </React.Fragment>
               ))}
               <Grid item xs={12} sm={9}>
-                <MDTypography variant="button" color="warning" fontWeight="bold">
+                <MDTypography
+                  variant="button"
+                  color="warning"
+                  fontWeight="bold"
+                >
                   DEDUCTIONS
                 </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button" fontWeight="bold">
                   AMOUNT
                 </MDTypography>
@@ -323,10 +386,20 @@ function PayrunRecoed(props: any) {
               {popupData.earnings?.map((earningData: any, index: number) => (
                 <React.Fragment key={index}>
                   <Grid item xs={12} sm={9}>
-                    <MDTypography variant="button">{earningData.earnings_name}</MDTypography>
+                    <MDTypography variant="button">
+                      {earningData.earnings_name}
+                    </MDTypography>
                   </Grid>
-                  <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                    <MDTypography variant="button">{earningData.monthly_amount}</MDTypography>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={3}
+                    display="flex"
+                    justifyContent="flex-end"
+                  >
+                    <MDTypography variant="button">
+                      {earningData.monthly_amount}
+                    </MDTypography>
                   </Grid>
                 </React.Fragment>
               ))}
@@ -344,16 +417,35 @@ function PayrunRecoed(props: any) {
                   NET PAY
                 </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                <MDTypography variant="subtitle2" fontWeight="bold"></MDTypography>
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDTypography
+                  variant="subtitle2"
+                  fontWeight="bold"
+                ></MDTypography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <MDButton color="info" onClick={() => setOpenPopup(true)}>
                   Download Payslip
                 </MDButton>
               </Grid>
-              <Grid item xs={12} sm={6} display="flex" justifyContent="flex-end">
-                <MDButton color="secondary" variant="outlined" onClick={() => setOpenPopup(false)}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDButton
+                  color="secondary"
+                  variant="outlined"
+                  onClick={() => setOpenPopup(false)}
+                >
                   Send Payslip
                 </MDButton>
               </Grid>
@@ -366,9 +458,17 @@ function PayrunRecoed(props: any) {
           <MDBox p={3}>
             <Grid container>
               <Grid item xs={12} sm={8}>
-                <MDTypography variant="h4">Process Pay Run for {allData?.month}</MDTypography>
+                <MDTypography variant="h4">
+                  Process Pay Run for {allData?.month}
+                </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={4} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDButton
                   color="info"
                   // onClick={() => editStatus(allData?.status === "READY" ? "PAID" : "PAID")}

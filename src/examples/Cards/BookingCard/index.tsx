@@ -35,7 +35,14 @@ interface Props {
   [key: string]: any;
 }
 
-function BookingCard({ image, title, description, price, location, action }: Props): JSX.Element {
+function BookingCard({
+  image,
+  title,
+  description,
+  price,
+  location,
+  action,
+}: Props): JSX.Element {
   return (
     <Card
       sx={{
@@ -80,7 +87,12 @@ function BookingCard({ image, title, description, price, location, action }: Pro
         />
       </MDBox>
       <MDBox textAlign="center" pt={3} px={3}>
-        <MDBox display="flex" justifyContent="center" alignItems="center" mt={action ? -8 : -4.25}>
+        <MDBox
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          mt={action ? -8 : -4.25}
+        >
           {action}
         </MDBox>
         <MDTypography variant="h5" fontWeight="regular" sx={{ mt: 4 }}>

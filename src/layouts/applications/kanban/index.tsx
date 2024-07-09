@@ -52,13 +52,18 @@ function Kanban(): JSX.Element {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
-  const [newCardForm, setNewCardForm] = useState<string | number | boolean>(false);
+  const [newCardForm, setNewCardForm] = useState<string | number | boolean>(
+    false
+  );
   const [formValue, setFormValue] = useState<string>("");
 
-  const openNewCardForm = (event: HTMLButtonElement | any, id: string | number) =>
-    setNewCardForm(id);
+  const openNewCardForm = (
+    event: HTMLButtonElement | any,
+    id: string | number
+  ) => setNewCardForm(id);
   const closeNewCardForm = () => setNewCardForm(false);
-  const handeSetFormValue = ({ currentTarget }: any) => setFormValue(currentTarget.value);
+  const handeSetFormValue = ({ currentTarget }: any) =>
+    setFormValue(currentTarget.value);
 
   return (
     <DashboardLayout>
@@ -90,9 +95,18 @@ function Kanban(): JSX.Element {
             allowAddColumn
             renderColumnHeader={({ id, title }: any, { addCard }: any) => (
               <>
-                <MDBox display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+                <MDBox
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  mb={3}
+                >
                   <MDTypography variant="h6">{title}</MDTypography>
-                  <MDButton size="small" iconOnly onClick={(event) => openNewCardForm(event, id)}>
+                  <MDButton
+                    size="small"
+                    iconOnly
+                    onClick={(event) => openNewCardForm(event, id)}
+                  >
                     <Icon
                       sx={{
                         fontWeight: "bold",
@@ -153,7 +167,10 @@ function Kanban(): JSX.Element {
                 px={1.875}
                 lineHeight={1.5}
                 sx={{
-                  border: ({ borders: { borderWidth }, palette: { white } }: any) =>
+                  border: ({
+                    borders: { borderWidth },
+                    palette: { white },
+                  }: any) =>
                     darkMode ? `${borderWidth[1]} solid ${white.main}` : 0,
                   fontSize: ({ typography: { size } }: any) => size.md,
                 }}

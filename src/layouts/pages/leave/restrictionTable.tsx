@@ -57,11 +57,26 @@ const initialValues = {
 const selectData = {
   gender: ["Male", "Female"],
 
-  leaveName: ["Casual Leave", "Earned Leave", "Leave without pay", "Casual Leave", "Sick Leave"],
-  leaveappliedon: ["Date of Joining", "Date of Exit", "Date of Birth", "Date of Joining"],
+  leaveName: [
+    "Casual Leave",
+    "Earned Leave",
+    "Leave without pay",
+    "Casual Leave",
+    "Sick Leave",
+  ],
+  leaveappliedon: [
+    "Date of Joining",
+    "Date of Exit",
+    "Date of Birth",
+    "Date of Joining",
+  ],
   effectiveAter: ["Days", "Month", "Year"],
   effectiveFrom: ["Date of Confirmation", "Date of Joining"],
-  allow_users_to_view: ["Leave Taken Alone", "Simple Leave Summary", "Complete Leave Summary"],
+  allow_users_to_view: [
+    "Leave Taken Alone",
+    "Simple Leave Summary",
+    "Complete Leave Summary",
+  ],
   balance_to_be_displayed: [
     "Current Date",
     "Accural period leave",
@@ -77,22 +92,28 @@ const selectData = {
   ],
 };
 const RestrictionTable = (props: any) => {
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(values.gender, values.martial_status, "rtretrtrfr");
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(values.gender, values.martial_status, "rtretrtrfr");
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
   const dispatched = useDispatch();
 
   console.log("myname", token);
   const [restrictionData, setRestrictionData] = useState({});
-  const checkMainbtnClick = useSelector((state: any) => state.dummyData.academicName);
+  const checkMainbtnClick = useSelector(
+    (state: any) => state.dummyData.academicName
+  );
   console.log("checkMainbtnClick", checkMainbtnClick);
 
   const [isPastChecked, setIsPastChecked] = React.useState(false);
@@ -111,7 +132,8 @@ const RestrictionTable = (props: any) => {
 
       const formValues = {
         ...values,
-        allow_request_for_past_days: values.pastDate + values.pastday_value + "days",
+        allow_request_for_past_days:
+          values.pastDate + values.pastday_value + "days",
         allow_request_for_future_days: [
           values.futureDate + values.futureday_value + "days",
           values.futureDate2 + values.futureday_value2 + "days in advance",
@@ -119,7 +141,9 @@ const RestrictionTable = (props: any) => {
 
         weekend_between_leave_period:
           values.weekend_between_leave_period[0] != "D"
-            ? values.weekend_between_leave_period + values.weekend_between_leave_period_day + "days"
+            ? values.weekend_between_leave_period +
+              values.weekend_between_leave_period_day +
+              "days"
             : values.weekend_between_leave_period,
 
         holidays_between_leave_period:
@@ -136,9 +160,11 @@ const RestrictionTable = (props: any) => {
               )
             : values.applying_leaves_excel_balance,
 
-        minimum_leave_availed_per_application: values.restrictions_for_leave_input1,
+        minimum_leave_availed_per_application:
+          values.restrictions_for_leave_input1,
 
-        maximum_leave_availed_per_application: values.restrictions_for_leave_input2,
+        maximum_leave_availed_per_application:
+          values.restrictions_for_leave_input2,
 
         maximim_number_consecutive_leave_allowed:
           values.restrictions_for_leave3 + values.restrictions_for_leave_input3,
@@ -148,7 +174,8 @@ const RestrictionTable = (props: any) => {
         enable_file_upload_option:
           values.restrictions_for_leave5 + values.restrictions_for_leave_input5,
         maximum_number_of_specific_period:
-          values.maximum_number_of_specific_period + values.maximum_number_of_specific_period_input,
+          values.maximum_number_of_specific_period +
+          values.maximum_number_of_specific_period_input,
       };
       ("");
       console.log(formValues, "formdata");
@@ -204,7 +231,10 @@ const RestrictionTable = (props: any) => {
         <Grid sm={10.5} p={1}>
           <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">
-              <MDTypography variant="h6"> Weekends Between Leave Period :</MDTypography>
+              <MDTypography variant="h6">
+                {" "}
+                Weekends Between Leave Period :
+              </MDTypography>
             </FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
@@ -228,7 +258,9 @@ const RestrictionTable = (props: any) => {
                   <>
                     <Grid container spacing={1} p={1} xs={12} sm={12}>
                       <Grid sm={7}>
-                        <MDTypography variant="body2">Count as leave: Count after</MDTypography>
+                        <MDTypography variant="body2">
+                          Count as leave: Count after
+                        </MDTypography>
                       </Grid>
                       <Grid sm={3}>
                         {" "}
@@ -240,7 +272,11 @@ const RestrictionTable = (props: any) => {
                           // size="small"
                           name="weekend_between_leave_period_day"
                           value={values.weekend_between_leave_period_day}
-                          disabled={values.weekend_between_leave_period[0] == "C" ? false : true}
+                          disabled={
+                            values.weekend_between_leave_period[0] == "C"
+                              ? false
+                              : true
+                          }
                           // type="number"
                           onChange={handleChange}
                           sx={{ width: "70%" }}
@@ -258,13 +294,20 @@ const RestrictionTable = (props: any) => {
                 // value="male"
                 control={
                   <Radio
-                    checked={values.weekend_between_leave_period.includes("Donot count as leave")}
+                    checked={values.weekend_between_leave_period.includes(
+                      "Donot count as leave"
+                    )}
                     onChange={handleChange}
                     name="weekend_between_leave_period"
                     value="Donot count as leave"
                   />
                 }
-                label={<MDTypography variant="body2"> Do not count as leave</MDTypography>}
+                label={
+                  <MDTypography variant="body2">
+                    {" "}
+                    Do not count as leave
+                  </MDTypography>
+                }
               />
             </RadioGroup>
           </FormControl>
@@ -272,7 +315,10 @@ const RestrictionTable = (props: any) => {
         <Grid sm={10.5} p={1}>
           <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">
-              <MDTypography variant="h6"> Holidays Between Leave Period :</MDTypography>
+              <MDTypography variant="h6">
+                {" "}
+                Holidays Between Leave Period :
+              </MDTypography>
             </FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
@@ -297,7 +343,9 @@ const RestrictionTable = (props: any) => {
                   <>
                     <Grid container spacing={1} p={1} xs={12} sm={12}>
                       <Grid sm={7}>
-                        <MDTypography variant="body2">Count as leave: Count after</MDTypography>
+                        <MDTypography variant="body2">
+                          Count as leave: Count after
+                        </MDTypography>
                       </Grid>
                       <Grid sm={3}>
                         <MDInput
@@ -306,7 +354,11 @@ const RestrictionTable = (props: any) => {
                           max="100"
                           name="holidays_between_leave_period_day"
                           value={values.holidays_between_leave_period_day}
-                          disabled={values.holidays_between_leave_period[0] == "C" ? false : true}
+                          disabled={
+                            values.holidays_between_leave_period[0] == "C"
+                              ? false
+                              : true
+                          }
                           // type="number"
                           onChange={handleChange}
                           sx={{ width: "70%" }}
@@ -323,13 +375,20 @@ const RestrictionTable = (props: any) => {
                 value="Donot count as leave"
                 control={
                   <Radio
-                    checked={values.holidays_between_leave_period.includes("Donot count as leave")}
+                    checked={values.holidays_between_leave_period.includes(
+                      "Donot count as leave"
+                    )}
                     onChange={handleChange}
                     name="holidays_between_leave_period"
                     value="Donot count as leave"
                   />
                 }
-                label={<MDTypography variant="body2"> Donot count as leave</MDTypography>}
+                label={
+                  <MDTypography variant="body2">
+                    {" "}
+                    Donot count as leave
+                  </MDTypography>
+                }
               />
             </RadioGroup>
           </FormControl>
@@ -356,7 +415,9 @@ const RestrictionTable = (props: any) => {
                   // value="Allow"
                   control={
                     <Radio
-                      checked={values.applying_leaves_excel_balance.includes("Allow")}
+                      checked={values.applying_leaves_excel_balance.includes(
+                        "Allow"
+                      )}
                       onChange={handleChange}
                       name="applying_leaves_excel_balance"
                       value="Allow"
@@ -370,13 +431,17 @@ const RestrictionTable = (props: any) => {
                   control={
                     <Radio
                       sx={{ marginLeft: "50px" }}
-                      checked={values.applying_leaves_excel_balance.includes("Dont_allow")}
+                      checked={values.applying_leaves_excel_balance.includes(
+                        "Dont_allow"
+                      )}
                       onChange={handleChange}
                       name="applying_leaves_excel_balance"
                       value="Dont_allow"
                     />
                   }
-                  label={<MDTypography variant="body2">Do not Allow</MDTypography>}
+                  label={
+                    <MDTypography variant="body2">Do not Allow</MDTypography>
+                  }
                 />
               </RadioGroup>
             </Grid>
@@ -402,7 +467,12 @@ const RestrictionTable = (props: any) => {
                         value="Without_limit"
                       />
                     }
-                    label={<MDTypography variant="body2"> Without limit</MDTypography>}
+                    label={
+                      <MDTypography variant="body2">
+                        {" "}
+                        Without limit
+                      </MDTypography>
+                    }
                   />
                   <FormControlLabel
                     value="allow"
@@ -417,7 +487,10 @@ const RestrictionTable = (props: any) => {
                       />
                     }
                     label={
-                      <MDTypography variant="body2"> Without limit and mark as LOP</MDTypography>
+                      <MDTypography variant="body2">
+                        {" "}
+                        Without limit and mark as LOP
+                      </MDTypography>
                     }
                   />
                   <FormControlLabel
@@ -432,7 +505,12 @@ const RestrictionTable = (props: any) => {
                         value="Until_year_endlimit"
                       />
                     }
-                    label={<MDTypography variant="body2"> Until year end limit</MDTypography>}
+                    label={
+                      <MDTypography variant="body2">
+                        {" "}
+                        Until year end limit
+                      </MDTypography>
+                    }
                   />
                 </RadioGroup>
               </Grid>
@@ -516,7 +594,9 @@ const RestrictionTable = (props: any) => {
               <Autocomplete
                 // multiple
                 onChange={(event, value) => {
-                  handleChange({ target: { name: "allow_users_to_view", value } });
+                  handleChange({
+                    target: { name: "allow_users_to_view", value },
+                  });
                 }}
                 // value={department}
                 // onChange={handleMainFieldChange}
@@ -537,13 +617,17 @@ const RestrictionTable = (props: any) => {
           </Grid>
           <Grid container p={1} sm={12}>
             <Grid item xs={12} sm={4}>
-              <MDTypography variant="body2">Balance to be displayed</MDTypography>
+              <MDTypography variant="body2">
+                Balance to be displayed
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={5}>
               <Autocomplete
                 // multiple
                 onChange={(event, value) => {
-                  handleChange({ target: { name: "balance_to_be_displayed", value } });
+                  handleChange({
+                    target: { name: "balance_to_be_displayed", value },
+                  });
                 }}
                 // value={department}
                 // onChange={handleMainFieldChange}
@@ -619,7 +703,9 @@ const RestrictionTable = (props: any) => {
             )}
             <Grid container spacing={3} p={2}>
               <FormControlLabel
-                label={<MDTypography variant="body2"> Future Date</MDTypography>}
+                label={
+                  <MDTypography variant="body2"> Future Date</MDTypography>
+                }
                 control={
                   <Checkbox
                     checked={isFutureChecked}
@@ -679,7 +765,9 @@ const RestrictionTable = (props: any) => {
                       max="100"
                       name="futureday_value2"
                       value={values.futureday_value2}
-                      disabled={values.futureDate2 == "To be Applied" ? false : true}
+                      disabled={
+                        values.futureDate2 == "To be Applied" ? false : true
+                      }
                       // type="number"
                       onChange={handleChange}
                       sx={{ width: "70%" }}
@@ -824,7 +912,8 @@ const RestrictionTable = (props: any) => {
                 name="restrictions_for_leave_input4"
                 value={values.restrictions_for_leave_input4}
                 disabled={
-                  values.restrictions_for_leave4 == "Minimum gap (in days) between two applications"
+                  values.restrictions_for_leave4 ==
+                  "Minimum gap (in days) between two applications"
                     ? false
                     : true
                 }
@@ -847,7 +936,8 @@ const RestrictionTable = (props: any) => {
             </Grid>
             <Grid sm={7}>
               <MDTypography variant="body2">
-                Enable file upload option if the applied leave period exceeds days
+                Enable file upload option if the applied leave period exceeds
+                days
               </MDTypography>{" "}
             </Grid>
             <Grid sm={3}>
@@ -872,7 +962,8 @@ const RestrictionTable = (props: any) => {
           <Grid item xs={12} sm={12} p={1} display={"flex"}>
             <Grid sm={7}>
               <MDTypography variant="body2">
-                Maximum number of applications allowed within the specified period
+                Maximum number of applications allowed within the specified
+                period
               </MDTypography>{" "}
             </Grid>
             <Grid sm={3}>
@@ -892,7 +983,10 @@ const RestrictionTable = (props: any) => {
                 // multiple
                 onChange={(event, value) => {
                   handleChange({
-                    target: { name: "maximum_number_of_specific_period_input", value },
+                    target: {
+                      name: "maximum_number_of_specific_period_input",
+                      value,
+                    },
                   });
                 }}
                 // value={department}
@@ -915,7 +1009,8 @@ const RestrictionTable = (props: any) => {
           <Grid item xs={12} sm={12} p={1} display={"flex"}>
             <Grid sm={7}>
               <MDTypography variant="body2">
-                Enable file upload option if the applied leave period exceeds days
+                Enable file upload option if the applied leave period exceeds
+                days
               </MDTypography>{" "}
             </Grid>
 
@@ -923,7 +1018,9 @@ const RestrictionTable = (props: any) => {
               <Autocomplete
                 multiple
                 onChange={(event, value) => {
-                  handleChange({ target: { name: "leave_applied_only_on", value } });
+                  handleChange({
+                    target: { name: "leave_applied_only_on", value },
+                  });
                 }}
                 // value={department}
                 // onChange={handleMainFieldChange}
@@ -944,7 +1041,9 @@ const RestrictionTable = (props: any) => {
           </Grid>
           <Grid item xs={12} sm={12} p={1} display={"flex"}>
             <Grid sm={7}>
-              <MDTypography variant="body2">This leave cannot be taken together with</MDTypography>{" "}
+              <MDTypography variant="body2">
+                This leave cannot be taken together with
+              </MDTypography>{" "}
             </Grid>
 
             <Grid sm={5}>
@@ -953,7 +1052,9 @@ const RestrictionTable = (props: any) => {
               <Autocomplete
                 multiple
                 onChange={(event, value) => {
-                  handleChange({ target: { name: "leave_cannot_taken_with", value } });
+                  handleChange({
+                    target: { name: "leave_cannot_taken_with", value },
+                  });
                 }}
                 options={leavetype_name}
                 renderInput={(params) => (
@@ -972,7 +1073,12 @@ const RestrictionTable = (props: any) => {
           </Grid>
         </Grid>
       </Grid>
-      <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+      <MDButton
+        variant="gradient"
+        color="info"
+        type="submit"
+        onClick={handleFormSubmit}
+      >
         Saved
       </MDButton>
     </form>

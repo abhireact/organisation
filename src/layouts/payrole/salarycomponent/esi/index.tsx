@@ -37,7 +37,11 @@ import CreateEsi from "layouts/payrole/salarycomponent/esi/esi";
 import Cookies from "js-cookie";
 export const signUpSchema = yup.object({
   epf: yup.string().min(2).max(25).required("epf address is required."),
-  Deduction_Cycle: yup.string().min(2).max(15).required("Monthly address is required."),
+  Deduction_Cycle: yup
+    .string()
+    .min(2)
+    .max(15)
+    .required("Monthly address is required."),
 });
 
 const initialValues = {
@@ -78,12 +82,15 @@ const Esi = () => {
   }, []);
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/mg_esi`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/mg_esi`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status === 200) {
         console.log(response.data, "all earning data");
         setGetdata(response.data[0]);
@@ -94,14 +101,18 @@ const Esi = () => {
       console.log("location not found");
     }
   };
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues: initialValues,
-    validationSchema: signUpSchema,
-    onSubmit: (values, action) => {
-      console.log("🚀 ~ file: Employees_Provident_Fund.tsx:23 ~ values:", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: signUpSchema,
+      onSubmit: (values, action) => {
+        console.log(
+          "🚀 ~ file: Employees_Provident_Fund.tsx:23 ~ values:",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const handleDelete = async (data: any) => {
     try {
       const response = await axios.delete(
@@ -164,7 +175,11 @@ const Esi = () => {
                 </Grid>
                 <Grid container px={2} pt={3}>
                   <Grid item xs={12} sm={6}>
-                    <MDTypography variant="button" color="text" fontWeight="bold">
+                    <MDTypography
+                      variant="button"
+                      color="text"
+                      fontWeight="bold"
+                    >
                       ESI Number
                     </MDTypography>
                   </Grid>
@@ -176,7 +191,11 @@ const Esi = () => {
                 </Grid>
                 <Grid container px={2}>
                   <Grid item xs={12} sm={6}>
-                    <MDTypography variant="button" color="text" fontWeight="bold">
+                    <MDTypography
+                      variant="button"
+                      color="text"
+                      fontWeight="bold"
+                    >
                       Deduction Cycle
                     </MDTypography>
                   </Grid>
@@ -188,7 +207,11 @@ const Esi = () => {
                 </Grid>
                 <Grid container px={2}>
                   <Grid item xs={12} sm={6}>
-                    <MDTypography variant="button" color="text" fontWeight="bold">
+                    <MDTypography
+                      variant="button"
+                      color="text"
+                      fontWeight="bold"
+                    >
                       Employees&apos; Contribution
                     </MDTypography>
                   </Grid>
@@ -200,7 +223,11 @@ const Esi = () => {
                 </Grid>
                 <Grid container px={2}>
                   <Grid item xs={12} sm={6}>
-                    <MDTypography variant="button" color="text" fontWeight="bold">
+                    <MDTypography
+                      variant="button"
+                      color="text"
+                      fontWeight="bold"
+                    >
                       Employer&apos;s Contribution
                     </MDTypography>
                   </Grid>
@@ -213,7 +240,11 @@ const Esi = () => {
                 {getdata.esi_contribution_ctc ? (
                   <Grid container px={2}>
                     <Grid item xs={12} sm={6}>
-                      <MDTypography variant="button" color="text" fontWeight="bold">
+                      <MDTypography
+                        variant="button"
+                        color="text"
+                        fontWeight="bold"
+                      >
                         Other Details
                       </MDTypography>
                     </Grid>
@@ -225,7 +256,14 @@ const Esi = () => {
                   </Grid>
                 ) : null}
 
-                <Grid xs={12} sm={12} px={2} pt={1} display="flex" justifyContent="flex-end">
+                <Grid
+                  xs={12}
+                  sm={12}
+                  px={2}
+                  pt={1}
+                  display="flex"
+                  justifyContent="flex-end"
+                >
                   <MDButton
                     variant="outlined"
                     color="error"
@@ -251,15 +289,28 @@ const Esi = () => {
                     mb={3}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} p={3} display="flex" alignItems="center">
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  p={3}
+                  display="flex"
+                  alignItems="center"
+                >
                   <Grid>
                     <MDTypography variant="h4" fontWeight="bold" m={"auto"}>
                       Are you registered for ESI?
                     </MDTypography>
-                    <MDTypography variant="button" fontWeight="medium" color="text" m={"auto"}>
-                      Organisations having 10 or more employees must register for Employee State
-                      Insurance (ESI). This scheme provides cash allowances and medical benefits for
-                      employees whose monthly salary is less than ₹21,000.
+                    <MDTypography
+                      variant="button"
+                      fontWeight="medium"
+                      color="text"
+                      m={"auto"}
+                    >
+                      Organisations having 10 or more employees must register
+                      for Employee State Insurance (ESI). This scheme provides
+                      cash allowances and medical benefits for employees whose
+                      monthly salary is less than ₹21,000.
                     </MDTypography>
                     <Grid display="flex" justifyContent="flex-end">
                       {/* <Link href="createesi" variant="body2"> */}

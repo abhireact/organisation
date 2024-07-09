@@ -621,7 +621,10 @@ export default function DiversityReport() {
   // ... rest of your code remains unchanged
 
   // Calculate total values for each category
-  const totalGenderValue = genderData?.reduce((total, item) => total + item.value, 0);
+  const totalGenderValue = genderData?.reduce(
+    (total, item) => total + item.value,
+    0
+  );
   const totalAgeValue = ageData.reduce((total, item) => total + item.value, 0);
 
   // Calculate percentage values for each category rounded to 2 decimal places
@@ -655,15 +658,19 @@ export default function DiversityReport() {
 
   // formik
   const navigate = useNavigate();
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    // validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      // validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
   console.log(values, "values");
   const handleFormSubmit = async () => {
@@ -714,7 +721,9 @@ export default function DiversityReport() {
   };
 
   // dep des location data
-  const WorkLocation = useSelector((state: any) => state.dummyData.workLocationData);
+  const WorkLocation = useSelector(
+    (state: any) => state.dummyData.workLocationData
+  );
   console.log("WorkLocation", WorkLocation);
 
   const location_name = [];
@@ -733,7 +742,9 @@ export default function DiversityReport() {
 
   console.log(location_name, "location");
 
-  const Department = useSelector((state: any) => state.dummyData.departmentData);
+  const Department = useSelector(
+    (state: any) => state.dummyData.departmentData
+  );
   console.log("Department", Department);
   const dept_name = [];
 
@@ -750,7 +761,9 @@ export default function DiversityReport() {
   }
 
   console.log(dept_name, "departmentName");
-  const Designation = useSelector((state: any) => state.dummyData.designationData);
+  const Designation = useSelector(
+    (state: any) => state.dummyData.designationData
+  );
   console.log("Designation", Designation);
   const des_name = [];
 
@@ -790,7 +803,10 @@ export default function DiversityReport() {
                 },
               }
             );
-          } else if (selectedOption === "gender" && genderData[clickedSliceData.dataIndex]) {
+          } else if (
+            selectedOption === "gender" &&
+            genderData[clickedSliceData.dataIndex]
+          ) {
             const formValues = {
               ...values,
               label: genderData[clickedSliceData.dataIndex].label,
@@ -820,7 +836,15 @@ export default function DiversityReport() {
       fetchData();
       setIsSliceClicked(false); // Reset the slice clicked state after making the API request
     }
-  }, [isSliceClicked, clickedSliceData, selectedOption, ageData, genderData, values, token]);
+  }, [
+    isSliceClicked,
+    clickedSliceData,
+    selectedOption,
+    ageData,
+    genderData,
+    values,
+    token,
+  ]);
 
   // pdf print
 
@@ -911,11 +935,16 @@ export default function DiversityReport() {
             <Autocomplete
               options={options}
               getOptionLabel={(option) => option.label}
-              value={options.find((option) => option.value === selectedOption) || null}
+              value={
+                options.find((option) => option.value === selectedOption) ||
+                null
+              }
               onChange={(event, newValue) => {
                 setSelectedOption(newValue?.value || "gender");
               }}
-              renderInput={(params) => <TextField {...params} label="Based On" />}
+              renderInput={(params) => (
+                <TextField {...params} label="Based On" />
+              )}
             />
           </Grid>
 
@@ -971,7 +1000,11 @@ export default function DiversityReport() {
                 />
                 {errors.department && touched.department ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.department}
                   </MDTypography>
                 ) : null}
@@ -1014,7 +1047,11 @@ export default function DiversityReport() {
                 />
                 {errors.designation && touched.designation ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.designation}
                   </MDTypography>
                 ) : null}
@@ -1084,13 +1121,28 @@ export default function DiversityReport() {
 
                 {errors.location && touched.location ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.location}
                   </MDTypography>
                 ) : null}
               </Grid>
-              <Grid item xs={12} sm={2} display="flex" justifyContent="flex-end">
-                <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+              <Grid
+                item
+                xs={12}
+                sm={2}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  type="submit"
+                  onClick={handleFormSubmit}
+                >
                   {"Save"}
                 </MDButton>
               </Grid>
@@ -1107,7 +1159,9 @@ export default function DiversityReport() {
           <div style={{ display: selectedOption === "age" ? "block" : "none" }}>
             <PieChart series={[{ data: agePercentageData }]} width={700} height={300} />
           </div> */}
-          <div style={{ display: selectedOption === "gender" ? "block" : "none" }}>
+          <div
+            style={{ display: selectedOption === "gender" ? "block" : "none" }}
+          >
             {genderData ? (
               <PieChart
                 series={[

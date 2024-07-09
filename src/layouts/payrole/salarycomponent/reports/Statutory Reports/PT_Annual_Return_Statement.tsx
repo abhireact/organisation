@@ -58,7 +58,9 @@ function PT_Annual_Return_Statement(): JSX.Element {
 
           <Grid container>
             <Grid item xs={12} sm={4}>
-              <MDTypography variant="body2">01/07/2023 - 31/07/2023</MDTypography>
+              <MDTypography variant="body2">
+                01/07/2023 - 31/07/2023
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={4}>
               <MDTypography variant="body2">0</MDTypography>
@@ -71,7 +73,9 @@ function PT_Annual_Return_Statement(): JSX.Element {
 
           <Grid container>
             <Grid item xs={12} sm={4}>
-              <MDTypography variant="body2">01/08/2023 - 31/08/2023</MDTypography>
+              <MDTypography variant="body2">
+                01/08/2023 - 31/08/2023
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={4}>
               <MDTypography variant="body2">0</MDTypography>
@@ -83,7 +87,9 @@ function PT_Annual_Return_Statement(): JSX.Element {
           <Divider />
           <Grid container>
             <Grid item xs={12} sm={4}>
-              <MDTypography variant="body2">01/09/2023 - 30/09/2023</MDTypography>
+              <MDTypography variant="body2">
+                01/09/2023 - 30/09/2023
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={4}>
               <MDTypography variant="body2">0</MDTypography>
@@ -95,7 +101,9 @@ function PT_Annual_Return_Statement(): JSX.Element {
           <Divider />
           <Grid container>
             <Grid item xs={12} sm={4}>
-              <MDTypography variant="body2">01/10/2023 - 31/10/2023</MDTypography>
+              <MDTypography variant="body2">
+                01/10/2023 - 31/10/2023
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={4}>
               <MDTypography variant="body2">0</MDTypography>
@@ -107,7 +115,9 @@ function PT_Annual_Return_Statement(): JSX.Element {
           <Divider />
           <Grid container>
             <Grid item xs={12} sm={4}>
-              <MDTypography variant="body2">01/11/2023 - 31/10/2023</MDTypography>
+              <MDTypography variant="body2">
+                01/11/2023 - 31/10/2023
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={4}>
               <MDTypography variant="body2">0</MDTypography>
@@ -119,7 +129,9 @@ function PT_Annual_Return_Statement(): JSX.Element {
           <Divider />
           <Grid container>
             <Grid item xs={12} sm={4}>
-              <MDTypography variant="body2">01/12/2023 - 31/10/2023</MDTypography>
+              <MDTypography variant="body2">
+                01/12/2023 - 31/10/2023
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={4}>
               <MDTypography variant="body2">0</MDTypography>
@@ -131,7 +143,9 @@ function PT_Annual_Return_Statement(): JSX.Element {
           <Divider />
           <Grid container>
             <Grid item xs={12} sm={4}>
-              <MDTypography variant="body2">01/01/2024 - 31/01/2024</MDTypography>
+              <MDTypography variant="body2">
+                01/01/2024 - 31/01/2024
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={4}>
               <MDTypography variant="body2">0</MDTypography>

@@ -122,7 +122,12 @@ function CalendarView(): JSX.Element {
         // Format the end date as a string in the same format
         return endDate.toISOString().slice(0, 10);
       })(),
-      className: data.status == true ? (data.type === "paid" ? "success" : "info") : "error",
+      className:
+        data.status == true
+          ? data.type === "paid"
+            ? "success"
+            : "info"
+          : "error",
     })),
   ];
 

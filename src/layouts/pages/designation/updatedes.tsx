@@ -77,8 +77,13 @@ const Updatedes = (props: any) => {
                 value={formik.values.designations}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.designations && Boolean(formik.errors.designations)}
-                helperText={formik.touched.designations && formik.errors.designations}
+                error={
+                  formik.touched.designations &&
+                  Boolean(formik.errors.designations)
+                }
+                helperText={
+                  formik.touched.designations && formik.errors.designations
+                }
                 mb={10}
                 mt={10}
               />

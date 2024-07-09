@@ -5,7 +5,14 @@ import MDBox from "components/MDBox";
 import FormField from "layouts/applications/wizard/components/FormField";
 import Checkbox from "@mui/material/Checkbox";
 // import "./weekday.css";
-import { FormControlLabel, Card, Grid, Dialog, IconButton, Link } from "@mui/material";
+import {
+  FormControlLabel,
+  Card,
+  Grid,
+  Dialog,
+  IconButton,
+  Link,
+} from "@mui/material";
 import Icon from "@mui/material/Icon";
 import { useFormik } from "formik";
 import MDTypography from "components/MDTypography";
@@ -43,15 +50,22 @@ function Payrun() {
   const [openPopup, setOpenPopup] = useState(false);
   const [allData, setAllData] = useState<PayrunData | null>(null);
   console.log(allData, "alldata");
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      enableReinitialize: true,
-      onSubmit: (values, action) => {
-        console.log("values", values);
-        action.resetForm();
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: (values, action) => {
+      console.log("values", values);
+      action.resetForm();
+    },
+  });
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -114,13 +128,25 @@ function Payrun() {
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="h6">Prabhakar</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button">Net Pay</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="body2">Emp. ID: 80deb</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="h6"></MDTypography>
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -131,7 +157,13 @@ function Payrun() {
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="body2">Payable Days</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="body2">24</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
@@ -139,25 +171,51 @@ function Payrun() {
                   (+) EARNINGS
                 </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button">AMOUNT </MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="button">Basic</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button">₹20,834.00</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
-                <MDTypography variant="button">House Rent Allowance</MDTypography>
+                <MDTypography variant="button">
+                  House Rent Allowance
+                </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button">₹10,417.00</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="button">Fixed Allowance</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button">₹10,416.00</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
@@ -165,7 +223,13 @@ function Payrun() {
                   (-) DEDUCTIONS
                 </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button">AMOUNT</MDTypography>
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -174,13 +238,25 @@ function Payrun() {
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="button">Income Tax</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="button">₹0.00</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="subtitle2">NET PAY</MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <MDTypography variant="subtitle2"></MDTypography>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -188,8 +264,18 @@ function Payrun() {
                   Download Payslip
                 </MDButton>
               </Grid>
-              <Grid item xs={12} sm={6} display="flex" justifyContent="flex-end">
-                <MDButton color="secondary" variant="outlined" onClick={() => setOpenPopup(false)}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDButton
+                  color="secondary"
+                  variant="outlined"
+                  onClick={() => setOpenPopup(false)}
+                >
                   Send Payslip
                 </MDButton>
               </Grid>
@@ -241,7 +327,13 @@ function Payrun() {
                   <br />
                   <MDTypography variant="h6">{allData?.no_of_emp}</MDTypography>
                 </Grid>
-                <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+                <Grid
+                  item
+                  xs={12}
+                  sm={3}
+                  display="flex"
+                  justifyContent="flex-end"
+                >
                   {/* <Link
                     href={`/payrun_recoed?data=${encodeURIComponent(JSON.stringify(allData))}`}
                     variant="body2"

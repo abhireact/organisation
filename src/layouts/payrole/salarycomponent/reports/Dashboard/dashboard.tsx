@@ -25,7 +25,9 @@ const Salary_Withhold_Report = () => {
               <MDBox p={3}>
                 <Grid container>
                   <Grid item xs={12} sm={3}>
-                    <MDTypography variant="caption">EMPLOYEES NET PAY</MDTypography>
+                    <MDTypography variant="caption">
+                      EMPLOYEES NET PAY
+                    </MDTypography>
                     <MDTypography variant="body2">₹82,47,128.00</MDTypography>
                   </Grid>
                   <Grid item xs={12} sm={3}>
@@ -33,7 +35,9 @@ const Salary_Withhold_Report = () => {
                     <MDTypography variant="body2">28/04/2023</MDTypography>
                   </Grid>
                   <Grid item xs={12} sm={3}>
-                    <MDTypography variant="caption">NO. OF EMPLOYEES</MDTypography>
+                    <MDTypography variant="caption">
+                      NO. OF EMPLOYEES
+                    </MDTypography>
                     <MDTypography variant="body2">4</MDTypography>
                   </Grid>
                   <Grid item xs={12} sm={3} sx={{ textAlign: "right" }}>
@@ -94,14 +98,20 @@ const Salary_Withhold_Report = () => {
                       <Grid item xs={12} sm={4}>
                         <MDTypography variant="caption">EPF - </MDTypography>
                         <br />
-                        <MDTypography variant="caption">View Details</MDTypography>
+                        <MDTypography variant="caption">
+                          View Details
+                        </MDTypography>
                       </Grid>
                       <Grid item xs={12} sm={4}>
-                        <MDTypography variant="caption">ESI - View Details</MDTypography>
+                        <MDTypography variant="caption">
+                          ESI - View Details
+                        </MDTypography>
                         <MDTypography variant="body2">28/04/2023</MDTypography>
                       </Grid>
                       <Grid item xs={12} sm={4}>
-                        <MDTypography variant="caption">TDS DEDUCTION - View Details</MDTypography>
+                        <MDTypography variant="caption">
+                          TDS DEDUCTION - View Details
+                        </MDTypography>
                         <MDTypography variant="body2">4</MDTypography>
                       </Grid>
                     </Grid>
@@ -112,11 +122,16 @@ const Salary_Withhold_Report = () => {
               <Grid item xs={12} sm={4}>
                 <Card sx={{ width: "100%", mt: "3" }}>
                   <MDBox p={3}>
-                    <MDTypography variant="button">ACTIVE EMPLOYEES</MDTypography>
+                    <MDTypography variant="button">
+                      ACTIVE EMPLOYEES
+                    </MDTypography>
                     <br />
                     <MDTypography variant="button">4</MDTypography>
                     <br />
-                    <MDTypography variant="caption"> View Employees</MDTypography>
+                    <MDTypography variant="caption">
+                      {" "}
+                      View Employees
+                    </MDTypography>
                   </MDBox>
                 </Card>
               </Grid>

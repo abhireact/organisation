@@ -52,7 +52,11 @@ const LeaveBookedandBalance = () => {
   const totalSums = data.map((employee, index) => {
     const totalSum = employee.emp_leave_report
       .filter((report: { total: string }) => report.total !== "N/A")
-      .reduce((acc: number, report: { total: string }) => acc + parseInt(report.total), 0);
+      .reduce(
+        (acc: number, report: { total: string }) =>
+          acc + parseInt(report.total),
+        0
+      );
 
     return totalSum;
   });
@@ -74,7 +78,10 @@ const LeaveBookedandBalance = () => {
                       | string
                       | number
                       | boolean
-                      | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+                      | React.ReactElement<
+                          any,
+                          string | React.JSXElementConstructor<any>
+                        >
                       | React.ReactFragment
                       | React.ReactPortal;
                   },
@@ -90,13 +97,15 @@ const LeaveBookedandBalance = () => {
               </th>
             </tr>
             <tr>
-              {data[0]?.emp_leave_report.map((leaveReport: any, leaveIndex: React.Key) => (
-                <React.Fragment key={leaveIndex}>
-                  <td style={thsStyle}>Booked</td>
-                  <td style={thsStyle}>Balanced</td>
-                  <td style={thsStyle}>Total</td>
-                </React.Fragment>
-              ))}
+              {data[0]?.emp_leave_report.map(
+                (leaveReport: any, leaveIndex: React.Key) => (
+                  <React.Fragment key={leaveIndex}>
+                    <td style={thsStyle}>Booked</td>
+                    <td style={thsStyle}>Balanced</td>
+                    <td style={thsStyle}>Total</td>
+                  </React.Fragment>
+                )
+              )}
             </tr>
           </thead>
           <tbody>
@@ -111,21 +120,30 @@ const LeaveBookedandBalance = () => {
                         | string
                         | number
                         | boolean
-                        | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
                         | React.ReactFragment
                         | React.ReactPortal;
                       no_leaves:
                         | string
                         | number
                         | boolean
-                        | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
                         | React.ReactFragment
                         | React.ReactPortal;
                       total:
                         | string
                         | number
                         | boolean
-                        | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
                         | React.ReactFragment
                         | React.ReactPortal;
                     },
@@ -140,7 +158,8 @@ const LeaveBookedandBalance = () => {
                 )}
 
                 <td style={tdStyle}>
-                  {totalSums[employeeIndex]} {/* Display the total sum for this employee */}
+                  {totalSums[employeeIndex]}{" "}
+                  {/* Display the total sum for this employee */}
                 </td>
               </tr>
             ))}{" "}

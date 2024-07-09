@@ -52,7 +52,10 @@ const LeaveDiversityReport = () => {
   const [ageData, setAgeData] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
-  const totalGenderValue = genderData?.reduce((total, item) => total + item.value, 0);
+  const totalGenderValue = genderData?.reduce(
+    (total, item) => total + item.value,
+    0
+  );
   const totalAgeValue = ageData.reduce((total, item) => total + item.value, 0);
 
   // Calculate percentage values for each category rounded to 2 decimal places
@@ -83,17 +86,24 @@ const LeaveDiversityReport = () => {
     { label: "Gender", value: "gender" },
     { label: "Age", value: "age" },
   ];
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      enableReinitialize: true,
-      onSubmit: (values: any, action: { resetForm: () => void }) => {
-        console.log("Form Data:", values);
-        // Perform your form submission logic here
-        // ...
-        action.resetForm();
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: (values: any, action: { resetForm: () => void }) => {
+      console.log("Form Data:", values);
+      // Perform your form submission logic here
+      // ...
+      action.resetForm();
+    },
+  });
 
   const token = Cookies.get("token");
 
@@ -150,7 +160,9 @@ const LeaveDiversityReport = () => {
     setFieldValue(fieldName, event.target.value);
   };
   // dep des location data
-  const WorkLocation = useSelector((state: any) => state.dummyData.workLocationData);
+  const WorkLocation = useSelector(
+    (state: any) => state.dummyData.workLocationData
+  );
   console.log("WorkLocation", WorkLocation);
 
   const location_name = [];
@@ -169,7 +181,9 @@ const LeaveDiversityReport = () => {
 
   console.log(location_name, "location");
 
-  const Department = useSelector((state: any) => state.dummyData.departmentData);
+  const Department = useSelector(
+    (state: any) => state.dummyData.departmentData
+  );
   console.log("Department", Department);
   const dept_name = [];
 
@@ -186,7 +200,9 @@ const LeaveDiversityReport = () => {
   }
 
   console.log(dept_name, "departmentName");
-  const Designation = useSelector((state: any) => state.dummyData.designationData);
+  const Designation = useSelector(
+    (state: any) => state.dummyData.designationData
+  );
   console.log("Designation", Designation);
   const des_name = [];
 
@@ -226,7 +242,10 @@ const LeaveDiversityReport = () => {
                 },
               }
             );
-          } else if (selectedOption === "gender" && genderData[clickedSliceData.dataIndex]) {
+          } else if (
+            selectedOption === "gender" &&
+            genderData[clickedSliceData.dataIndex]
+          ) {
             const formValues = {
               ...values,
               label: genderData[clickedSliceData.dataIndex].label,
@@ -256,7 +275,15 @@ const LeaveDiversityReport = () => {
       fetchData();
       setIsSliceClicked(false); // Reset the slice clicked state after making the API request
     }
-  }, [isSliceClicked, clickedSliceData, selectedOption, ageData, genderData, values, token]);
+  }, [
+    isSliceClicked,
+    clickedSliceData,
+    selectedOption,
+    ageData,
+    genderData,
+    values,
+    token,
+  ]);
 
   // datatable
   const dataTableData = {
@@ -343,11 +370,16 @@ const LeaveDiversityReport = () => {
               <Autocomplete
                 options={options}
                 getOptionLabel={(option) => option.label}
-                value={options.find((option) => option.value === selectedOption) || null}
+                value={
+                  options.find((option) => option.value === selectedOption) ||
+                  null
+                }
                 onChange={(event, newValue) => {
                   setSelectedOption(newValue?.value || "gender");
                 }}
-                renderInput={(params) => <TextField {...params} label="Based On" />}
+                renderInput={(params) => (
+                  <TextField {...params} label="Based On" />
+                )}
               />
             </Grid>
 
@@ -403,7 +435,11 @@ const LeaveDiversityReport = () => {
                   />
                   {errors.department && touched.department ? (
                     // <p className="form-error">{errors.name}</p>
-                    <MDTypography variant="caption" fontWeight="regular" color="error">
+                    <MDTypography
+                      variant="caption"
+                      fontWeight="regular"
+                      color="error"
+                    >
                       {errors.department}
                     </MDTypography>
                   ) : null}
@@ -446,7 +482,11 @@ const LeaveDiversityReport = () => {
                   />
                   {errors.designation && touched.designation ? (
                     // <p className="form-error">{errors.name}</p>
-                    <MDTypography variant="caption" fontWeight="regular" color="error">
+                    <MDTypography
+                      variant="caption"
+                      fontWeight="regular"
+                      color="error"
+                    >
                       {errors.designation}
                     </MDTypography>
                   ) : null}
@@ -516,7 +556,11 @@ const LeaveDiversityReport = () => {
 
                   {errors.location && touched.location ? (
                     // <p className="form-error">{errors.name}</p>
-                    <MDTypography variant="caption" fontWeight="regular" color="error">
+                    <MDTypography
+                      variant="caption"
+                      fontWeight="regular"
+                      color="error"
+                    >
                       {errors.location}
                     </MDTypography>
                   ) : null}
@@ -531,7 +575,13 @@ const LeaveDiversityReport = () => {
                         handleChange({ target: { name: "period", value } });
                       }
                     }}
-                    options={["Today", "Yesterday", "This Month", "Previous Month", "Custom"]}
+                    options={[
+                      "Today",
+                      "Yesterday",
+                      "This Month",
+                      "Previous Month",
+                      "Custom",
+                    ]}
                     renderInput={(params: any) => (
                       <FormField
                         required
@@ -550,12 +600,22 @@ const LeaveDiversityReport = () => {
                     )}
                   />
                   {errors.period && touched.period ? (
-                    <MDTypography variant="caption" fontWeight="regular" color="error">
+                    <MDTypography
+                      variant="caption"
+                      fontWeight="regular"
+                      color="error"
+                    >
                       {errors.period}
                     </MDTypography>
                   ) : null}
                 </Grid>
-                <Grid item xs={12} sm={2} display="flex" justifyContent="flex-end">
+                <Grid
+                  item
+                  xs={12}
+                  sm={2}
+                  display="flex"
+                  justifyContent="flex-end"
+                >
                   <MDButton
                     variant="gradient"
                     color="info"
@@ -578,7 +638,9 @@ const LeaveDiversityReport = () => {
           <div style={{ display: selectedOption === "age" ? "block" : "none" }}>
             <PieChart series={[{ data: agePercentageData }]} width={700} height={300} />
           </div> */}
-          <div style={{ display: selectedOption === "gender" ? "block" : "none" }}>
+          <div
+            style={{ display: selectedOption === "gender" ? "block" : "none" }}
+          >
             {genderData ? (
               <PieChart
                 series={[

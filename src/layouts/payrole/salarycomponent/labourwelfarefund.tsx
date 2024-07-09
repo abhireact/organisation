@@ -46,10 +46,13 @@ const Labourfund = () => {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox>
-        <MDTypography sx={{ fontSize: 20, fontWeight: "bold" }}>Labour Welfare Fund</MDTypography>
+        <MDTypography sx={{ fontSize: 20, fontWeight: "bold" }}>
+          Labour Welfare Fund
+        </MDTypography>
         <MDTypography sx={{ fontSize: 14 }}>
-          Labour Welfare Fund act ensures social security and improved working conditions for
-          employees whose monthly salary is less than or equal to Rs.15,000.
+          Labour Welfare Fund act ensures social security and improved working
+          conditions for employees whose monthly salary is less than or equal to
+          Rs.15,000.
         </MDTypography>
       </MDBox>
       <Grid
@@ -97,7 +100,11 @@ const Labourfund = () => {
                   </MDTypography>
                 </Grid>
                 <Grid sm={6}>
-                  <MDTypography sx={{ fontSize: 14, fontWeight: "bold" }} ml={2} variant="span">
+                  <MDTypography
+                    sx={{ fontSize: 14, fontWeight: "bold" }}
+                    ml={2}
+                    variant="span"
+                  >
                     {task.employer_contribution}
                   </MDTypography>
                 </Grid>
@@ -112,7 +119,11 @@ const Labourfund = () => {
                   </MDTypography>
                 </Grid>
                 <Grid sm={6}>
-                  <MDTypography sx={{ fontSize: 14, fontWeight: "bold" }} ml={2} variant="span">
+                  <MDTypography
+                    sx={{ fontSize: 14, fontWeight: "bold" }}
+                    ml={2}
+                    variant="span"
+                  >
                     {task.employee_contribution}
                   </MDTypography>
                 </Grid>
@@ -126,7 +137,11 @@ const Labourfund = () => {
                   </MDTypography>
                 </Grid>
                 <Grid sm={6}>
-                  <MDTypography sx={{ fontSize: 14, fontWeight: "bold" }} ml={2} variant="span">
+                  <MDTypography
+                    sx={{ fontSize: 14, fontWeight: "bold" }}
+                    ml={2}
+                    variant="span"
+                  >
                     {task.deduction_cycle}
                   </MDTypography>
                 </Grid>
@@ -142,7 +157,11 @@ const Labourfund = () => {
                 <Grid sm={6}>
                   {task.status ? (
                     <MDTypography
-                      sx={{ fontSize: 14, fontWeight: "bold", color: "#5BA7FC" }}
+                      sx={{
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: "#5BA7FC",
+                      }}
                       ml={2}
                       variant="span"
                       onClick={() => handleOpenpop()}
@@ -151,7 +170,11 @@ const Labourfund = () => {
                     </MDTypography>
                   ) : (
                     <MDTypography
-                      sx={{ fontSize: 14, fontWeight: "bold", color: "#DC395F" }}
+                      sx={{
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: "#DC395F",
+                      }}
                       ml={2}
                       variant="span"
                       onClick={() => handleOpenpop()}
@@ -173,8 +196,8 @@ const Labourfund = () => {
               </Grid>
               <Grid sm={10}>
                 <MDTypography variant="h6">
-                  You are about to disable LWF for your work location(s) at Karnataka. Are you sure
-                  you want to proceed?
+                  You are about to disable LWF for your work location(s) at
+                  Karnataka. Are you sure you want to proceed?
                 </MDTypography>
               </Grid>
             </Grid>

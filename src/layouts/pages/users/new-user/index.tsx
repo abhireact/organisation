@@ -103,7 +103,12 @@ function NewUser(): JSX.Element {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3} mb={20} height="65vh">
-        <Grid container justifyContent="center" alignItems="center" sx={{ height: "100%", mt: 8 }}>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          sx={{ height: "100%", mt: 8 }}
+        >
           <Grid item xs={12} lg={8}>
             <Formik
               initialValues={initialValues}
@@ -130,11 +135,20 @@ function NewUser(): JSX.Element {
                           formField,
                           errors,
                         })}
-                        <MDBox mt={2} width="100%" display="flex" justifyContent="space-between">
+                        <MDBox
+                          mt={2}
+                          width="100%"
+                          display="flex"
+                          justifyContent="space-between"
+                        >
                           {activeStep === 0 ? (
                             <MDBox />
                           ) : (
-                            <MDButton variant="gradient" color="light" onClick={handleBack}>
+                            <MDButton
+                              variant="gradient"
+                              color="light"
+                              onClick={handleBack}
+                            >
                               back
                             </MDButton>
                           )}

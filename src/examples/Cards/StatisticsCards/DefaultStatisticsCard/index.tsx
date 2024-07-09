@@ -32,7 +32,15 @@ interface Props {
   title: string;
   count: string | number;
   percentage?: {
-    color: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark" | "white";
+    color:
+      | "primary"
+      | "secondary"
+      | "info"
+      | "success"
+      | "warning"
+      | "error"
+      | "dark"
+      | "white";
     value: string | number;
     label: string;
   };
@@ -44,7 +52,12 @@ interface Props {
   [key: string]: any;
 }
 
-function DefaultStatisticsCard({ title, count, percentage, dropdown }: Props): JSX.Element {
+function DefaultStatisticsCard({
+  title,
+  count,
+  percentage,
+  dropdown,
+}: Props): JSX.Element {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
@@ -67,7 +80,11 @@ function DefaultStatisticsCard({ title, count, percentage, dropdown }: Props): J
               <MDTypography variant="h5" fontWeight="bold">
                 {count}
               </MDTypography>
-              <MDTypography variant="button" fontWeight="bold" color={percentage.color}>
+              <MDTypography
+                variant="button"
+                fontWeight="bold"
+                color={percentage.color}
+              >
                 {percentage.value}&nbsp;
                 <MDTypography
                   variant="button"

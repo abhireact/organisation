@@ -50,7 +50,8 @@ function Header({ tabValue, tabHandler, children }: Props): JSX.Element {
         routes={pageRoutes}
         action={{
           type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-2-pro-react-ts",
+          route:
+            "https://creative-tim.com/product/material-dashboard-2-pro-react-ts",
           label: "buy now",
           color: "light",
         }}
@@ -65,8 +66,14 @@ function Header({ tabValue, tabHandler, children }: Props): JSX.Element {
         m={2}
         pt={2}
         sx={{
-          backgroundImage: ({ functions: { linearGradient, rgba }, palette: { black } }) =>
-            `${linearGradient(rgba(black.main, 0.25), rgba(black.main, 0.25))}, url(${bgImage})`,
+          backgroundImage: ({
+            functions: { linearGradient, rgba },
+            palette: { black },
+          }) =>
+            `${linearGradient(
+              rgba(black.main, 0.25),
+              rgba(black.main, 0.25)
+            )}, url(${bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -85,7 +92,8 @@ function Header({ tabValue, tabHandler, children }: Props): JSX.Element {
             </MDBox>
             <MDBox mb={2}>
               <MDTypography variant="body2" color="white" fontWeight="light">
-                You have Free Unlimited Updates and Premium Support on each package.
+                You have Free Unlimited Updates and Premium Support on each
+                package.
               </MDTypography>
             </MDBox>
           </Grid>

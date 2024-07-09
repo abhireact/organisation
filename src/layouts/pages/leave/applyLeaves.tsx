@@ -27,7 +27,9 @@ interface MyError {
 const Applyleave = () => {
   const token = Cookies.get("token");
   const navigate = useNavigate();
-  const EmployeeData = useSelector((state: any) => state.dummyData.employeeData);
+  const EmployeeData = useSelector(
+    (state: any) => state.dummyData.employeeData
+  );
   console.log("Employee", EmployeeData);
   const emoployee_name = [];
 
@@ -61,53 +63,56 @@ const Applyleave = () => {
   }
 
   console.log(leavetype_name, "leavetypeName");
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      employee_name: "",
-      leave_type: "",
-      team_email: "",
-      from_date: "",
-      to_date: "",
-      reason_for_leave: "",
-      status: true,
-    },
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        employee_name: "",
+        leave_type: "",
+        team_email: "",
+        from_date: "",
+        to_date: "",
+        reason_for_leave: "",
+        status: true,
+      },
 
-    onSubmit: (values, action) => {
-      axios
-        .post(
-          `${process.env.REACT_APP_BACKEND_URL}/apply_leave`,
-          {
-            leave_type: values.leave_type,
-            employee_email: values.employee_name,
-            team_email: values.team_email,
-            from_date: values.from_date,
-            to_date: values.to_date,
-            reason_for_leave: values.reason_for_leave,
-            status: values.status,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+      onSubmit: (values, action) => {
+        axios
+          .post(
+            `${process.env.REACT_APP_BACKEND_URL}/apply_leave`,
+            {
+              leave_type: values.leave_type,
+              employee_email: values.employee_name,
+              team_email: values.team_email,
+              from_date: values.from_date,
+              to_date: values.to_date,
+              reason_for_leave: values.reason_for_leave,
+              status: values.status,
             },
-          }
-        )
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            navigate("/pages/leave/list_view");
-            message.success("Leave Applied successfully");
-          }
-        })
-        .catch((error) => {
-          console.error("Error deleting task:", error);
-          const myError = error as MyError;
-          message.error(myError?.response?.data?.detail || "An unexpected error occurred");
-        });
-      console.log(values, "values");
-      action.resetForm();
-    },
-  });
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              navigate("/pages/leave/list_view");
+              message.success("Leave Applied successfully");
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting task:", error);
+            const myError = error as MyError;
+            message.error(
+              myError?.response?.data?.detail || "An unexpected error occurred"
+            );
+          });
+        console.log(values, "values");
+        action.resetForm();
+      },
+    });
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -244,8 +249,12 @@ const Applyleave = () => {
                   value={values.reason_for_leave}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.reason_for_leave && Boolean(errors.reason_for_leave)}
-                  helperText={touched.reason_for_leave && errors.reason_for_leave}
+                  error={
+                    touched.reason_for_leave && Boolean(errors.reason_for_leave)
+                  }
+                  helperText={
+                    touched.reason_for_leave && errors.reason_for_leave
+                  }
                 />
               </Grid>
 
@@ -255,7 +264,9 @@ const Applyleave = () => {
                     Submit
                   </MDButton>
                 </Grid>
-                <Grid ml={2}>{/* <MDButton color="primary">Cancel</MDButton> */}</Grid>
+                <Grid ml={2}>
+                  {/* <MDButton color="primary">Cancel</MDButton> */}
+                </Grid>
               </Grid>
             </Grid>
           </MDBox>

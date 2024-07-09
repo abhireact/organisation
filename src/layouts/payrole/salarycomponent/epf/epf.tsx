@@ -53,7 +53,11 @@ const wage_patment = [
 ];
 const token = Cookies.get("token");
 export const signUpSchema = yup.object({
-  epf_number: yup.string().min(2).max(25).required("epf_number address is required."),
+  epf_number: yup
+    .string()
+    .min(2)
+    .max(25)
+    .required("epf_number address is required."),
 });
 
 const Employees_Provident_Fund = (props: any) => {
@@ -83,101 +87,104 @@ const Employees_Provident_Fund = (props: any) => {
   };
   const navigate = useNavigate();
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues: initialValues,
-    validationSchema: signUpSchema,
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: signUpSchema,
 
-    // onSubmit: async (values, action) => {
-    //   const sendData = {
-    //     abry_eligibility: values.abry_eligibility.join(", "),
-    //     configuration_lop_applied: values.configuration_lop_applied,
-    //     contribution_at_employee_level: values.contribution_at_employee_level.join(", "),
-    //     employee_contribution_rate: values.employee_contribution_rate,
-    //     employer_contribution_ctc: values.employer_contribution_ctc,
-    //     employer_contribution_rate: values.employer_contribution_rate,
-    //     epf_deduction_cycle: values.epf_deduction_cycle,
-    //     epf_number: values.epf_number,
-    //   };
-    //   try {
-    //     await axios
-    //       .post("/mg_epf", sendData, {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //           Authorization: `Bearer ${token}`,
-    //         },
-    //       })
-    //       .then((response) => {
-    //         if (response.status === 200) {
-    //           action.resetForm();
-    //           console.log("Created Earning Successfully");
-    //           navigate("/payrole/salarycomponent/epf");
-    //         }
-    //         window.location.reload();
-    //         action.resetForm();
-    //       });
-    //   } catch (error) {
-    //     console.error("Error saving data:", error);
-    //   }
-    // },
-    onSubmit: async (values, action) => {
-      const sendData = {
-        abry_eligibility: values.abry_eligibility.join(", "),
-        configuration_lop_applied: values.configuration_lop_applied,
-        contribution_at_employee_level: Array.isArray(values.contribution_at_employee_level)
-          ? values.contribution_at_employee_level.join(", ")
-          : values.contribution_at_employee_level,
-        employee_contribution_rate: values.employee_contribution_rate,
-        employer_contribution_ctc: values.employer_contribution_ctc,
-        employer_contribution_rate: values.employer_contribution_rate,
-        epf_deduction_cycle: values.epf_deduction_cycle,
-        epf_number: values.epf_number,
-      };
-      if (canEdit) {
-        try {
-          axios
-            .put(`${process.env.REACT_APP_BACKEND_URL}/mg_epf`, sendData, {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            })
-            .then((response) => {
-              action.resetForm();
-              navigate("/payrole/salarycomponent/epf");
-              message.success(response.data.message);
-              props.onSuccess();
-            })
-            .catch((error) => {
-              message.error(error.response.data.detail);
-            });
-        } catch (error) {
-          console.error("Error updating data:", error);
+      // onSubmit: async (values, action) => {
+      //   const sendData = {
+      //     abry_eligibility: values.abry_eligibility.join(", "),
+      //     configuration_lop_applied: values.configuration_lop_applied,
+      //     contribution_at_employee_level: values.contribution_at_employee_level.join(", "),
+      //     employee_contribution_rate: values.employee_contribution_rate,
+      //     employer_contribution_ctc: values.employer_contribution_ctc,
+      //     employer_contribution_rate: values.employer_contribution_rate,
+      //     epf_deduction_cycle: values.epf_deduction_cycle,
+      //     epf_number: values.epf_number,
+      //   };
+      //   try {
+      //     await axios
+      //       .post("/mg_epf", sendData, {
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //           Authorization: `Bearer ${token}`,
+      //         },
+      //       })
+      //       .then((response) => {
+      //         if (response.status === 200) {
+      //           action.resetForm();
+      //           console.log("Created Earning Successfully");
+      //           navigate("/payrole/salarycomponent/epf");
+      //         }
+      //         window.location.reload();
+      //         action.resetForm();
+      //       });
+      //   } catch (error) {
+      //     console.error("Error saving data:", error);
+      //   }
+      // },
+      onSubmit: async (values, action) => {
+        const sendData = {
+          abry_eligibility: values.abry_eligibility.join(", "),
+          configuration_lop_applied: values.configuration_lop_applied,
+          contribution_at_employee_level: Array.isArray(
+            values.contribution_at_employee_level
+          )
+            ? values.contribution_at_employee_level.join(", ")
+            : values.contribution_at_employee_level,
+          employee_contribution_rate: values.employee_contribution_rate,
+          employer_contribution_ctc: values.employer_contribution_ctc,
+          employer_contribution_rate: values.employer_contribution_rate,
+          epf_deduction_cycle: values.epf_deduction_cycle,
+          epf_number: values.epf_number,
+        };
+        if (canEdit) {
+          try {
+            axios
+              .put(`${process.env.REACT_APP_BACKEND_URL}/mg_epf`, sendData, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+              .then((response) => {
+                action.resetForm();
+                navigate("/payrole/salarycomponent/epf");
+                message.success(response.data.message);
+                props.onSuccess();
+              })
+              .catch((error) => {
+                message.error(error.response.data.detail);
+              });
+          } catch (error) {
+            console.error("Error updating data:", error);
+          }
+        } else {
+          try {
+            axios
+              .post(`${process.env.REACT_APP_BACKEND_URL}/mg_epf`, sendData, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+              .then((response) => {
+                message.success(response.data.message);
+                action.resetForm();
+                console.log("Created EPF Successfully");
+                navigate("/payrole/salarycomponent/epf");
+                message.success(response.data.message);
+              })
+              .catch((error) => {
+                message.error(error.response.data.detail);
+              });
+          } catch (error) {
+            console.error("Error saving data:", error);
+          }
         }
-      } else {
-        try {
-          axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/mg_epf`, sendData, {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            })
-            .then((response) => {
-              message.success(response.data.message);
-              action.resetForm();
-              console.log("Created EPF Successfully");
-              navigate("/payrole/salarycomponent/epf");
-              message.success(response.data.message);
-            })
-            .catch((error) => {
-              message.error(error.response.data.detail);
-            });
-        } catch (error) {
-          console.error("Error saving data:", error);
-        }
-      }
-    },
-  });
+      },
+    });
 
   const [open, setOpen] = react.useState(false);
 
@@ -259,15 +266,18 @@ const Employees_Provident_Fund = (props: any) => {
           </span>
         ),
         package1: wage_patment.reduce(
-          (total, data) => total + (showdaysloop ? data.package1 / 2 : data.package1),
+          (total, data) =>
+            total + (showdaysloop ? data.package1 / 2 : data.package1),
           0
         ),
         package2: wage_patment.reduce(
-          (total, data) => total + (showdaysloop ? data.package2 / 2 : data.package2),
+          (total, data) =>
+            total + (showdaysloop ? data.package2 / 2 : data.package2),
           0
         ),
         package3: wage_patment.reduce(
-          (total, data) => total + (showdaysloop ? data.package3 / 2 : data.package3),
+          (total, data) =>
+            total + (showdaysloop ? data.package3 / 2 : data.package3),
           0
         ),
       }
@@ -304,12 +314,16 @@ const Employees_Provident_Fund = (props: any) => {
                           value={values.epf_number}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          error={touched.epf_number && Boolean(errors.epf_number)}
+                          error={
+                            touched.epf_number && Boolean(errors.epf_number)
+                          }
                           helperText={touched.epf_number && errors.epf_number}
                         />
                       </Grid>
                       <Grid item xs={12} sm={5}>
-                        <MDTypography variant="h6">Deduction Cycle</MDTypography>
+                        <MDTypography variant="h6">
+                          Deduction Cycle
+                        </MDTypography>
                         <MDInput
                           disabled
                           sx={{ width: "80%" }}
@@ -319,15 +333,23 @@ const Employees_Provident_Fund = (props: any) => {
                           value={values.epf_deduction_cycle}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          error={touched.epf_deduction_cycle && Boolean(errors.epf_deduction_cycle)}
-                          helperText={touched.epf_deduction_cycle && errors.epf_deduction_cycle}
+                          error={
+                            touched.epf_deduction_cycle &&
+                            Boolean(errors.epf_deduction_cycle)
+                          }
+                          helperText={
+                            touched.epf_deduction_cycle &&
+                            errors.epf_deduction_cycle
+                          }
                         />
                       </Grid>
                     </Grid>
 
                     <Grid container mb={2}>
                       <Grid item xs={12} sm={6}>
-                        <MDTypography variant="h6">Employee Contribution Rate</MDTypography>
+                        <MDTypography variant="h6">
+                          Employee Contribution Rate
+                        </MDTypography>
 
                         <Autocomplete
                           defaultValue="12% Of Actual PF Wages"
@@ -358,7 +380,9 @@ const Employees_Provident_Fund = (props: any) => {
                         />
                       </Grid>
                       <Grid item xs={12} sm={6}>
-                        <MDTypography variant="h6">Employer Contribution Rate</MDTypography>
+                        <MDTypography variant="h6">
+                          Employer Contribution Rate
+                        </MDTypography>
 
                         <Autocomplete
                           defaultValue="12% Of Actual PF Wages"
@@ -438,7 +462,9 @@ const Employees_Provident_Fund = (props: any) => {
                         ) ? (
                           <FormControlLabel
                             label={
-                              <MDTypography variant="button">Pro rate Restricted</MDTypography>
+                              <MDTypography variant="button">
+                                Pro rate Restricted
+                              </MDTypography>
                             }
                             control={
                               <Checkbox
@@ -480,7 +506,9 @@ const Employees_Provident_Fund = (props: any) => {
                     </Grid>
 
                     <Grid item xs={12} sm={12}>
-                      <MDTypography variant="h6">PF Configuration when LOP Applied</MDTypography>
+                      <MDTypography variant="h6">
+                        PF Configuration when LOP Applied
+                      </MDTypography>
                     </Grid>
 
                     <Grid container>
@@ -507,8 +535,8 @@ const Employees_Provident_Fund = (props: any) => {
 
                       <Grid item xs={12} sm={12}>
                         <MDTypography variant="caption">
-                          PF contribution will be pro-rated based on the number of days worked by
-                          the employee.
+                          PF contribution will be pro-rated based on the number
+                          of days worked by the employee.
                         </MDTypography>
                       </Grid>
                     </Grid>
@@ -518,8 +546,8 @@ const Employees_Provident_Fund = (props: any) => {
                         <FormControlLabel
                           label={
                             <MDTypography variant="button">
-                              Consider all applicable salary components if PF wage is less than
-                              ₹15,000 after Loss of Pay
+                              Consider all applicable salary components if PF
+                              wage is less than ₹15,000 after Loss of Pay
                             </MDTypography>
                           }
                           control={
@@ -539,9 +567,9 @@ const Employees_Provident_Fund = (props: any) => {
 
                     <Grid item xs={12} sm={12} mb={2}>
                       <MDTypography variant="caption">
-                        PF wage will be computed using the salary earned in that particular month
-                        (based on LOP) rather than the actual amount mentioned in the salary
-                        structure.
+                        PF wage will be computed using the salary earned in that
+                        particular month (based on LOP) rather than the actual
+                        amount mentioned in the salary structure.
                       </MDTypography>
                     </Grid>
 
@@ -553,7 +581,9 @@ const Employees_Provident_Fund = (props: any) => {
                       <Grid item xs={12} sm={12}>
                         <FormControlLabel
                           label={
-                            <MDTypography variant="button">Eligible for ABRY Scheme</MDTypography>
+                            <MDTypography variant="button">
+                              Eligible for ABRY Scheme
+                            </MDTypography>
                           }
                           control={
                             <Checkbox
@@ -561,16 +591,19 @@ const Employees_Provident_Fund = (props: any) => {
                               onBlur={handleBlur}
                               onChange={handleChange}
                               value="Eligible for ABRY Scheme"
-                              checked={values.abry_eligibility.includes("Eligible for ABRY Scheme")}
+                              checked={values.abry_eligibility.includes(
+                                "Eligible for ABRY Scheme"
+                              )}
                             />
                           }
                         />
 
                         <Grid item xs={12} sm={12}>
                           <MDTypography variant="caption">
-                            The EPF contribution of both the employee and the employer (with a few
-                            exceptions) will be paid by the Government for eligible employees who
-                            receive up to ₹ 15,000 in monthly wages.
+                            The EPF contribution of both the employee and the
+                            employer (with a few exceptions) will be paid by the
+                            Government for eligible employees who receive up to
+                            ₹ 15,000 in monthly wages.
                           </MDTypography>
                         </Grid>
                       </Grid>
@@ -581,14 +614,20 @@ const Employees_Provident_Fund = (props: any) => {
                         <MDButton
                           variant="contained"
                           color="secondary"
-                          onClick={() => navigate("/payrole/salarycomponent/epf")}
+                          onClick={() =>
+                            navigate("/payrole/salarycomponent/epf")
+                          }
                         >
                           cancel
                         </MDButton>
                       </Grid>
 
                       <Grid item xs={12} sm={1.5} sx={{ textAlign: "right" }}>
-                        <MDButton variant="contained" color="info" type="submit">
+                        <MDButton
+                          variant="contained"
+                          color="info"
+                          type="submit"
+                        >
                           save
                         </MDButton>
                       </Grid>
@@ -600,22 +639,30 @@ const Employees_Provident_Fund = (props: any) => {
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            <Card style={{ backgroundColor: "#FDF7E4" }} sx={{ width: "100%", mt: "3" }}>
+            <Card
+              style={{ backgroundColor: "#FDF7E4" }}
+              sx={{ width: "100%", mt: "3" }}
+            >
               <MDBox p={3}>
                 <MDTypography variant="h5">Sample EPF Calculation</MDTypography>
                 <Divider />
                 <MDTypography variant="button">
-                  Let`s assume the PF wage is ₹ 20,000. The breakup of contribution will be:
+                  Let`s assume the PF wage is ₹ 20,000. The breakup of
+                  contribution will be:
                 </MDTypography>
               </MDBox>
 
               <Card sx={{ width: "85%", margin: "auto", mt: "4%", mb: "2%" }}>
                 <MDBox p={2}>
-                  <MDTypography variant="h5">Employee`s Contribution</MDTypography>
+                  <MDTypography variant="h5">
+                    Employee`s Contribution
+                  </MDTypography>
 
                   <Grid container>
                     <Grid item xs={12} sm={8}>
-                      <MDTypography variant="caption">EPF (12% of 20000)</MDTypography>
+                      <MDTypography variant="caption">
+                        EPF (12% of 20000)
+                      </MDTypography>
                     </Grid>
                     <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
                       <MDTypography variant="caption">₹ 2400</MDTypography>
@@ -623,7 +670,9 @@ const Employees_Provident_Fund = (props: any) => {
                   </Grid>
                   <Divider />
 
-                  <MDTypography variant="h6">Employer`s Contribution</MDTypography>
+                  <MDTypography variant="h6">
+                    Employer`s Contribution
+                  </MDTypography>
                   <Grid container>
                     <Grid item xs={12} sm={8}>
                       <MDTypography variant="caption">
@@ -637,7 +686,9 @@ const Employees_Provident_Fund = (props: any) => {
 
                   <Grid container>
                     <Grid item xs={12} sm={8}>
-                      <MDTypography variant="caption">EPF (12% of 20000 - EPS)</MDTypography>
+                      <MDTypography variant="caption">
+                        EPF (12% of 20000 - EPS)
+                      </MDTypography>
                     </Grid>
                     <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
                       <MDTypography variant="caption">₹ 1150</MDTypography>
@@ -646,7 +697,9 @@ const Employees_Provident_Fund = (props: any) => {
 
                   <Grid container>
                     <Grid item xs={12} sm={8}>
-                      {values.employer_contribution_ctc.includes("Pro rate Restricted PF Wage") ? (
+                      {values.employer_contribution_ctc.includes(
+                        "Pro rate Restricted PF Wage"
+                      ) ? (
                         <Grid container>
                           <Grid item xs={12} sm={8}>
                             <MDTypography variant="caption">
@@ -663,7 +716,9 @@ const Employees_Provident_Fund = (props: any) => {
 
                   <Grid container>
                     <Grid item xs={12} sm={8}>
-                      {values.employer_contribution_ctc.includes("Pro rate Restricted") ? (
+                      {values.employer_contribution_ctc.includes(
+                        "Pro rate Restricted"
+                      ) ? (
                         <Grid container>
                           <Grid item xs={12} sm={8}>
                             <MDTypography variant="caption">
@@ -685,14 +740,17 @@ const Employees_Provident_Fund = (props: any) => {
 
                     <Card sx={{ width: "100%", margin: "auto", mt: "4%" }}>
                       <Dialog open={open} onClose={handleClose} maxWidth="lg">
-                        <DialogTitle variant="h6">EPF Sample Calculation</DialogTitle>
+                        <DialogTitle variant="h6">
+                          EPF Sample Calculation
+                        </DialogTitle>
                         <Divider />
 
                         <MDBox p={2} mt={-2} mb={-2}>
                           <DialogContent>
                             <DialogContentText>
-                              Lets assume the salary packages considered for EPF is as shown as
-                              below, the calculation is based on the settings weve configured
+                              Lets assume the salary packages considered for EPF
+                              is as shown as below, the calculation is based on
+                              the settings weve configured
                             </DialogContentText>
 
                             <Accordion sx={{ boxShadow: "none" }}>
@@ -701,34 +759,45 @@ const Employees_Provident_Fund = (props: any) => {
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                               >
-                                <Typography variant="overline" sx={{ color: "#2962ff" }}>
+                                <Typography
+                                  variant="overline"
+                                  sx={{ color: "#2962ff" }}
+                                >
                                   Show current configuration
                                 </Typography>
                               </AccordionSummary>
                               <AccordionDetails>
                                 <Grid container>
                                   <Grid item xs={12} sm={12}>
-                                    <Typography variant="overline" sx={{ color: "#2962ff" }}>
+                                    <Typography
+                                      variant="overline"
+                                      sx={{ color: "#2962ff" }}
+                                    >
                                       PF CONTRIBUTION SETTINGS
                                     </Typography>
                                   </Grid>
 
                                   <Grid item xs={12} sm={12}>
                                     <Typography variant="overline">
-                                      Employer Contribution : 12% of Actual PF Wage
+                                      Employer Contribution : 12% of Actual PF
+                                      Wage
                                     </Typography>
                                   </Grid>
 
                                   <Grid item xs={12} sm={12}>
                                     <Typography variant="overline">
-                                      Employee Contribution: 12% of Actual PF Wage
+                                      Employee Contribution: 12% of Actual PF
+                                      Wage
                                     </Typography>
                                   </Grid>
                                 </Grid>
 
                                 <Grid container>
                                   <Grid item xs={12} sm={12}>
-                                    <Typography variant="overline" sx={{ color: "#2962ff" }}>
+                                    <Typography
+                                      variant="overline"
+                                      sx={{ color: "#2962ff" }}
+                                    >
                                       LOP CONTRIBUTION
                                     </Typography>
                                   </Grid>
@@ -740,7 +809,12 @@ const Employees_Provident_Fund = (props: any) => {
                                       <>
                                         <Typography variant="overline">
                                           Pro-rate Restricted PF Wage :
-                                          <span style={{ fontWeight: "bold", color: "#66bb6a" }}>
+                                          <span
+                                            style={{
+                                              fontWeight: "bold",
+                                              color: "#66bb6a",
+                                            }}
+                                          >
                                             Enabled
                                           </span>
                                         </Typography>
@@ -748,7 +822,9 @@ const Employees_Provident_Fund = (props: any) => {
                                     ) : (
                                       <Typography variant="overline">
                                         Pro-rate Restricted PF Wage :
-                                        <span style={{ fontWeight: "bold" }}>Disabled</span>
+                                        <span style={{ fontWeight: "bold" }}>
+                                          Disabled
+                                        </span>
                                       </Typography>
                                     )}
                                   </Grid>
@@ -759,17 +835,25 @@ const Employees_Provident_Fund = (props: any) => {
                                     ) ? (
                                       <>
                                         <Typography variant="overline">
-                                          Consider all components when PF wage less ₹15,000 after
-                                          LOP :
-                                          <span style={{ fontWeight: "bold", color: "#66bb6a" }}>
+                                          Consider all components when PF wage
+                                          less ₹15,000 after LOP :
+                                          <span
+                                            style={{
+                                              fontWeight: "bold",
+                                              color: "#66bb6a",
+                                            }}
+                                          >
                                             Enabled
                                           </span>
                                         </Typography>
                                       </>
                                     ) : (
                                       <Typography variant="overline">
-                                        Consider all components when PF wage less ₹15,000 after LOP
-                                        : <span style={{ fontWeight: "bold" }}>Disabled</span>
+                                        Consider all components when PF wage
+                                        less ₹15,000 after LOP :{" "}
+                                        <span style={{ fontWeight: "bold" }}>
+                                          Disabled
+                                        </span>
                                       </Typography>
                                     )}
                                   </Grid>
@@ -780,11 +864,19 @@ const Employees_Provident_Fund = (props: any) => {
 
                           <Grid container>
                             <Grid item xs={12} sm={8}>
-                              <MDTypography variant="h6">Payroll Journal Summary</MDTypography>
+                              <MDTypography variant="h6">
+                                Payroll Journal Summary
+                              </MDTypography>
                             </Grid>
                             <Grid item xs={12} sm={4}>
-                              <MDTypography variant="h6" sx={{ textAlign: "right" }}>
-                                <Checkbox checked={showdaysloop} onChange={handleCheckboxChange} />
+                              <MDTypography
+                                variant="h6"
+                                sx={{ textAlign: "right" }}
+                              >
+                                <Checkbox
+                                  checked={showdaysloop}
+                                  onChange={handleCheckboxChange}
+                                />
                                 With 15 days LOP
                               </MDTypography>
                             </Grid>
@@ -808,8 +900,8 @@ const Employees_Provident_Fund = (props: any) => {
                 </Grid>
                 <Grid item xs={12} sm={11}>
                   <MDTypography variant="button">
-                    Do you want to preview EPF calculation for multiple cases, based on the
-                    preferences you have configured ?
+                    Do you want to preview EPF calculation for multiple cases,
+                    based on the preferences you have configured ?
                   </MDTypography>
                 </Grid>
               </Grid>

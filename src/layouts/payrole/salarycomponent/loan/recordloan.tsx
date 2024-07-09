@@ -99,12 +99,15 @@ const Recordloan = (props: any) => {
   });
   const Fetchlocations = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/worklocation`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/worklocation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setLocations(response.data);
     } catch (error) {
       console.error("error fetching tasks:", error);
@@ -129,12 +132,15 @@ const Recordloan = (props: any) => {
   };
   const Fetchloantypes = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/manage_loan`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/manage_loan`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setLoans(response.data);
     } catch (error) {
       console.error("error fetching tasks:", error);
@@ -154,7 +160,12 @@ const Recordloan = (props: any) => {
           </MDTypography>
         )}
         <Grid container sx={{ display: "flex", justifyContent: "center" }}>
-          <Grid item sm={12} sx={{ display: "flex", justifyContent: "center" }} pb={4}>
+          <Grid
+            item
+            sm={12}
+            sx={{ display: "flex", justifyContent: "center" }}
+            pb={4}
+          >
             <MDTypography variant="h3" fontWeight="medium">
               Record Loan
             </MDTypography>
@@ -167,7 +178,9 @@ const Recordloan = (props: any) => {
               sx={{ width: "65%" }}
               options={locations}
               getOptionLabel={(object) => object.location_name}
-              renderInput={(params) => <MDInput {...params} label="choose location" />}
+              renderInput={(params) => (
+                <MDInput {...params} label="choose location" />
+              )}
               value={location}
               onChange={(_event, newobject1) => {
                 setLocation(newobject1.location_name);
@@ -184,7 +197,9 @@ const Recordloan = (props: any) => {
               sx={{ width: "65%" }}
               options={loans}
               getOptionLabel={(object) => object.loan_name}
-              renderInput={(params) => <MDInput {...params} label="choose loan" />}
+              renderInput={(params) => (
+                <MDInput {...params} label="choose loan" />
+              )}
               value={loan}
               onChange={(_event, newobject2) => {
                 setLoan(newobject2.loan_name);
@@ -202,7 +217,9 @@ const Recordloan = (props: any) => {
               sx={{ width: "65%" }}
               options={employees}
               getOptionLabel={(object) => object.employee_name}
-              renderInput={(params) => <MDInput {...params} label="choose employee" />}
+              renderInput={(params) => (
+                <MDInput {...params} label="choose employee" />
+              )}
               value={employee}
               onChange={(_event, newobject3) => {
                 setEmployee(newobject3.employee_name);
@@ -315,8 +332,8 @@ const Recordloan = (props: any) => {
                 Exempt this loan from perquisite calculation{" "}
               </MDTypography>
               <MDTypography variant="body2">
-                According to Rule 3(A), employees availing medical loan or any loan below ₹20,000
-                can be exempted from perquisite calculation.
+                According to Rule 3(A), employees availing medical loan or any
+                loan below ₹20,000 can be exempted from perquisite calculation.
               </MDTypography>
             </Grid>
           </Grid>

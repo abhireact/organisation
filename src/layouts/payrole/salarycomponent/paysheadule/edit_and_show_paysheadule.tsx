@@ -40,7 +40,10 @@ function EditAndShowPaysheadule() {
     salary_month_willbe_paidon: string;
   }
   const [openPopup, setOpenPopup] = useState(false);
-  const [nextpayrun, setNextpayrun] = useState<NextPayRun>({ month: [], date: [] });
+  const [nextpayrun, setNextpayrun] = useState<NextPayRun>({
+    month: [],
+    date: [],
+  });
   const [sheaduledata, setSheaduledata] = useState<sheaduledatainter>({
     select_work_week: [],
     calculate_salary_based_on: "",
@@ -111,31 +114,32 @@ function EditAndShowPaysheadule() {
   // }, []);
   console.log(nextpayrun, "nextpayrunsssssssssssssssssssssssssss");
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    enableReinitialize: true,
-    onSubmit: async (values, action) => {
-      try {
-        const response = await axios.put(
-          `${process.env.REACT_APP_BACKEND_URL}/mg_payschedule`,
-          values,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      enableReinitialize: true,
+      onSubmit: async (values, action) => {
+        try {
+          const response = await axios.put(
+            `${process.env.REACT_APP_BACKEND_URL}/mg_payschedule`,
+            values,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.status === 200) {
+            console.log("Updated Successfully");
+            history.go(0);
+            action.resetForm();
           }
-        );
-        if (response.status === 200) {
-          console.log("Updated Successfully");
-          history.go(0);
-          action.resetForm();
+        } catch (error) {
+          console.error("Error saving data:", error);
         }
-      } catch (error) {
-        console.error("Error saving data:", error);
-      }
-    },
-  });
+      },
+    });
 
   console.log(Financialyear, "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
   return (
@@ -179,7 +183,9 @@ function EditAndShowPaysheadule() {
                     />
                   }
                   label={
-                    <MDTypography variant="body2">The last working day of every month</MDTypography>
+                    <MDTypography variant="body2">
+                      The last working day of every month
+                    </MDTypography>
                   }
                 />
                 <FormControlLabel
@@ -206,7 +212,9 @@ function EditAndShowPaysheadule() {
                           size="small"
                           sx={{ width: "15%" }}
                         />
-                        <MDTypography variant="body2">of every month</MDTypography>
+                        <MDTypography variant="body2">
+                          of every month
+                        </MDTypography>
                       </Grid>
                     </>
                   }
@@ -243,7 +251,12 @@ function EditAndShowPaysheadule() {
           <hr />
           <Grid container spacing={3} py={1}>
             <Grid item xs={12} sm={12} display="flex" justifyContent="flex-end">
-              <Grid container spacing={3} display="flex" justifyContent="flex-end">
+              <Grid
+                container
+                spacing={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <Grid item>
                   <MDButton variant="outlined" color="secondary">
                     {"cancel"}
@@ -274,7 +287,9 @@ function EditAndShowPaysheadule() {
             <MDTypography variant="subtitle2">Pay Frequency</MDTypography>
           </Grid>
           <Grid item xs={12} sm={8}>
-            <MDTypography variant="inherit">{sheaduledata.calculate_salary_based_on}</MDTypography>
+            <MDTypography variant="inherit">
+              {sheaduledata.calculate_salary_based_on}
+            </MDTypography>
           </Grid>
           <Grid item xs={12} sm={4}>
             <MDTypography variant="subtitle2">Working Days</MDTypography>
@@ -290,14 +305,18 @@ function EditAndShowPaysheadule() {
           <Grid item xs={12} sm={8}>
             <MDTypography variant="inherit">
               {sheaduledata.pay_your_employee_on}
-              <MDButton onClick={() => setOpenPopup(true)}>{"(Change)"}</MDButton>
+              <MDButton onClick={() => setOpenPopup(true)}>
+                {"(Change)"}
+              </MDButton>
             </MDTypography>
           </Grid>
           <Grid item xs={12} sm={4}>
             <MDTypography variant="subtitle2">First Pay Period</MDTypography>
           </Grid>
           <Grid item xs={12} sm={8}>
-            <MDTypography variant="inherit">{sheaduledata.start_first_payroll}</MDTypography>
+            <MDTypography variant="inherit">
+              {sheaduledata.start_first_payroll}
+            </MDTypography>
           </Grid>
         </Grid>
       </Card>

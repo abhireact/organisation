@@ -30,12 +30,15 @@ const Addrole = (props: any) => {
   useEffect(() => {
     const Fetchlocations = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/worklocation`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/worklocation`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         console.log(response.data);
         setLocations(response.data);
       } catch (error) {
@@ -69,12 +72,16 @@ const Addrole = (props: any) => {
         location_name: location.location_name,
       };
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/mg_roles/main_admin`, sendData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .post(
+          `${process.env.REACT_APP_BACKEND_URL}/mg_roles/main_admin`,
+          sendData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then(() => {
           message.success("Role created successfully!");
         })
@@ -187,7 +194,9 @@ const Addrole = (props: any) => {
                         value="inactive"
                       />
                     }
-                    label={<MDTypography variant="body2">Inactive </MDTypography>}
+                    label={
+                      <MDTypography variant="body2">Inactive </MDTypography>
+                    }
                   />
                 </RadioGroup>
               </FormControl>
@@ -218,7 +227,9 @@ const Addrole = (props: any) => {
               sx={{ width: "65%" }}
               options={locations}
               getOptionLabel={(object) => object.location_name}
-              renderInput={(params) => <MDInput {...params} label="choose location" />}
+              renderInput={(params) => (
+                <MDInput {...params} label="choose location" />
+              )}
               value={location}
               onChange={(_event, newobject) => {
                 setLocation(newobject);
@@ -230,7 +241,11 @@ const Addrole = (props: any) => {
             />
           </Grid>
 
-          <Grid container sm={12} sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid
+            container
+            sm={12}
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
             <Grid mt={4}>
               <MDButton
                 color="info"

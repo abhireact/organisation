@@ -36,7 +36,9 @@ import burceMars from "assets/images/bruce-mars.jpg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
 
 function Header({ children }: { children?: ReactNode }): JSX.Element {
-  const [tabsOrientation, setTabsOrientation] = useState<"horizontal" | "vertical">("horizontal");
+  const [tabsOrientation, setTabsOrientation] = useState<
+    "horizontal" | "vertical"
+  >("horizontal");
   const [tabValue, setTabValue] = useState(0);
 
   useEffect(() => {
@@ -59,7 +61,8 @@ function Header({ children }: { children?: ReactNode }): JSX.Element {
     return () => window.removeEventListener("resize", handleTabsOrientation);
   }, [tabsOrientation]);
 
-  const handleSetTabValue = (event: any, newValue: any) => setTabValue(newValue);
+  const handleSetTabValue = (event: any, newValue: any) =>
+    setTabValue(newValue);
 
   return (
     <MDBox position="relative" mb={5}>
@@ -70,7 +73,10 @@ function Header({ children }: { children?: ReactNode }): JSX.Element {
         minHeight="18.75rem"
         borderRadius="xl"
         sx={{
-          backgroundImage: ({ functions: { rgba, linearGradient }, palette: { gradients } }) =>
+          backgroundImage: ({
+            functions: { rgba, linearGradient },
+            palette: { gradients },
+          }) =>
             `${linearGradient(
               rgba(gradients.info.main, 0.6),
               rgba(gradients.info.state, 0.6)
@@ -91,7 +97,12 @@ function Header({ children }: { children?: ReactNode }): JSX.Element {
       >
         <Grid container spacing={3} alignItems="center">
           <Grid item>
-            <MDAvatar src={burceMars} alt="profile-image" size="xl" shadow="sm" />
+            <MDAvatar
+              src={burceMars}
+              alt="profile-image"
+              size="xl"
+              shadow="sm"
+            />
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
@@ -105,7 +116,11 @@ function Header({ children }: { children?: ReactNode }): JSX.Element {
           </Grid>
           <Grid item xs={12} md={6} lg={4} sx={{ ml: "auto" }}>
             <AppBar position="static">
-              <Tabs orientation={tabsOrientation} value={tabValue} onChange={handleSetTabValue}>
+              <Tabs
+                orientation={tabsOrientation}
+                value={tabValue}
+                onChange={handleSetTabValue}
+              >
                 <Tab
                   label="App"
                   icon={

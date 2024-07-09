@@ -57,17 +57,25 @@ const Payslips = () => {
       <React.Fragment>
         <Grid container>
           {state.emp_salary[0].earnings.map((item: any, index: any) => {
-            const monthly_amount = parseFloat(String(item.monthly_amount).replace(/₹|,/g, ""));
+            const monthly_amount = parseFloat(
+              String(item.monthly_amount).replace(/₹|,/g, "")
+            );
             totalearnings += monthly_amount;
 
             return (
               <React.Fragment key={index}>
                 <Grid item xs={12} sm={8}>
-                  <MDTypography variant="body2">{item.earnings_name}</MDTypography>
+                  <MDTypography variant="body2">
+                    {item.earnings_name}
+                  </MDTypography>
                 </Grid>
                 <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                  <MDTypography variant="body2">{item.monthly_amount}</MDTypography>
-                  {index < state.emp_salary[0].earnings.length - 1 && <Divider />}
+                  <MDTypography variant="body2">
+                    {item.monthly_amount}
+                  </MDTypography>
+                  {index < state.emp_salary[0].earnings.length - 1 && (
+                    <Divider />
+                  )}
                 </Grid>
               </React.Fragment>
             );
@@ -84,17 +92,23 @@ const Payslips = () => {
 
       <Grid container>
         {state.emp_salary[0].pre_tax.map((item: any, index: any) => {
-          const monthly_amount = parseFloat(String(item.monthly_amount).replace(/₹|,/g, ""));
+          const monthly_amount = parseFloat(
+            String(item.monthly_amount).replace(/₹|,/g, "")
+          );
           totaldeduction += monthly_amount;
 
           return (
             <React.Fragment key={index}>
               <Grid item xs={12} sm={8}>
-                <MDTypography variant="body2">{item.earnings_name}</MDTypography>
+                <MDTypography variant="body2">
+                  {item.earnings_name}
+                </MDTypography>
               </Grid>
               <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
                 <MDTypography variant="body2">
-                  {`₹${item.monthly_amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+                  {`₹${item.monthly_amount
+                    .toFixed(2)
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
                 </MDTypography>
                 {index < state.emp_salary[0].pre_tax.length - 1 && <Divider />}
               </Grid>
@@ -123,7 +137,9 @@ const Payslips = () => {
       </Grid>
       <Grid item xs={12} sm={2.5} sx={{ textAlign: "right" }}>
         <MDTypography variant="h6">
-          {`₹${totaldeduction.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+          {`₹${totaldeduction
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
         </MDTypography>
       </Grid>
     </Grid>
@@ -185,11 +201,21 @@ const Payslips = () => {
 
   const rendereDownload = loadingButton ? (
     <MDTypography sx={{ textAlign: "right", color: "blue" }}>
-      <MDButton variant="text" color="info" className="download-button" onClick={downloadPDF}>
+      <MDButton
+        variant="text"
+        color="info"
+        className="download-button"
+        onClick={downloadPDF}
+      >
         <FileDownloadOutlinedIcon fontSize="inherit" />
         Download
       </MDButton>
-      <MDButton variant="text" color="info" onClick={handlePrint} className="print_button">
+      <MDButton
+        variant="text"
+        color="info"
+        onClick={handlePrint}
+        className="print_button"
+      >
         <LocalPrintshopOutlinedIcon fontSize="inherit" /> print
       </MDButton>
     </MDTypography>
@@ -218,9 +244,19 @@ const Payslips = () => {
       <MDBox mt={3}>
         <Grid container>
           <Grid item xs={12} sm={2.5}>
-            <Card sx={{ width: "95%", mt: "5", margin: "auto", backgroundColor: "#e8eaf6" }}>
+            <Card
+              sx={{
+                width: "95%",
+                mt: "5",
+                margin: "auto",
+                backgroundColor: "#e8eaf6",
+              }}
+            >
               <MDBox p={2}>
-                <MDTypography variant="subtitle1" sx={{ color: "#01579b", fontWeight: "bold" }}>
+                <MDTypography
+                  variant="subtitle1"
+                  sx={{ color: "#01579b", fontWeight: "bold" }}
+                >
                   {state.month}
                 </MDTypography>
 
@@ -239,7 +275,10 @@ const Payslips = () => {
                 <Grid container>
                   <Grid item xs={12} sm={3.5}>
                     <Grid container>
-                      <PieChart series={[{ data, innerRadius: 50 }]} {...sizing}>
+                      <PieChart
+                        series={[{ data, innerRadius: 50 }]}
+                        {...sizing}
+                      >
                         <PieCenterLabel>{state.month}</PieCenterLabel>
                       </PieChart>
                     </Grid>
@@ -265,13 +304,17 @@ const Payslips = () => {
                       <Grid item xs={12} sm={3}>
                         <MDTypography variant="body2">Deductions</MDTypography>
                         <MDTypography variant="h6">
-                          {`₹${totaldeduction.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}{" "}
+                          {`₹${totaldeduction
+                            .toFixed(2)
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}{" "}
                         </MDTypography>
                       </Grid>
                       <Grid item xs={12} sm={9}>
                         <MDTypography variant="body2">Gross Pay</MDTypography>
                         <MDTypography variant="h6">
-                          {`₹${totalearnings.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+                          {`₹${totalearnings
+                            .toFixed(2)
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
                         </MDTypography>
                       </Grid>
                     </Grid>

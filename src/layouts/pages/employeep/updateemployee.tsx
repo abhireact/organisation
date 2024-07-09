@@ -24,7 +24,10 @@ import {
 } from "@mui/material";
 import MDInput from "components/MDInput";
 import { useDispatch, useSelector } from "react-redux";
-import { storeEmployeeData, storeRoleseData } from "Redux/action/dummyDataActions";
+import {
+  storeEmployeeData,
+  storeRoleseData,
+} from "Redux/action/dummyDataActions";
 import { Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 // const initialValues = {
@@ -89,7 +92,9 @@ const EmployeeUpdation = () => {
   const [employee, setEmployee] = React.useState({});
   const [roles, setRoles] = React.useState([]);
   const [selectedlocation, setSelectedlocation] = React.useState({});
-  const WorkLocation = useSelector((state: any) => state.dummyData.workLocationData);
+  const WorkLocation = useSelector(
+    (state: any) => state.dummyData.workLocationData
+  );
   const location_name = [];
   const initialValues = {
     department: state?.department || "",
@@ -153,7 +158,9 @@ const EmployeeUpdation = () => {
     location_name.push(...uniqueLocationNames);
   }
 
-  const Department = useSelector((state: any) => state.dummyData.departmentData);
+  const Department = useSelector(
+    (state: any) => state.dummyData.departmentData
+  );
   const dept_name = [];
 
   if (Department && Department.length > 0) {
@@ -169,7 +176,9 @@ const EmployeeUpdation = () => {
   }
 
   console.log(dept_name, "departmentName");
-  const Designation = useSelector((state: any) => state.dummyData.designationData);
+  const Designation = useSelector(
+    (state: any) => state.dummyData.designationData
+  );
   console.log("Designation", Designation);
   const des_name = [];
 
@@ -205,7 +214,9 @@ const EmployeeUpdation = () => {
 
   console.log(role_display_name, "role_display_name");
 
-  const EmployeeData = useSelector((state: any) => state.dummyData.employeeData);
+  const EmployeeData = useSelector(
+    (state: any) => state.dummyData.employeeData
+  );
   console.log("EmployeeDatagggggggg", EmployeeData);
   const emoployee_name = [];
   // const manager_name = [];
@@ -256,27 +267,35 @@ const EmployeeUpdation = () => {
     dispatched(storeRoleseData(roles));
   }, [dispatched, roles]);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
   const token = Cookies.get("token");
 
   const handleFormSubmit = async () => {
     try {
       console.log(values, "formdata");
 
-      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/employee`, values, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/employee`,
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log(response);
 
@@ -299,12 +318,15 @@ const EmployeeUpdation = () => {
 
   const fetchEmployee = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/employee`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/employee`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const employee = await response.json();
       console.log(employee, typeof employee);
@@ -323,10 +345,13 @@ const EmployeeUpdation = () => {
       ? ((values.percentofctc / 100) * values.annual_ctc) / 12
       : 0;
   // calculating housingrentmothly%
-  const housingrent = values.percentofbasic ? (values.percentofbasic / 100) * ctcbasic : 0;
+  const housingrent = values.percentofbasic
+    ? (values.percentofbasic / 100) * ctcbasic
+    : 0;
 
   const fixedallownce =
-    values.annual_ctc / 12 - (ctcbasic + housingrent + values.convinienceallownce);
+    values.annual_ctc / 12 -
+    (ctcbasic + housingrent + values.convinienceallownce);
 
   return (
     <DashboardLayout>
@@ -336,10 +361,23 @@ const EmployeeUpdation = () => {
           <MDBox p={2}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={9}>
-                <MDTypography variant="h5">{"Update Employee Details"}</MDTypography>
+                <MDTypography variant="h5">
+                  {"Update Employee Details"}
+                </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                <MDButton variant="gradient" color="info" type="submit" onClick={handleFormSubmit}>
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  type="submit"
+                  onClick={handleFormSubmit}
+                >
                   {"Save"}
                 </MDButton>
               </Grid>
@@ -366,7 +404,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.first_name && touched.first_name ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.first_name}
                   </MDTypography>
                 ) : null}
@@ -387,7 +429,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.last_name && touched.last_name ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.last_name}
                   </MDTypography>
                 ) : null}
@@ -408,7 +454,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.email && touched.email ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.email}
                   </MDTypography>
                 ) : null}
@@ -446,7 +496,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.department && touched.department ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.department}
                   </MDTypography>
                 ) : null}
@@ -481,7 +535,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.designation && touched.designation ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.designation}
                   </MDTypography>
                 ) : null}
@@ -542,7 +600,11 @@ const EmployeeUpdation = () => {
 
                 {errors.location && touched.location ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.location}
                   </MDTypography>
                 ) : null}
@@ -577,7 +639,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.role && touched.role ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.role}
                   </MDTypography>
                 ) : null}
@@ -612,7 +678,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.employee_type && touched.employee_type ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.employee_type}
                   </MDTypography>
                 ) : null}
@@ -646,7 +716,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.source_of_hire && touched.source_of_hire ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.source_of_hire}
                   </MDTypography>
                 ) : null}
@@ -701,13 +775,19 @@ const EmployeeUpdation = () => {
                 />
                 {errors.joining_date && touched.joining_date ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.joining_date}
                   </MDTypography>
                 ) : null}
               </Grid>
               <Grid item xs={12} sm={9}>
-                <MDTypography variant="h6">{"Hierarchy Information"}</MDTypography>
+                <MDTypography variant="h6">
+                  {"Hierarchy Information"}
+                </MDTypography>
               </Grid>
               <Grid item xs={12} sm={4}>
                 {/* <Autocomplete
@@ -749,9 +829,13 @@ const EmployeeUpdation = () => {
                   onChange={(event, value) => {
                     if (value) {
                       const managerObject = value.value; // Extract manager's name in object format
-                      handleChange({ target: { name: "manager", value: managerObject } });
+                      handleChange({
+                        target: { name: "manager", value: managerObject },
+                      });
                     } else {
-                      handleChange({ target: { name: "manager", value: null } });
+                      handleChange({
+                        target: { name: "manager", value: null },
+                      });
                     }
                   }}
                   renderInput={(params) => (
@@ -792,7 +876,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.dob && touched.dob ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.dob}
                   </MDTypography>
                 ) : null}
@@ -826,7 +914,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.gender && touched.gender ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.gender}
                   </MDTypography>
                 ) : null}
@@ -846,7 +938,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.about_me && touched.about_me ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.about_me}
                   </MDTypography>
                 ) : null}
@@ -866,7 +962,11 @@ const EmployeeUpdation = () => {
                 />
                 {errors.Expertise && touched.Expertise ? (
                   // <p className="form-error">{errors.name}</p>
-                  <MDTypography variant="caption" fontWeight="regular" color="error">
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
                     {errors.Expertise}
                   </MDTypography>
                 ) : null}

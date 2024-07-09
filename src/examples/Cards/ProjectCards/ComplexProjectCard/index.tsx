@@ -28,7 +28,15 @@ import MDAvatar from "components/MDAvatar";
 
 // Declaring prop types for the ComplexProjectCard
 interface Props {
-  color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark" | "light";
+  color?:
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "dark"
+    | "light";
   image: string;
   title: string;
   dateTime?: string;
@@ -87,13 +95,23 @@ function ComplexProjectCard({
             size="xl"
             variant="rounded"
             bgColor={color}
-            sx={{ p: 1, mt: -6, borderRadius: ({ borders: { borderRadius } }) => borderRadius.xl }}
+            sx={{
+              p: 1,
+              mt: -6,
+              borderRadius: ({ borders: { borderRadius } }) => borderRadius.xl,
+            }}
           />
           <MDBox ml={2} mt={-2} lineHeight={0}>
-            <MDTypography variant="h6" textTransform="capitalize" fontWeight="medium">
+            <MDTypography
+              variant="h6"
+              textTransform="capitalize"
+              fontWeight="medium"
+            >
               {title}
             </MDTypography>
-            {members.length > -1 ? <MDBox display="flex">{renderMembers}</MDBox> : null}
+            {members.length > -1 ? (
+              <MDBox display="flex">{renderMembers}</MDBox>
+            ) : null}
           </MDBox>
           {dropdown && (
             <MDTypography
@@ -106,7 +124,9 @@ function ComplexProjectCard({
                 py: 1.25,
               }}
             >
-              <Icon sx={{ cursor: "pointer", fontWeight: "bold" }}>more_vert</Icon>
+              <Icon sx={{ cursor: "pointer", fontWeight: "bold" }}>
+                more_vert
+              </Icon>
             </MDTypography>
           )}
           {dropdown.menu}
@@ -117,13 +137,21 @@ function ComplexProjectCard({
           </MDTypography>
         </MDBox>
         <Divider />
-        <MDBox display="flex" justifyContent="space-between" alignItems="center">
+        <MDBox
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           {members.length > -1 ? (
             <MDBox display="flex" flexDirection="column" lineHeight={0}>
               <MDTypography variant="button" fontWeight="medium">
                 {members.length}
               </MDTypography>
-              <MDTypography variant="button" fontWeight="regular" color="secondary">
+              <MDTypography
+                variant="button"
+                fontWeight="regular"
+                color="secondary"
+              >
                 Participants
               </MDTypography>
             </MDBox>
@@ -133,7 +161,11 @@ function ComplexProjectCard({
               <MDTypography variant="button" fontWeight="medium">
                 {dateTime}
               </MDTypography>
-              <MDTypography variant="button" fontWeight="regular" color="secondary">
+              <MDTypography
+                variant="button"
+                fontWeight="regular"
+                color="secondary"
+              >
                 Due date
               </MDTypography>
             </MDBox>

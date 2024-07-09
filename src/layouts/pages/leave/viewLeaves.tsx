@@ -18,16 +18,21 @@ const Viewleave = (props: any) => {
   const token = Cookies.get("token");
   const [openReson, SetOpenReason] = useState(false);
   console.log("token", token);
-  const { values, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: leaveSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(values.gender, values.martial_status, "rtretrtrfr");
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, touched, handleBlur, handleChange, handleSubmit } = useFormik(
+    {
+      initialValues,
+      validationSchema: leaveSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(values.gender, values.martial_status, "rtretrtrfr");
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    }
+  );
   const { openView, setOpenview, data } = props;
   console.log(data, "data");
 
@@ -175,7 +180,11 @@ const Viewleave = (props: any) => {
           {openReson == true ? (
             <>
               <Grid sm={4} my={2}>
-                <MDButton color="primary" type="submit" onClick={handleFormSubmit}>
+                <MDButton
+                  color="primary"
+                  type="submit"
+                  onClick={handleFormSubmit}
+                >
                   Submit
                 </MDButton>
               </Grid>

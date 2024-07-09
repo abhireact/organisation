@@ -48,41 +48,49 @@ function EditPreTax(props: any) {
     location_name: "Banglore",
     organization_name: "Mindcom",
   };
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      enableReinitialize: true,
-      onSubmit: async (values, action) => {
-        console.log(values);
-        try {
-          const formvalue = {
-            ...values,
-            deduction_with: values.deduction_with.group + "-" + values.deduction_with.name,
-          };
-          console.log("aaaaaaaaaaaaaaaaaaaaaaa");
-          axios
-            .put(
-              `${process.env.REACT_APP_BACKEND_URL}/mg_pre_tax_deduction/?pre_name_slip=${old_payslip_name}`,
-              formvalue,
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((response) => {
-              message.success(response.data.message);
-              props.onSuccess();
-            })
-            .catch((error) => {
-              message.error(error.response.data.detail);
-            });
-        } catch (error) {
-          console.error("Error saving data:", error);
-        }
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: async (values, action) => {
+      console.log(values);
+      try {
+        const formvalue = {
+          ...values,
+          deduction_with:
+            values.deduction_with.group + "-" + values.deduction_with.name,
+        };
+        console.log("aaaaaaaaaaaaaaaaaaaaaaa");
+        axios
+          .put(
+            `${process.env.REACT_APP_BACKEND_URL}/mg_pre_tax_deduction/?pre_name_slip=${old_payslip_name}`,
+            formvalue,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            message.success(response.data.message);
+            props.onSuccess();
+          })
+          .catch((error) => {
+            message.error(error.response.data.detail);
+          });
+      } catch (error) {
+        console.error("Error saving data:", error);
+      }
+    },
+  });
   const options = [
     {
       name: "Life Insurance Premiums",
@@ -224,7 +232,9 @@ function EditPreTax(props: any) {
             <Grid item xs={12} sm={12} p={2}>
               <Card sx={{ width: "80%", margin: "auto", mt: "2%" }}>
                 <Grid p={2}>
-                  <MDTypography variant="h7">Tax deduction guidelines for NPS</MDTypography>
+                  <MDTypography variant="h7">
+                    Tax deduction guidelines for NPS
+                  </MDTypography>
                   <Grid pl={4}>
                     <ul>
                       <li>
@@ -255,7 +265,14 @@ function EditPreTax(props: any) {
             </Grid>
           ) : null}
         </Grid>
-        <Grid item xs={12} sm={3} p={3} display="flex" justifyContent="flex-end">
+        <Grid
+          item
+          xs={12}
+          sm={3}
+          p={3}
+          display="flex"
+          justifyContent="flex-end"
+        >
           <MDButton variant="gradient" color="info" type="submit">
             {"Save"}
           </MDButton>

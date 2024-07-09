@@ -148,60 +148,104 @@ function Createsalary() {
       },
     ],
   };
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
-      initialValues,
-      enableReinitialize: true,
-      onSubmit: async (values, action) => {
-        const updatedEarnings = values.earnings_type_name.map(
-          (
-            earnings: { enter_amount_or_percent: number; calculation_type: string },
-            index: any
-          ) => ({
-            ...earnings,
-            monthly_amount:
-              earnings.calculation_type === "% of CTC"
-                ? parseFloat(
-                    ((values.annual_ctc / 100) * (earnings.enter_amount_or_percent / 12)).toFixed(2)
-                  )
-                : earnings.calculation_type === "Flat Amount"
-                ? parseFloat((earnings.enter_amount_or_percent / 12).toFixed(2))
-                : earnings.calculation_type === "% of Basic"
-                ? parseFloat(((basic / 100) * (earnings.enter_amount_or_percent / 12)).toFixed(2))
-                : null,
-          })
-        );
-        const updateDeduction = values.pre_tax_name.map(
-          (
-            deduction: { enter_amount_or_percent: number; calculation_type: string },
-            index: any
-          ) => ({
-            ...deduction,
-            monthly_amount:
-              deduction.calculation_type === "% of CTC"
-                ? parseFloat(
-                    ((values.annual_ctc / 100) * (deduction.enter_amount_or_percent / 12)).toFixed(
-                      2
-                    )
-                  )
-                : deduction.calculation_type === "Flat Amount"
-                ? parseFloat((deduction.enter_amount_or_percent / 12).toFixed(2))
-                : deduction.calculation_type === "% of Basic"
-                ? parseFloat(((basic / 100) * (deduction.enter_amount_or_percent / 12)).toFixed(2))
-                : null,
-          })
-        );
-        console.log(updatedEarnings, updateDeduction, "ssssssssssssssssss");
-        const postdata = {
-          annual_ctc: values.annual_ctc,
-          earnings_type_name: updatedEarnings,
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: async (values, action) => {
+      const updatedEarnings = values.earnings_type_name.map(
+        (
+          earnings: {
+            enter_amount_or_percent: number;
+            calculation_type: string;
+          },
+          index: any
+        ) => ({
+          ...earnings,
+          monthly_amount:
+            earnings.calculation_type === "% of CTC"
+              ? parseFloat(
+                  (
+                    (values.annual_ctc / 100) *
+                    (earnings.enter_amount_or_percent / 12)
+                  ).toFixed(2)
+                )
+              : earnings.calculation_type === "Flat Amount"
+              ? parseFloat((earnings.enter_amount_or_percent / 12).toFixed(2))
+              : earnings.calculation_type === "% of Basic"
+              ? parseFloat(
+                  (
+                    (basic / 100) *
+                    (earnings.enter_amount_or_percent / 12)
+                  ).toFixed(2)
+                )
+              : null,
+        })
+      );
+      const updateDeduction = values.pre_tax_name.map(
+        (
+          deduction: {
+            enter_amount_or_percent: number;
+            calculation_type: string;
+          },
+          index: any
+        ) => ({
+          ...deduction,
+          monthly_amount:
+            deduction.calculation_type === "% of CTC"
+              ? parseFloat(
+                  (
+                    (values.annual_ctc / 100) *
+                    (deduction.enter_amount_or_percent / 12)
+                  ).toFixed(2)
+                )
+              : deduction.calculation_type === "Flat Amount"
+              ? parseFloat((deduction.enter_amount_or_percent / 12).toFixed(2))
+              : deduction.calculation_type === "% of Basic"
+              ? parseFloat(
+                  (
+                    (basic / 100) *
+                    (deduction.enter_amount_or_percent / 12)
+                  ).toFixed(2)
+                )
+              : null,
+        })
+      );
+      console.log(updatedEarnings, updateDeduction, "ssssssssssssssssss");
+      const postdata = {
+        annual_ctc: values.annual_ctc,
+        earnings_type_name: updatedEarnings,
 
-          pre_tax_name: updateDeduction,
-          employee_email: state.email,
-        };
-        console.log(postdata, "sending salary data");
+        pre_tax_name: updateDeduction,
+        employee_email: state.email,
+      };
+      console.log(postdata, "sending salary data");
+      try {
+        const response = await axios.put(
+          `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details`,
+          postdata,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          message.success("Updated salary details Successfully");
+          // action.resetForm();
+        }
+      } catch (error) {
         try {
-          const response = await axios.put(
+          await axios.post(
             `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details`,
             postdata,
             {
@@ -212,36 +256,27 @@ function Createsalary() {
             }
           );
 
-          if (response.status === 200) {
-            message.success("Updated salary details Successfully");
-            // action.resetForm();
-          }
-        } catch (error) {
-          try {
-            await axios.post(
-              `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details`,
-              postdata,
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-
-            message.success("Created salary details Successfully");
-            action.resetForm();
-          } catch (postError) {
-            console.error("Error creating salary details:", postError);
-            // Handle error when creating salary details
-          }
+          message.success("Created salary details Successfully");
+          action.resetForm();
+        } catch (postError) {
+          console.error("Error creating salary details:", postError);
+          // Handle error when creating salary details
         }
-      },
-    });
+      }
+    },
+  });
   const dataTableData = {
     columns: [
-      { Header: "SALARY COMPONENTS", accessor: "salary_component", width: "25%" },
-      { Header: "CALCULATION TYPE", accessor: "calculation_type", width: "25%" },
+      {
+        Header: "SALARY COMPONENTS",
+        accessor: "salary_component",
+        width: "25%",
+      },
+      {
+        Header: "CALCULATION TYPE",
+        accessor: "calculation_type",
+        width: "25%",
+      },
       { Header: "MONTHLY AMOUNT", accessor: "monthly_amount", width: "25%" },
       { Header: "ANNUAL AMOUNT", accessor: "annual_amount", width: "25%" },
     ],
@@ -269,23 +304,39 @@ function Createsalary() {
           monthly_amount:
             earnings.calculation_type === "% of CTC"
               ? parseFloat(
-                  ((values.annual_ctc / 100) * (earnings.enter_amount_or_percent / 12)).toFixed(2)
+                  (
+                    (values.annual_ctc / 100) *
+                    (earnings.enter_amount_or_percent / 12)
+                  ).toFixed(2)
                 )
               : earnings.calculation_type === "Flat Amount"
               ? parseFloat((earnings.enter_amount_or_percent / 12).toFixed(2))
               : earnings.calculation_type === "% of Basic"
-              ? parseFloat(((basic / 100) * (earnings.enter_amount_or_percent / 12)).toFixed(2))
+              ? parseFloat(
+                  (
+                    (basic / 100) *
+                    (earnings.enter_amount_or_percent / 12)
+                  ).toFixed(2)
+                )
               : null,
           annual_amount:
             earnings.calculation_type === "% of CTC"
               ? parseFloat(
-                  ((values.annual_ctc / 100) * (earnings.enter_amount_or_percent / 12)).toFixed(2)
+                  (
+                    (values.annual_ctc / 100) *
+                    (earnings.enter_amount_or_percent / 12)
+                  ).toFixed(2)
                 ) * 12
               : earnings.calculation_type === "Flat Amount"
-              ? parseFloat((earnings.enter_amount_or_percent / 12).toFixed(2)) * 12
-              : earnings.calculation_type === "% of Basic"
-              ? parseFloat(((basic / 100) * (earnings.enter_amount_or_percent / 12)).toFixed(2)) *
+              ? parseFloat((earnings.enter_amount_or_percent / 12).toFixed(2)) *
                 12
+              : earnings.calculation_type === "% of Basic"
+              ? parseFloat(
+                  (
+                    (basic / 100) *
+                    (earnings.enter_amount_or_percent / 12)
+                  ).toFixed(2)
+                ) * 12
               : null,
         };
       }),
@@ -312,12 +363,20 @@ function Createsalary() {
           monthly_amount:
             deduction.calculation_type === "% of CTC"
               ? parseFloat(
-                  ((values.annual_ctc / 100) * (deduction.enter_amount_or_percent / 12)).toFixed(2)
+                  (
+                    (values.annual_ctc / 100) *
+                    (deduction.enter_amount_or_percent / 12)
+                  ).toFixed(2)
                 )
               : deduction.calculation_type === "Flat Amount"
               ? parseFloat((deduction.enter_amount_or_percent / 12).toFixed(2))
               : deduction.calculation_type === "% of Basic"
-              ? parseFloat(((basic / 100) * (deduction.enter_amount_or_percent / 12)).toFixed(2))
+              ? parseFloat(
+                  (
+                    (basic / 100) *
+                    (deduction.enter_amount_or_percent / 12)
+                  ).toFixed(2)
+                )
               : null,
           annual_amount:
             deduction.calculation_type === "% of CTC"
@@ -329,10 +388,16 @@ function Createsalary() {
                   ).toFixed(2)
                 ) * 12
               : deduction.calculation_type === "Flat Amount"
-              ? parseFloat(((deduction.enter_amount_or_percent / 12) * 12).toFixed(2)) * 12
+              ? parseFloat(
+                  ((deduction.enter_amount_or_percent / 12) * 12).toFixed(2)
+                ) * 12
               : deduction.calculation_type === "% of Basic"
               ? parseFloat(
-                  ((basic / 100) * (deduction.enter_amount_or_percent / 12) * 12).toFixed(2)
+                  (
+                    (basic / 100) *
+                    (deduction.enter_amount_or_percent / 12) *
+                    12
+                  ).toFixed(2)
                 )
               : null,
         };
@@ -340,7 +405,9 @@ function Createsalary() {
 
       {
         salary_component:
-          epf && epf.employer_contribution_ctc && epf.employer_contribution_ctc.length !== 0
+          epf &&
+          epf.employer_contribution_ctc &&
+          epf.employer_contribution_ctc.length !== 0
             ? "EPF - Employer Contribution"
             : null,
         calculation_type: epf ? epf.employer_contribution_rate : null,
@@ -355,10 +422,18 @@ function Createsalary() {
       monthly_amount:
         earnings.calculation_type === "% of CTC"
           ? (parseFloat(
-              ((values.annual_ctc / 100) * (earnings.enter_amount_or_percent / 12)).toFixed(2)
+              (
+                (values.annual_ctc / 100) *
+                (earnings.enter_amount_or_percent / 12)
+              ).toFixed(2)
             ),
             setBasic(
-              parseFloat(((values.annual_ctc / 100) * earnings.enter_amount_or_percent).toFixed(2))
+              parseFloat(
+                (
+                  (values.annual_ctc / 100) *
+                  earnings.enter_amount_or_percent
+                ).toFixed(2)
+              )
             ))
           : null,
     }));
@@ -370,7 +445,9 @@ function Createsalary() {
         <MDBox p={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={9}>
-              <MDTypography variant="h5">{"Update Salary Details"}</MDTypography>
+              <MDTypography variant="h5">
+                {"Update Salary Details"}
+              </MDTypography>
             </Grid>
             <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
               <MDButton variant="gradient" color="info" type="submit">

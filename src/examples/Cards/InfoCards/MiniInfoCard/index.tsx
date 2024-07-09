@@ -24,7 +24,14 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 interface Props {
-  color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark";
+  color?:
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "dark";
   icon: ReactNode;
   title: ReactNode;
   description: string;
@@ -50,7 +57,11 @@ function MiniInfoCard({ color, icon, title, description }: Props): JSX.Element {
           <Icon>{icon}</Icon>
         </MDBox>
         <MDBox mt={2.625}>
-          <MDTypography variant="h5" fontWeight="medium" textTransform="capitalize">
+          <MDTypography
+            variant="h5"
+            fontWeight="medium"
+            textTransform="capitalize"
+          >
             {title}
           </MDTypography>
           <MDTypography variant="body2" color="text" fontWeight="regular">

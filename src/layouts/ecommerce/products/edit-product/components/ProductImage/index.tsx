@@ -76,8 +76,9 @@ function ProductImage(): JSX.Element {
           Product Image
         </MDTypography>
         <MDTypography variant="body2" color="text" sx={{ mt: 1.5, mb: 1 }}>
-          The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to
-          &#8220;Naviglio&#8221; where you can enjoy the main night life in Barcelona.
+          The place is close to Barceloneta Beach and bus stop just 2 min by
+          walk and near to &#8220;Naviglio&#8221; where you can enjoy the main
+          night life in Barcelona.
         </MDTypography>
       </MDBox>
     </Card>

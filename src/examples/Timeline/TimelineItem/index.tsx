@@ -30,7 +30,15 @@ import timelineItem from "examples/Timeline/TimelineItem/styles";
 
 // Declaring prop types for TimelineItem
 interface Props {
-  color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark" | "light";
+  color?:
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "dark"
+    | "light";
   icon: ReactNode;
   title: string;
   dateTime: string;
@@ -39,7 +47,14 @@ interface Props {
   [key: string]: any;
 }
 
-function TimelineItem({ color, icon, title, dateTime, description, lastItem }: Props): JSX.Element {
+function TimelineItem({
+  color,
+  icon,
+  title,
+  dateTime,
+  description,
+  lastItem,
+}: Props): JSX.Element {
   const isDark = useTimeline();
 
   return (
@@ -65,8 +80,17 @@ function TimelineItem({ color, icon, title, dateTime, description, lastItem }: P
       >
         <Icon fontSize="inherit">{icon}</Icon>
       </MDBox>
-      <MDBox ml={5.75} pt={description ? 0.7 : 0.5} lineHeight={0} maxWidth="30rem">
-        <MDTypography variant="button" fontWeight="medium" color={isDark ? "white" : "dark"}>
+      <MDBox
+        ml={5.75}
+        pt={description ? 0.7 : 0.5}
+        lineHeight={0}
+        maxWidth="30rem"
+      >
+        <MDTypography
+          variant="button"
+          fontWeight="medium"
+          color={isDark ? "white" : "dark"}
+        >
           {title}
         </MDTypography>
         <MDBox mt={0.5}>

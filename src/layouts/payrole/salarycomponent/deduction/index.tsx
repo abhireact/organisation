@@ -199,7 +199,10 @@ function Deducton() {
       action: (
         <Grid container spacing={1}>
           <Grid item>
-            <Icon fontSize="small" onClick={() => handleClickOpen(data, "pretax")}>
+            <Icon
+              fontSize="small"
+              onClick={() => handleClickOpen(data, "pretax")}
+            >
               edit
             </Icon>
           </Grid>
@@ -223,7 +226,8 @@ function Deducton() {
     rows: postTax.map((data, index) => ({
       name: data.name_in_payslip,
       deduction_type: " 	Other Deductions",
-      deduction_frequency: data.recurring_deduction == true ? "Recurring" : "One Time",
+      deduction_frequency:
+        data.recurring_deduction == true ? "Recurring" : "One Time",
       status: (
         <Switch
           defaultChecked={data.mark_as_active}
@@ -234,12 +238,18 @@ function Deducton() {
       action: (
         <Grid container spacing={1}>
           <Grid item>
-            <Icon fontSize="small" onClick={() => handleClickOpen(data, "posttax")}>
+            <Icon
+              fontSize="small"
+              onClick={() => handleClickOpen(data, "posttax")}
+            >
               edit
             </Icon>
           </Grid>
           <Grid item>
-            <Icon fontSize="small" onClick={() => handleDelete(data, "posttax")}>
+            <Icon
+              fontSize="small"
+              onClick={() => handleDelete(data, "posttax")}
+            >
               delete
             </Icon>
           </Grid>

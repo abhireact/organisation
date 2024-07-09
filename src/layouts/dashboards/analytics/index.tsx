@@ -46,7 +46,9 @@ import { useSelector } from "react-redux";
 
 function Analytics(): JSX.Element {
   const { sales, tasks } = reportsLineChartData;
-  const userprofileData = useSelector((state: any) => state.dummyData?.userprofileData);
+  const userprofileData = useSelector(
+    (state: any) => state.dummyData?.userprofileData
+  );
   // Action buttons for the BookingCard
   const actionButtons = (
     <>
@@ -61,7 +63,12 @@ function Analytics(): JSX.Element {
         </MDTypography>
       </Tooltip>
       <Tooltip title="Edit" placement="bottom">
-        <MDTypography variant="body1" color="info" lineHeight={1} sx={{ cursor: "pointer", mx: 3 }}>
+        <MDTypography
+          variant="body1"
+          color="info"
+          lineHeight={1}
+          sx={{ cursor: "pointer", mx: 3 }}
+        >
           <Icon color="inherit">edit</Icon>
         </MDTypography>
       </Tooltip>

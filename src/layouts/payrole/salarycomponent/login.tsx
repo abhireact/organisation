@@ -22,7 +22,13 @@ import bgImage from "assets/images/bg-sign-in-cover.jpeg";
 //   updateSectionName,
 // } from "../../Redux/action/dummyDataActions";
 import { useNavigate } from "react-router-dom";
-import { FormControl, IconButton, Input, InputAdornment, InputLabel } from "@mui/material";
+import {
+  FormControl,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 // import { useDispatch, useSelector } from "react-redux";
 function CoverLogin() {
@@ -138,9 +144,9 @@ function CoverLogin() {
                 placeholder="john@example.com"
                 InputLabelProps={{ shrink: true }}
                 value={email}
-                onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
-                  setEmail(e.target.value)
-                }
+                onChange={(e: {
+                  target: { value: React.SetStateAction<string> };
+                }) => setEmail(e.target.value)}
               />
             </MDBox>
             <MDBox mb={2}>
@@ -158,15 +164,17 @@ function CoverLogin() {
                 }
               /> */}
               <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
-                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                <InputLabel htmlFor="standard-adornment-password">
+                  Password
+                </InputLabel>
                 <Input
                   id="standard-adornment-password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   required
-                  onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
-                    setPassword(e.target.value)
-                  }
+                  onChange={(e: {
+                    target: { value: React.SetStateAction<string> };
+                  }) => setPassword(e.target.value)}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -183,7 +191,11 @@ function CoverLogin() {
             </MDBox>
 
             <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch required checked={rememberMe} onChange={handleSetRememberMe} />
+              <Switch
+                required
+                checked={rememberMe}
+                onChange={handleSetRememberMe}
+              />
               <MDTypography
                 variant="button"
                 fontWeight="regular"

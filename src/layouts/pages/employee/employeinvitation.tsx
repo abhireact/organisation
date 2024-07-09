@@ -34,15 +34,19 @@ const initialValues = {
   // ph_num:""
 };
 function EmployeeInvitation() {
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    // validationSchema: organisationSchema,
-    enableReinitialize: true,
-    onSubmit: (values: any, action: { resetForm: () => void }) => {
-      console.log(" ~ file: Registration.jsx ~ line 11 ~ Registration ~ values", values);
-      action.resetForm();
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      // validationSchema: organisationSchema,
+      enableReinitialize: true,
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
+        console.log(
+          " ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+          values
+        );
+        action.resetForm();
+      },
+    });
 
   const [rememberMe, setRememberMe] = useState(true);
   const [tokendata, setTokendata] = useState("");
@@ -55,12 +59,16 @@ function EmployeeInvitation() {
   const handleFormSubmit = async () => {
     console.log(values, "formdata");
     try {
-      const response = await axios.post("http://122.166.211.176:8000/employeeotp", values, {
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        "http://122.166.211.176:8000/employeeotp",
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log(response);
 
@@ -131,7 +139,11 @@ function EmployeeInvitation() {
               />
               {errors.email && touched.email ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.email}
                 </MDTypography>
               ) : null}
@@ -151,7 +163,11 @@ function EmployeeInvitation() {
               />
               {errors.otp && touched.otp ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.otp}
                 </MDTypography>
               ) : null}
@@ -171,13 +187,21 @@ function EmployeeInvitation() {
               />
               {errors.password && touched.password ? (
                 // <p className="form-error">{errors.name}</p>
-                <MDTypography variant="caption" fontWeight="regular" color="error">
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
                   {errors.password}
                 </MDTypography>
               ) : null}
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch required checked={rememberMe} onChange={handleSetRememberMe} />
+              <Switch
+                required
+                checked={rememberMe}
+                onChange={handleSetRememberMe}
+              />
               <MDTypography
                 variant="button"
                 fontWeight="regular"
