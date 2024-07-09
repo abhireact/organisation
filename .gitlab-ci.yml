@@ -1,0 +1,24 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - npm install --legacy-peer-deps
+    - npx prettier --write .
+    - npx eslint --fix .
+    - npm install ajv --save-dev --legacy-peer-deps
+    - npm run build
+  only:
+    - main
+  artifacts:
+    paths:
+      - ./build_org
+
+deploy:
+  stage: deploy
+  script:
+    - cp -rf ./build_org/* /usr/share/nginx/mindcom-pay-new
+  only:
+    - main
