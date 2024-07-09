@@ -4,7 +4,7 @@
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Mindcom Group (https://www.creative-tim.com)
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
 
 Coded by www.creative-tim.com
 
@@ -47,14 +47,7 @@ import {
 
 // Declaring props types for Sidenav
 interface Props {
-  color?:
-    | "primary"
-    | "secondary"
-    | "info"
-    | "success"
-    | "warning"
-    | "error"
-    | "dark";
+  color?: "primary" | "secondary" | "info" | "success" | "warning" | "error" | "dark";
   brand?: string;
   brandName: string;
   routes: {
@@ -73,20 +66,11 @@ interface Props {
   [key: string]: any;
 }
 
-function Sidenav({
-  color,
-  brand,
-  brandName,
-  routes,
-  ...rest
-}: Props): JSX.Element {
+function Sidenav({ color, brand, brandName, routes, ...rest }: Props): JSX.Element {
   const [openCollapse, setOpenCollapse] = useState<boolean | string>(false);
-  const [openNestedCollapse, setOpenNestedCollapse] = useState<
-    boolean | string
-  >(false);
+  const [openNestedCollapse, setOpenNestedCollapse] = useState<boolean | string>(false);
   const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentSidenav, whiteSidenav, darkMode } =
-    controller;
+  const { miniSidenav, transparentSidenav, whiteSidenav, darkMode } = controller;
   const location = useLocation();
   const { pathname } = location;
   const collapseName = pathname.split("/").slice(1)[0];
@@ -124,14 +108,8 @@ function Sidenav({
     // A function that sets the mini state of the sidenav.
     function handleMiniSidenav() {
       setMiniSidenav(dispatch, window.innerWidth < 1200);
-      setTransparentSidenav(
-        dispatch,
-        window.innerWidth < 1200 ? false : transparentSidenav
-      );
-      setWhiteSidenav(
-        dispatch,
-        window.innerWidth < 1200 ? false : whiteSidenav
-      );
+      setTransparentSidenav(dispatch, window.innerWidth < 1200 ? false : transparentSidenav);
+      setWhiteSidenav(dispatch, window.innerWidth < 1200 ? false : whiteSidenav);
     }
 
     /** 
@@ -182,8 +160,7 @@ function Sidenav({
             active={key === itemParentName ? "isParent" : false}
             open={openNestedCollapse === key}
             onClick={({ currentTarget }: any) =>
-              openNestedCollapse === key &&
-              currentTarget.classList.contains("MuiListItem-root")
+              openNestedCollapse === key && currentTarget.classList.contains("MuiListItem-root")
                 ? setOpenNestedCollapse(false)
                 : setOpenNestedCollapse(key)
             }
@@ -213,17 +190,7 @@ function Sidenav({
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(
-    ({
-      type,
-      name,
-      icon,
-      title,
-      collapse,
-      noCollapse,
-      key,
-      href,
-      route,
-    }: any) => {
+    ({ type, name, icon, title, collapse, noCollapse, key, href, route }: any) => {
       let returnValue;
 
       if (type === "collapse") {
@@ -265,11 +232,7 @@ function Sidenav({
               icon={icon}
               active={key === collapseName}
               open={openCollapse === key}
-              onClick={() =>
-                openCollapse === key
-                  ? setOpenCollapse(false)
-                  : setOpenCollapse(key)
-              }
+              onClick={() => (openCollapse === key ? setOpenCollapse(false) : setOpenCollapse(key))}
             >
               {collapse ? renderCollapse(collapse) : null}
             </SidenavCollapse>
@@ -329,28 +292,14 @@ function Sidenav({
           </MDTypography>
         </MDBox>
         <MDBox component={NavLink} to="/" display="flex" alignItems="center">
-          {brand && (
-            <MDBox
-              component="img"
-              src={
-                "http://mindcomgit.com/uploads/-/system/appearance/header_logo/1/logo.png"
-              }
-              alt="Brand"
-              width="10rem"
-            />
-          )}
+          {brand && <MDBox component="img" src={brand} alt="Brand" width="10rem" />}
           <MDBox
             width={!brandName && "100%"}
             sx={(theme: any) => sidenavLogoLabel(theme, { miniSidenav })}
           >
-            <MDTypography
-              component="h6"
-              variant="button"
-              fontWeight="medium"
-              color={textColor}
-            >
-              {/* {brandName} */}
-            </MDTypography>
+            {/* <MDTypography component="h6" variant="button" fontWeight="medium" color={textColor}>
+              {brandName}
+            </MDTypography> */}
           </MDBox>
         </MDBox>
       </MDBox>

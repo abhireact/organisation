@@ -61,8 +61,8 @@ import {
 } from "context";
 
 // Images
-import brandWhite from "assets/images/logo-ct.png";
-import brandDark from "assets/images/logo-ct-dark.png";
+import brandWhite from "assets/images/orglogo.png";
+import brandDark from "assets/images/orglogo.png";
 import Cookies from "js-cookie";
 import axios from "axios";
 import React from "react";
