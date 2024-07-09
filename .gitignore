@@ -19,7 +19,10 @@
 .env.test.local
 .env.production.local
 .prettierrc.json
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9028323b58e96e484491166bf1ed54cbab2e37a6
 
 npm-debug.log*
 yarn-debug.log*

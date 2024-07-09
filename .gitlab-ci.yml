@@ -13,11 +13,11 @@ build:
     - main
   artifacts:
     paths:
-      - ./build_org
+      - ./build
 
 deploy:
   stage: deploy
   script:
-    - cp -rf ./build_org/* /usr/share/nginx/mindcom-pay-new
+    - cp -rf ./build/* /usr/share/nginx/mindcom-pay-new
   only:
     - main
