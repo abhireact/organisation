@@ -96,7 +96,7 @@ const Employeesm = () => {
   const handleGenerateForm16 = async () => {
     await axios
       .post(
-        `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/generate_pay_report/form16`,
+        `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/generate_pay_report/form16`,{},
         {
           headers: {
             "Content-Type": "application/json",

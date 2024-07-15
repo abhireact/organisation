@@ -157,6 +157,7 @@ function CreatePaysheadule() {
     setSelectedDate(new Date(event.target.value));
   };
 
+  const [month, setMonth] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -195,13 +196,16 @@ function CreatePaysheadule() {
           }
         )
         .then((Response) => {
-          monthes = Response.data;
+          console.log(Response, "responce");
+          setMonth(Response.data);
+          // monthes = Response.data;
         });
     } catch (error) {
       console.error(error);
     }
   }, []);
   const fridayDate = getFridayDate(selectedDate);
+  console.log(monthes, salary_selected_month, "autocomlete data");
 
   return (
     // <DashboardLayout>
@@ -406,20 +410,21 @@ function CreatePaysheadule() {
           </Grid>
           <Grid container spacing={3} px={2}>
             <Grid item xs={12} sm={6}>
-              {values.pay_your_employee_on != "" ? (
+              {values?.pay_your_employee_on != "" ? (
                 <Autocomplete
                   onChange={(event, value) => {
                     handleChange({
                       target: { name: "start_first_payroll", value },
                     });
                   }}
-                  options={monthes}
+                  options={month}
+                  // options={["ff", "fefe"]}
                   renderInput={(params) => (
                     <MDInput
                       required
                       name="start_first_payroll"
                       onChange={handleChange}
-                      value={values.start_first_payroll}
+                      value={values?.start_first_payroll}
                       label="Start your first payroll from*"
                       {...params}
                       variant="standard"
@@ -428,7 +433,7 @@ function CreatePaysheadule() {
                 />
               ) : null}
               <Grid pt={2}>
-                {values.start_first_payroll != "" ? (
+                {values?.start_first_payroll != "" ? (
                   <Autocomplete
                     onChange={(event, value) => {
                       handleChange({
@@ -441,10 +446,10 @@ function CreatePaysheadule() {
                         required
                         name="salary_month_willbe_paidon"
                         onChange={handleChange}
-                        value={values.salary_month_willbe_paidon}
+                        value={values?.salary_month_willbe_paidon}
                         label={
                           "Salary for the month of " +
-                          values.start_first_payroll +
+                          values?.start_first_payroll +
                           " will be paid on"
                         }
                         {...params}
@@ -459,7 +464,7 @@ function CreatePaysheadule() {
               <Grid item xs={12} sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DateCalendar
-                    defaultValue={dayjs(values.salary_month_willbe_paidon)}
+                    defaultValue={dayjs(values?.salary_month_willbe_paidon)}
                     readOnly
                   />
                 </LocalizationProvider>
