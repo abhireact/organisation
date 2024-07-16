@@ -17,6 +17,7 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
+import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 // import form from "layouts/pages/users/new-user/schemas/form";
 const token = Cookies.get("token");
 function getEnterAmountOrPercent(
@@ -202,6 +203,7 @@ function Createsalary() {
     initialValues,
     enableReinitialize: true,
     onSubmit: async (values, action) => {
+      let totalAmount = 0;
       console.log(values, "Total Amount");
 
       const updatedEarnings = values.earnings_type_name.map(
@@ -262,7 +264,28 @@ function Createsalary() {
               : null,
         })
       );
-      console.log(updatedEarnings, updateDeduction, "ssssssssssssssssss");
+      console.log(updatedEarnings, updateDeduction, "Deduction and Earning");
+      // Function to calculate annual amounts and return total sum
+      function calculateAnnualAmountsAndSum() {
+        let preTaxArray = updateDeduction;
+        let earningsArray = updatedEarnings;
+        let sum = 0;
+        for (let item of preTaxArray) {
+          item.annual_amount = item.monthly_amount * 12;
+          sum += item.annual_amount;
+        }
+        for (let item of earningsArray) {
+          item.annual_amount = item.monthly_amount * 12;
+          sum += item.annual_amount;
+        }
+        return sum;
+      }
+      totalAmount = calculateAnnualAmountsAndSum();
+      console.log(totalAmount, "Total Amount");
+      if (totalAmount > values.annual_ctc) {
+        message.error("should be less than   or eqaul to Annual CTC");
+        return;
+      }
       const postdata = {
         annual_ctc: values.annual_ctc,
         earnings_type_name: updatedEarnings,
@@ -300,7 +323,7 @@ function Createsalary() {
           );
 
           message.success("Created salary details Successfully");
-          action.resetForm();
+          //action.resetForm();
         } catch (postError) {
           console.error("Error creating salary details:", postError);
           // Handle error when creating salary details
@@ -450,17 +473,21 @@ function Createsalary() {
               : null,
           annual_amount:
             deduction.calculation_type === "% of CTC"
-              ? parseFloat(
-                  (
-                    (values.annual_ctc / 100) *
-                    (deduction.enter_amount_or_percent / 12) *
-                    12
-                  ).toFixed(2)
-                ) * 12
+              ? (
+                  parseFloat(
+                    (
+                      (values.annual_ctc / 100) *
+                      (deduction.enter_amount_or_percent / 12) *
+                      12
+                    ).toFixed(2)
+                  ) * 12
+                ).toFixed(2)
               : deduction.calculation_type === "Flat Amount"
-              ? parseFloat(
-                  ((deduction.enter_amount_or_percent / 12) * 12).toFixed(2)
-                ) * 12
+              ? (
+                  parseFloat(
+                    ((deduction.enter_amount_or_percent / 12) * 12).toFixed(2)
+                  ) * 12
+                ).toFixed(2)
               : deduction.calculation_type === "% of Basic"
               ? parseFloat(
                   (
@@ -468,7 +495,7 @@ function Createsalary() {
                     (deduction.enter_amount_or_percent / 12) *
                     12
                   ).toFixed(2)
-                )
+                ).toFixed(2)
               : null,
         };
       }),

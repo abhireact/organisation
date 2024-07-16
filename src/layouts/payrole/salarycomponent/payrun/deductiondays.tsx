@@ -20,8 +20,13 @@ import { message } from "antd";
 import Cookies from "js-cookie";
 import { Checkbox, FormControlLabel } from "@mui/material";
 const token = Cookies.get("token");
+const currentMonthFormatted = `${new Date().getFullYear()}-${(
+  new Date().getMonth() + 1
+)
+  .toString()
+  .padStart(2, "0")}`;
 const initialValues = {
-  month: "",
+  month: currentMonthFormatted,
   attendance: false,
 };
 export default function DeductionDays() {
