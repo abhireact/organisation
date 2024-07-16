@@ -171,9 +171,9 @@ function Createsalary() {
     employers_contribution: "",
     pre_tax_name: allEarnings?.pre_tax_deductions?.map((item: any) => ({
       pre_tax_id: item.pre_name_slip,
-      calculation_type: item.calculation_type,
-      monthly_amount: item.mothly_amount,
-      enter_amount_or_percent: item.enter_amount_or_percent,
+      calculation_type: item.calculation_type || "Flat Amount",
+      monthly_amount: item.mothly_amount || 0,
+      enter_amount_or_percent: item.enter_amount_or_percent || 0,
     })),
     earnings_type_name:
       allEarnings?.earning_types?.map((item: any) => ({
@@ -202,6 +202,8 @@ function Createsalary() {
     initialValues,
     enableReinitialize: true,
     onSubmit: async (values, action) => {
+      console.log(values, "Total Amount");
+
       const updatedEarnings = values.earnings_type_name.map(
         (
           earnings: {
@@ -340,7 +342,7 @@ function Createsalary() {
               name={`earnings_type_name[${index}].enter_amount_or_percent`}
               value={values.earnings_type_name[index]?.enter_amount_or_percent}
               onChange={(event: any) => {
-                if (event.target.value >=0) {
+                if (event.target.value >= 0) {
                   handleChange({
                     target: {
                       name: `earnings_type_name[${index}].enter_amount_or_percent`,
