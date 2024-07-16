@@ -440,7 +440,9 @@ const Employeeinfo = () => {
                       required
                       name="department"
                       placeholder="Enter Your department"
-                      onChange={handleChange}
+                      onChange={(event: any, value: any) => {
+                        handleChange({ target: { name: "department", value } });
+                      }}
                       value={values.department}
                       {...params}
                       onBlur={handleBlur}
@@ -868,7 +870,6 @@ const Employeeinfo = () => {
           </MDBox>
           {/* <Updatesalary /> */}
         </form>
-        i
       </Card>
     </>
   );

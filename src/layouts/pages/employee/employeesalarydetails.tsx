@@ -99,7 +99,7 @@ function CreateEmployee(props: any) {
     ],
   };
 
-  const epf = allEarnings.epf_data.length > 0 ? allEarnings.epf_data[0] : null;
+  const epf = allEarnings.epf_data.length > 0 ? allEarnings.epf_data[0] : 0;
   const {
     values,
     errors,
@@ -138,7 +138,7 @@ function CreateEmployee(props: any) {
                     (earnings.enter_amount_or_percent / 12)
                   ).toFixed(2)
                 )
-              : null,
+              : 0,
         })
       );
       const updateDeduction = values.pre_tax_name.map(
@@ -167,7 +167,7 @@ function CreateEmployee(props: any) {
                     (deduction.enter_amount_or_percent / 12)
                   ).toFixed(2)
                 )
-              : null,
+              : 0,
         })
       );
       console.log(updatedEarnings, updateDeduction, "ssssssssssssssssss");
@@ -274,7 +274,7 @@ function CreateEmployee(props: any) {
                     (earnings.enter_amount_or_percent / 12)
                   ).toFixed(2)
                 )
-              : null,
+              : 0,
           annual_amount:
             earnings.calculation_type === "% of CTC"
               ? parseFloat(
@@ -293,7 +293,7 @@ function CreateEmployee(props: any) {
                     (earnings.enter_amount_or_percent / 12)
                   ).toFixed(2)
                 ) * 12
-              : null,
+              : 0,
         };
       }),
       {
@@ -333,7 +333,7 @@ function CreateEmployee(props: any) {
                     (deduction.enter_amount_or_percent / 12)
                   ).toFixed(2)
                 )
-              : null,
+              : 0,
           annual_amount:
             deduction.calculation_type === "% of CTC"
               ? parseFloat(
@@ -355,7 +355,7 @@ function CreateEmployee(props: any) {
                     12
                   ).toFixed(2)
                 )
-              : null,
+              : 0,
         };
       }),
       // ...values.pre_tax_name.map((deduction: any, index: any) => {
@@ -392,8 +392,8 @@ function CreateEmployee(props: any) {
           epf.employer_contribution_ctc &&
           epf.employer_contribution_ctc.length !== 0
             ? "EPF - Employer Contribution"
-            : null,
-        calculation_type: epf ? epf.employer_contribution_rate : null,
+            : 0,
+        calculation_type: epf ? epf.employer_contribution_rate : 0,
         monthly_amount: "",
       },
     ],
@@ -418,7 +418,7 @@ function CreateEmployee(props: any) {
                 ).toFixed(2)
               )
             ))
-          : null,
+          : 0,
     }));
   }, [values.annual_ctc]);
 
