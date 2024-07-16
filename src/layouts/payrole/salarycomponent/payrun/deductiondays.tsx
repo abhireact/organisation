@@ -14,19 +14,15 @@ import Dialog from "@mui/material/Dialog";
 import DataTable from "examples/Tables/DataTable";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
+
 import MDTypography from "components/MDTypography";
-import Avatar from "@mui/material/Avatar";
-import image1 from "./images/man.png";
-import image2 from "./images/woman.png";
 import { message } from "antd";
-import zIndex from "@mui/material/styles/zIndex";
 import Cookies from "js-cookie";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Checkbox, FormControlLabel } from "@mui/material";
 const token = Cookies.get("token");
 const initialValues = {
   month: "",
+  attendance: false,
 };
 export default function DeductionDays() {
   const [data, setData] = useState([]);
@@ -54,7 +50,7 @@ export default function DeductionDays() {
     useFormik({
       initialValues,
       enableReinitialize: true,
-      onSubmit: () => {
+      onSubmit: (values: any, action: { resetForm: () => void }) => {
         const submit_value = data
           .filter((item) => item.leavedays != 0)
           .map((item) => ({
@@ -65,7 +61,7 @@ export default function DeductionDays() {
         console.log(submit_value, "submit value");
         axios
           .post(
-            `${process.env.REACT_APP_BACKEND_URL}/mg_employee_payable`,
+            `${process.env.REACT_APP_BACKEND_URL}/mg_employee_payable/manually `,
             submit_value,
             {
               headers: {
@@ -76,7 +72,7 @@ export default function DeductionDays() {
           )
           .then((response) => {
             message.success("Successfully Done");
-            fetchData();
+            action.resetForm();
           })
           .catch((error) => {
             console.error("Error fetching data:", error);
@@ -97,9 +93,11 @@ export default function DeductionDays() {
       });
   }, [values.month]);
   useEffect(() => {
-    fetchData();
-  }, []);
-  console.log(data, "data changed");
+    if (values.month == "") {
+    } else {
+      fetchData();
+    }
+  }, [values.month]);
   const handleInputChange = (e: any, index: any) => {
     const { value } = e.target;
     const updatedRows = [...data];
@@ -131,7 +129,6 @@ export default function DeductionDays() {
       ),
     })),
   };
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -140,7 +137,7 @@ export default function DeductionDays() {
           <Grid item xs={12} sm={12}>
             <Card>
               <Grid container spacing={3} p={2}>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4}>
                   <MDInput
                     required
                     type="month"
@@ -153,30 +150,44 @@ export default function DeductionDays() {
                     onChange={handleChange}
                   />
                 </Grid>
+                {/* <Grid item xs={12} sm={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={handleChange}
+                        name="attendance"
+                        value="true"
+                      />
+                    }
+                    label="Take Data Into Attendace"
+                  />
+                </Grid> */}
               </Grid>
             </Card>
           </Grid>
-          <Grid item container xs={12} sm={12}>
-            <Grid item xs={12} sm={12}>
-              <Card>
-                <Grid item xs={12} sm={12}>
-                  <DataTable table={dataTableData} canSearch />
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  sx={{ display: "flex", justifyContent: "flex-end" }}
-                  pb={2}
-                  pr={10}
-                >
-                  <MDButton color="info" variant="contained" type="submit">
-                    Save
-                  </MDButton>
-                </Grid>
-              </Card>
+          {data.length > 0 && (
+            <Grid item container xs={12} sm={12}>
+              <Grid item xs={12} sm={12}>
+                <Card>
+                  <Grid item xs={12} sm={12}>
+                    <DataTable table={dataTableData} canSearch />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    sx={{ display: "flex", justifyContent: "flex-end" }}
+                    pb={2}
+                    pr={10}
+                  >
+                    <MDButton color="info" variant="contained" type="submit">
+                      Save
+                    </MDButton>
+                  </Grid>
+                </Card>
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Grid>
       </form>
     </DashboardLayout>
