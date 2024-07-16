@@ -7,38 +7,46 @@ import Checkbox from "@mui/material/Checkbox";
 import { FormControlLabel, Card, Grid } from "@mui/material";
 import { useFormik } from "formik";
 import MDTypography from "components/MDTypography";
-import MDInput from "components/MDInput";
+
 import MDButton from "components/MDButton";
 import DataTable from "examples/Tables/DataTable";
-import EditIcon from "@mui/icons-material/Edit";
-import Switch from "@mui/material/Switch";
+
 import { Input, message } from "antd";
-import {
-  TextField,
-  Autocomplete,
-  FormControl,
-  FormLabel,
-  InputLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
-  // Checkbox,
-  Divider,
-} from "@mui/material";
+
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 // import form from "layouts/pages/users/new-user/schemas/form";
 const token = Cookies.get("token");
+function getEnterAmountOrPercent(
+  monthly_amount: any,
+  annual_ctc: any,
+  basic: any,
+  calculation_type: any
+) {
+  let enter_amount_or_percent = null;
+
+  if (calculation_type === "% of CTC") {
+    enter_amount_or_percent = (
+      (monthly_amount * 12) /
+      (annual_ctc / 100)
+    ).toFixed(2);
+  } else if (calculation_type === "Flat Amount") {
+    enter_amount_or_percent = (monthly_amount * 12).toFixed(2);
+  } else if (calculation_type === "% of Basic") {
+    enter_amount_or_percent = ((monthly_amount * 12) / (basic / 100)).toFixed(
+      2
+    );
+  }
+
+  return parseFloat(enter_amount_or_percent);
+}
 function Createsalary() {
   const navigate = useNavigate();
   const { state } = useLocation();
   console.log(state.email, "salary via this email ");
-  const [selectedOptions, setSelectedOptions] = useState([]); // State to store selected options
-  const [selecteddeduction, setSelectedDeduction] = useState([]);
-  // const [selectedEarningOptions, setSelectedDeduction] = useState([]);
+
   const searchData = new URLSearchParams(location.search).get("data");
   console.log(searchData, "ppp");
   type AllEarningsType = {
@@ -74,7 +82,7 @@ function Createsalary() {
     epf_data: [],
   });
   const [empannual, setEmpannual] = useState(0);
-  const epf = allEarnings.epf_data.length > 0 ? allEarnings.epf_data[0] : null;
+  const epf = allEarnings.epf_data?.length > 0 ? allEarnings.epf_data[0] : null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,6 +98,7 @@ function Createsalary() {
         );
         if (response.status === 200) {
           setAllEarnings(response.data);
+          console.log("earning data 1", response.data);
         }
       } catch (error) {
         console.error(error);
@@ -107,10 +116,43 @@ function Createsalary() {
           }
         );
         if (response.status === 200) {
-          console.log("respone email...", response.data[0]?.annual_ctc);
-          // setAllEarnings(response.data);
-          //setting  annual ctc
+          //setting Annual CTC
           setEmpannual(Number(response.data[0]?.annual_ctc));
+          console.log("respone email...", response.data[0]?.annual_ctc);
+          console.log("earning data 2", response.data[0]);
+          let employeeData = response.data[0];
+          employeeData.earning_types = employeeData.earnings_type_name.map(
+            (item: any) => {
+              return {
+                earning_type_name: item.earnings_name,
+                calculation_type: item.calculation_type,
+                monthly_amount: item.monthly_amount,
+                enter_amount_or_percent: item.enter_amount_or_percent,
+              };
+            }
+          );
+
+          delete employeeData.earnings_type_name;
+
+          employeeData.pre_tax_deductions = employeeData.pre_tax_name.map(
+            (item: any) => {
+              return {
+                pre_name_slip: item.pre_tax_name,
+                calculation_type: item.calculation_type,
+                monthly_amount: item.monthly_amount,
+                enter_amount_or_percent: getEnterAmountOrPercent(
+                  item.monthly_amount,
+                  response.data[0]?.annual_ctc,
+                  basic,
+                  item.calculation_type
+                ),
+              };
+            }
+          );
+
+          delete employeeData.pre_tax_name;
+
+          setAllEarnings(employeeData);
         } else {
           console.log("annual ctc ", 0);
         }
@@ -118,8 +160,8 @@ function Createsalary() {
         console.error(error);
       }
     };
-    fetchSalary();
     fetchData();
+    fetchSalary();
   }, []);
 
   const initialValues: { [key: string]: any } = {
@@ -127,11 +169,11 @@ function Createsalary() {
     template_description: "",
     annual_ctc: empannual,
     employers_contribution: "",
-    pre_tax_name: allEarnings?.pre_tax_deductions?.map((item) => ({
+    pre_tax_name: allEarnings?.pre_tax_deductions?.map((item: any) => ({
       pre_tax_id: item.pre_name_slip,
-      calculation_type: "Flat Amount",
-      monthly_amount: "",
-      enter_amount_or_percent: 0,
+      calculation_type: item.calculation_type,
+      monthly_amount: item.mothly_amount,
+      enter_amount_or_percent: item.enter_amount_or_percent,
     })),
     earnings_type_name:
       allEarnings?.earning_types?.map((item: any) => ({
@@ -222,7 +264,6 @@ function Createsalary() {
       const postdata = {
         annual_ctc: values.annual_ctc,
         earnings_type_name: updatedEarnings,
-
         pre_tax_name: updateDeduction,
         employee_email: state.email,
       };
@@ -295,10 +336,20 @@ function Createsalary() {
             <Input
               addonAfter={earnings.calculation_type}
               type="number"
+              required
               name={`earnings_type_name[${index}].enter_amount_or_percent`}
               value={values.earnings_type_name[index]?.enter_amount_or_percent}
-              onChange={handleChange}
-              style={{ width: 150 }}
+              onChange={(event: any) => {
+                if (event.target.value >=0) {
+                  handleChange({
+                    target: {
+                      name: `earnings_type_name[${index}].enter_amount_or_percent`,
+                      value: event.target.value,
+                    },
+                  });
+                }
+              }}
+              style={{ width: 200 }}
             />
           ),
           monthly_amount:
@@ -321,22 +372,29 @@ function Createsalary() {
               : null,
           annual_amount:
             earnings.calculation_type === "% of CTC"
-              ? parseFloat(
-                  (
-                    (values.annual_ctc / 100) *
-                    (earnings.enter_amount_or_percent / 12)
-                  ).toFixed(2)
-                ) * 12
+              ? (
+                  parseFloat(
+                    (
+                      (values.annual_ctc / 100) *
+                      (earnings.enter_amount_or_percent / 12)
+                    ).toFixed(2)
+                  ) * 12
+                ).toFixed(2)
               : earnings.calculation_type === "Flat Amount"
-              ? parseFloat((earnings.enter_amount_or_percent / 12).toFixed(2)) *
-                12
+              ? (
+                  parseFloat(
+                    (earnings.enter_amount_or_percent / 12).toFixed(2)
+                  ) * 12
+                ).toFixed(2)
               : earnings.calculation_type === "% of Basic"
-              ? parseFloat(
-                  (
-                    (basic / 100) *
-                    (earnings.enter_amount_or_percent / 12)
-                  ).toFixed(2)
-                ) * 12
+              ? (
+                  parseFloat(
+                    (
+                      (basic / 100) *
+                      (earnings.enter_amount_or_percent / 12)
+                    ).toFixed(2)
+                  ) * 12
+                ).toFixed(2)
               : null,
         };
       }),
@@ -353,10 +411,20 @@ function Createsalary() {
           calculation_type: (
             <Input
               addonAfter={deduction.calculation_type}
+              required
               type="number"
               name={`pre_tax_name[${index}].enter_amount_or_percent`}
               value={values.pre_tax_name[index]?.enter_amount_or_percent}
-              onChange={handleChange}
+              onChange={(event: any) => {
+                if (event.target.value >= 0) {
+                  handleChange({
+                    target: {
+                      name: `pre_tax_name[${index}].enter_amount_or_percent`,
+                      value: event.target.value,
+                    },
+                  });
+                }
+              }}
               style={{ width: 200 }}
             />
           ),
@@ -407,7 +475,7 @@ function Createsalary() {
         salary_component:
           epf &&
           epf.employer_contribution_ctc &&
-          epf.employer_contribution_ctc.length !== 0
+          epf.employer_contribution_ctc?.length !== 0
             ? "EPF - Employer Contribution"
             : null,
         calculation_type: epf ? epf.employer_contribution_rate : null,
