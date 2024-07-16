@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+  - deploy:PROD  
 
 build:
   stage: build
@@ -21,3 +22,12 @@ deploy:
     - cp -rf ./build/* /usr/share/nginx/mindcom-pay-new
   only:
     - main
+
+deploy:PROD:
+  stage: deploy:PROD
+  script:
+    - cp -rf ./build/* /usr/share/nginx/prod_org
+  when: manual
+  only:
+    - main
+
