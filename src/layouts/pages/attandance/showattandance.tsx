@@ -120,7 +120,7 @@ const ShowAllAttandance = () => {
     columns: [
       { Header: `${"Date"}`, accessor: "date" },
       { Header: `${"CheckIn "}`, accessor: "checkin" },
-      { Header: `${"CheckIn "}`, accessor: "checkout" },
+      { Header: `${"CheckOut "}`, accessor: "checkout" },
       { Header: `${"Total Hours"}`, accessor: "total_hours" },
       { Header: `${"Status"}`, accessor: "status" },
     ],

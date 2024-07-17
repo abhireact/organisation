@@ -5,7 +5,7 @@ import Card from "@mui/material/Card";
 // Material Dashboard 2 PRO React TS components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import { Autocomplete, Switch } from "@mui/material";
+import { Autocomplete, IconButton, Switch, Tooltip } from "@mui/material";
 import FormField from "../account/components/FormField";
 // Material Dashboard 2 PRO React TS examples components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -35,6 +35,8 @@ import Cookies from "js-cookie";
 import { storeLeavetypeData } from "Redux/action/dummyDataActions";
 // import CreateEmployeeDepartment from "./createEmployeedepartment";
 // import CreateAcademicPage from "./CreateAcademicPage";
+import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
+import UpdateLeaveType from "./updateLeavetype";
 
 const LeaveType = () => {
   const [data, setData] = useState([]);
@@ -194,7 +196,7 @@ const LeaveType = () => {
       { Header: `${"Leave Type "}`, accessor: "leave_type" },
       { Header: `${"Unit "}`, accessor: "unit" },
 
-      // { Header: `${"action"}`, accessor: "action" },
+      { Header: `${"action"}`, accessor: "action" },
     ],
 
     rows: Array.isArray(data)
@@ -225,14 +227,27 @@ const LeaveType = () => {
                 {row.unit}
               </p>
             ),
+            action: (
+              <Tooltip title="Update">
+                <IconButton
+                  onClick={() => {
+                    handleEditRow(index);
+                  }}
+                >
+                  <CreateRoundedIcon fontSize="small" color="secondary" />
+                </IconButton>
+              </Tooltip>
+            ),
           })
         )
       : [],
   };
 
   console.log(dataTableData, "dataTableData");
-
-  console.log(showData, "mmmmmmmmmmmmmbhjiwevfnjscbjkff");
+  const handleEditSuccess = () => {
+    fetchAPI();
+    setOpenPopup(false);
+  };
   return (
     <>
       {showacadmicdata ? (
@@ -288,6 +303,9 @@ const LeaveType = () => {
                 <DataTable table={dataTableData} />
               </Card>
             </MDBox>
+            <Dialog open={openPopup} onClose={() => setOpenPopup(false)}>
+              <UpdateLeaveType editData={editData} onSuccess={handleEditSuccess}/>
+            </Dialog>
           </DashboardLayout>
         </>
       )}

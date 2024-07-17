@@ -171,6 +171,26 @@ function CreateEmployee(props: any) {
         })
       );
       console.log(updatedEarnings, updateDeduction, "ssssssssssssssssss");
+      function calculateAnnualAmountsAndSum() {
+        let preTaxArray = updateDeduction;
+        let earningsArray = updatedEarnings;
+        let sum = 0;
+        for (let item of preTaxArray) {
+          item.annual_amount = item.monthly_amount * 12;
+          sum += item.annual_amount;
+        }
+        for (let item of earningsArray) {
+          item.annual_amount = item.monthly_amount * 12;
+          sum += item.annual_amount;
+        }
+        return sum;
+      }
+      let totalAmount = calculateAnnualAmountsAndSum();
+      console.log(totalAmount, "Total Amount");
+      if (totalAmount > values.annual_ctc) {
+        message.error("should be less than   or eqaul to Annual CTC");
+        return;
+      }
       const postdata = {
         annual_ctc: values.annual_ctc,
         earnings_type_name: updatedEarnings,
