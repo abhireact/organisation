@@ -473,20 +473,16 @@ function Createsalary() {
               : null,
           annual_amount:
             deduction.calculation_type === "% of CTC"
-              ? (
-                  parseFloat(
-                    (
-                      (values.annual_ctc / 100) *
-                      (deduction.enter_amount_or_percent / 12) *
-                      12
-                    ).toFixed(2)
-                  ) * 12
+              ? parseFloat(
+                  (
+                    (values.annual_ctc / 100) *
+                    (deduction.enter_amount_or_percent / 12) *
+                    12
+                  ).toFixed(2)
                 ).toFixed(2)
               : deduction.calculation_type === "Flat Amount"
-              ? (
-                  parseFloat(
-                    ((deduction.enter_amount_or_percent / 12) * 12).toFixed(2)
-                  ) * 12
+              ? parseFloat(
+                  ((deduction.enter_amount_or_percent / 12) * 12).toFixed(2)
                 ).toFixed(2)
               : deduction.calculation_type === "% of Basic"
               ? parseFloat(
@@ -534,7 +530,7 @@ function Createsalary() {
             ))
           : null,
     }));
-  }, [values.annual_ctc]);
+  }, [values]);
 
   return (
     <Card>
