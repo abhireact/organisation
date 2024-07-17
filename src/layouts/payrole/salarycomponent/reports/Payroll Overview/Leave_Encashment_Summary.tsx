@@ -88,6 +88,7 @@ const Leave_Encashment_Summary = () => {
               value={values.year}
               onChange={handleChange}
               onBlur={handleBlur}
+              helperText="2023-2024"
               required
               error={errors.year && touched.year}
             />

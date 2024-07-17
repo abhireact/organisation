@@ -95,6 +95,7 @@ const Pre_Tax_Deductions_Summary = () => {
               label="Year"
               name="year"
               value={values.year}
+              helperText="2023-2024"
               onChange={handleChange}
               onBlur={handleBlur}
               required

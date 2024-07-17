@@ -132,6 +132,7 @@ const DeductionSummary = () => {
             <FormField
               label="Year"
               name="year"
+              helperText="2023-2024"
               value={values.year}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -167,9 +168,6 @@ const DeductionSummary = () => {
               <MDTypography variant="subtitle1" sx={{ textAlign: "center" }}>
                 Post-Tax Deductions Summary
               </MDTypography>
-              {/* <MDTypography variant="body2" sx={{ textAlign: "center" }}>
-                Deduction period from 01/04/2023 to 31/03/2024
-              </MDTypography> */}
             </MDBox>
             <DataTable table={apidata} />
           </Card>

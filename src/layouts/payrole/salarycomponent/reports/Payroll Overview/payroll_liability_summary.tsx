@@ -98,6 +98,7 @@ function payrollLiabilitySummary(): JSX.Element {
               value={values.year}
               onChange={handleChange}
               onBlur={handleBlur}
+              helperText="2023-2024"
               required
               error={errors.year && touched.year}
             />

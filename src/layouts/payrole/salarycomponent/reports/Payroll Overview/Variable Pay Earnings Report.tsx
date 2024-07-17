@@ -1,97 +1,73 @@
-import { Card, Grid, Switch } from "@mui/material";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import MDBox from "components/MDBox";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Divider from "@mui/material/Divider";
+import { useState, useEffect } from "react";
+import Card from "@mui/material/Card";
 import MDTypography from "components/MDTypography";
-import { useEffect, useState } from "react";
+import MDBox from "components/MDBox";
 import axios from "axios";
+import DataTable from "examples/Tables/DataTable";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import Cookies from "js-cookie";
+import { message } from "antd";
+const token = Cookies.get("token");
+const Variable_Pay_Earnings_report = () => {
+  const [tabledata, setTableData] = useState<{ columns: any[]; rows: any[] }>({
+    columns: [],
+    rows: [],
+  });
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/report/variable_pay`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-function Variable_Pay_Earnings_report(): JSX.Element {
+      setTableData({
+        columns: [
+          {
+            Header: "Employee Email",
+            accessor: "emp_name",
+            width: "25%",
+          },
+          {
+            Header: "Annual CTC",
+            accessor: "amount",
+            width: "25%",
+          },
+        ],
+        rows: response.data.map((employee: any) => ({
+          emp_name: employee.emp_name,
+          amount: employee.amount,
+        })),
+      });
+    } catch (error: any) {
+      message.error(error.response.data.detail);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Card sx={{ width: "80%", margin: "auto", mt: "4%" }}>
-        <MDBox p={5}>
+      <Card sx={{ width: "100%", margin: "auto" }}>
+        <MDBox>
           <MDTypography variant="h5" sx={{ textAlign: "center" }}>
-            MindCom
+            Mindcom
           </MDTypography>
-          <MDTypography variant="h6" sx={{ textAlign: "center" }}>
+          <MDTypography variant="subtitle1" sx={{ textAlign: "center" }}>
             Variable Pay Earnings Report - Bonus
           </MDTypography>
-          <MDTypography variant="h6" sx={{ textAlign: "center" }}>
-            01/04/2023 to 31/03/2024
-          </MDTypography>
-
-          <Divider />
-          <Grid container>
-            <Grid item xs={12} sm={8}>
-              <MDTypography variant="h6">EMPLOYEE NAME</MDTypography>
-            </Grid>
-            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-              <MDTypography variant="button">AMOUNT PAID(₹)</MDTypography>
-            </Grid>
-          </Grid>
-
-          {/* <Grid container>
-            <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">{earnings[0]?.earning_name}</MDTypography>
-            </Grid>
-            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-              <MDTypography variant="button">{value}</MDTypography>
-            </Grid>
-          </Grid> */}
-          <Divider />
-          <Grid container>
-            <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">statuto</MDTypography>
-            </Grid>
-            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-              <MDTypography variant="button">₹0.00</MDTypography>
-            </Grid>
-          </Grid>
-          <Divider />
-          <Grid container>
-            <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">kumar</MDTypography>
-            </Grid>
-            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-              <MDTypography variant="button">₹0.00</MDTypography>
-            </Grid>
-          </Grid>
-          <Divider />
-          <Grid container>
-            <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">kats </MDTypography>
-            </Grid>
-            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-              <MDTypography variant="button">₹0.00</MDTypography>
-            </Grid>
-          </Grid>
-          <Divider />
-
-          <Grid container>
-            <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">leo</MDTypography>
-            </Grid>
-            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-              <MDTypography variant="button">₹0.00</MDTypography>
-            </Grid>
-          </Grid>
-          <Divider />
-
-          <Grid container>
-            <Grid item xs={12} sm={8}>
-              <MDTypography variant="h6">net pay</MDTypography>
-            </Grid>
-            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-              <MDTypography variant="button">₹0.00</MDTypography>
-            </Grid>
-          </Grid>
-          <Divider />
         </MDBox>
+        <DataTable table={tabledata} />
       </Card>
     </DashboardLayout>
   );
-}
+};
+
 export default Variable_Pay_Earnings_report;
