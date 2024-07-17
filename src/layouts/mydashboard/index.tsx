@@ -21,8 +21,10 @@ import {
   storeEmployeeData,
   storeWorkLocationData,
   updateClassName,
+  storeUserProfile,
+  storeMYProfileData,
 } from "Redux/action/dummyDataActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const dataset2 = [
   {
@@ -165,10 +167,13 @@ export default function MYDashboard() {
     department: {},
     designation: {},
     employee: {},
+    profile: {},
   });
   const [clickBtn, setClickBtn] = useState(false);
   const dispatch = useDispatch();
+  const userprofileData = useSelector((state: any) => state.dummyData);
 
+  console.log(userprofileData, "profile");
   useEffect(() => {
     dispatch(updateClassName({ name: clickBtn }));
   }, [clickBtn, dispatch]);
@@ -194,18 +199,20 @@ export default function MYDashboard() {
       const department = await fetchData("department");
       const designation = await fetchData("designation");
       const employee = await fetchData("employee");
-
-      setData({ workLocation, department, designation, employee });
+      const profile = await fetchData("users/me_data");
+      setData({ workLocation, department, designation, employee, profile });
     };
 
     fetchAllData();
   }, [token]);
+  console.log(data, "all data to be saved ");
 
   useEffect(() => {
     dispatch(storeWorkLocationData(data.workLocation));
     dispatch(storeDepartmentData(data.department));
     dispatch(storeDesignationData(data.designation));
     dispatch(storeEmployeeData(data.employee));
+    dispatch(storeMYProfileData(data.profile));
   }, [data, dispatch]);
 
   // get employe addition
@@ -801,7 +808,6 @@ export default function MYDashboard() {
               <Grid sm={12} textAlign={"center"} pb={1}>
                 {" "}
                 <PieChart
-                  // colors={["blue", "red", "green"]}
                   series={[
                     {
                       data: ageData,

@@ -6,32 +6,20 @@ import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import Zoom from "@mui/material/Zoom";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import UpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { green } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import {
   Autocomplete,
   Card,
-  Checkbox,
   FormControl,
   FormControlLabel,
-  FormGroup,
   FormLabel,
   Grid,
-  InputLabel,
-  MenuItem,
   Radio,
   RadioGroup,
-  Select,
 } from "@mui/material";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
-import row from "antd/es/row";
-import MultipleSelectChip from "./chipSelect";
 import FormField from "layouts/applications/wizard/components/FormField";
 import CreateApplicableType from "./createApplicableType";
 import MDButton from "components/MDButton";
@@ -44,7 +32,6 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateSectionName,
-  updateClassName,
   updateAcademicName,
 } from "../../../Redux/action/dummyDataActions";
 import MDBox from "components/MDBox";
@@ -329,14 +316,12 @@ function MainCreateLeavePage() {
             </MDButton>
           </Grid>
           <Grid item xs={12} sm={3}>
-            {/* <FormField type="text" label={"Leave name *"} defaultValue="" /> */}
             <MDInput
               required
               type="name"
               label="Leave Name "
               name="leave_type_name"
               value={values.leave_type_name}
-              // disabled={editData.showData ? true : false}
               placeholder="Enter Your Leave name "
               variant="standard"
               onChange={handleChange}
@@ -345,7 +330,6 @@ function MainCreateLeavePage() {
               success={values.leave_type_name.length && !errors.leave_type_name}
             />
             {errors.leave_type_name && touched.leave_type_name ? (
-              // <p className="form-error">{errors.name}</p>
               <Grid>
                 {" "}
                 <MDTypography
@@ -359,7 +343,6 @@ function MainCreateLeavePage() {
             ) : null}
           </Grid>
           <Grid item xs={12} sm={3}>
-            {/* <MDInput type="text" label={"Leave code *"} defaultValue="" /> */}
             <MDInput
               type="name"
               required
@@ -389,17 +372,15 @@ function MainCreateLeavePage() {
             ) : null}
           </Grid>
           <Grid item xs={12} sm={3}>
-            {/* <InputLabel htmlFor="leave_type">Type</InputLabel> */}
 
             <Autocomplete
-              // multiple
+              
               onChange={(event, value) => {
                 handleChange({
                   target: { name: "leave_type", value },
                 });
               }}
-              // value={department}
-              // onChange={handleMainFieldChange}
+  
               options={["Paid", "Unpaid", "Onduty", "Restricted Holiday"]}
               renderInput={(params) => (
                 <FormField
@@ -482,8 +463,6 @@ function MainCreateLeavePage() {
             </MDTypography>
             <MDInput
               type="date"
-              // format="dd/mm/yyyy"
-              // defaultValue="12/02.5/2.502.52"
               variant="standard"
               sx={{ width: "100%" }}
               value={date}
@@ -528,8 +507,6 @@ function MainCreateLeavePage() {
               multiline
               rows={3}
               sx={{ width: "100%" }}
-              // value={greetingMessage}
-              // onChange={(e: any) => setGreetingMessage(e.target.value)}
               value={values.description}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -537,7 +514,6 @@ function MainCreateLeavePage() {
               success={values.description.length && !errors.description}
             />
             {errors.description && touched.description ? (
-              // <p className="form-error">{errors.name}</p>
               <MDTypography
                 variant="caption"
                 fontWeight="regular"
@@ -585,11 +561,9 @@ function MainCreateLeavePage() {
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>
             <RestrictionTable clickbtn={clickbtn} />
-            {/* <EntitlementTable /> */}
           </TabPanel>
         </SwipeableViews>
       </Box>
-      {/* <MDButton onClick={handleFormSubmit}>save all the data</MDButton> */}
     </Card>
   );
 }

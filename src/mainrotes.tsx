@@ -110,6 +110,7 @@ import CreditScoreIcon from "@mui/icons-material/CreditScore"; //loan
 import SummarizeIcon from "@mui/icons-material/Summarize"; //reports
 import LockPersonIcon from "@mui/icons-material/LockPerson"; //rbac
 import ResetPassword from "layouts/pages/auth/resetpassword";
+import MineApplyleave from "layouts/pages/leave/mineapplyLeave";
 const routes = [
   //common for ALL module
   {
@@ -539,6 +540,12 @@ const routes = [
         key: "applyleave",
         route: "/pages/leave/applyleave",
         component: <Applyleave />,
+      },
+      {
+        name: " MY Apply Leave",
+        key: "my_applyleave",
+        route: "/pages/leave/my_applyleave",
+        component: <MineApplyleave />,
       },
       {
         name: " Leave Application",
