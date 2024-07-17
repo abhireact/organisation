@@ -18,9 +18,10 @@ const TakeAttandance = () => {
   const [open, setOpen] = useState(false);
 
   const locationdata: string[] = [];
-  useEffect(() => {
+
+  const fetchEmployee = () => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/employee`, {
+      .get(`${process.env.REACT_APP_BACKEND_URL}/attendance/todays_data`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -38,22 +39,11 @@ const TakeAttandance = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+  };
+  useEffect(() => {
+    fetchEmployee();
   }, []);
-  // *************************************Location one*************************************
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(showPosition);
-  //   } else {
-  //     console.log("Geolocation is not supported by this browser.");
-  //   }
 
-  //   function showPosition(position: { coords: { latitude: string; longitude: string } }) {
-  //     locationdata.push(position.coords.latitude);
-  //     locationdata.push(position.coords.longitude);
-  //     console.log(locationdata, "location");
-
-  //     console.log("Latitude: " + position.coords);
-  //     console.log("Longitude: " + position.coords.longitude);
-  //   }
   const handlecheckIn = async (index: number) => {
     const updatedData = [...data];
     // const current_time = new Date();
@@ -75,7 +65,7 @@ const TakeAttandance = () => {
     console.log(main_data, "maindata");
     console.log(
       main_data.first_name,
-      main_data.email,
+      main_data.employee_email,
       typeof current_time,
       "handlecheckin"
     );
@@ -84,7 +74,7 @@ const TakeAttandance = () => {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/attendance`,
         {
-          email: main_data.email,
+          email: main_data.employee_email,
           checkin: current_time,
           checkout: null,
           location: locationdata,
@@ -101,6 +91,8 @@ const TakeAttandance = () => {
 
       if (response.status === 200) {
         // navigate("/pages");
+        fetchEmployee();
+
         console.log(" Created SchoolPage Successfully");
       }
     } catch (error) {
@@ -125,7 +117,7 @@ const TakeAttandance = () => {
     console.log(main_data, "maindata");
     console.log(
       main_data.first_name,
-      main_data.email,
+      main_data.employee_email,
       typeof current_time,
       "handlecheckout"
     );
@@ -133,10 +125,9 @@ const TakeAttandance = () => {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/attendance`,
         {
-          email: main_data.email,
+          email: main_data.employee_email,
           checkin: null,
           checkout: current_time,
-          location: locationdata,
         },
         {
           headers: {
@@ -150,6 +141,8 @@ const TakeAttandance = () => {
 
       if (response.status === 200) {
         // navigate("/pages");
+        fetchEmployee();
+
         console.log(" Created SchoolPage Successfully");
       }
     } catch (error) {
@@ -166,13 +159,17 @@ const TakeAttandance = () => {
   };
   const dataTableData = {
     columns: [
-      { Header: "Employee", accessor: "first_name" },
-      { Header: "Employee Email", accessor: "email" },
+      { Header: "Employee", accessor: "employee_name" },
+      { Header: "Employee Email", accessor: "employee_email" },
       { Header: "Action", accessor: "action" },
     ],
     rows: data.map((row, index) => ({
-      first_name: <MDTypography variant="p">{row.first_name}</MDTypography>,
-      email: <MDTypography variant="p">{row.email}</MDTypography>,
+      employee_name: (
+        <MDTypography variant="p">{row.employee_name}</MDTypography>
+      ),
+      employee_email: (
+        <MDTypography variant="p">{row.employee_email}</MDTypography>
+      ),
       action: (
         <MDTypography variant="p">
           <IconButton
@@ -181,7 +178,7 @@ const TakeAttandance = () => {
           //   console.log(index);
           // }}
           >
-            {row.isCheckedIn ? (
+            {/* {row.is_checkin ? (
               <MDButton
                 variant="gradient"
                 color="info"
@@ -199,7 +196,55 @@ const TakeAttandance = () => {
               >
                 CheckIn
               </MDButton>
-            )}
+            )} */}
+            {(() => {
+              if (row.is_checkin && row.is_checkout) {
+                return (
+                  <MDButton
+                    variant="gradient"
+                    color="info"
+                    fullWidth
+                    onClick={() => handlecheckIn(index)}
+                  >
+                    CheckIn
+                  </MDButton>
+                );
+              } else if (row.is_checkin && !row.is_checkout) {
+                return (
+                  <MDButton
+                    variant="gradient"
+                    color="info"
+                    fullWidth
+                    onClick={() => handlecheckOut(index)}
+                  >
+                    CheckOut
+                  </MDButton>
+                );
+              } else if (!row.is_checkin && row.is_checkout) {
+                return (
+                  <MDButton
+                    variant="gradient"
+                    color="info"
+                    fullWidth
+                    onClick={() => handlecheckIn(index)}
+                  >
+                    CheckIn
+                  </MDButton>
+                );
+              } else {
+                // Both are false
+                return (
+                  <MDButton
+                    variant="gradient"
+                    color="info"
+                    fullWidth
+                    onClick={() => handlecheckIn(index)}
+                  >
+                    CheckIn
+                  </MDButton>
+                );
+              }
+            })()}
           </IconButton>
         </MDTypography>
       ),
