@@ -65,17 +65,21 @@ const Editrole = (props: any) => {
       const sendData = {
         old_role_display_name: editData.role_display_name,
         role_display_name: values.role_name,
-        location_name: editData.location_name,
+        location_name: editData?.location_name,
+        role_short_code: editData?.role_short_code,
+        role_access: editData?.role_access,
+        status: editData?.status,
+        seeded: editData?.seeded,
       };
       axios
-        .put("/mg_roles", sendData, {
+        .put(`${process.env.REACT_APP_BACKEND_URL}/mg_roles`, sendData, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         })
         .then(() => {
-          message.success("Role created successfully!");
+          message.success("Role Updated Successfully!");
         })
         .catch(() => {
           message.error("Error on creating role !");

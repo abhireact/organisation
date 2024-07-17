@@ -103,6 +103,7 @@ import CreateLeavePage from "layouts/pages/leave/create";
 import Rbac from "layouts/pages/rbac/rbac";
 import CreateEmployee from "layouts/pages/employee/createmployee";
 import PayrunRecoed from "layouts/payrole/salarycomponent/payrun/record";
+import MYDashboard from "layouts/mydashboard";
 const mod: string[] = [];
 let submm: string[] = [];
 const token = Cookies.get("token");
@@ -500,7 +501,7 @@ const routes: any[] = [
     name: "Analytics",
     key: "analytics",
     route: "/dashboards/analytics",
-    component: <Analytics />,
+    component: <MYDashboard />,
   },
 ];
 for (const i of routes2 as RouteItem[]) {
