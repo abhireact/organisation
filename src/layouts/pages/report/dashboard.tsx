@@ -452,6 +452,7 @@ export default function EmployeeDashboard() {
               </Grid>
             </MDBox>
           </Grid>
+      
           <Grid item sm={6}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>
@@ -641,47 +642,6 @@ export default function EmployeeDashboard() {
               </Grid>
             </MDBox>
           </Grid>
-          {/* <Grid item sm={6}>
-            <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
-              <Grid container spacing={3} p={2}>
-                <Grid item sm={8} pb={1}>
-                  {" "}
-                  <MDTypography>Departments</MDTypography>
-                </Grid>
-                <Grid item sm={4} pb={1}>
-                  {" "}
-                  <MDTypography
-                    component={Link}
-                    to="/pages/reports/distributionreport"
-                    variant="button"
-                    color="info"
-                    fontWeight="medium"
-                    textGradient
-                  >
-                    Detailed Report{" "}
-                  </MDTypography>
-                </Grid>
-              </Grid>
-
-              <Grid sm={12} textAlign={"center"} pb={1}>
-                {" "}
-                <PieChart
-                  series={[
-                    {
-                      data: [
-                        { id: 1, value: 5, label: "Finance" },
-                        { id: 4, value: 23, label: "IT" },
-                        { id: 2, value: 3, label: "Management" },
-                        { id: 3, value: 8, label: "Marketing" },
-                      ],
-                    },
-                  ]}
-                  width={550}
-                  height={200}
-                />
-              </Grid>
-            </MDBox>
-          </Grid> */}
         </Grid>
       </Card>
     </DashboardLayout>

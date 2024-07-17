@@ -1,193 +1,72 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Formik, Form } from "formik";
-import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import FormField from "../account/components/FormField";
-import { Autocomplete } from "@mui/material";
-import MDInput from "components/MDInput";
-import MDTypography from "components/MDTypography";
-// import { I18nextProvider, useTranslation } from "react-i18next";
-// import createTrans from "./createtransschool";
 
-// For time and date
-import dayjs from "dayjs";
-// import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-// import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
-// import { DesktopTimePicker } from "@mui/x-date-pickers/DesktopTimePicker";
-// import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
-// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-// import { MobileDatePicker } from "@mui/x-date-pickers";
-// import CreateSchool from "./createschool";
 
-import { useDispatch, useSelector } from "react-redux";
-import CreateLeave from "./createLeave";
-import CreateApplicableType from "./createApplicableType";
-import RestrictionTable from "./restrictionTable";
-import EntitlementTable from "./entitlementTable";
-import CreateLeaveTable from "./createLeaveTable";
-import LeaveGrant from "./leaveGrant";
+import { useDispatch } from "react-redux";
 import {
-  updateSectionName,
   updateClassName,
   storeWorkLocationData,
   storeDepartmentData,
   storeDesignationData,
   storeEmployeeData,
-  storeRoleseData,
 } from "../../../Redux/action/dummyDataActions";
-import CompensatoryrequestSchedular from "./compensatoryrequestSchedular";
-import CalenderSetting from "./calenderSetting";
-import WorkingDay from "./workingDay";
-import PayPeriodSetting from "./payPeriodSetting";
-import SelectDataFor from "./selectthings";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-// import WorkingdaysTable from "./exceptionalWorkingDayTable";
-// import CustomFilterPanelContent from "./exceptionalWorkingDayTable";
-import StyledEngineProvider from "@mui/styled-engine/StyledEngineProvider";
+
 import MainCreateLeavePage from "./mainCreate";
 import Cookies from "js-cookie";
-import React from "react";
 function CreateLeavePage() {
   const token = Cookies.get("token");
-  const [Worklocation, setWorklocation] = React.useState({});
-  const [department, setDepartment] = React.useState({});
-  const [designation, setDesignation] = React.useState({});
-  const [employee, setEmployee] = React.useState({});
+  // const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
-  // const { t } = useTranslation();
-  const dispatched = useDispatch();
-  const [clickbtn, setClickbtn] = useState(false);
-  const btnclick = { name: clickbtn };
-  console.log(clickbtn, "btn");
-  useEffect(() => {
-    dispatched(updateClassName(btnclick));
-    // console.log(dispatched, "dispatfrhjufwefhevhjwvfhj");
-  }, [dispatched, btnclick]);
+  // const [data, setData] = useState({
+  //   workLocation: {},
+  //   department: {},
+  //   designation: {},
+  //   employee: {},
+  // });
+  // const [clickBtn, setClickBtn] = useState(false);
+  // const dispatch = useDispatch();
 
-  // FECHING worklocation
-  useEffect(() => {
-    fetchWorkLocation(); // Fetch data from API on component mount
-  }, []);
+  // useEffect(() => {
+  //   dispatch(updateClassName({ name: clickBtn }));
+  // }, [clickBtn, dispatch]);
 
-  const fetchWorkLocation = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/worklocation`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  // const fetchData = async (endpoint: string) => {
+  //   try {
+  //     const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     return await response.json();
+  //   } catch (error) {
+  //     console.error(`Error fetching ${endpoint} data:`, error);
+  //     return {};
+  //   }
+  // };
 
-      const Worklocation = await response.json();
+  // useEffect(() => {
+  //   const fetchAllData = async () => {
+  //     const workLocation = await fetchData('worklocation');
+  //     const department = await fetchData('department');
+  //     const designation = await fetchData('designation');
+  //     const employee = await fetchData('employee');
 
-      setWorklocation(Worklocation);
-      console.log(Worklocation, typeof Worklocation);
-      //   decryptData(data[0].encrypted_data);
-      //   console.log(data[0].encrypted_data, "ghihwefgkwefh");
-    } catch (error) {
-      console.log("Error fetching classdata:", error);
-    }
-  };
-  React.useEffect(() => {
-    dispatched(storeWorkLocationData(Worklocation));
-  }, [dispatched, Worklocation]);
-  // feching department
-  useEffect(() => {
-    fetchDepartment(); // Fetch data from API on component mount
-  }, []);
+  //     setData({ workLocation, department, designation, employee });
+  //   };
 
-  const fetchDepartment = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/department`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  //   fetchAllData();
+  // }, [token]);
 
-      const department = await response.json();
-      console.log(department, typeof department);
-      setDepartment(department);
-    } catch (error) {
-      console.log("Error fetching classdata:", error);
-    }
-  };
-  React.useEffect(() => {
-    dispatched(storeDepartmentData(department));
-  }, [dispatched, department]);
+  // useEffect(() => {
+  //   dispatch(storeWorkLocationData(data.workLocation));
+  //   dispatch(storeDepartmentData(data.department));
+  //   dispatch(storeDesignationData(data.designation));
+  //   dispatch(storeEmployeeData(data.employee));
+  // }, [data, dispatch]);
 
-  // feching Designation
-  useEffect(() => {
-    fetchDesignation(); // Fetch data from API on component mount
-  }, []);
-
-  const fetchDesignation = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/designation`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const designation = await response.json();
-      console.log(designation, typeof designation);
-      setDesignation(designation);
-    } catch (error) {
-      console.log("Error fetching classdata:", error);
-    }
-  };
-  React.useEffect(() => {
-    dispatched(storeDesignationData(designation));
-  }, [dispatched, designation]);
-
-  // feching employee
-  useEffect(() => {
-    fetchEmployee(); // Fetch data from API on component mount
-  }, []);
-
-  const fetchEmployee = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/employee`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const employee = await response.json();
-      console.log(employee, typeof employee);
-      setEmployee(employee);
-    } catch (error) {
-      console.log("Error fetching classdata:", error);
-    }
-  };
-  React.useEffect(() => {
-    dispatched(storeEmployeeData(employee));
-  }, [dispatched, employee]);
 
   return (
     <DashboardLayout>
