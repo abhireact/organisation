@@ -91,6 +91,7 @@ const Employee = () => {
   const [employee, setEmployee] = React.useState({});
   const [roles, setRoles] = React.useState([]);
   const [selectedlocation, setSelectedlocation] = React.useState({});
+
   const WorkLocation = useSelector(
     (state: any) => state.dummyData.workLocationData
   );
@@ -110,7 +111,7 @@ const Employee = () => {
     location_name.push(...uniqueLocationNames);
   }
 
-  console.log(location_name, "location");
+  // console.log(location_name, "location");
 
   const Department = useSelector(
     (state: any) => state.dummyData.departmentData
@@ -185,6 +186,7 @@ const Employee = () => {
       // manager_name.push(employeeObject);
       const fullName = last_name ? `${first_name} ${last_name}` : first_name;
       employees.push({ label: fullName, value: { first_name, last_name } });
+      console.log("employee full name", employees);
       uniqueEmployeeDataNames.add(fullName);
     }
 
@@ -293,12 +295,12 @@ const Employee = () => {
     dispatched(storeEmployeeData(employee));
   }, [dispatched, employee]);
 
-  // calculating basicctcmothly%
+  // calculating basic_ctc)mothly%
   const ctcbasic =
     values.annual_ctc && values.percentofctc
       ? ((values.percentofctc / 100) * values.annual_ctc) / 12
       : 0;
-  // calculating housingrentmothly%
+  // calculating housing_rent_mothly%
   const housingrent = values.percentofbasic
     ? (values.percentofbasic / 100) * ctcbasic
     : 0;
@@ -628,6 +630,7 @@ const Employee = () => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <FormField
+                sx={{ width: "70%" }}
                 type="date"
                 InputLabelProps={{ shrink: true }}
                 label="Joining Date"
@@ -692,6 +695,15 @@ const Employee = () => {
             ) : null} */}
               <Autocomplete
                 sx={{ width: "70%" }}
+                // options={employees.map((e: any) => e.label)}
+                // value={values.manager}
+                // // Display employee's full name in the options
+                // onChange={(event, value: any) => {
+                //   // Extract manager's name in object format
+                //   handleChange({
+                //     target: { name: "manager", value },
+                //   });
+                // }}
                 options={employees}
                 getOptionLabel={(option) => option.label} // Display employee's full name in the options
                 onChange={(event, value) => {
@@ -701,7 +713,9 @@ const Employee = () => {
                       target: { name: "manager", value: managerObject },
                     });
                   } else {
-                    handleChange({ target: { name: "manager", value: null } });
+                    handleChange({
+                      target: { name: "manager", value: null },
+                    });
                   }
                 }}
                 renderInput={(params) => (

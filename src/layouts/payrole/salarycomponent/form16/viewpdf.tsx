@@ -5,6 +5,7 @@ import MDBox from "components/MDBox";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "./form16pdf.css";
 
 const DownloadButton = () => {
   const downloadPDF = async () => {
