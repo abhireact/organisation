@@ -140,16 +140,14 @@ const ShowEmployee = () => {
           ) : (
             <Avatar src={"man.png"} />
           )}
-          <MDTypography variant="p">
-            {row.first_name} {row.last_name}
-          </MDTypography>
+          {row.first_name} {row.last_name}
         </>
       ),
-      email_id: <MDTypography variant="p">{row.email}</MDTypography>,
-      role: <MDTypography variant="p">{row.role}</MDTypography>,
-      designation: <MDTypography variant="p">{row.designation}</MDTypography>,
-      department: <MDTypography variant="p">{row.department}</MDTypography>,
-      location: <MDTypography variant="p">{row.location}</MDTypography>,
+      email_id: row.email,
+      role: row.role,
+      designation: row.designation,
+      department: row.department,
+      location: row.location,
 
       action: (
         <MDTypography variant="p">
@@ -230,7 +228,7 @@ const ShowEmployee = () => {
       </Grid>
       {rbacData ? (
         rbacData?.find((element: string) => element === "showemployeeread") ? (
-          <DataTable table={dataTableData} />
+          <DataTable table={dataTableData} canSearch />
         ) : (
           ""
         )
