@@ -15,6 +15,7 @@ import {
   UPDATE_ROLES_NAME,
   UPDATE_USERPROFILE_NAME,
   UPDATE_RBAC_NAME,
+  UPDATE_PROFILE_NAME,
 } from "../action/dummyDataActions";
 
 // Define your initial state interface
@@ -27,7 +28,6 @@ interface DummyDataState {
   leavegrantData: string;
   leavetypeData: string;
   rolesData: string;
-  userprofileData: string;
   rbacData: string;
   // Add academicName property
 }
@@ -42,7 +42,6 @@ const initialState: DummyDataState = {
   leavegrantData: "",
   leavetypeData: "",
   rolesData: "",
-  userprofileData: "",
   rbacData: "",
 };
 
@@ -93,6 +92,11 @@ const dummyDataReducer = (state = initialState, action: any) => {
       return {
         ...state,
         workLocationData: action.payload,
+      };
+    case UPDATE_PROFILE_NAME:
+      return {
+        ...state,
+        myprofileData: action.payload,
       };
     case UPDATE_DEPARTMENT_NAME:
       return {
