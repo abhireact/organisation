@@ -54,7 +54,12 @@ interface PopupData {
   status?: string;
   num_of_days?: number;
   earnings?: { earnings_name: any; monthly_amount: number }[];
-  // Add other properties as needed
+  pre_tax?: { earnings_name: any; monthly_amount: number }[];
+  earning_amt?: number;
+  pre_tax_amt?: number;
+  tax_amt?: number;
+  epf_amt?: number;
+  lop_amt?: number;
 }
 function PayrunRecoed(props: any) {
   const [openPopup, setOpenPopup] = useState(false);
@@ -272,7 +277,7 @@ function PayrunRecoed(props: any) {
                 <MDTypography variant="button">Net Pay</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
-                <MDTypography variant="body2">Emp. ID: 80deb</MDTypography>
+                <MDTypography variant="body2"></MDTypography>
               </Grid>
               <Grid
                 item
@@ -383,7 +388,7 @@ function PayrunRecoed(props: any) {
                   AMOUNT
                 </MDTypography>
               </Grid>
-              {popupData.earnings?.map((earningData: any, index: number) => (
+              {popupData.pre_tax?.map((earningData: any, index: number) => (
                 <React.Fragment key={index}>
                   <Grid item xs={12} sm={9}>
                     <MDTypography variant="button">

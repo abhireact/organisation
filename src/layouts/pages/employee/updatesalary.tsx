@@ -18,7 +18,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
-// import form from "layouts/pages/users/new-user/schemas/form";
 const token = Cookies.get("token");
 function getEnterAmountOrPercent(
   monthly_amount: any,
@@ -46,10 +45,41 @@ function getEnterAmountOrPercent(
 function Createsalary() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log(state.email, "salary via this email ");
-
+  const [isEpf, setIsEpf] = useState([]);
+  const [isEsi, setIsEsi] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/mg_epf`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setIsEpf(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/mg_esi`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setIsEsi(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  console.log(isEpf, isEsi, "isipf");
   const searchData = new URLSearchParams(location.search).get("data");
-  console.log(searchData, "ppp");
+
   type AllEarningsType = {
     earning_types: Array<{
       // Properties of each item in the earning_types array
@@ -204,8 +234,6 @@ function Createsalary() {
     enableReinitialize: true,
     onSubmit: async (values, action) => {
       let totalAmount = 0;
-      console.log(values, "Total Amount");
-
       const updatedEarnings = values.earnings_type_name.map(
         (
           earnings: {
@@ -281,16 +309,29 @@ function Createsalary() {
         return sum;
       }
       totalAmount = calculateAnnualAmountsAndSum();
-      console.log(totalAmount, "Total Amount");
       if (totalAmount > values.annual_ctc) {
         message.error("should be less than   or eqaul to Annual CTC");
         return;
       }
+
       const postdata = {
         annual_ctc: values.annual_ctc,
         earnings_type_name: updatedEarnings,
         pre_tax_name: updateDeduction,
         employee_email: state.email,
+        epf: [
+          {
+            epf_id: isEpf[0].epf_number,
+            calculation_type: isEpf[0].employee_contribution_rate,
+            monthly_amount: 0,
+          },
+        ],
+        esi: {
+          earnings_id: isEsi[0].esi_number,
+          calculation_type: "0.75",
+          monthly_amount: 0,
+          enter_amount_or_percent: 0,
+        },
       };
       console.log(postdata, "sending salary data");
       try {
@@ -495,7 +536,17 @@ function Createsalary() {
               : null,
         };
       }),
-
+      isEpf.length > 0 && {
+        salary_component: "EPF",
+        calculation_type: isEpf[0].employee_contribution_rate,
+        monthly_amount: "System Calculated",
+      },
+      isEsi.length > 0 &&
+        values.annual_ctc < 250000 && {
+          salary_component: "ESI",
+          calculation_type: isEsi[0].employees_contribution,
+          monthly_amount: "System Calculated",
+        },
       {
         salary_component:
           epf &&
@@ -574,8 +625,8 @@ function Createsalary() {
           <DataTable
             table={dataTableData}
             isSorted={false}
-            showTotalEntries={false}
             entriesPerPage={false}
+            showTotalEntries={false}
           />
         </MDBox>
       </form>
