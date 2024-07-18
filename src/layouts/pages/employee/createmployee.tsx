@@ -251,24 +251,20 @@ const Employee = () => {
   const token = Cookies.get("token");
 
   const handleFormSubmit = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/employee`,
-        values,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
+    await axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/employee`, values, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
         console.log(" Created Employee Basic Successfully");
         navigate(`/createemployeesalarydetails?data=${values.email}`);
-      }
-    } catch (error) {
-      console.error("Error saving data:", error);
-    }
+      })
+      .catch((error: any) => {
+        message.error(error.response.data.detail);
+      });
   };
   useEffect(() => {
     fetchEmployee();
