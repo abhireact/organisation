@@ -12,6 +12,8 @@ import Importattandance from "./importattandance";
 import { Grid } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+
 const TakeAttandance = () => {
   const token = Cookies.get("token");
   const [data, setData] = useState([]);
@@ -164,21 +166,16 @@ const TakeAttandance = () => {
       { Header: "Action", accessor: "action" },
     ],
     rows: data.map((row, index) => ({
-      employee_name: (
-        <MDTypography variant="p">{row.employee_name}</MDTypography>
-      ),
-      employee_email: (
-        <MDTypography variant="p">{row.employee_email}</MDTypography>
-      ),
+      employee_name: row.employee_name,
+      employee_email: row.employee_email,
       action: (
-        <MDTypography variant="p">
-          <IconButton
-          // onClick={() => {
-          //   handleOpenview(index);
-          //   console.log(index);
-          // }}
-          >
-            {/* {row.is_checkin ? (
+        <IconButton
+        // onClick={() => {
+        //   handleOpenview(index);
+        //   console.log(index);
+        // }}
+        >
+          {/* {row.is_checkin ? (
               <MDButton
                 variant="gradient"
                 color="info"
@@ -197,56 +194,55 @@ const TakeAttandance = () => {
                 CheckIn
               </MDButton>
             )} */}
-            {(() => {
-              if (row.is_checkin && row.is_checkout) {
-                return (
-                  <MDButton
-                    variant="gradient"
-                    color="info"
-                    fullWidth
-                    onClick={() => handlecheckIn(index)}
-                  >
-                    CheckIn
-                  </MDButton>
-                );
-              } else if (row.is_checkin && !row.is_checkout) {
-                return (
-                  <MDButton
-                    variant="gradient"
-                    color="info"
-                    fullWidth
-                    onClick={() => handlecheckOut(index)}
-                  >
-                    CheckOut
-                  </MDButton>
-                );
-              } else if (!row.is_checkin && row.is_checkout) {
-                return (
-                  <MDButton
-                    variant="gradient"
-                    color="info"
-                    fullWidth
-                    onClick={() => handlecheckIn(index)}
-                  >
-                    CheckIn
-                  </MDButton>
-                );
-              } else {
-                // Both are false
-                return (
-                  <MDButton
-                    variant="gradient"
-                    color="info"
-                    fullWidth
-                    onClick={() => handlecheckIn(index)}
-                  >
-                    CheckIn
-                  </MDButton>
-                );
-              }
-            })()}
-          </IconButton>
-        </MDTypography>
+          {(() => {
+            if (row.is_checkin && row.is_checkout) {
+              return (
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  fullWidth
+                  onClick={() => handlecheckIn(index)}
+                >
+                  CheckIn
+                </MDButton>
+              );
+            } else if (row.is_checkin && !row.is_checkout) {
+              return (
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  fullWidth
+                  onClick={() => handlecheckOut(index)}
+                >
+                  CheckOut
+                </MDButton>
+              );
+            } else if (!row.is_checkin && row.is_checkout) {
+              return (
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  fullWidth
+                  onClick={() => handlecheckIn(index)}
+                >
+                  CheckIn
+                </MDButton>
+              );
+            } else {
+              // Both are false
+              return (
+                <MDButton
+                  variant="gradient"
+                  color="info"
+                  fullWidth
+                  onClick={() => handlecheckIn(index)}
+                >
+                  CheckIn
+                </MDButton>
+              );
+            }
+          })()}
+        </IconButton>
       ),
     })),
   };
@@ -278,9 +274,9 @@ const TakeAttandance = () => {
             }}
             onClick={showDrawer}
           >
-            <FileUploadIcon />
+            <CloudUploadIcon />
           </MDButton>
-          <MDButton
+          {/* <MDButton
             variant="gradient"
             color="info"
             sx={{
@@ -291,7 +287,7 @@ const TakeAttandance = () => {
             }}
           >
             <FileDownloadIcon />
-          </MDButton>
+          </MDButton> */}
         </Grid>
       </Grid>
 
@@ -306,7 +302,7 @@ const TakeAttandance = () => {
       >
         <Importattandance />
       </Drawer>
-      <DataTable table={dataTableData} />
+      <DataTable table={dataTableData} canSearch />
     </DashboardLayout>
   );
 };
