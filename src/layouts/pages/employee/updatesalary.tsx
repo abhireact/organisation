@@ -574,8 +574,8 @@ function Createsalary() {
           <DataTable
             table={dataTableData}
             isSorted={false}
-            entriesPerPage={false}
             showTotalEntries={false}
+            entriesPerPage={false}
           />
         </MDBox>
       </form>

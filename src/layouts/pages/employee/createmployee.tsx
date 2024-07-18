@@ -1094,7 +1094,7 @@ const Employee = () => {
                 type="name"
                 label="Present Address"
                 name="presentaddress"
-                value={values.presentaddress}
+                value={values.presentaddress}from_date
                 placeholder="Enter Your Present Address"
                 variant="standard"
                 onChange={handleChange}
