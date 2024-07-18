@@ -440,7 +440,7 @@ function CreateEmployee(props: any) {
             ))
           : 0,
     }));
-  }, [values.annual_ctc]);
+  }, [values]);
 
   return (
     <DashboardLayout>

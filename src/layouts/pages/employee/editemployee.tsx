@@ -687,6 +687,7 @@ const Employeeinfo = () => {
               <Grid item xs={12} sm={4}>
                 <FormField
                   type="date"
+                  sx={{ width: "70%" }}
                   InputLabelProps={{ shrink: true }}
                   label="Joining Date"
                   name="joining_date"

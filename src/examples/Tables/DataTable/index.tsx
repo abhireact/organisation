@@ -98,7 +98,7 @@ function DataTable({
   if (entriesPerPage) {
     defaultValue = entriesPerPage.defaultValue
       ? entriesPerPage.defaultValue
-      : "10";
+      : "25";
     entries = entriesPerPage.entries
       ? entriesPerPage.entries
       : ["10", "25", "50", "100"];
@@ -136,7 +136,7 @@ function DataTable({
     state: { pageIndex, pageSize, globalFilter },
   }: any = tableInstance;
   // Set the default value for the entries per page when component mounts
-  useEffect(() => setPageSize(defaultValue || 10), [defaultValue]);
+  useEffect(() => setPageSize(defaultValue || 25), [defaultValue]);
 
   // Set the entries per page value based on the select value
   const setEntriesPerPage = (value: any) => setPageSize(value);
@@ -465,7 +465,7 @@ function DataTable({
 
 // Declaring default props for DataTable
 DataTable.defaultProps = {
-  entriesPerPage: { defaultValue: 10, entries: ["5", "10", "15", "20", "25"] },
+  entriesPerPage: { defaultValue: 25, entries: ["5", "10", "15", "20", "25"] },
   canSearch: false,
   importbtn: false,
   showTotalEntries: true,
