@@ -9,7 +9,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Cookies from "js-cookie";
 import { message } from "antd";
 const token = Cookies.get("token");
-// Variable_Pay_Earnings_report 
+// Variable_Pay_Earnings_report
 const Employee_Ctc_Reports = () => {
   const [tabledata, setTableData] = useState<{ columns: any[]; rows: any[] }>({
     columns: [],
