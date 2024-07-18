@@ -536,7 +536,7 @@ const routes = [
         component: <CalendarView />,
       },
       {
-        name: "Emplopoyee Leave",
+        name: "Employee Leave",
         key: "applyleave",
         route: "/pages/leave/applyleave",
         component: <Applyleave />,
