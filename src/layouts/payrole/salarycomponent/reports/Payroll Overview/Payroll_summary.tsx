@@ -127,149 +127,141 @@ function Payroll_summary(): JSX.Element {
     <DashboardLayout>
       <DashboardNavbar />
 
-      {showReport ? (
-        <Card sx={{ width: "80%", margin: "auto", mt: "4%" }}>
-          <Grid item xs={12} sm={4} sx={{ textAlign: "right" }} mx={4} mt={2}>
-            <Icon
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              close
-            </Icon>
-          </Grid>
-          <MDBox p={5}>
-            <MDTypography variant="h5" sx={{ textAlign: "center" }}>
-              MindCom
-            </MDTypography>
-            <MDTypography variant="h6" sx={{ textAlign: "center" }}>
-              Payroll Summary
-            </MDTypography>
-            <MDTypography variant="h6" sx={{ textAlign: "center" }}>
-              {values.year.split("-")[0]} to {values.year.split("-")[1]}
-            </MDTypography>
+      <Card sx={{ width: "80%", margin: "auto", mt: "4%" }}>
+        <Grid item xs={12} sm={4} sx={{ textAlign: "right" }} mx={4} mt={2}>
+          <Icon
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            close
+          </Icon>
+        </Grid>
+        <form onSubmit={handleSubmit}>
+          <MDBox p={4} pt={2}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={3}>
+                <MDInput
+                  label={"Year"}
+                  // InputLabelProps={{ shrink: true }}
+                  type="year"
+                  required
+                  name="year"
+                  placeholder="eg. 2021-2022"
+                  sx={{ width: "70%" }}
+                  onChange={handleChange}
+                  value={values.year}
+                  onBlur={handleBlur}
+                  error={errors.year && touched.year}
+                  success={!errors.year}
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={12} sm={3}>
+                <Autocomplete
+                  multiple
+                  onChange={(event, value) => {
+                    handleChange({
+                      target: { name: "department", value },
+                    });
+                  }}
+                  options={dept_name}
+                  renderInput={(params) => (
+                    <MDInput
+                      label={"Department"}
+                      sx={{ width: "70%" }}
+                      InputLabelProps={{ shrink: true }}
+                      name="department"
+                      onChange={handleChange}
+                      value={values.department}
+                      {...params}
+                      variant="standard"
+                    />
+                  )}
+                />
+                {errors.department && touched.department ? (
+                  // <p className="form-error">{errors.name}</p>
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
+                    {errors.department}
+                  </MDTypography>
+                ) : null}
+              </Grid>
+              <Grid item xs={12} sm={3}>
+                <Autocomplete
+                  multiple
+                  onChange={(event, value) => {
+                    handleChange({
+                      target: { name: "designation", value },
+                    });
+                  }}
+                  options={des_name}
+                  renderInput={(params) => (
+                    <MDInput
+                      label={"Designation"}
+                      sx={{ width: "70%" }}
+                      InputLabelProps={{ shrink: true }}
+                      name="designation"
+                      onChange={handleChange}
+                      value={values.designation}
+                      {...params}
+                      variant="standard"
+                    />
+                  )}
+                />
+                {errors.designation && touched.designation ? (
+                  // <p className="form-error">{errors.name}</p>
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
+                    {errors.designation}
+                  </MDTypography>
+                ) : null}
+              </Grid>
 
-            <Divider />
-            <Grid container>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="h6">PAY COMPONENTS</MDTypography>
-              </Grid>
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="button">AMOUNT(₹)</MDTypography>
-              </Grid>
-            </Grid>
-            <Divider />
-
-            <Grid container>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="h6">Earnings</MDTypography>
-              </Grid>
-              {/* <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">No data to display </MDTypography>
-            </Grid> */}
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="button">
-                  ₹{data?.earnings["Total Gross Pay"]}
-                </MDTypography>
-              </Grid>
-            </Grid>
-            <Divider />
-            <Grid container>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="h6">Statutories</MDTypography>
-              </Grid>
-              {/* <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">
-                No statutories were included during this period
-              </MDTypography>
-            </Grid> */}
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="button">
-                  ₹{data?.statutories["Total statutory"]}
-                </MDTypography>
+              <Grid item xs={12} sm={3}>
+                <Autocomplete
+                  sx={{ width: "70%" }}
+                  multiple
+                  disableClearable
+                  onChange={(event: any, value: any) => {
+                    handleChange({ target: { name: "location", value } });
+                  }}
+                  value={values.location}
+                  // onChange={handleMainFieldChange}
+                  options={location_name}
+                  renderInput={(params: any) => (
+                    <MDInput
+                      label={"Location"}
+                      InputLabelProps={{ shrink: true }}
+                      name="location"
+                      placeholder="Enter Your location"
+                      //onChange={handleChange}
+                      value={values.location}
+                      {...params}
+                      onBlur={handleBlur}
+                      error={errors.location && touched.location}
+                      variant="standard"
+                    />
+                  )}
+                />
+                {errors.designation && touched.designation ? (
+                  // <p className="form-error">{errors.name}</p>
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="regular"
+                    color="error"
+                  >
+                    {errors.designation}
+                  </MDTypography>
+                ) : null}
               </Grid>
             </Grid>
-            <Divider />
-            <Grid container>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="h6">Donations</MDTypography>
-              </Grid>
-              {/* <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">
-                No deductions were applied in this period
-              </MDTypography>
-            </Grid> */}
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="button">
-                  {" "}
-                  ₹{data?.donations["Total donations"] || 0}
-                </MDTypography>
-              </Grid>
-            </Grid>
-            <Divider />
-            <Grid container>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="h6">Deductions</MDTypography>
-              </Grid>
-              {/* <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">
-                No deductions were applied in this period
-              </MDTypography>
-            </Grid> */}
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="button">
-                  ₹{data?.deductions["Total deductions"] || 0}
-                </MDTypography>
-              </Grid>
-            </Grid>
-            <Divider />
-            <Grid container>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="h6">Taxes</MDTypography>
-              </Grid>
-              {/* <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">No data to display </MDTypography>
-            </Grid> */}
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="button">
-                  ₹{data?.taxes["Total taxes"]}
-                </MDTypography>
-              </Grid>
-            </Grid>
-            <Divider />
-
-            <Grid container>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="h6">Reimbursements</MDTypography>
-              </Grid>
-              {/* <Grid item xs={12} sm={8}>
-              <MDTypography variant="button">No data to display</MDTypography>
-            </Grid> */}
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="button">
-                  ₹{data?.reimbursements["Total reimbursement"]}
-                </MDTypography>
-              </Grid>
-            </Grid>
-            <Divider />
-
-            <Grid container>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="h6">Net Pay</MDTypography>
-              </Grid>
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="button">
-                  ₹
-                  {data?.reimbursements["Total reimbursement"] +
-                    data?.taxes["Total taxes"] +
-                    data?.deductions["Total deductions"] +
-                    data?.donations["Total donations"] +
-                    data?.statutories["Total statutory"] +
-                    data?.earnings["Total Gross Pay"]}
-                </MDTypography>
-              </Grid>
-            </Grid>
-            <Divider />
             <Grid
               item
               xs={12}
@@ -278,206 +270,207 @@ function Payroll_summary(): JSX.Element {
               display="flex"
               justifyContent="flex-end"
             >
-              <MDButton
-                variant="gradient"
-                color="dark"
-                onClick={() => setShowReport(false)}
-              >
-                {"back"}
+              <MDButton variant="gradient" color="info" type="submit">
+                {"Show"}
               </MDButton>
             </Grid>
           </MDBox>
-        </Card>
-      ) : (
-        <Card sx={{ width: "80%", margin: "auto", mt: "4%" }}>
-          <Grid item xs={12} sm={4} sx={{ textAlign: "right" }} mx={4} mt={2}>
-            <Icon
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              close
-            </Icon>
+        </form>
+      </Card>
+      <Card sx={{ width: "80%", margin: "auto", mt: "4%" }}>
+        <MDBox p={5}>
+          <MDTypography variant="h5" sx={{ textAlign: "center" }}>
+            MindCom
+          </MDTypography>
+          <MDTypography variant="h6" sx={{ textAlign: "center" }}>
+            Payroll Summary
+          </MDTypography>
+          <MDTypography variant="h6" sx={{ textAlign: "center" }}>
+            {values.year.split("-")[0]} to {values.year.split("-")[1]}
+          </MDTypography>
+
+          <Divider />
+          <Grid container>
+            <Grid item xs={12} sm={8}>
+              <MDTypography variant="h6">PAY COMPONENTS</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+              <MDTypography variant="button">AMOUNT(₹)</MDTypography>
+            </Grid>
           </Grid>
-          <form onSubmit={handleSubmit}>
-            <MDBox p={4} pt={2}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={12}>
-                  <MDTypography variant="h5" sx={{ textAlign: "center" }}>
-                    Payroll Summary
-                  </MDTypography>
-                </Grid>
+          <Divider />
 
-                {/* <Grid item xs={12} sm={6}>
-                <MDInput
-                  label={"From Date"}
-                  InputLabelProps={{ shrink: true }}
-                  type="month"
-                  // required
-                  name="from_date"
-                  sx={{ width: "70%" }}
-                  onChange={handleChange}
-                  value={values.from_date}
-                  onBlur={handleBlur}
-                  error={errors.from_date && touched.from_date}
-                  success={!errors.from_date}
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <MDInput
-                  label={"To Date"}
-                  InputLabelProps={{ shrink: true }}
-                  type="month"
-                  // required
-                  name="to_date"
-                  sx={{ width: "70%" }}
-                  onChange={handleChange}
-                  value={values.to_date}
-                  onBlur={handleBlur}
-                  error={errors.to_date && touched.to_date}
-                  success={!errors.to_date}
-                  variant="standard"
-                />
-              </Grid> */}
-                <Grid item xs={12} sm={6}>
-                  <MDInput
-                    label={"Year"}
-                    // InputLabelProps={{ shrink: true }}
-                    type="year"
-                    required
-                    name="year"
-                    placeholder="eg. 2021-2022"
-                    sx={{ width: "70%" }}
-                    onChange={handleChange}
-                    value={values.year}
-                    onBlur={handleBlur}
-                    error={errors.year && touched.year}
-                    success={!errors.year}
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Autocomplete
-                    multiple
-                    onChange={(event, value) => {
-                      handleChange({
-                        target: { name: "department", value },
-                      });
-                    }}
-                    options={dept_name}
-                    renderInput={(params) => (
-                      <MDInput
-                        label={"Department"}
-                        sx={{ width: "70%" }}
-                        InputLabelProps={{ shrink: true }}
-                        name="department"
-                        onChange={handleChange}
-                        value={values.department}
-                        {...params}
-                        variant="standard"
-                      />
-                    )}
-                  />
-                  {errors.department && touched.department ? (
-                    // <p className="form-error">{errors.name}</p>
-                    <MDTypography
-                      variant="caption"
-                      fontWeight="regular"
-                      color="error"
-                    >
-                      {errors.department}
+          <Grid container>
+            <Grid item xs={12} sm={12}>
+              <MDTypography variant="h6">Earnings</MDTypography>
+            </Grid>
+            {data?.earnings &&
+              Object.entries(data.earnings).map(([key, value]) => (
+                <>
+                  <Grid item xs={12} sm={8}>
+                    <MDTypography key={key} variant="button">
+                      {key}
                     </MDTypography>
-                  ) : null}
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Autocomplete
-                    multiple
-                    onChange={(event, value) => {
-                      handleChange({
-                        target: { name: "designation", value },
-                      });
-                    }}
-                    options={des_name}
-                    renderInput={(params) => (
-                      <MDInput
-                        label={"Designation"}
-                        sx={{ width: "70%" }}
-                        InputLabelProps={{ shrink: true }}
-                        name="designation"
-                        onChange={handleChange}
-                        value={values.designation}
-                        {...params}
-                        variant="standard"
-                      />
-                    )}
-                  />
-                  {errors.designation && touched.designation ? (
-                    // <p className="form-error">{errors.name}</p>
-                    <MDTypography
-                      variant="caption"
-                      fontWeight="regular"
-                      color="error"
-                    >
-                      {errors.designation}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={4}
+                    key={key + value}
+                    sx={{ textAlign: "right" }}
+                  >
+                    <MDTypography variant="button">₹{value}</MDTypography>
+                  </Grid>
+                </>
+              ))}
+          </Grid>
+          <Divider />
+          <Grid container>
+            <Grid item xs={12} sm={12}>
+              <MDTypography variant="h6">Statutories</MDTypography>
+            </Grid>
+            {data?.statutories &&
+              Object.entries(data.statutories).map(([key, value]) => (
+                <>
+                  <Grid item xs={12} sm={8}>
+                    <MDTypography key={key} variant="button">
+                      {key}
                     </MDTypography>
-                  ) : null}
-                </Grid>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={4}
+                    key={key + value}
+                    sx={{ textAlign: "right" }}
+                  >
+                    <MDTypography variant="button">₹{value}</MDTypography>
+                  </Grid>
+                </>
+              ))}
+          </Grid>
+          <Divider />
+          <Grid container>
+            <Grid item xs={12} sm={12}>
+              <MDTypography variant="h6">Donations</MDTypography>
+            </Grid>
+            {data?.donations &&
+              Object.entries(data.donations).map(([key, value]) => (
+                <>
+                  <Grid item xs={12} sm={8}>
+                    <MDTypography key={key} variant="button">
+                      {key}
+                    </MDTypography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={4}
+                    key={key + value}
+                    sx={{ textAlign: "right" }}
+                  >
+                    <MDTypography variant="button">₹{value}</MDTypography>
+                  </Grid>
+                </>
+              ))}
+          </Grid>
+          <Divider />
+          <Grid container>
+            <Grid item xs={12} sm={12}>
+              <MDTypography variant="h6">Deductions</MDTypography>
+            </Grid>
+            {data?.deductions &&
+              Object.entries(data.deductions).map(([key, value]) => (
+                <>
+                  <Grid item xs={12} sm={8}>
+                    <MDTypography key={key} variant="button">
+                      {key}
+                    </MDTypography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={4}
+                    key={key + value}
+                    sx={{ textAlign: "right" }}
+                  >
+                    <MDTypography variant="button">₹{value}</MDTypography>
+                  </Grid>
+                </>
+              ))}
+          </Grid>
+          <Divider />
+          <Grid container>
+            <Grid item xs={12} sm={12}>
+              <MDTypography variant="h6">Taxes</MDTypography>
+            </Grid>
+            {data?.taxes &&
+              Object.entries(data.taxes).map(([key, value]) => (
+                <>
+                  <Grid item xs={12} sm={8}>
+                    <MDTypography key={key} variant="button">
+                      {key}
+                    </MDTypography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={4}
+                    key={key + value}
+                    sx={{ textAlign: "right" }}
+                  >
+                    <MDTypography variant="button">₹{value}</MDTypography>
+                  </Grid>
+                </>
+              ))}
+          </Grid>
+          <Divider />
 
-                <Grid item xs={12} sm={6}>
-                  <Autocomplete
-                    sx={{ width: "70%" }}
-                    multiple
-                    disableClearable
-                    onChange={(event: any, value: any) => {
-                      handleChange({ target: { name: "location", value } });
-                    }}
-                    value={values.location}
-                    // onChange={handleMainFieldChange}
-                    options={location_name}
-                    renderInput={(params: any) => (
-                      <MDInput
-                        label={"Location"}
-                        InputLabelProps={{ shrink: true }}
-                        name="location"
-                        placeholder="Enter Your location"
-                        //onChange={handleChange}
-                        value={values.location}
-                        {...params}
-                        onBlur={handleBlur}
-                        error={errors.location && touched.location}
-                        variant="standard"
-                      />
-                    )}
-                  />
-                  {errors.designation && touched.designation ? (
-                    // <p className="form-error">{errors.name}</p>
-                    <MDTypography
-                      variant="caption"
-                      fontWeight="regular"
-                      color="error"
-                    >
-                      {errors.designation}
+          <Grid container>
+            <Grid item xs={12} sm={12}>
+              <MDTypography variant="h6">Reimbursements</MDTypography>
+            </Grid>
+            {data?.reimbursements &&
+              Object.entries(data.reimbursements).map(([key, value]) => (
+                <>
+                  <Grid item xs={12} sm={8}>
+                    <MDTypography key={key} variant="button">
+                      {key}
                     </MDTypography>
-                  ) : null}
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={3}
-                py={2}
-                display="flex"
-                justifyContent="flex-end"
-              >
-                <MDButton variant="gradient" color="info" type="submit">
-                  {"Show"}
-                </MDButton>
-              </Grid>
-            </MDBox>
-          </form>
-        </Card>
-      )}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={4}
+                    key={key + value}
+                    sx={{ textAlign: "right" }}
+                  >
+                    <MDTypography variant="button">₹{value}</MDTypography>
+                  </Grid>
+                </>
+              ))}
+          </Grid>
+          <Divider />
+
+          <Grid container>
+            <Grid item xs={12} sm={8}>
+              <MDTypography variant="h6">Net Pay</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+              <MDTypography variant="button">
+                ₹
+                {data?.reimbursements["Total reimbursement"] +
+                  data?.taxes["Total taxes"] +
+                  data?.deductions["Total deductions"] +
+                  data?.donations["Total donations"] +
+                  data?.statutories["Total statutory"] +
+                  data?.earnings["Total Gross Pay"]}
+              </MDTypography>
+            </Grid>
+          </Grid>
+          <Divider />
+        </MDBox>
+      </Card>
     </DashboardLayout>
   );
 }

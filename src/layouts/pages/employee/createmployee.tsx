@@ -656,7 +656,7 @@ const Employee = () => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <FormField
-                type="name"
+                sx={{ width: "70%" }}
                 label="ESI Number"
                 name="esi_number"
                 value={values.esi_number}

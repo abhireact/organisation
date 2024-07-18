@@ -589,9 +589,7 @@ function Createsalary(props: any) {
         <MDBox p={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={9}>
-              <MDTypography variant="h5">
-                {"Update Salary Details"}
-              </MDTypography>
+              <MDTypography variant="h5">{"Salary Details"}</MDTypography>
             </Grid>
             <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
               <MDButton variant="gradient" color="info" type="submit">
