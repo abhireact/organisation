@@ -134,19 +134,11 @@ const Manageloan = ({ setOpendialog }: any) => {
           {errorMessage}
         </MDTypography>
       )}
-      <Grid sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
         <MDButton variant="outlined" color="info" onClick={handleClickOpen}>
           + Create New Loan Type
         </MDButton>
-        <MDButton
-          color="primary"
-          variant="outlined"
-          onClick={() => {
-            handleClosedialog();
-          }}
-        >
-          &#60;- Back
-        </MDButton>
+     
       </Grid>
       <Dialog open={open} onClose={handleClose}>
         <Addloan setOpen={setOpen} />
