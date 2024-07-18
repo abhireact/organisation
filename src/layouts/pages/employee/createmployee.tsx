@@ -70,6 +70,7 @@ const initialValues = {
   job_description: "",
   institute_name: "",
   degree: "",
+  esi_number: "",
   specialization: "",
   date_of_completion: "",
   name: "",
@@ -250,24 +251,20 @@ const Employee = () => {
   const token = Cookies.get("token");
 
   const handleFormSubmit = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/employee`,
-        values,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
+    await axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/employee`, values, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
         console.log(" Created Employee Basic Successfully");
         navigate(`/createemployeesalarydetails?data=${values.email}`);
-      }
-    } catch (error) {
-      console.error("Error saving data:", error);
-    }
+      })
+      .catch((error: any) => {
+        message.error(error.response.data.detail);
+      });
   };
   useEffect(() => {
     fetchEmployee();
@@ -319,8 +316,6 @@ const Employee = () => {
               <MDTypography variant="h5">{"Create New Employee"}</MDTypography>
             </Grid>
           </Grid>
-        </MDBox>
-        <MDBox p={3}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={9}>
               <MDTypography variant="h6">{"Basic Details"}</MDTypography>
@@ -652,6 +647,30 @@ const Employee = () => {
                   color="error"
                 >
                   {errors.joining_date}
+                </MDTypography>
+              ) : null}
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormField
+                sx={{ width: "70%" }}
+                label="ESI Number"
+                name="esi_number"
+                value={values.esi_number}
+                placeholder="Enter Your ESI Number"
+                variant="standard"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.esi_number && touched.esi_number}
+                success={values.esi_number.length && !errors.esi_number}
+              />
+              {errors.esi_number && touched.esi_number ? (
+                // <p className="form-error">{errors.name}</p>
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
+                  {errors.esi_number}
                 </MDTypography>
               ) : null}
             </Grid>
@@ -1095,6 +1114,7 @@ const Employee = () => {
                 label="Present Address"
                 name="presentaddress"
                 value={values.presentaddress}
+                from_date
                 placeholder="Enter Your Present Address"
                 variant="standard"
                 onChange={handleChange}
@@ -1151,6 +1171,7 @@ const Employee = () => {
             </Grid>
           </Grid>
         </MDBox>
+        <MDBox p={3}></MDBox>
       </form>
     </DashboardLayout>
   );

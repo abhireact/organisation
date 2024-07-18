@@ -3,22 +3,18 @@ import Grid from "@mui/material/Grid";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
-
 import Autocomplete from "@mui/material/Autocomplete";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Checkbox from "@mui/material/Checkbox";
-
 import { FormControlLabel } from "@mui/material";
 import Cookies from "js-cookie";
 import { message } from "antd";
-
 const token = Cookies.get("token");
-
+import * as Yup from "yup";
 function transformString(inputString: string): string {
   // Split the input string into an array of substrings
   const substrings = inputString.split("/");
@@ -31,6 +27,15 @@ function transformString(inputString: string): string {
 
   return resultString;
 }
+const validationSchema = Yup.object().shape({
+  disbursement_date: Yup.date().required("Disbursement date is required"),
+  repayment_date: Yup.date()
+    .required("Repayment date is required")
+    .min(
+      Yup.ref("disbursement_date"),
+      "Repayment date must be after Disbursement date"
+    ),
+});
 const Recordloan = (props: any) => {
   const { setOpendialog } = props;
   const [errorMessage, setErrorMessage] = useState("");
@@ -51,52 +56,54 @@ const Recordloan = (props: any) => {
   const [employees, setEmployees] = useState([]);
 
   const [employee, setEmployee] = useState();
-  //End
-  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      paid_through_account: "",
-      loan_amount: "",
-      disbursement_date: "",
-      reason: "",
-      exempt_loan: false,
-      repayment_date: "",
-      instalment_amount: "",
-    },
-    // validationSchema: validationSchema,
-    onSubmit: async (values, action) => {
-      const sendData = {
-        employee_name: employee,
-        location_name: location,
-        manage_loan_name: loan,
-        loan_amount: values.loan_amount,
-        disbursement_date: transformString(values.disbursement_date),
-        repayment_date: transformString(values.repayment_date),
-        exempt_loan: values.exempt_loan,
-        instalment_amount: values.instalment_amount,
+  //End disbursement_date 2024-01-01
 
-        paid_through_account: values.paid_through_account,
-        reason: values.reason,
-      };
-      await axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/record_loans`, sendData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            window.location.reload();
-            message.success("Created Successfully");
-          }
-          handleClosedialog();
-        })
-        .catch((error) => {
-          setErrorMessage(error.response.data?.detail || "error occured");
-          console.log(error, "this is the error");
-        });
-    },
-  });
+  const { values, handleChange, handleBlur, handleSubmit, touched, errors } =
+    useFormik({
+      initialValues: {
+        paid_through_account: "",
+        loan_amount: "",
+        disbursement_date: "",
+        reason: "",
+        exempt_loan: false,
+        repayment_date: "",
+        instalment_amount: "",
+      },
+      validationSchema: validationSchema,
+      onSubmit: async (values, action) => {
+        const sendData = {
+          employee_name: employee,
+          location_name: location,
+          manage_loan_name: loan,
+          loan_amount: values.loan_amount,
+          disbursement_date: transformString(values.disbursement_date),
+          repayment_date: transformString(values.repayment_date),
+          exempt_loan: values.exempt_loan,
+          instalment_amount: values.instalment_amount,
+          paid_through_account: values.paid_through_account,
+          reason: values.reason,
+        };
+        await axios
+          .post(`${process.env.REACT_APP_BACKEND_URL}/record_loans`, sendData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              window.location.reload();
+              message.success("Created Successfully");
+            }
+            handleClosedialog();
+          })
+          .catch((error) => {
+            setErrorMessage(error.response.data?.detail || "error occured");
+            console.log(error, "this is the error");
+            message.error(error.response.data.detail);
+          });
+      },
+    });
   const Fetchlocations = async () => {
     try {
       const response = await axios.get(
@@ -154,12 +161,12 @@ const Recordloan = (props: any) => {
   return (
     <MDBox p={4}>
       <form onSubmit={handleSubmit}>
-        {errorMessage && (
+        {/* {errorMessage && (
           <MDTypography color="error" variant="body2">
             {errorMessage}
           </MDTypography>
-        )}
-        <Grid container sx={{ display: "flex", justifyContent: "center" }}>
+        )} */}
+        <Grid container spacing={3}>
           <Grid
             item
             sm={12}
@@ -173,13 +180,18 @@ const Recordloan = (props: any) => {
           <Grid item sm={4}>
             <MDTypography variant="body2">Location Name</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={6}>
             <Autocomplete
-              sx={{ width: "65%" }}
+              disableClearable
+              sx={{ width: "75%" }}
               options={locations}
               getOptionLabel={(object) => object.location_name}
               renderInput={(params) => (
-                <MDInput {...params} label="choose location" />
+                <MDInput
+                  {...params}
+                  label="Choose Location"
+                  variant="standard"
+                />
               )}
               value={location}
               onChange={(_event, newobject1) => {
@@ -192,13 +204,14 @@ const Recordloan = (props: any) => {
           <Grid item sm={4}>
             <MDTypography variant="body2">Loan Name</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={6}>
             <Autocomplete
-              sx={{ width: "65%" }}
+              disableClearable
+              sx={{ width: "75%" }}
               options={loans}
               getOptionLabel={(object) => object.loan_name}
               renderInput={(params) => (
-                <MDInput {...params} label="choose loan" />
+                <MDInput {...params} label="Choose Loan" variant="standard" />
               )}
               value={loan}
               onChange={(_event, newobject2) => {
@@ -212,13 +225,18 @@ const Recordloan = (props: any) => {
           <Grid item sm={4}>
             <MDTypography variant="body2">Employee Name</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={6}>
             <Autocomplete
-              sx={{ width: "65%" }}
+              disableClearable
+              sx={{ width: "75%" }}
               options={employees}
               getOptionLabel={(object) => object.employee_name}
               renderInput={(params) => (
-                <MDInput {...params} label="choose employee" />
+                <MDInput
+                  {...params}
+                  label="Choose Employee"
+                  variant="standard"
+                />
               )}
               value={employee}
               onChange={(_event, newobject3) => {
@@ -231,9 +249,9 @@ const Recordloan = (props: any) => {
           <Grid item sm={4}>
             <MDTypography variant="body2">Loan Amount</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="loan_amount"
               type="number"
@@ -245,23 +263,28 @@ const Recordloan = (props: any) => {
           <Grid item sm={4}>
             <MDTypography variant="body2">Disbursment Date</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="disbursement_date"
               type="date"
               value={values.disbursement_date}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={
+                touched.disbursement_date && Boolean(errors.disbursement_date)
+              }
+              success={values.disbursement_date && !errors.disbursement_date}
+              helperText={touched.disbursement_date && errors.disbursement_date}
             />
           </Grid>
           <Grid item sm={4}>
             <MDTypography variant="body2">Repayment Start Date</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="repayment_date"
               type="date"
@@ -269,13 +292,24 @@ const Recordloan = (props: any) => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <br/>
+            {errors.repayment_date && touched.repayment_date ? (
+              // <p className="form-error">{errors.name}</p>
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
+                {errors.repayment_date}
+              </MDTypography>
+            ) : null}
           </Grid>
           <Grid item sm={4}>
-            <MDTypography variant="body2">Instalment Amount</MDTypography>
+            <MDTypography variant="body2">Installment Amount</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="instalment_amount"
               type="number"
@@ -287,23 +321,36 @@ const Recordloan = (props: any) => {
           <Grid item sm={4}>
             <MDTypography variant="body2">Paid through Amount</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
-            <MDInput
-              sx={{ width: "65%" }}
-              variant="standard"
-              name="paid_through_account"
+
+          <Grid item sm={6}>
+            <Autocomplete
+              disableClearable
+              sx={{ width: "75%" }}
+              options={["CHEQUE", "UPI", "BANK ACCOUNT"]}
+              renderInput={(params) => (
+                <MDInput
+                  {...params}
+                  label="Choose Payment Method"
+                  variant="standard"
+                  name="paid_through_account"
+                  value={values.paid_through_account}
+                />
+              )}
               value={values.paid_through_account}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              onChange={(_event, value) => {
+                handleChange({
+                  target: { name: "paid_through_account", value },
+                });
+              }}
             />
           </Grid>
 
           <Grid item sm={4}>
             <MDTypography variant="body2">Reason</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="reason"
               multiline
@@ -314,7 +361,7 @@ const Recordloan = (props: any) => {
               onBlur={handleBlur}
             />
           </Grid>
-          <Grid container sm={12}>
+          <Grid container item sm={12}>
             <Grid sm={0.5}>
               <FormControlLabel
                 label={null}
@@ -337,21 +384,21 @@ const Recordloan = (props: any) => {
               </MDTypography>
             </Grid>
           </Grid>
-          <Grid container sm={12}>
-            <Grid mt={4}>
-              <MDButton color="info" variant="contained" type="submit">
-                Save
-              </MDButton>
-            </Grid>
-            <Grid ml={2} mt={4}>
+          <Grid container sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Grid item mt={2}>
               <MDButton
-                color="primary"
-                variant="outlined"
+                color="dark"
+                variant="contained"
                 onClick={() => {
                   handleClosedialog();
                 }}
               >
                 Cancel
+              </MDButton>
+            </Grid>
+            <Grid item ml={2} mt={2}>
+              <MDButton color="info" variant="contained" type="submit">
+                Save
               </MDButton>
             </Grid>
           </Grid>

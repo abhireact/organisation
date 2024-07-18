@@ -18,7 +18,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
-// import form from "layouts/pages/users/new-user/schemas/form";
 const token = Cookies.get("token");
 function getEnterAmountOrPercent(
   monthly_amount: any,
@@ -46,10 +45,41 @@ function getEnterAmountOrPercent(
 function Createsalary() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log(state.email, "salary via this email ");
-
+  const [isEpf, setIsEpf] = useState([]);
+  const [isEsi, setIsEsi] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/mg_epf`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setIsEpf(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/mg_esi`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setIsEsi(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  console.log(isEpf, isEsi, "isipf");
   const searchData = new URLSearchParams(location.search).get("data");
-  console.log(searchData, "ppp");
+
   type AllEarningsType = {
     earning_types: Array<{
       // Properties of each item in the earning_types array
@@ -204,8 +234,6 @@ function Createsalary() {
     enableReinitialize: true,
     onSubmit: async (values, action) => {
       let totalAmount = 0;
-      console.log(values, "Total Amount");
-
       const updatedEarnings = values.earnings_type_name.map(
         (
           earnings: {
@@ -281,16 +309,31 @@ function Createsalary() {
         return sum;
       }
       totalAmount = calculateAnnualAmountsAndSum();
-      console.log(totalAmount, "Total Amount");
       if (totalAmount > values.annual_ctc) {
         message.error("should be less than   or eqaul to Annual CTC");
         return;
       }
+
       const postdata = {
         annual_ctc: values.annual_ctc,
         earnings_type_name: updatedEarnings,
         pre_tax_name: updateDeduction,
         employee_email: state.email,
+        professional_tax: true,
+        welfare_fund: true,
+        epf: [
+          {
+            epf_id: isEpf[0].epf_number,
+            calculation_type: isEpf[0].employee_contribution_rate,
+            monthly_amount: 0,
+          },
+        ],
+        esi: {
+          earnings_id: isEsi[0].esi_number,
+          calculation_type: "0.75",
+          monthly_amount: 0,
+          enter_amount_or_percent: 0,
+        },
       };
       console.log(postdata, "sending salary data");
       try {
@@ -397,29 +440,18 @@ function Createsalary() {
               : null,
           annual_amount:
             earnings.calculation_type === "% of CTC"
-              ? (
-                  parseFloat(
-                    (
-                      (values.annual_ctc / 100) *
-                      (earnings.enter_amount_or_percent / 12)
-                    ).toFixed(2)
-                  ) * 12
-                ).toFixed(2)
+              ? parseFloat(
+                  (
+                    (values.annual_ctc / 100) *
+                    earnings.enter_amount_or_percent
+                  ).toFixed(2)
+                )
               : earnings.calculation_type === "Flat Amount"
-              ? (
-                  parseFloat(
-                    (earnings.enter_amount_or_percent / 12).toFixed(2)
-                  ) * 12
-                ).toFixed(2)
+              ? parseFloat(earnings.enter_amount_or_percent).toFixed(2)
               : earnings.calculation_type === "% of Basic"
-              ? (
-                  parseFloat(
-                    (
-                      (basic / 100) *
-                      (earnings.enter_amount_or_percent / 12)
-                    ).toFixed(2)
-                  ) * 12
-                ).toFixed(2)
+              ? parseFloat(
+                  ((basic / 100) * earnings.enter_amount_or_percent).toFixed(2)
+                )
               : null,
         };
       }),
@@ -476,36 +508,41 @@ function Createsalary() {
               ? parseFloat(
                   (
                     (values.annual_ctc / 100) *
-                    (deduction.enter_amount_or_percent / 12) *
-                    12
+                    deduction.enter_amount_or_percent
                   ).toFixed(2)
-                ).toFixed(2)
+                )
               : deduction.calculation_type === "Flat Amount"
               ? parseFloat(
-                  ((deduction.enter_amount_or_percent / 12) * 12).toFixed(2)
-                ).toFixed(2)
+                  deduction.enter_amount_or_percent.toFixed(2)
+                )
               : deduction.calculation_type === "% of Basic"
               ? parseFloat(
-                  (
-                    (basic / 100) *
-                    (deduction.enter_amount_or_percent / 12) *
-                    12
-                  ).toFixed(2)
-                ).toFixed(2)
+                  ((basic / 100) * deduction.enter_amount_or_percent).toFixed(2)
+                )
               : null,
         };
       }),
-
-      {
-        salary_component:
-          epf &&
-          epf.employer_contribution_ctc &&
-          epf.employer_contribution_ctc?.length !== 0
-            ? "EPF - Employer Contribution"
-            : null,
-        calculation_type: epf ? epf.employer_contribution_rate : null,
-        monthly_amount: "",
+      isEpf.length > 0 && {
+        salary_component: "EPF",
+        calculation_type: isEpf[0].employee_contribution_rate,
+        monthly_amount: "System Calculated",
       },
+      isEsi.length > 0 &&
+        values.annual_ctc < 250000 && {
+          salary_component: "ESI",
+          calculation_type: isEsi[0].employees_contribution,
+          monthly_amount: "System Calculated",
+        },
+      // {
+      //   salary_component:
+      //     epf &&
+      //     epf.employer_contribution_ctc &&
+      //     epf.employer_contribution_ctc?.length !== 0
+      //       ? "EPF - Employer Contribution"
+      //       : null,
+      //   calculation_type: epf ? epf.employer_contribution_rate : null,
+      //   monthly_amount: "",
+      // },
     ],
   };
 

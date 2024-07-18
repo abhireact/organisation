@@ -2,82 +2,78 @@ import Grid from "@mui/material/Grid";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useState } from "react";
-
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
-
 import MDInput from "components/MDInput";
-
 import MDBox from "components/MDBox";
 import Cookies from "js-cookie";
 import { message } from "antd";
+import Autocomplete from "@mui/material/Autocomplete";
 const token = Cookies.get("token");
+import * as Yup from "yup";
 
-function transformString(inputString: string): string {
-  // Split the input string into an array of substrings
-  const substrings = inputString.split("/");
-
-  // Reverse the array of substrings
-  const reversedArray = substrings.reverse();
-
-  // Join the reversed array into a string using '-' as the separator
-  const resultString = reversedArray.join("-");
-
-  return resultString;
-}
 const View = (props: any) => {
   const { setOpendialog, data } = props;
   const [errorMessage, setErrorMessage] = useState("");
   const handleClosedialog = () => {
     setOpendialog(false);
   };
-
-  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      loan_amount: data.loan_amount,
-
-      repayment_date: "",
-      repayment_amount: "",
-      employee_name: data.employee_name,
-
-      loan_name: data.manage_loan_name,
-      paid_through_account: "",
-    },
-    // validationSchema: validationSchema,
-    enableReinitialize: true,
-    onSubmit: async (values, action) => {
-      const sendData = {
-        employee_name: values.employee_name,
-        loan_name: values.loan_name,
-        loan_amount: values.loan_amount,
-        loan_repay_date: transformString(values.repayment_date),
-        repayment_amount: values.repayment_amount,
-        paid_through_account: values.paid_through_account,
-      };
-
-      await axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/loans_child`, sendData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-
-          if (response.status === 200) {
-            props.onSuccess();
-            // window.location.reload();
-            message.success("update repayment successfull");
-          }
-        })
-        .catch((error) => {
-          setErrorMessage(error.response.data?.detail || "error occured");
-          message.error("error occured");
-          console.log(error);
-        });
-    },
+  const validationSchema = Yup.object().shape({
+    repayment_date: Yup.date()
+      .required("Repayment date is required")
+      .test(
+        "is-after-disbursement",
+        "Repayment date must be after disbursement date",
+        function (value) {
+          return value > new Date(data.disbursement_date);
+        }
+      ),
   });
+  const { values, handleChange, handleBlur, handleSubmit, touched, errors } =
+    useFormik({
+      initialValues: {
+        loan_amount: data.loan_amount,
+        repayment_date: "",
+        repayment_amount: data.instalment_amount,
+        employee_name: data.employee_name,
+        loan_name: data.manage_loan_name,
+        paid_through_account: "",
+      },
+      validationSchema: validationSchema,
+      enableReinitialize: true,
+      onSubmit: async (values, action) => {
+        const sendData = {
+          employee_name: values.employee_name,
+          loan_name: values.loan_name,
+          loan_amount: values.loan_amount,
+          loan_repay_date: values.repayment_date,
+          repayment_amount: values.repayment_amount,
+          paid_through_account: values.paid_through_account,
+        };
+
+        await axios
+          .post(`${process.env.REACT_APP_BACKEND_URL}/loans_child`, sendData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+
+            if (response.status === 200) {
+              props.onSuccess();
+              // window.location.reload();
+              message.success("update repayment successfull");
+            }
+          })
+          .catch((error) => {
+            setErrorMessage(error.response.data?.detail || "error occured");
+            message.error("error occured");
+            console.log(error);
+          });
+      },
+    });
 
   return (
     <form onSubmit={handleSubmit}>
@@ -87,25 +83,27 @@ const View = (props: any) => {
             {errorMessage}
           </MDTypography>
         )}
-        <Grid container>
-          <Grid item sm={4}>
-            <MDTypography variant="h6">Employee Name</MDTypography>
+        <Grid container spacing={3}>
+          <Grid item sm={5}>
+            <MDTypography variant="body2">Employee Name</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={5}>
             <MDInput
-              sx={{ width: "45%" }}
+              sx={{ width: "90%" }}
+              disabled
               variant="standard"
               name="employee_name"
               value={values.employee_name}
               onBlur={handleBlur}
             />
           </Grid>
-          <Grid item sm={4}>
-            <MDTypography variant="h6">Loan Name</MDTypography>
+          <Grid item sm={5}>
+            <MDTypography variant="body2">Loan Name</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={5}>
             <MDInput
-              sx={{ width: "45%" }}
+              sx={{ width: "90%" }}
+              disabled
               variant="standard"
               name="loan_name"
               value={values.loan_name}
@@ -113,12 +111,13 @@ const View = (props: any) => {
             />
           </Grid>
 
-          <Grid item sm={4}>
-            <MDTypography variant="h6">Loan Amount</MDTypography>
+          <Grid item sm={5}>
+            <MDTypography variant="body2">Loan Amount</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={5}>
             <MDInput
-              sx={{ width: "45%" }}
+              sx={{ width: "90%" }}
+              disabled
               variant="standard"
               name="loan_amount"
               type="number"
@@ -127,27 +126,13 @@ const View = (props: any) => {
             />
           </Grid>
 
-          <Grid item sm={4}>
-            <MDTypography variant="h6">Repayment Date</MDTypography>
+          <Grid item sm={5}>
+            <MDTypography variant="body2">Repayment Amount</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={5}>
             <MDInput
-              sx={{ width: "45%" }}
-              variant="standard"
-              name="repayment_date"
-              type="date"
-              required
-              value={values.repayment_date}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Grid>
-          <Grid item sm={4}>
-            <MDTypography variant="h6">Repayment Amount</MDTypography>
-          </Grid>
-          <Grid item sm={6} mb={2}>
-            <MDInput
-              sx={{ width: "45%" }}
+              sx={{ width: "90%" }}
+              disabled
               variant="standard"
               name="repayment_amount"
               type="number"
@@ -157,26 +142,67 @@ const View = (props: any) => {
               required
             />
           </Grid>
-          <Grid item sm={4}>
-            <MDTypography variant="h6">Paid through account</MDTypography>
+          <Grid item sm={5}>
+            <MDTypography variant="body2">Repayment Date</MDTypography>
           </Grid>
-          <Grid item sm={6} mb={2}>
+          <Grid item sm={5}>
             <MDInput
-              sx={{ width: "45%" }}
+              sx={{ width: "90%" }}
               variant="standard"
-              name="paid_through_account"
-              value={values.paid_through_account}
+              name="repayment_date"
+              type="date"
+              required
+              value={values.repayment_date}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
+            />
+            <br />
+            {errors.repayment_date && touched.repayment_date ? (
+              // <p className="form-error">{errors.name}</p>
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
+                {errors.repayment_date}
+              </MDTypography>
+            ) : null}
+          </Grid>
+          <Grid item sm={5}>
+            <MDTypography variant="body2">Paid through account</MDTypography>
+          </Grid>
+          <Grid item sm={5}>
+            <Autocomplete
+              disableClearable
+              sx={{ width: "90%" }}
+              options={["CHEQUE", "UPI", "BANK ACCOUNT"]}
+              renderInput={(params) => (
+                <MDInput
+                  {...params}
+                  label="Choose Payment Method"
+                  variant="standard"
+                  name="paid_through_account"
+                  value={values.paid_through_account}
+                />
+              )}
+              value={values.paid_through_account}
+              onChange={(_event, value) => {
+                handleChange({
+                  target: { name: "paid_through_account", value },
+                });
+              }}
             />
           </Grid>
 
-          <Grid container sm={12}>
+          <Grid
+            container
+            sm={12}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
             <Grid mt={4}>
               <MDButton
-                color="primary"
-                variant="outlined"
+                color="dark"
+                variant="contained"
                 onClick={() => {
                   handleClosedialog();
                 }}

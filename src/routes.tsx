@@ -104,6 +104,8 @@ import Rbac from "layouts/pages/rbac/rbac";
 import CreateEmployee from "layouts/pages/employee/createmployee";
 import PayrunRecoed from "layouts/payrole/salarycomponent/payrun/record";
 import MYDashboard from "layouts/mydashboard";
+import SalaryRegister from "layouts/payrole/salarycomponent/reports/Payroll Overview/SalaryRegister";
+import Employee_Ctc_Reports from "layouts/payrole/salarycomponent/reports/Employee_Reports/Employee_Ctc_Reports";
 const mod: string[] = [];
 let submm: string[] = [];
 const token = Cookies.get("token");
@@ -462,6 +464,12 @@ const routes: any[] = [
     component: <LOP_Summary />,
   },
   {
+    name: "Salary Register",
+    key: "Salary_Register",
+    route: "/pages/profile/SalaryRegister",
+    component: <SalaryRegister />,
+  },
+  {
     name: "Variable Pay Earnings Report",
     key: "Variable Pay Earnings Report",
     route: "/pages/profile/Variable_Pay_Earnings_Report",
@@ -496,6 +504,12 @@ const routes: any[] = [
     key: "Employees Provident Fund",
     route: "/pages/profile/Employees_Provident_Fund",
     component: <Employees_Provident_Fund />,
+  },
+  {
+    name: "Employees CTC Report",
+    key: "employee_ctc_report",
+    route: "/pages/profile/Employee_Reports",
+    component: <Employee_Ctc_Reports />,
   },
   {
     name: "Analytics",

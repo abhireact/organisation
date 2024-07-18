@@ -238,7 +238,7 @@ const ShowAllAttandance = () => {
               <Grid item xs={12} sm={3.5}>
                 <FormField
                   type="date"
-                  label="From Data"
+                  label="From Date"
                   name="from_date"
                   value={values.from_date}
                   placeholder="Enter Your from_date"
@@ -262,7 +262,7 @@ const ShowAllAttandance = () => {
               <Grid item xs={12} sm={3.5}>
                 <FormField
                   type="date"
-                  label="to_date"
+                  label="To Date"
                   name="to_date"
                   value={values.to_date}
                   placeholder="Enter Your to_date"

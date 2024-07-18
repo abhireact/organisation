@@ -23,6 +23,7 @@ import {
   updateClassName,
   storeUserProfile,
   storeMYProfileData,
+  storeLeavetypeData,
 } from "Redux/action/dummyDataActions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -167,6 +168,8 @@ export default function MYDashboard() {
     department: {},
     designation: {},
     employee: {},
+    leavetype: {},
+
     profile: {},
   });
   const [clickBtn, setClickBtn] = useState(false);
@@ -199,8 +202,16 @@ export default function MYDashboard() {
       const department = await fetchData("department");
       const designation = await fetchData("designation");
       const employee = await fetchData("employee");
+      const leavetype = await fetchData("mg_leave_type");
       const profile = await fetchData("users/me_data");
-      setData({ workLocation, department, designation, employee, profile });
+      setData({
+        workLocation,
+        department,
+        designation,
+        employee,
+        profile,
+        leavetype,
+      });
     };
 
     fetchAllData();
@@ -213,6 +224,7 @@ export default function MYDashboard() {
     dispatch(storeDesignationData(data.designation));
     dispatch(storeEmployeeData(data.employee));
     dispatch(storeMYProfileData(data.profile));
+    dispatch(storeLeavetypeData(data.leavetype));
   }, [data, dispatch]);
 
   // get employe addition

@@ -80,7 +80,7 @@ function reports(): JSX.Element {
                   </Link>
                 </Grid>
 
-                {/* <Grid item xs={12} sm={12} mb={1}>
+                <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />
                   <Link
                     href="/pages/profile/LOP_Summary"
@@ -89,7 +89,7 @@ function reports(): JSX.Element {
                   >
                     LOP Summary
                   </Link>
-                </Grid> */}
+                </Grid>
 
                 <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />
@@ -99,6 +99,17 @@ function reports(): JSX.Element {
                     underline="none"
                   >
                     Variable Pay Earnings Report
+                  </Link>
+                </Grid>
+
+                <Grid item xs={12} sm={12} mb={1}>
+                  <KeyboardArrowRightIcon />
+                  <Link
+                    href="/pages/profile/SalaryRegister"
+                    sx={{ color: "#2962ff" }}
+                    underline="none"
+                  >
+                    Salary Register
                   </Link>
                 </Grid>
               </MDTypography>
@@ -203,13 +214,13 @@ function reports(): JSX.Element {
               </MDTypography>
             </Grid>
           </Grid>
-          {/* <Grid container>
+          <Grid container>
             <Grid item xs={12} sm={4}>
               <MDTypography variant="h6" mb={2} mt={1}>
-                Deduction Reports
+                Employee Reports
               </MDTypography>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <MDTypography variant="h6" mb={2} mt={1}>
                 Taxes and Forms
               </MDTypography>
@@ -218,7 +229,7 @@ function reports(): JSX.Element {
               <MDTypography variant="h6" mb={2} mt={1}>
                 Loan Reports
               </MDTypography>
-            </Grid>
+            </Grid> */}
           </Grid>
 
           <Grid container>
@@ -227,17 +238,17 @@ function reports(): JSX.Element {
                 <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />
                   <Link
-                    href="/pages/profile/Tax_Deduction_Summary"
+                    href="/pages/profile/Employee_Reports"
                     sx={{ color: "#2962ff" }}
                     underline="none"
                   >
-                    Tax Deduction Summary
+                    Employees CTC Details
                   </Link>
                 </Grid>
               </MDTypography>
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <MDTypography variant="button">
                 <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />
@@ -250,10 +261,10 @@ function reports(): JSX.Element {
                   </Link>
                 </Grid>
               </MDTypography>
-            </Grid>
+            </Grid> */}
           </Grid>
 
-          <Grid container>
+          {/* <Grid container>
             <Grid item xs={12} sm={4}>
               <MDTypography variant="h6" mb={2} mt={1}>
                 Payroll Journal
@@ -264,10 +275,10 @@ function reports(): JSX.Element {
                 Activity
               </MDTypography>
             </Grid>
-          </Grid>
+          </Grid> */}
 
           <Grid container>
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <MDTypography variant="button">
                 <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />
@@ -280,9 +291,9 @@ function reports(): JSX.Element {
                   </Link>
                 </Grid>
               </MDTypography>
-            </Grid>
+            </Grid> */}
 
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <MDTypography variant="button">
                 <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />
@@ -291,8 +302,8 @@ function reports(): JSX.Element {
                   </Link>
                 </Grid>
               </MDTypography>
-            </Grid>
-          </Grid> */}
+            </Grid> */}
+          </Grid>
         </MDBox>
       </Card>
     </DashboardLayout>

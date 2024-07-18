@@ -1,68 +1,151 @@
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-
-import DataTable from "examples/Tables/DataTable";
-
 import { useEffect, useState } from "react";
-
-import axios from "axios";
-import { Card, Divider, Grid } from "@mui/material";
+import Card from "@mui/material/Card";
 import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
+import Grid from "@mui/material/Grid";
+import MDButton from "components/MDButton";
+import FormField from "layouts/ecommerce/products/new-product/components/FormField";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import DataTable from "examples/Tables/DataTable";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import { message } from "antd";
+import Cookies from "js-cookie";
+const token = Cookies.get("token");
+const initialValues = {
+  year: "",
+};
+
+const validationSchema = Yup.object().shape({
+  year: Yup.date()
+    .required("Year is Required *")
+    .test("valid-year", "Incorrect format ", function (value) {
+      if (value) {
+        const year = new Date(value).getFullYear();
+        return year >= 2000 && year <= 3000;
+      }
+      return true;
+    }),
+});
 
 function payrollLiabilitySummary(): JSX.Element {
-  const [earnings, setEarnings] = useState([]);
+  const [data, setData] = useState([]);
+  const [apidata, setApidata] = useState<{ columns: any[]; rows: any[] }>({
+    columns: [],
+    rows: [],
+  });
+
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema,
+      onSubmit: async () => {
+        try {
+          const response = await axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/report/liability_report`,
+            values,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (response.data.length === 0) {
+            message.error("No Data Found");
+          } else {
+            setData(response.data);
+          }
+        } catch (error: any) {
+          message.error(error.response.data.detail);
+        }
+      },
+    });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/mg_earning_type`
-      );
-      setEarnings(response.data);
-    };
-    fetchData();
-  }, []);
-  // const rowesofdata =[];
-
-  const dataTableData = {
-    columns: [
-      { Header: "Earning Type", accessor: "earning_type_name" },
-      { Header: "Earning Name", accessor: "earning_name" },
-      { Header: "Display Name", accessor: "display_name" },
-      { Header: "Calculation Type", accessor: "calculation_type" },
-      { Header: "Amount/Percent", accessor: "enter_amount_or_percent" },
-      { Header: "salary_directives", accessor: "salary_directives" },
-      { Header: "Status", accessor: "status" },
-    ],
-    rows: earnings.map((data, index) => ({
-      earning_type_name: data.earning_type_name,
-      earning_name: data.earning_name,
-      display_name: data.display_name,
-      calculation_type: data.calculation_type,
-      enter_amount_or_percent: data.enter_amount_or_percent,
-      salary_directives: 10000,
-      status: data.mark_as_active,
-    })),
-  };
+    if (data.length > 0) {
+      setApidata({
+        columns: [
+          { Header: "LIABILITY", accessor: "liability", width: "10%" },
+          {
+            Header: "EMPLOYEES' CONTRIBUTION",
+            accessor: "emp_amt",
+            width: "10%",
+          },
+          {
+            Header: "EMPLOYER'S CONTRIBUTION",
+            accessor: "empr_amt",
+            width: "10%",
+          },
+          {
+            Header: "TOTAL CONTRIBUTION",
+            accessor: "total",
+            width: "10%",
+          },
+        ],
+        rows: data?.map((item: any) => ({
+          liability: item.liability,
+          emp_amt: item.emp_amt,
+          empr_amt: item.empr_amt,
+          total: item.total,
+        })),
+      });
+    }
+  }, [data]);
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Card sx={{ width: "85%", margin: "auto", mt: "3%" }}>
-        <MDBox p={5}>
-          <MDTypography variant="h5" sx={{ textAlign: "center" }}>
-            MindCom
-          </MDTypography>
-          <MDTypography variant="subtitle1" sx={{ textAlign: "center" }}>
-            payroll Liability Summary
-          </MDTypography>
-          <MDTypography variant="body2" sx={{ textAlign: "center" }}>
-            01/09/2023 to 30/09/2023
-          </MDTypography>
-          <DataTable table={dataTableData} />
-        </MDBox>
-      </Card>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={2}>
+            <FormField
+              label="Year"
+              name="year"
+              value={values.year}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText="2023-2024"
+              required
+              error={errors.year && touched.year}
+            />
+            {errors.year && touched.year ? (
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
+                {errors.year}
+              </MDTypography>
+            ) : null}
+          </Grid>
+          <MDBox p={2} mt={1.5}>
+            <MDButton
+              variant="gradient"
+              color="info"
+              style={{ marginRight: "10px" }}
+              type="submit"
+              size="small"
+            >
+              Search
+            </MDButton>
+          </MDBox>
+          <Card sx={{ width: "80%", margin: "auto" }}>
+            <MDBox p={5}>
+              <MDTypography variant="h5" sx={{ textAlign: "center" }}>
+                MindCom
+              </MDTypography>
+              <MDTypography variant="subtitle1" sx={{ textAlign: "center" }}>
+                Payroll Liability Summary
+              </MDTypography>
+            </MDBox>
+            <DataTable table={apidata} />
+          </Card>
+        </Grid>
+      </form>
     </DashboardLayout>
   );
 }
