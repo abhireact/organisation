@@ -15,6 +15,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import Manageloan from "./loantype";
 import IconButton from "@mui/material/IconButton";
 import Cookies from "js-cookie";
+import MDBox from "components/MDBox";
 const token = Cookies.get("token");
 
 const viewrecord = () => {
@@ -82,7 +83,9 @@ const viewrecord = () => {
       { Header: "EMPLOYEE NAME", accessor: "employee_name" },
       { Header: "LOAN NAME", accessor: "loan_name" },
       { Header: "LOAN AMOUNT", accessor: "loan_amount" },
+      { Header: "DISBURSEMENT DATE", accessor: "disbursement_date" },
       { Header: "REPAID AMOUNT", accessor: "repaid_amount" },
+      { Header: "INSTALLMENT AMOUNT", accessor: "instalment_amount" },
 
       { Header: "ACTION", accessor: "action" },
     ],
@@ -97,6 +100,16 @@ const viewrecord = () => {
       ),
       employee_name: (
         <MDTypography variant="p">{row.employee_name} </MDTypography>
+      ),
+      instalment_amount: (
+        <MDTypography variant="p">{row.instalment_amount} </MDTypography>
+      ),
+      disbursement_date: (
+        <MDTypography variant="p">
+          {row.disbursement_date.split("-")[2]} /
+          {row.disbursement_date.split("-")[1]} /
+          {row.disbursement_date.split("-")[0]}
+        </MDTypography>
       ),
       action: (
         <MDTypography variant="p">
@@ -121,20 +134,32 @@ const viewrecord = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <Card>
+        <MDBox p={4}>
+          <Grid
+            container
+            spacing={3}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
+            <Grid item>
+              <MDButton
+                variant="outlined"
+                color="info"
+                onClick={handleOpenloan}
+              >
+                Manage Loan
+              </MDButton>
+            </Grid>
+            <Grid item>
+              <MDButton variant="contained" color="info" onClick={handleOpen}>
+                Record Loan
+              </MDButton>
+            </Grid>
+          </Grid>
+          <DataTable table={dataTableData} />
+        </MDBox>
+      </Card>
 
-      <Grid container sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Grid>
-          <MDButton variant="outlined" color="info" onClick={handleOpenloan}>
-            Manage Loan
-          </MDButton>
-        </Grid>
-        <Grid ml={2}>
-          <MDButton variant="contained" color="info" onClick={handleOpen}>
-            Record Loan
-          </MDButton>
-        </Grid>
-      </Grid>
-      <DataTable table={dataTableData} />
       <Dialog open={open} onClose={handleClose} maxWidth="md">
         <Recordloan setOpendialog={setOpen} />
       </Dialog>
