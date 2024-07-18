@@ -347,7 +347,7 @@ function Createsalary(props: any) {
         );
 
         if (response.status === 200) {
-          message.success("Updated salary details Successfully");
+          message.success("Updated Salary Details Successfully");
           // action.resetForm();
         }
       } catch (error) {
@@ -363,7 +363,7 @@ function Createsalary(props: any) {
             }
           );
 
-          message.success("Created salary details Successfully");
+          message.success("Created Salary Details Successfully");
           //action.resetForm();
         } catch (postError) {
           console.error("Error creating salary details:", postError);
@@ -438,29 +438,18 @@ function Createsalary(props: any) {
               : null,
           annual_amount:
             earnings.calculation_type === "% of CTC"
-              ? (
-                  parseFloat(
-                    (
-                      (values.annual_ctc / 100) *
-                      (earnings.enter_amount_or_percent / 12)
-                    ).toFixed(2)
-                  ) * 12
-                ).toFixed(2)
+              ? parseFloat(
+                  (
+                    (values.annual_ctc / 100) *
+                    earnings.enter_amount_or_percent
+                  ).toFixed(2)
+                )
               : earnings.calculation_type === "Flat Amount"
-              ? (
-                  parseFloat(
-                    (earnings.enter_amount_or_percent / 12).toFixed(2)
-                  ) * 12
-                ).toFixed(2)
+              ? parseFloat(earnings.enter_amount_or_percent).toFixed(2)
               : earnings.calculation_type === "% of Basic"
-              ? (
-                  parseFloat(
-                    (
-                      (basic / 100) *
-                      (earnings.enter_amount_or_percent / 12)
-                    ).toFixed(2)
-                  ) * 12
-                ).toFixed(2)
+              ? parseFloat(
+                  ((basic / 100) * earnings.enter_amount_or_percent).toFixed(2)
+                )
               : null,
         };
       }),
@@ -517,22 +506,15 @@ function Createsalary(props: any) {
               ? parseFloat(
                   (
                     (values.annual_ctc / 100) *
-                    (deduction.enter_amount_or_percent / 12) *
-                    12
+                    deduction.enter_amount_or_percent
                   ).toFixed(2)
-                ).toFixed(2)
+                )
               : deduction.calculation_type === "Flat Amount"
-              ? parseFloat(
-                  ((deduction.enter_amount_or_percent / 12) * 12).toFixed(2)
-                ).toFixed(2)
+              ? parseFloat(deduction.enter_amount_or_percent.toFixed(2))
               : deduction.calculation_type === "% of Basic"
               ? parseFloat(
-                  (
-                    (basic / 100) *
-                    (deduction.enter_amount_or_percent / 12) *
-                    12
-                  ).toFixed(2)
-                ).toFixed(2)
+                  ((basic / 100) * deduction.enter_amount_or_percent).toFixed(2)
+                )
               : null,
         };
       }),
@@ -547,16 +529,16 @@ function Createsalary(props: any) {
           calculation_type: isEsi[0].employees_contribution,
           monthly_amount: "System Calculated",
         },
-      {
-        salary_component:
-          epf &&
-          epf.employer_contribution_ctc &&
-          epf.employer_contribution_ctc?.length !== 0
-            ? "EPF - Employer Contribution"
-            : null,
-        calculation_type: epf ? epf.employer_contribution_rate : null,
-        monthly_amount: "",
-      },
+      // {
+      //   salary_component:
+      //     epf &&
+      //     epf.employer_contribution_ctc &&
+      //     epf.employer_contribution_ctc?.length !== 0
+      //       ? "EPF - Employer Contribution"
+      //       : null,
+      //   calculation_type: epf ? epf.employer_contribution_rate : null,
+      //   monthly_amount: "",
+      // },
     ],
   };
 
@@ -584,51 +566,60 @@ function Createsalary(props: any) {
   }, [values]);
 
   return (
-    <Card>
-      <form onSubmit={handleSubmit}>
-        <MDBox p={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={9}>
-              <MDTypography variant="h5">{"Salary Details"}</MDTypography>
+    <DashboardLayout>
+      <DashboardNavbar />
+      <Card>
+        <form onSubmit={handleSubmit}>
+          <MDBox p={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={9}>
+                <MDTypography variant="h5">{"Salary Details"}</MDTypography>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <MDButton variant="gradient" color="info" type="submit">
+                  {"Save"}
+                </MDButton>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-              <MDButton variant="gradient" color="info" type="submit">
-                {"Save"}
-              </MDButton>
+            <Grid
+              container
+              spacing={3}
+              // p={2}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Grid item xs={12} sm={4}>
+                <MDTypography variant="button" color="text" fontWeight="bold">
+                  Annual CTC *
+                </MDTypography>
+                <FormField
+                  type="number"
+                  label="Enter Amount"
+                  name="annual_ctc"
+                  value={values.annual_ctc}
+                  variant="outlined"
+                  onChange={handleChange}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid
-            container
-            spacing={3}
-            // p={2}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Grid item xs={12} sm={4}>
-              <MDTypography variant="button" color="text" fontWeight="bold">
-                Annual CTC *
-              </MDTypography>
-              <FormField
-                type="number"
-                label="Enter Amount"
-                name="annual_ctc"
-                value={values.annual_ctc}
-                variant="outlined"
-                onChange={handleChange}
-              />
-            </Grid>
-          </Grid>
 
-          <DataTable
-            table={dataTableData}
-            isSorted={false}
-            entriesPerPage={false}
-            showTotalEntries={false}
-          />
-        </MDBox>
-      </form>
-    </Card>
+            <DataTable
+              table={dataTableData}
+              isSorted={false}
+              entriesPerPage={false}
+              showTotalEntries={false}
+            />
+          </MDBox>
+        </form>
+      </Card>
+    </DashboardLayout>
   );
 }
 
