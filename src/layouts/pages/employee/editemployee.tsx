@@ -721,7 +721,8 @@ const Employeeinfo = () => {
                   sx={{ width: "70%" }}
                   options={employees}
                   defaultValue={state?.manager}
-                  getOptionLabel={(option) => option.label} // Display employee's full name in the options
+                  value={values.manager}
+                  getOptionLabel={(option) => option.label || state?.manager} // Display employee's full name in the options
                   onChange={(event, value) => {
                     if (value) {
                       const managerObject = value.value; // Extract manager's name in object format

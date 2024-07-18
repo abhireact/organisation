@@ -15,6 +15,8 @@ export const UPDATE_LEAVETYPE_NAME = "UPDATE_LEAVETYPE_NAME";
 export const UPDATE_ROLES_NAME = "UPDATE_ROLES_NAME";
 export const UPDATE_USERPROFILE_NAME = "UPDATE_USERPROFILE_NAME";
 export const UPDATE_RBAC_NAME = "UPDATE_RBAC_NAME";
+export const UPDATE_PROFILE_NAME = "UPDATE_PROFILE_NAME";
+
 // Define your action creators
 export const updateName = (name: string) => ({
   type: UPDATE_NAME,
@@ -60,6 +62,10 @@ export const storeDesignationData = (designationData: object) => ({
   type: UPDATE_DESIGNATION_NAME,
   payload: designationData,
 });
+export const storeMYProfileData = (myprofileData: object) => ({
+  type: UPDATE_PROFILE_NAME,
+  payload: myprofileData,
+});
 export const storeEmployeeData = (employeeData: object) => ({
   type: UPDATE_EMPLOYEE_NAME,
   payload: employeeData,
@@ -72,7 +78,7 @@ export const storeLeavetypeData = (leavetypeData: object) => ({
   type: UPDATE_LEAVETYPE_NAME,
   payload: leavetypeData,
 });
-export const storeUserProfile = (userprofileData: string) => ({
+export const storeUserProfile = (userprofileData: object) => ({
   type: UPDATE_USERPROFILE_NAME,
   payload: userprofileData,
 });
