@@ -69,10 +69,26 @@ const Pre_Tax_Deductions_Summary = () => {
       setApidata({
         columns: [
           { Header: "Pension Funds", accessor: "Pension Funds", width: "10%" },
-          { Header: "EMPLOYEE NAME", accessor: "Health Insurance ", width: "10%" },
-          { Header: "EMPLOYEE'S CONTRIBUTION", accessor: "Loan - Education Loan", width: "10%" },
-          { Header: "EMPLOYER'S CONTRIBUTION", accessor: "Loan - Home Loan", width: "10%" },
-          { Header: "TOTAL CONTRIBUTION", accessor: "Child Education", width: "10%" },
+          {
+            Header: "EMPLOYEE NAME",
+            accessor: "Health Insurance ",
+            width: "10%",
+          },
+          {
+            Header: "EMPLOYEE'S CONTRIBUTION",
+            accessor: "Loan - Education Loan",
+            width: "10%",
+          },
+          {
+            Header: "EMPLOYER'S CONTRIBUTION",
+            accessor: "Loan - Home Loan",
+            width: "10%",
+          },
+          {
+            Header: "TOTAL CONTRIBUTION",
+            accessor: "Child Education",
+            width: "10%",
+          },
         ],
         rows: data?.map((item: any) => ({
           item: item.item,
