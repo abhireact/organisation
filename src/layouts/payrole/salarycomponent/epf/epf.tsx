@@ -63,11 +63,12 @@ export const signUpSchema = yup.object({
 const Employees_Provident_Fund = (props: any) => {
   const [showdaysloop, setShowdaysloop] = useState(false);
   const [canEdit, setCanEdit] = useState(false);
+  console.log(props.data, "editdata");
   let initialValues = {
     epf_number: "",
     epf_deduction_cycle: "Monthly",
-    employee_contribution_rate: "12% Of Actual PF Wage",
-    employer_contribution_rate: "12% Of Actual PF Wage",
+    employee_contribution_rate: "",
+    employer_contribution_rate: "",
     employer_contribution_ctc: [] as string[],
     contribution_at_employee_level: [] as string[],
     configuration_lop_applied: [] as string[],
@@ -75,7 +76,19 @@ const Employees_Provident_Fund = (props: any) => {
   };
   useEffect(() => {
     if (props.data) {
-      initialValues = props.data;
+      initialValues = {
+        epf_number: props.data?.epf_number || "",
+        epf_deduction_cycle: props.data?.epf_deduction_cycle || "Monthly",
+        employee_contribution_rate:
+          props.data?.employee_contribution_rate || "",
+        employer_contribution_rate:
+          props.data?.employer_contribution_rate || "",
+        employer_contribution_ctc: props.data?.employer_contribution_ctc || [],
+        contribution_at_employee_level:
+          props.data?.contribution_at_employee_level || [],
+        configuration_lop_applied: props.data?.configuration_lop_applied || [],
+        abry_eligibility: props.data?.abry_eligibility || [],
+      };
       setCanEdit(true);
     }
   }, [props.data]);
@@ -92,41 +105,11 @@ const Employees_Provident_Fund = (props: any) => {
       initialValues: initialValues,
       validationSchema: signUpSchema,
 
-      // onSubmit: async (values, action) => {
-      //   const sendData = {
-      //     abry_eligibility: values.abry_eligibility.join(", "),
-      //     configuration_lop_applied: values.configuration_lop_applied,
-      //     contribution_at_employee_level: values.contribution_at_employee_level.join(", "),
-      //     employee_contribution_rate: values.employee_contribution_rate,
-      //     employer_contribution_ctc: values.employer_contribution_ctc,
-      //     employer_contribution_rate: values.employer_contribution_rate,
-      //     epf_deduction_cycle: values.epf_deduction_cycle,
-      //     epf_number: values.epf_number,
-      //   };
-      //   try {
-      //     await axios
-      //       .post("/mg_epf", sendData, {
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //           Authorization: `Bearer ${token}`,
-      //         },
-      //       })
-      //       .then((response) => {
-      //         if (response.status === 200) {
-      //           action.resetForm();
-      //           console.log("Created Earning Successfully");
-      //           navigate("/payrole/salarycomponent/epf");
-      //         }
-      //         window.location.reload();
-      //         action.resetForm();
-      //       });
-      //   } catch (error) {
-      //     console.error("Error saving data:", error);
-      //   }
-      // },
       onSubmit: async (values, action) => {
         const sendData = {
-          abry_eligibility: values.abry_eligibility.join(", "),
+          abry_eligibility: Array.isArray(values.abry_eligibility)
+            ? values.abry_eligibility.join(", ")
+            : values.abry_eligibility,
           configuration_lop_applied: values.configuration_lop_applied,
           contribution_at_employee_level: Array.isArray(
             values.contribution_at_employee_level
@@ -139,49 +122,37 @@ const Employees_Provident_Fund = (props: any) => {
           epf_deduction_cycle: values.epf_deduction_cycle,
           epf_number: values.epf_number,
         };
-        if (canEdit) {
-          try {
-            axios
-              .put(`${process.env.REACT_APP_BACKEND_URL}/mg_epf`, sendData, {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-              })
-              .then((response) => {
-                action.resetForm();
-                navigate("/payrole/salarycomponent/epf");
-                message.success(response.data.message);
-                props.onSuccess();
-              })
-              .catch((error) => {
-                message.error(error.response.data.detail);
-              });
-          } catch (error) {
-            console.error("Error updating data:", error);
-          }
-        } else {
-          try {
-            axios
-              .post(`${process.env.REACT_APP_BACKEND_URL}/mg_epf`, sendData, {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-              })
-              .then((response) => {
-                message.success(response.data.message);
-                action.resetForm();
-                console.log("Created EPF Successfully");
-                navigate("/payrole/salarycomponent/epf");
-                message.success(response.data.message);
-              })
-              .catch((error) => {
-                message.error(error.response.data.detail);
-              });
-          } catch (error) {
-            console.error("Error saving data:", error);
-          }
+
+        try {
+          console.log(canEdit, "can edit");
+          const response = canEdit
+            ? await axios.put(
+                `${process.env.REACT_APP_BACKEND_URL}/mg_epf`,
+                sendData,
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              )
+            : await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/mg_epf`,
+                sendData,
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+
+          action.resetForm();
+          message.success(response.data.message);
+          navigate("/payrole/salarycomponent/epf");
+          if (canEdit) props.onSuccess();
+        } catch (error) {
+          message.error("An error occurred.");
         }
       },
     });
@@ -345,24 +316,30 @@ const Employees_Provident_Fund = (props: any) => {
                       </Grid>
                     </Grid>
 
-                    <Grid container mb={2}>
+                    <Grid container mb={2} spacing={2}>
                       <Grid item xs={12} sm={6}>
                         <MDTypography variant="h6">
                           Employee Contribution Rate
                         </MDTypography>
 
                         <Autocomplete
-                          defaultValue="12% Of Actual PF Wages"
                           options={[
                             "12% Of Actual PF Wages",
                             "Restric Contribution fo 15,000 of PF Wage",
                           ]}
+                          onChange={(event: any, value: any) => {
+                            handleChange({
+                              target: {
+                                name: "employee_contribution_rate",
+                                value,
+                              },
+                            });
+                          }}
+                          value={values.employee_contribution_rate}
                           renderInput={(params) => (
                             <MDInput
                               {...params}
-                              sx={{ width: "80%" }}
                               type="text"
-                              placeholder="12% Of Actual PF Wage"
                               name="employee_contribution_rate"
                               value={values.employee_contribution_rate}
                               onChange={handleChange}
@@ -385,17 +362,23 @@ const Employees_Provident_Fund = (props: any) => {
                         </MDTypography>
 
                         <Autocomplete
-                          defaultValue="12% Of Actual PF Wages"
                           options={[
                             "12% Of Actual PF Wages",
                             "Restric Contribution fo 15,000 of PF Wage",
                           ]}
+                          value={values.employer_contribution_rate}
+                          onChange={(event: any, value: any) => {
+                            handleChange({
+                              target: {
+                                name: "employer_contribution_rate",
+                                value,
+                              },
+                            });
+                          }}
                           renderInput={(params) => (
                             <MDInput
                               {...params}
-                              sx={{ width: "80%" }}
                               type="text"
-                              placeholder="12% Of Actual PF Wage"
                               name="employer_contribution_rate"
                               value={values.employer_contribution_rate}
                               onChange={handleChange}
@@ -615,7 +598,9 @@ const Employees_Provident_Fund = (props: any) => {
                           variant="contained"
                           color="secondary"
                           onClick={() =>
-                            navigate("/payrole/salarycomponent/epf")
+                            canEdit
+                              ? props.onSuccess()
+                              : navigate("/payrole/salarycomponent/epf")
                           }
                         >
                           cancel
