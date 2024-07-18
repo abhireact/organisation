@@ -319,8 +319,6 @@ const Employee = () => {
               <MDTypography variant="h5">{"Create New Employee"}</MDTypography>
             </Grid>
           </Grid>
-        </MDBox>
-        <MDBox p={3}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={9}>
               <MDTypography variant="h6">{"Basic Details"}</MDTypography>
@@ -1094,7 +1092,8 @@ const Employee = () => {
                 type="name"
                 label="Present Address"
                 name="presentaddress"
-                value={values.presentaddress}from_date
+                value={values.presentaddress}
+                from_date
                 placeholder="Enter Your Present Address"
                 variant="standard"
                 onChange={handleChange}
@@ -1151,6 +1150,7 @@ const Employee = () => {
             </Grid>
           </Grid>
         </MDBox>
+        <MDBox p={3}></MDBox>
       </form>
     </DashboardLayout>
   );
