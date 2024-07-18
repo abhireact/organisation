@@ -53,9 +53,10 @@ const Pre_Tax_Deductions_Summary = () => {
             }
           );
 
-          setData(response.data);
-          if (apidata.rows.length === 0) {
+          if (response.data.length === 0) {
             message.error("No Data Found");
+          } else {
+            setData(response.data);
           }
         } catch (error: any) {
           message.error(error.response.data.detail);
@@ -67,12 +68,11 @@ const Pre_Tax_Deductions_Summary = () => {
     if (data.length > 0) {
       setApidata({
         columns: [
-          { Header: "Item", accessor: "item", width: "10%" },
-          { Header: "Trx Number", accessor: "trx_number", width: "10%" },
-          { Header: "Trx Date", accessor: "trx_date", width: "10%" },
-          { Header: "Customer Name", accessor: "customer_name", width: "10%" },
-          { Header: "Supplier", accessor: "supplier", width: "10%" },
-          { Header: "Quantity", accessor: "quantity", width: "10%" },
+          { Header: "Pension Funds", accessor: "Pension Funds", width: "10%" },
+          { Header: "EMPLOYEE NAME", accessor: "Health Insurance ", width: "10%" },
+          { Header: "EMPLOYEE'S CONTRIBUTION", accessor: "Loan - Education Loan", width: "10%" },
+          { Header: "EMPLOYER'S CONTRIBUTION", accessor: "Loan - Home Loan", width: "10%" },
+          { Header: "TOTAL CONTRIBUTION", accessor: "Child Education", width: "10%" },
         ],
         rows: data?.map((item: any) => ({
           item: item.item,
