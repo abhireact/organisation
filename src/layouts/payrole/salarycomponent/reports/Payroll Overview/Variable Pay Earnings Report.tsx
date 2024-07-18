@@ -29,12 +29,12 @@ const Variable_Pay_Earnings_report = () => {
       setTableData({
         columns: [
           {
-            Header: "Employee Email",
+            Header: "Employee Name",
             accessor: "emp_name",
             width: "25%",
           },
           {
-            Header: "Annual CTC",
+            Header: "Amount",
             accessor: "amount",
             width: "25%",
           },
@@ -55,7 +55,7 @@ const Variable_Pay_Earnings_report = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Card sx={{ width: "100%", margin: "auto" }}>
+      <Card sx={{ width: "80%", margin: "auto" }}>
         <MDBox>
           <MDTypography variant="h5" sx={{ textAlign: "center" }}>
             Mindcom
@@ -64,7 +64,7 @@ const Variable_Pay_Earnings_report = () => {
             Variable Pay Earnings Report - Bonus
           </MDTypography>
         </MDBox>
-        <DataTable table={tabledata} />
+        <DataTable table={tabledata} isSorted={false} />
       </Card>
     </DashboardLayout>
   );

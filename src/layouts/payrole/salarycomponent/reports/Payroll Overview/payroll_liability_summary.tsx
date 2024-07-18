@@ -53,10 +53,12 @@ function payrollLiabilitySummary(): JSX.Element {
               },
             }
           );
-          if (apidata.rows.length === 0) {
+
+          if (response.data.length === 0) {
             message.error("No Data Found");
+          } else {
+            setData(response.data);
           }
-          setData(response.data);
         } catch (error: any) {
           message.error(error.response.data.detail);
         }
@@ -67,20 +69,28 @@ function payrollLiabilitySummary(): JSX.Element {
     if (data.length > 0) {
       setApidata({
         columns: [
-          { Header: "Item", accessor: "item", width: "10%" },
-          { Header: "Trx Number", accessor: "trx_number", width: "10%" },
-          { Header: "Trx Date", accessor: "trx_date", width: "10%" },
-          { Header: "Customer Name", accessor: "customer_name", width: "10%" },
-          { Header: "Supplier", accessor: "supplier", width: "10%" },
-          { Header: "Quantity", accessor: "quantity", width: "10%" },
+          { Header: "LIABILITY", accessor: "liability", width: "10%" },
+          {
+            Header: "EMPLOYEES' CONTRIBUTION",
+            accessor: "emp_amt",
+            width: "10%",
+          },
+          {
+            Header: "EMPLOYER'S CONTRIBUTION",
+            accessor: "empr_amt",
+            width: "10%",
+          },
+          {
+            Header: "TOTAL CONTRIBUTION",
+            accessor: "total",
+            width: "10%",
+          },
         ],
         rows: data?.map((item: any) => ({
-          item: item.item,
-          cross_reference: item.cross_reference,
-          trx_number: item.trx_number,
-          trx_date: item.trx_date,
-          customer_name: item.customer_name,
-          supplier: item.supplier,
+          liability: item.liability,
+          emp_amt: item.emp_amt,
+          empr_amt: item.empr_amt,
+          total: item.total,
         })),
       });
     }
@@ -131,9 +141,6 @@ function payrollLiabilitySummary(): JSX.Element {
               <MDTypography variant="subtitle1" sx={{ textAlign: "center" }}>
                 Payroll Liability Summary
               </MDTypography>
-              {/* <MDTypography variant="body2" sx={{ textAlign: "center" }}>
-                01/09/2023 to 30/09/2023
-              </MDTypography> */}
             </MDBox>
             <DataTable table={apidata} />
           </Card>

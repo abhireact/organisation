@@ -54,7 +54,11 @@ const LOP_Summary = () => {
             }
           );
 
-          setData(response.data);
+          if (response.data.length === 0) {
+            message.error("No Data Found");
+          } else {
+            setData(response.data);
+          }
         } catch (error: any) {
           message.error(error.response.data.detail);
         }
