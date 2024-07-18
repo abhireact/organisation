@@ -42,7 +42,7 @@ const SalaryRegister = () => {
               width: "37.5%",
             },
             {
-              Header: "Earnings Amount",
+              Header: "Monthly Amount",
               accessor: "earnings_amount_list",
               width: "37.5%",
             },

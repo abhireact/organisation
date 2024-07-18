@@ -54,7 +54,11 @@ const LOP_Summary = () => {
             }
           );
 
-          setData(response.data);
+          if (response.data.length === 0) {
+            message.error("No Data Found");
+          } else {
+            setData(response.data);
+          }
         } catch (error: any) {
           message.error(error.response.data.detail);
         }
@@ -66,12 +70,12 @@ const LOP_Summary = () => {
       setApidata({
         columns: [
           { Header: "Employee Name", accessor: "emp_name", width: "10%" },
-          { Header: "Amount", accessor: "amount", width: "10%" },
+          { Header: "Total Days", accessor: "total_days", width: "10%" },
           { Header: "LOP", accessor: "lop", width: "10%" },
         ],
         rows: data?.map((item: any) => ({
           emp_name: item.emp_name,
-          amount: item.amount,
+          total_days: item.total_days,
           lop: item.lop,
         })),
       });
