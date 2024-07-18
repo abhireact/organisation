@@ -319,6 +319,8 @@ function Createsalary() {
         earnings_type_name: updatedEarnings,
         pre_tax_name: updateDeduction,
         employee_email: state.email,
+        professional_tax: true,
+        welfare_fund: true,
         epf: [
           {
             epf_id: isEpf[0].epf_number,
