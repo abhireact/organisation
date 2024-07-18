@@ -70,6 +70,7 @@ const initialValues = {
   job_description: "",
   institute_name: "",
   degree: "",
+  esi_number: "",
   specialization: "",
   date_of_completion: "",
   name: "",
@@ -650,6 +651,30 @@ const Employee = () => {
                   color="error"
                 >
                   {errors.joining_date}
+                </MDTypography>
+              ) : null}
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormField
+                type="name"
+                label="ESI Number"
+                name="esi_number"
+                value={values.esi_number}
+                placeholder="Enter Your ESI Number"
+                variant="standard"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.esi_number && touched.esi_number}
+                success={values.esi_number.length && !errors.esi_number}
+              />
+              {errors.esi_number && touched.esi_number ? (
+                // <p className="form-error">{errors.name}</p>
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
+                  {errors.esi_number}
                 </MDTypography>
               ) : null}
             </Grid>
