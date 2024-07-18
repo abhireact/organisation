@@ -301,18 +301,18 @@ const routes = [
           },
         ],
       },
-      {
-        name: "Salary Templates",
-        key: "salary_templates",
-        collapse: [
-          {
-            name: "Templates",
-            key: "salarytemplate",
-            route: "payrole/salarycomponent/salarytemplate",
-            component: <SalaryTemplate />,
-          },
-        ],
-      },
+      // {
+      //   name: "Salary Templates",
+      //   key: "salary_templates",
+      //   collapse: [
+      //     {
+      //       name: "Templates",
+      //       key: "salarytemplate",
+      //       route: "payrole/salarycomponent/salarytemplate",
+      //       component: <SalaryTemplate />,
+      //     },
+      //   ],
+      // },
       {
         name: "Taxes",
         key: "taxes",
@@ -536,13 +536,13 @@ const routes = [
         component: <CalendarView />,
       },
       {
-        name: "Apply Leave",
+        name: "Emplopoyee Leave",
         key: "applyleave",
         route: "/pages/leave/applyleave",
         component: <Applyleave />,
       },
       {
-        name: " MY Apply Leave",
+        name: "Apply Leave",
         key: "my_applyleave",
         route: "/pages/leave/my_applyleave",
         component: <MineApplyleave />,

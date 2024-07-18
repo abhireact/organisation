@@ -353,7 +353,7 @@ export default function MYDashboard() {
         <Divider />
 
         <Grid container spacing={2} p={2}>
-          <Grid item sm={4}>
+          {/* <Grid item sm={4}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid sm={12} textAlign={"center"} pb={1}>
                 {" "}
@@ -591,7 +591,7 @@ export default function MYDashboard() {
                 />
               </Grid>
             </MDBox>
-          </Grid>
+          </Grid> */}
           <Grid item sm={6}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>
@@ -783,7 +783,7 @@ export default function MYDashboard() {
               </Grid>
             </MDBox>
           </Grid>
-          <Grid item sm={6}>
+          {/* <Grid item sm={6}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>
                 <Grid item sm={8} pb={1}>
@@ -820,7 +820,7 @@ export default function MYDashboard() {
                 />
               </Grid>
             </MDBox>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Card>
     </DashboardLayout>
