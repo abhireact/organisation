@@ -14,6 +14,7 @@ import { FormControlLabel } from "@mui/material";
 import Cookies from "js-cookie";
 import { message } from "antd";
 const token = Cookies.get("token");
+import * as Yup from "yup";
 function transformString(inputString: string): string {
   // Split the input string into an array of substrings
   const substrings = inputString.split("/");
@@ -26,6 +27,15 @@ function transformString(inputString: string): string {
 
   return resultString;
 }
+const validationSchema = Yup.object().shape({
+  disbursement_date: Yup.date().required("Disbursement date is required"),
+  repayment_date: Yup.date()
+    .required("Repayment date is required")
+    .min(
+      Yup.ref("disbursement_date"),
+      "Repayment date must be after Disbursement date"
+    ),
+});
 const Recordloan = (props: any) => {
   const { setOpendialog } = props;
   const [errorMessage, setErrorMessage] = useState("");
@@ -46,52 +56,54 @@ const Recordloan = (props: any) => {
   const [employees, setEmployees] = useState([]);
 
   const [employee, setEmployee] = useState();
-  //End
-  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      paid_through_account: "",
-      loan_amount: "",
-      disbursement_date: "",
-      reason: "",
-      exempt_loan: false,
-      repayment_date: "",
-      instalment_amount: "",
-    },
-    // validationSchema: validationSchema,
-    onSubmit: async (values, action) => {
-      const sendData = {
-        employee_name: employee,
-        location_name: location,
-        manage_loan_name: loan,
-        loan_amount: values.loan_amount,
-        disbursement_date: transformString(values.disbursement_date),
-        repayment_date: transformString(values.repayment_date),
-        exempt_loan: values.exempt_loan,
-        instalment_amount: values.instalment_amount,
-        paid_through_account: values.paid_through_account,
-        reason: values.reason,
-      };
-      await axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/record_loans`, sendData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            window.location.reload();
-            message.success("Created Successfully");
-          }
-          handleClosedialog();
-        })
-        .catch((error) => {
-          setErrorMessage(error.response.data?.detail || "error occured");
-          console.log(error, "this is the error");
-          message.error(error.response.data.detail);
-        });
-    },
-  });
+  //End disbursement_date 2024-01-01
+
+  const { values, handleChange, handleBlur, handleSubmit, touched, errors } =
+    useFormik({
+      initialValues: {
+        paid_through_account: "",
+        loan_amount: "",
+        disbursement_date: "",
+        reason: "",
+        exempt_loan: false,
+        repayment_date: "",
+        instalment_amount: "",
+      },
+      validationSchema: validationSchema,
+      onSubmit: async (values, action) => {
+        const sendData = {
+          employee_name: employee,
+          location_name: location,
+          manage_loan_name: loan,
+          loan_amount: values.loan_amount,
+          disbursement_date: transformString(values.disbursement_date),
+          repayment_date: transformString(values.repayment_date),
+          exempt_loan: values.exempt_loan,
+          instalment_amount: values.instalment_amount,
+          paid_through_account: values.paid_through_account,
+          reason: values.reason,
+        };
+        await axios
+          .post(`${process.env.REACT_APP_BACKEND_URL}/record_loans`, sendData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              window.location.reload();
+              message.success("Created Successfully");
+            }
+            handleClosedialog();
+          })
+          .catch((error) => {
+            setErrorMessage(error.response.data?.detail || "error occured");
+            console.log(error, "this is the error");
+            message.error(error.response.data.detail);
+          });
+      },
+    });
   const Fetchlocations = async () => {
     try {
       const response = await axios.get(
@@ -171,7 +183,7 @@ const Recordloan = (props: any) => {
           <Grid item sm={6}>
             <Autocomplete
               disableClearable
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               options={locations}
               getOptionLabel={(object) => object.location_name}
               renderInput={(params) => (
@@ -195,7 +207,7 @@ const Recordloan = (props: any) => {
           <Grid item sm={6}>
             <Autocomplete
               disableClearable
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               options={loans}
               getOptionLabel={(object) => object.loan_name}
               renderInput={(params) => (
@@ -216,7 +228,7 @@ const Recordloan = (props: any) => {
           <Grid item sm={6}>
             <Autocomplete
               disableClearable
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               options={employees}
               getOptionLabel={(object) => object.employee_name}
               renderInput={(params) => (
@@ -239,7 +251,7 @@ const Recordloan = (props: any) => {
           </Grid>
           <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="loan_amount"
               type="number"
@@ -253,13 +265,18 @@ const Recordloan = (props: any) => {
           </Grid>
           <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="disbursement_date"
               type="date"
               value={values.disbursement_date}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={
+                touched.disbursement_date && Boolean(errors.disbursement_date)
+              }
+              success={values.disbursement_date && !errors.disbursement_date}
+              helperText={touched.disbursement_date && errors.disbursement_date}
             />
           </Grid>
           <Grid item sm={4}>
@@ -267,7 +284,7 @@ const Recordloan = (props: any) => {
           </Grid>
           <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="repayment_date"
               type="date"
@@ -275,13 +292,24 @@ const Recordloan = (props: any) => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <br/>
+            {errors.repayment_date && touched.repayment_date ? (
+              // <p className="form-error">{errors.name}</p>
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
+                {errors.repayment_date}
+              </MDTypography>
+            ) : null}
           </Grid>
           <Grid item sm={4}>
             <MDTypography variant="body2">Installment Amount</MDTypography>
           </Grid>
           <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="instalment_amount"
               type="number"
@@ -297,7 +325,7 @@ const Recordloan = (props: any) => {
           <Grid item sm={6}>
             <Autocomplete
               disableClearable
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               options={["CHEQUE", "UPI", "BANK ACCOUNT"]}
               renderInput={(params) => (
                 <MDInput
@@ -322,7 +350,7 @@ const Recordloan = (props: any) => {
           </Grid>
           <Grid item sm={6}>
             <MDInput
-              sx={{ width: "65%" }}
+              sx={{ width: "75%" }}
               variant="standard"
               name="reason"
               multiline

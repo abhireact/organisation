@@ -50,9 +50,9 @@ const Updatebreak = (props: any) => {
   return (
     <MDBox p={4}>
       <form onSubmit={handleSubmit}>
-        <Grid container>
+        <Grid container spacing={3}>
           <Grid item sm={6}>
-            <MDTypography ml={10} variant="h6">
+            <MDTypography ml={10} variant="body2" fontWeight="bold">
               Loan Name
             </MDTypography>
           </Grid>
@@ -63,12 +63,10 @@ const Updatebreak = (props: any) => {
               value={values.loan_name}
               onChange={handleChange}
               onBlur={handleBlur}
-              mb={10}
-              mt={10}
             />
           </Grid>
           <Grid item sm={6}>
-            <MDTypography ml={10} variant="h6">
+            <MDTypography ml={10} variant="body2" fontWeight="bold">
               Prequisite Rate
             </MDTypography>
           </Grid>
@@ -80,16 +78,26 @@ const Updatebreak = (props: any) => {
               value={values.pre_rate}
               onChange={handleChange}
               onBlur={handleBlur}
-              mb={10}
-              mt={10}
             />
           </Grid>
           <Grid
             container
             sm={12}
-            sx={{ display: "flex", justifyContent: "center" }}
+            mt={2}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
           >
-            <Grid mt={4}>
+            <Grid item>
+              <MDButton
+                color="dark"
+                variant="contained"
+                onClick={() => {
+                  handleCloseupdate();
+                }}
+              >
+                Back
+              </MDButton>
+            </Grid>
+            <Grid ml={2}>
               <MDButton
                 color="info"
                 variant="contained"
@@ -99,17 +107,6 @@ const Updatebreak = (props: any) => {
                 }}
               >
                 Save
-              </MDButton>
-            </Grid>
-            <Grid ml={2} mt={4}>
-              <MDButton
-                color="primary"
-                variant="outlined"
-                onClick={() => {
-                  handleCloseupdate();
-                }}
-              >
-                Cancel
               </MDButton>
             </Grid>
           </Grid>

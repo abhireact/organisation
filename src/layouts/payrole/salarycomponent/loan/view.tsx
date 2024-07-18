@@ -2,17 +2,15 @@ import Grid from "@mui/material/Grid";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useState } from "react";
-
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
-
 import MDInput from "components/MDInput";
-
 import MDBox from "components/MDBox";
 import Cookies from "js-cookie";
 import { message } from "antd";
 import Autocomplete from "@mui/material/Autocomplete";
 const token = Cookies.get("token");
+import * as Yup from "yup";
 
 const View = (props: any) => {
   const { setOpendialog, data } = props;
@@ -20,51 +18,62 @@ const View = (props: any) => {
   const handleClosedialog = () => {
     setOpendialog(false);
   };
-
-  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      loan_amount: data.loan_amount,
-      repayment_date: "",
-      repayment_amount: data.instalment_amount,
-      employee_name: data.employee_name,
-      loan_name: data.manage_loan_name,
-      paid_through_account: "",
-    },
-    // validationSchema: validationSchema,
-    enableReinitialize: true,
-    onSubmit: async (values, action) => {
-      const sendData = {
-        employee_name: values.employee_name,
-        loan_name: values.loan_name,
-        loan_amount: values.loan_amount,
-        loan_repay_date: values.repayment_date,
-        repayment_amount: values.repayment_amount,
-        paid_through_account: values.paid_through_account,
-      };
-
-      await axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/loans_child`, sendData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-
-          if (response.status === 200) {
-            props.onSuccess();
-            // window.location.reload();
-            message.success("update repayment successfull");
-          }
-        })
-        .catch((error) => {
-          setErrorMessage(error.response.data?.detail || "error occured");
-          message.error("error occured");
-          console.log(error);
-        });
-    },
+  const validationSchema = Yup.object().shape({
+    repayment_date: Yup.date()
+      .required("Repayment date is required")
+      .test(
+        "is-after-disbursement",
+        "Repayment date must be after disbursement date",
+        function (value) {
+          return value > new Date(data.disbursement_date);
+        }
+      ),
   });
+  const { values, handleChange, handleBlur, handleSubmit, touched, errors } =
+    useFormik({
+      initialValues: {
+        loan_amount: data.loan_amount,
+        repayment_date: "",
+        repayment_amount: data.instalment_amount,
+        employee_name: data.employee_name,
+        loan_name: data.manage_loan_name,
+        paid_through_account: "",
+      },
+      validationSchema: validationSchema,
+      enableReinitialize: true,
+      onSubmit: async (values, action) => {
+        const sendData = {
+          employee_name: values.employee_name,
+          loan_name: values.loan_name,
+          loan_amount: values.loan_amount,
+          loan_repay_date: values.repayment_date,
+          repayment_amount: values.repayment_amount,
+          paid_through_account: values.paid_through_account,
+        };
+
+        await axios
+          .post(`${process.env.REACT_APP_BACKEND_URL}/loans_child`, sendData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+
+            if (response.status === 200) {
+              props.onSuccess();
+              // window.location.reload();
+              message.success("update repayment successfull");
+            }
+          })
+          .catch((error) => {
+            setErrorMessage(error.response.data?.detail || "error occured");
+            message.error("error occured");
+            console.log(error);
+          });
+      },
+    });
 
   return (
     <form onSubmit={handleSubmit}>
@@ -147,6 +156,17 @@ const View = (props: any) => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <br />
+            {errors.repayment_date && touched.repayment_date ? (
+              // <p className="form-error">{errors.name}</p>
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
+                {errors.repayment_date}
+              </MDTypography>
+            ) : null}
           </Grid>
           <Grid item sm={5}>
             <MDTypography variant="body2">Paid through account</MDTypography>
