@@ -70,6 +70,7 @@ const initialValues = {
   job_description: "",
   institute_name: "",
   degree: "",
+  esi_number: "",
   specialization: "",
   date_of_completion: "",
   name: "",
@@ -319,8 +320,6 @@ const Employee = () => {
               <MDTypography variant="h5">{"Create New Employee"}</MDTypography>
             </Grid>
           </Grid>
-        </MDBox>
-        <MDBox p={3}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={9}>
               <MDTypography variant="h6">{"Basic Details"}</MDTypography>
@@ -652,6 +651,30 @@ const Employee = () => {
                   color="error"
                 >
                   {errors.joining_date}
+                </MDTypography>
+              ) : null}
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormField
+                type="name"
+                label="ESI Number"
+                name="esi_number"
+                value={values.esi_number}
+                placeholder="Enter Your ESI Number"
+                variant="standard"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.esi_number && touched.esi_number}
+                success={values.esi_number.length && !errors.esi_number}
+              />
+              {errors.esi_number && touched.esi_number ? (
+                // <p className="form-error">{errors.name}</p>
+                <MDTypography
+                  variant="caption"
+                  fontWeight="regular"
+                  color="error"
+                >
+                  {errors.esi_number}
                 </MDTypography>
               ) : null}
             </Grid>
@@ -1094,7 +1117,8 @@ const Employee = () => {
                 type="name"
                 label="Present Address"
                 name="presentaddress"
-                value={values.presentaddress}from_date
+                value={values.presentaddress}
+                from_date
                 placeholder="Enter Your Present Address"
                 variant="standard"
                 onChange={handleChange}
@@ -1151,6 +1175,7 @@ const Employee = () => {
             </Grid>
           </Grid>
         </MDBox>
+        <MDBox p={3}></MDBox>
       </form>
     </DashboardLayout>
   );

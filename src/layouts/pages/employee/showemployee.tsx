@@ -95,32 +95,7 @@ const ShowEmployee = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
-  // const createacess = Cookies.get("createaccess");
-  // const createacessdata = JSON.parse(createacess);
 
-  // const getreadaccess = Cookies?.get("readaccess");
-
-  // // Parse the string back into an array using JSON.parse
-  // const readaccessdata = JSON?.parse(getreadaccess);
-  // console.log(readaccessdata, "read acess data ");
-  // const getupdateaccess = Cookies?.get("updateaccess");
-
-  // // Parse the string back into an array using JSON.parse
-  // const updateaccessdata = JSON?.parse(getupdateaccess);
-  // console.log(updateaccessdata, "update acess data ");
-  // const getdeleteaccess = Cookies?.get("deleteaccess");
-
-  // // Parse the string back into an array using JSON.parse
-  // const deleteaccessdata = JSON?.parse(getdeleteaccess);
-  // console.log(deleteaccessdata, "delete acess data ");
-  // const isShowEmployeePresent = arrayFromCookie.find(
-  //   (element: string) => element === "showemployee"
-  // );
-  // {
-  //   isShowEmployeePresent ? isShowEmployeePresent : "cdsacgsdahhjhjsdhjdhj";
-  // }
-  // console.log("Is 'showemployee' present:", isShowEmployeePresent);
-  // console.log(arrayFromCookie, "acess data ");
   const dataTableData = {
     columns: [
       { Header: "EMPLOYEE NAME", accessor: "emp_name" },

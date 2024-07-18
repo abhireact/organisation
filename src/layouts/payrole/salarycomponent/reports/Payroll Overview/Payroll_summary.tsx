@@ -1,4 +1,4 @@
-import { Card, Grid } from "@mui/material";
+import { Card, Grid, Icon } from "@mui/material";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import MDBox from "components/MDBox";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import MDTypography from "components/MDTypography";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-
+import CloseIcon from "@mui/icons-material/Close";
 import Autocomplete from "@mui/material/Autocomplete";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,7 @@ import { message } from "antd";
 import MDButton from "components/MDButton";
 const token = Cookies.get("token");
 import * as Yup from "yup";
-
+import { useNavigate } from "react-router-dom";
 const validationSchema = Yup.object().shape({
   year: Yup.string()
     .matches(/^\d{4}-\d{4}$/, "YYYY-YYYY format")
@@ -24,6 +24,7 @@ const validationSchema = Yup.object().shape({
 });
 function Payroll_summary(): JSX.Element {
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -128,6 +129,15 @@ function Payroll_summary(): JSX.Element {
 
       {showReport ? (
         <Card sx={{ width: "80%", margin: "auto", mt: "4%" }}>
+          <Grid item xs={12} sm={4} sx={{ textAlign: "right" }} mx={4} mt={2}>
+            <Icon
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              close
+            </Icon>
+          </Grid>
           <MDBox p={5}>
             <MDTypography variant="h5" sx={{ textAlign: "center" }}>
               MindCom
@@ -280,8 +290,17 @@ function Payroll_summary(): JSX.Element {
         </Card>
       ) : (
         <Card sx={{ width: "80%", margin: "auto", mt: "4%" }}>
+          <Grid item xs={12} sm={4} sx={{ textAlign: "right" }} mx={4} mt={2}>
+            <Icon
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              close
+            </Icon>
+          </Grid>
           <form onSubmit={handleSubmit}>
-            <MDBox p={4}>
+            <MDBox p={4} pt={2}>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={12}>
                   <MDTypography variant="h5" sx={{ textAlign: "center" }}>

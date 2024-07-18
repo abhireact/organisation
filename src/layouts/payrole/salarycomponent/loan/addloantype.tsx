@@ -10,7 +10,7 @@ const token = Cookies.get("token");
 import axios from "axios";
 import { message } from "antd";
 
-const Addbreak = (props: any) => {
+const AddLoanType = (props: any) => {
   const { setOpen } = props;
   const handleClose = () => {
     setOpen(false);
@@ -118,4 +118,4 @@ const Addbreak = (props: any) => {
   );
 };
 
-export default Addbreak;
+export default AddLoanType;
