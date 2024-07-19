@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
-import Grid from "@mui/material/Grid";
+import { Icon, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import MDButton from "components/MDButton";
 import FormField from "layouts/ecommerce/products/new-product/components/FormField";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -69,6 +70,7 @@ const validationSchema = Yup.object().shape({
 // };
 
 const DeductionSummary = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [apidata, setApidata] = useState<{ columns: any[]; rows: any[] }>({
     columns: [],
@@ -90,10 +92,15 @@ const DeductionSummary = () => {
               },
             }
           );
-          if (apidata.rows.length === 0) {
+          if (
+            response.data.length === 0 ||
+            (typeof response.data === "object" &&
+              Object.keys(response.data).length === 0)
+          ) {
             message.error("No Data Found");
+          } else {
+            setData(response.data);
           }
-          setData(response.data);
         } catch (error: any) {
           message.error(error.response.data.detail);
         }
@@ -161,6 +168,22 @@ const DeductionSummary = () => {
             </MDButton>
           </MDBox>
           <Card sx={{ width: "80%", margin: "auto" }}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{ textAlign: "right" }}
+              mx={4}
+              mt={2}
+            >
+              <Icon
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                close
+              </Icon>
+            </Grid>
             <MDBox p={1}>
               <MDTypography variant="h5" sx={{ textAlign: "center" }}>
                 Mindcom
