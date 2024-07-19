@@ -319,6 +319,8 @@ function Createsalary() {
         earnings_type_name: updatedEarnings,
         pre_tax_name: updateDeduction,
         employee_email: state.email,
+        professional_tax: true,
+        welfare_fund: true,
         epf: [
           {
             epf_id: isEpf[0].epf_number,
@@ -438,29 +440,18 @@ function Createsalary() {
               : null,
           annual_amount:
             earnings.calculation_type === "% of CTC"
-              ? (
-                  parseFloat(
-                    (
-                      (values.annual_ctc / 100) *
-                      (earnings.enter_amount_or_percent / 12)
-                    ).toFixed(2)
-                  ) * 12
-                ).toFixed(2)
+              ? parseFloat(
+                  (
+                    (values.annual_ctc / 100) *
+                    earnings.enter_amount_or_percent
+                  ).toFixed(2)
+                )
               : earnings.calculation_type === "Flat Amount"
-              ? (
-                  parseFloat(
-                    (earnings.enter_amount_or_percent / 12).toFixed(2)
-                  ) * 12
-                ).toFixed(2)
+              ? parseFloat(earnings.enter_amount_or_percent).toFixed(2)
               : earnings.calculation_type === "% of Basic"
-              ? (
-                  parseFloat(
-                    (
-                      (basic / 100) *
-                      (earnings.enter_amount_or_percent / 12)
-                    ).toFixed(2)
-                  ) * 12
-                ).toFixed(2)
+              ? parseFloat(
+                  ((basic / 100) * earnings.enter_amount_or_percent).toFixed(2)
+                )
               : null,
         };
       }),
@@ -517,22 +508,17 @@ function Createsalary() {
               ? parseFloat(
                   (
                     (values.annual_ctc / 100) *
-                    (deduction.enter_amount_or_percent / 12) *
-                    12
+                    deduction.enter_amount_or_percent
                   ).toFixed(2)
-                ).toFixed(2)
+                )
               : deduction.calculation_type === "Flat Amount"
               ? parseFloat(
-                  ((deduction.enter_amount_or_percent / 12) * 12).toFixed(2)
-                ).toFixed(2)
+                  deduction.enter_amount_or_percent.toFixed(2)
+                )
               : deduction.calculation_type === "% of Basic"
               ? parseFloat(
-                  (
-                    (basic / 100) *
-                    (deduction.enter_amount_or_percent / 12) *
-                    12
-                  ).toFixed(2)
-                ).toFixed(2)
+                  ((basic / 100) * deduction.enter_amount_or_percent).toFixed(2)
+                )
               : null,
         };
       }),
@@ -547,16 +533,16 @@ function Createsalary() {
           calculation_type: isEsi[0].employees_contribution,
           monthly_amount: "System Calculated",
         },
-      {
-        salary_component:
-          epf &&
-          epf.employer_contribution_ctc &&
-          epf.employer_contribution_ctc?.length !== 0
-            ? "EPF - Employer Contribution"
-            : null,
-        calculation_type: epf ? epf.employer_contribution_rate : null,
-        monthly_amount: "",
-      },
+      // {
+      //   salary_component:
+      //     epf &&
+      //     epf.employer_contribution_ctc &&
+      //     epf.employer_contribution_ctc?.length !== 0
+      //       ? "EPF - Employer Contribution"
+      //       : null,
+      //   calculation_type: epf ? epf.employer_contribution_rate : null,
+      //   monthly_amount: "",
+      // },
     ],
   };
 

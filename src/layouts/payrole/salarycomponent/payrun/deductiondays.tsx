@@ -216,12 +216,12 @@ export default function DeductionDays() {
                       <FormControlLabel
                         value="Manually Enter"
                         control={<Radio />}
-                        label="Manually Enter"
+                        label="Manually Enter Attendance"
                       />
                       <FormControlLabel
                         value="Take Data Into Attendace"
                         control={<Radio />}
-                        label="Take Data Into Attendace"
+                        label="Take Data From  Leave"
                       />
                     </RadioGroup>
                   </FormControl>

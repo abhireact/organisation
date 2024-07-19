@@ -610,7 +610,7 @@ const Employeeinfo = () => {
                 <Autocomplete
                   sx={{ width: "70%" }}
                   // multiple
-                  defaultValue={state?.employee_type}
+                  value={state?.employee_type}
                   onChange={(event: any, value: any) => {
                     handleChange({ target: { name: "employee_type", value } });
                   }}
@@ -650,6 +650,7 @@ const Employeeinfo = () => {
                   sx={{ width: "70%" }}
                   // multiple
                   defaultValue={state?.source_of_hire}
+                  value={state?.source_of_hire}
                   onChange={(event: any, value: any) => {
                     handleChange({ target: { name: "source_of_hire", value } });
                   }}
