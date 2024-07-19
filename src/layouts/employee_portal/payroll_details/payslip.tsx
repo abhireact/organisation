@@ -47,9 +47,15 @@ const Payslips = () => {
   const [loadingButton, setLoadingButton] = useState(false);
 
   const { state } = useLocation();
-  let totalearnings = 0;
-  let totaldeduction = 0;
-
+  console.log(state, "statedata");
+  let totalearnings = state.emp_salary[0].earning_amt;
+  let totaldeduction =
+    state.emp_salary[0].pre_tax_amt +
+    Number(state.emp_salary[0].epf_amt) +
+    Number(state.emp_salary[0].esi_amt) +
+    Number(state.emp_salary[0].lop_amt) +
+    Number(state.emp_salary[0].tax_amt);
+  const netpayValue = state.emp_salary[0].net_pay;
   let Earning = (
     <Grid item xs={12} sm={6} mb={2}>
       <MDTypography variant="h6">Eanings</MDTypography>
@@ -57,26 +63,26 @@ const Payslips = () => {
       <React.Fragment>
         <Grid container>
           {state.emp_salary[0].earnings.map((item: any, index: any) => {
-            const monthly_amount = parseFloat(
-              String(item.monthly_amount).replace(/₹|,/g, "")
-            );
-            totalearnings += monthly_amount;
-
             return (
               <React.Fragment key={index}>
-                <Grid item xs={12} sm={8}>
-                  <MDTypography variant="body2">
-                    {item.earnings_name}
-                  </MDTypography>
-                </Grid>
-                <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                  <MDTypography variant="body2">
-                    {item.monthly_amount}
-                  </MDTypography>
-                  {index < state.emp_salary[0].earnings.length - 1 && (
-                    <Divider />
-                  )}
-                </Grid>
+                {item.monthly_amount > 0 && (
+                  <>
+                    {" "}
+                    <Grid item xs={12} sm={8}>
+                      <MDTypography variant="body2">
+                        {item.earnings_name}
+                      </MDTypography>
+                    </Grid>
+                    <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+                      <MDTypography variant="body2">
+                        {item.monthly_amount.toFixed(2)}
+                      </MDTypography>
+                      {index < state.emp_salary[0].earnings.length - 1 && (
+                        <Divider />
+                      )}
+                    </Grid>
+                  </>
+                )}
               </React.Fragment>
             );
           })}
@@ -92,29 +98,82 @@ const Payslips = () => {
 
       <Grid container>
         {state.emp_salary[0].pre_tax.map((item: any, index: any) => {
-          const monthly_amount = parseFloat(
-            String(item.monthly_amount).replace(/₹|,/g, "")
-          );
-          totaldeduction += monthly_amount;
-
           return (
             <React.Fragment key={index}>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="body2">
-                  {item.earnings_name}
-                </MDTypography>
-              </Grid>
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="body2">
-                  {`₹${item.monthly_amount
-                    .toFixed(2)
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
-                </MDTypography>
-                {index < state.emp_salary[0].pre_tax.length - 1 && <Divider />}
-              </Grid>
+              {item.monthly_amount > 0 && (
+                <>
+                  <Grid item xs={12} sm={8}>
+                    <MDTypography variant="body2">
+                      {item.earnings_name}
+                    </MDTypography>
+                  </Grid>
+                  <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+                    <MDTypography variant="body2">
+                      {`₹${item.monthly_amount
+                        .toFixed(2)
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+                    </MDTypography>
+                    {index < state.emp_salary[0].pre_tax.length - 1 && (
+                      <Divider />
+                    )}
+                  </Grid>
+                </>
+              )}
             </React.Fragment>
           );
         })}
+        {state.emp_salary[0].lop_amt > 0 && (
+          <>
+            <Grid item xs={12} sm={8}>
+              <MDTypography variant="body2">LOP</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+              <MDTypography variant="body2">
+                {state.emp_salary[0].lop_amt}
+              </MDTypography>
+              <Divider />
+            </Grid>
+          </>
+        )}
+        {state.emp_salary[0].epf_amt > 0 && (
+          <>
+            <Grid item xs={12} sm={7}>
+              <MDTypography variant="body2">EPF</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={5} sx={{ textAlign: "right" }}>
+              <MDTypography variant="body2">
+                {state.emp_salary[0].epf_amt}
+              </MDTypography>
+              <Divider />
+            </Grid>
+          </>
+        )}
+        {state.emp_salary[0].esi_amt > 0 && (
+          <>
+            <Grid item xs={12} sm={8}>
+              <MDTypography variant="body2">ESI</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+              <MDTypography variant="body2">
+                {state.emp_salary[0].esi_amt}
+              </MDTypography>
+              <Divider />
+            </Grid>
+          </>
+        )}
+        {state.emp_salary[0].tax_amt > 0 && (
+          <>
+            <Grid item xs={12} sm={8}>
+              <MDTypography variant="body2">Tax</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+              <MDTypography variant="body2">
+                {state.emp_salary[0].tax_amt}
+              </MDTypography>
+              <Divider />
+            </Grid>
+          </>
+        )}
       </Grid>
     </Grid>
   );
@@ -136,15 +195,12 @@ const Payslips = () => {
         <MDTypography variant="h6">Total Deductions</MDTypography>
       </Grid>
       <Grid item xs={12} sm={2.5} sx={{ textAlign: "right" }}>
-        <MDTypography variant="h6">
-          {`₹${totaldeduction
-            .toFixed(2)
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
-        </MDTypography>
+        <MDTypography variant="h6">{`₹${totaldeduction.toFixed(
+          2
+        )}`}</MDTypography>
       </Grid>
     </Grid>
   );
-  const netpayValue = (totalearnings - totaldeduction).toFixed(2);
 
   useEffect(() => {
     const searchData = new URLSearchParams(location.search).get("data");
@@ -226,7 +282,7 @@ const Payslips = () => {
 
   //PieChart Datas
   const data = [
-    { label: "Gross Pay", value: totalearnings },
+    { label: "Gross Pay", value: state.emp_salary[0].gross_pay },
     { label: "Deductions", value: totaldeduction },
   ];
 
@@ -312,7 +368,7 @@ const Payslips = () => {
                       <Grid item xs={12} sm={9}>
                         <MDTypography variant="body2">Gross Pay</MDTypography>
                         <MDTypography variant="h6">
-                          {`₹${totalearnings
+                          {`₹${state.emp_salary[0].gross_pay
                             .toFixed(2)
                             .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
                         </MDTypography>

@@ -27,6 +27,7 @@ function Salary_details() {
           }
         );
         if (response.status === 200) {
+          console.log(response.data, "api data");
           setPayslipData(response.data);
         }
       } catch (error) {
@@ -38,6 +39,7 @@ function Salary_details() {
 
   const navigate = useNavigate();
   const handleButtonClick = (data: any, index: any) => {
+    console.log(data, "sended data");
     navigate(`/payslip?data=${encodeURIComponent(JSON.stringify(data))}`, {
       state: payslipData[index],
     });
@@ -62,8 +64,12 @@ function Salary_details() {
           {data.month}
         </span>
       ),
-      gross_pay: data.gross_pay,
-      deductions: data.deductions,
+      gross_pay: data.emp_salary[0].gross_pay,
+      deductions:
+        Number(data.emp_salary[0].epf_amt) +
+        Number(data.emp_salary[0].esi_amt) +
+        Number(data.emp_salary[0].lop_amt) +
+        Number(data.emp_salary[0].tax_amt),
       take_home: data.net_pay,
       payslip: (
         <MDButton

@@ -30,6 +30,20 @@ const chartSetting = {
     },
   },
 };
+const chartSetting2 = {
+  yAxis: [
+    {
+      label: "Employee attrition  (no.)",
+    },
+  ],
+  width: 500,
+  height: 300,
+  sx: {
+    [`.${axisClasses.left} .${axisClasses.label}`]: {
+      transform: "translate(-5px, 0)",
+    },
+  },
+};
 const dataset = [
   { month: "Jan", Bengluru: 0, Dholakpur: 0, Lucknow: 0, Mumbai: 0 },
   { month: "Feb", Bengluru: 0, Dholakpur: 0, Lucknow: 0, Mumbai: 0 },
@@ -447,12 +461,12 @@ export default function EmployeeDashboard() {
                     top: 110,
                     bottom: 80,
                   }}
-                  {...chartSetting}
+                  {...chartSetting2}
                 />
               </Grid>
             </MDBox>
           </Grid>
-      
+
           <Grid item sm={6}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>

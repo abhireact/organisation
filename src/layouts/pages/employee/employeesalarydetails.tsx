@@ -399,29 +399,49 @@ function Createsalary(props: any) {
       },
       ...values.earnings_type_name.map((earnings: any, index: any) => {
         return {
-          salary_component: earnings.earnings_id,
-          calculation_type: (
-            <Input
-              addonAfter={earnings.calculation_type}
-              type="number"
-              required
-              name={`earnings_type_name[${index}].enter_amount_or_percent`}
-              value={values.earnings_type_name[index]?.enter_amount_or_percent}
-              onChange={(event: any) => {
-                if (event.target.value >= 0) {
-                  handleChange({
-                    target: {
-                      name: `earnings_type_name[${index}].enter_amount_or_percent`,
-                      value: event.target.value,
-                    },
-                  });
+          salary_component:
+            earnings.earnings_id === "Fixed Allowance" ? (
+              <>
+                <MDTypography variant="subtitle" color="text">
+                  Fixed Allowance
+                </MDTypography>
+                <br />
+                <MDTypography variant="caption" color="text">
+                  Monthly CTC - Sum of all other components
+                </MDTypography>
+              </>
+            ) : (
+              earnings.earnings_id
+            ),
+          calculation_type:
+            earnings.earnings_id == "Fixed Allowance" ? (
+              "System Calculated"
+            ) : (
+              <Input
+                addonAfter={earnings.calculation_type}
+                type="number"
+                required
+                name={`earnings_type_name[${index}].enter_amount_or_percent`}
+                value={
+                  values.earnings_type_name[index]?.enter_amount_or_percent
                 }
-              }}
-              style={{ width: 200 }}
-            />
-          ),
+                onChange={(event: any) => {
+                  if (event.target.value >= 0) {
+                    handleChange({
+                      target: {
+                        name: `earnings_type_name[${index}].enter_amount_or_percent`,
+                        value: event.target.value,
+                      },
+                    });
+                  }
+                }}
+                style={{ width: 200 }}
+              />
+            ),
           monthly_amount:
-            earnings.calculation_type === "% of CTC"
+            earnings.earnings_id == "Fixed Allowance"
+              ? "System Calculated"
+              : earnings.calculation_type === "% of CTC"
               ? parseFloat(
                   (
                     (values.annual_ctc / 100) *
@@ -439,7 +459,9 @@ function Createsalary(props: any) {
                 )
               : null,
           annual_amount:
-            earnings.calculation_type === "% of CTC"
+            earnings.earnings_id == "Fixed Allowance"
+              ? "System Calculated"
+              : earnings.calculation_type === "% of CTC"
               ? parseFloat(
                   (
                     (values.annual_ctc / 100) *
