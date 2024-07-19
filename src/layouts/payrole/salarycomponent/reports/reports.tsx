@@ -117,16 +117,16 @@ function reports(): JSX.Element {
 
             <Grid item xs={12} sm={4}>
               <MDTypography variant="button">
-                {/* <Grid item xs={12} sm={12} mb={1}>
+                <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />
                   <Link
                     href="/pages/profile/EPF ECR Report"
                     sx={{ color: "#2962ff" }}
                     underline="none"
                   >
-                    EPF ECR Report
+                    EPF Summary
                   </Link>
-                </Grid> */}
+                </Grid>
 
                 <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />
@@ -190,7 +190,7 @@ function reports(): JSX.Element {
             </Grid> */}
             <Grid item xs={12} sm={4}>
               <MDTypography variant="button">
-                <Grid item xs={12} sm={12} mb={1}>
+                {/* <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />
                   <Link
                     href="/pages/profile/Post_Tax_Deductions_Summary"
@@ -199,7 +199,7 @@ function reports(): JSX.Element {
                   >
                     Post-Tax Deductions Summary
                   </Link>
-                </Grid>
+                </Grid> */}
 
                 <Grid item xs={12} sm={12} mb={1}>
                   <KeyboardArrowRightIcon />

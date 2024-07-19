@@ -7,10 +7,13 @@ import axios from "axios";
 import DataTable from "examples/Tables/DataTable";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Cookies from "js-cookie";
+import { Icon, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 const token = Cookies.get("token");
 // Variable_Pay_Earnings_report
 const Employee_Ctc_Reports = () => {
+  const navigate = useNavigate();
   const [tabledata, setTableData] = useState<{ columns: any[]; rows: any[] }>({
     columns: [],
     rows: [],
@@ -124,6 +127,15 @@ const Employee_Ctc_Reports = () => {
     <DashboardLayout>
       <DashboardNavbar />
       <Card sx={{ width: "100%", margin: "auto" }}>
+        <Grid item xs={12} sm={12} sx={{ textAlign: "right" }} mx={4} mt={2}>
+          <Icon
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            close
+          </Icon>
+        </Grid>
         <MDBox>
           <MDTypography variant="h5" sx={{ textAlign: "center" }}>
             Mindcom
