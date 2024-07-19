@@ -438,7 +438,9 @@ export default function LeaveDashboard() {
               </Grid>
             </MDBox>
           </Grid> */}
-          <Grid item sm={12}>
+
+          {/* lEAVE TREND  */}
+          {/* <Grid item sm={12}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>
                 <Grid item sm={8}>
@@ -478,7 +480,7 @@ export default function LeaveDashboard() {
                 />
               </Grid>
             </MDBox>
-          </Grid>
+          </Grid> */}
           {/* <Grid item sm={6}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>
@@ -773,7 +775,7 @@ export default function LeaveDashboard() {
                   fontWeight="medium"
                   textGradient
                 >
-                  Leave TypeWise summery
+                  Leave Typewise summary
                 </MDTypography>
               </Grid>
               <Grid item sm={12}>

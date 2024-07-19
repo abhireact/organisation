@@ -118,7 +118,7 @@ const Applyleave = () => {
       <DashboardNavbar />
       <Grid container spacing={3} p={2}>
         <Grid item xs={12} sm={9}>
-          <MDTypography variant="h5">{"Apply Leave "}</MDTypography>
+          <MDTypography variant="h5">{"Apply Employee Leave"}</MDTypography>
         </Grid>
       </Grid>
       <Card>
