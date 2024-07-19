@@ -6,10 +6,13 @@ import { useLocation } from "react-router-dom";
 
 const Paylips_details = () => {
   const { state } = useLocation();
-
-  let totalearnings = 0;
-  let totaldeduction = 0;
-
+  let totalearnings = state.emp_salary[0].earning_amt;
+  let totaldeduction =
+    state.emp_salary[0].pre_tax_amt +
+    Number(state.emp_salary[0].epf_amt) +
+    Number(state.emp_salary[0].esi_amt) +
+    Number(state.emp_salary[0].lop_amt) +
+    Number(state.emp_salary[0].tax_amt);
   let Earning = (
     <Grid item xs={12} sm={6} mb={2}>
       <MDTypography variant="h6">Eanings</MDTypography>
@@ -17,26 +20,25 @@ const Paylips_details = () => {
       <React.Fragment>
         <Grid container>
           {state.emp_salary[0].earnings.map((item: any, index: any) => {
-            const monthly_amount = parseFloat(
-              String(item.monthly_amount).replace(/₹|,/g, "")
-            );
-            totalearnings += monthly_amount;
-
             return (
               <React.Fragment key={index}>
-                <Grid item xs={12} sm={8}>
-                  <MDTypography variant="body2">
-                    {item.earnings_name}
-                  </MDTypography>
-                </Grid>
-                <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                  <MDTypography variant="body2">
-                    {item.monthly_amount}
-                  </MDTypography>
-                  {index < state.emp_salary[0].earnings.length - 1 && (
-                    <Divider />
-                  )}
-                </Grid>
+                {item.monthly_amount > 0 && (
+                  <>
+                    <Grid item xs={12} sm={8}>
+                      <MDTypography variant="body2">
+                        {item.earnings_name}
+                      </MDTypography>
+                    </Grid>
+                    <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+                      <MDTypography variant="body2">
+                        {item.monthly_amount.toFixed(2)}
+                      </MDTypography>
+                      {index < state.emp_salary[0].earnings.length - 1 && (
+                        <Divider />
+                      )}
+                    </Grid>
+                  </>
+                )}
               </React.Fragment>
             );
           })}
@@ -52,29 +54,82 @@ const Paylips_details = () => {
 
       <Grid container>
         {state.emp_salary[0].pre_tax.map((item: any, index: any) => {
-          const monthly_amount = parseFloat(
-            String(item.monthly_amount).replace(/₹|,/g, "")
-          );
-          totaldeduction += monthly_amount;
-
           return (
             <React.Fragment key={index}>
-              <Grid item xs={12} sm={8}>
-                <MDTypography variant="body2">
-                  {item.earnings_name}
-                </MDTypography>
-              </Grid>
-              <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-                <MDTypography variant="body2">
-                  {`₹${item.monthly_amount
-                    .toFixed(2)
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
-                </MDTypography>
-                {index < state.emp_salary[0].pre_tax.length - 1 && <Divider />}
-              </Grid>
+              {item.monthly_amount > 0 && (
+                <>
+                  <Grid item xs={12} sm={8}>
+                    <MDTypography variant="body2">
+                      {item.earnings_name}
+                    </MDTypography>
+                  </Grid>
+                  <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+                    <MDTypography variant="body2">
+                      {`₹${item.monthly_amount
+                        .toFixed(2)
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+                    </MDTypography>
+                    {index < state.emp_salary[0].pre_tax.length - 1 && (
+                      <Divider />
+                    )}
+                  </Grid>
+                </>
+              )}
             </React.Fragment>
           );
         })}
+        {state.emp_salary[0].lop_amt > 0 && (
+          <>
+            <Grid item xs={12} sm={8}>
+              <MDTypography variant="body2">LOP</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+              <MDTypography variant="body2">
+                {state.emp_salary[0].lop_amt}
+              </MDTypography>
+              <Divider />
+            </Grid>
+          </>
+        )}
+        {state.emp_salary[0].epf_amt > 0 && (
+          <>
+            <Grid item xs={12} sm={7}>
+              <MDTypography variant="body2">EPF</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={5} sx={{ textAlign: "right" }}>
+              <MDTypography variant="body2">
+                {state.emp_salary[0].epf_amt}
+              </MDTypography>
+              <Divider />
+            </Grid>
+          </>
+        )}
+        {state.emp_salary[0].esi_amt > 0 && (
+          <>
+            <Grid item xs={12} sm={8}>
+              <MDTypography variant="body2">ESI</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+              <MDTypography variant="body2">
+                {state.emp_salary[0].esi_amt}
+              </MDTypography>
+              <Divider />
+            </Grid>
+          </>
+        )}
+        {state.emp_salary[0].tax_amt > 0 && (
+          <>
+            <Grid item xs={12} sm={8}>
+              <MDTypography variant="body2">Tax</MDTypography>
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
+              <MDTypography variant="body2">
+                {state.emp_salary[0].tax_amt}
+              </MDTypography>
+              <Divider />
+            </Grid>
+          </>
+        )}
       </Grid>
     </Grid>
   );
@@ -103,7 +158,7 @@ const Paylips_details = () => {
     </Grid>
   );
 
-  const netpayValue = (totalearnings - totaldeduction).toFixed(2);
+  const netpayValue = state.emp_salary[0].net_pay;
 
   function generatePDF() {
     const element = document.getElementById("componentToDownload");
@@ -134,48 +189,48 @@ const Paylips_details = () => {
       <Grid container>
         <Grid item xs={12} sm={7}>
           <Grid container>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={4}>
               <MDTypography variant="overline">Employee Name</MDTypography>
             </Grid>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={8}>
               <MDTypography variant="overline">
                 : {state.emp_salary[0].name}{" "}
               </MDTypography>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={4}>
               <MDTypography variant="overline">Designation</MDTypography>
             </Grid>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={8}>
               <MDTypography variant="overline">
                 : {state.designation}{" "}
               </MDTypography>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={4}>
               <MDTypography variant="overline">Date of Joining</MDTypography>
             </Grid>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={8}>
               <MDTypography variant="overline">
                 : {state.date_of_joining}{" "}
               </MDTypography>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={4}>
               <MDTypography variant="overline">Pay Period</MDTypography>
             </Grid>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={8}>
               <MDTypography variant="overline">: {state.month} </MDTypography>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={4}>
               <MDTypography variant="overline">Pay Date</MDTypography>
             </Grid>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={8}>
               <MDTypography variant="overline">: {state.date} </MDTypography>
             </Grid>
           </Grid>

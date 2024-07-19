@@ -6,7 +6,9 @@ import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./form16pdf.css";
-
+import Cookies from "js-cookie";
+import { message } from "antd";
+const token = Cookies.get("token");
 const DownloadButton = () => {
   const downloadPDF = async () => {
     const content = document.getElementById("content");
@@ -114,11 +116,15 @@ const Pdfdown = (props: any) => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvX2lkIjoxLCJlbWFpbCI6IjIwMDNvbTE3MTFAZ21haWwuY29tIiwiZXhwIjoxNzAyOTgwOTc5fQ.dy21_oSwrreB3J0z2J7Kvw3oIcP216jFAqSxWUsG-5s`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
       .then((response) => {
+        if (response.status === 404) {
+          setOpenupdate(true);
+          message.error("No Data Available");
+        }
         setData(response.data);
       })
       .catch((error) => {
