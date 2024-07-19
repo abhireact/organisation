@@ -41,7 +41,10 @@ function EditAndShowPaysheadule(props: any) {
     salary_month_willbe_paidon: string;
   }
   const [openPopup, setOpenPopup] = useState(false);
-  const [nextpayrun, setNextpayrun] = useState<NextPayRun>({ month: [], date: [] });
+  const [nextpayrun, setNextpayrun] = useState<NextPayRun>({
+    month: [],
+    date: [],
+  });
   const [sheaduledata, setSheaduledata] = useState<sheaduledatainter>({
     select_work_week: ExistingData.select_work_week,
     calculate_salary_based_on: ExistingData.calculate_salary_based_on,
@@ -92,42 +95,43 @@ function EditAndShowPaysheadule(props: any) {
     fetchData();
   }, []);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    enableReinitialize: true,
-    onSubmit: async (values, action) => {
-      console.log(values.which_day, "valuesinsideonsubmit");
-      const submitVAlue = {
-        select_work_week: values.select_work_week,
-        calculate_salary_based_on: values.calculate_salary_based_on,
-        pay_your_employee_on:
-          values.payemployeeon == "days"
-            ? "Day" + " " + values.which_day + " of every month"
-            : values.pay_your_employee_on,
-        start_first_payroll: nextpayrun.month[0],
-        salary_month_willbe_paidon: values.salary_month_willbe_paidon,
-      };
-      try {
-        const response = await axios.put(
-          `${process.env.REACT_APP_BACKEND_URL}/mg_payschedule`,
-          submitVAlue,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      enableReinitialize: true,
+      onSubmit: async (values, action) => {
+        console.log(values.which_day, "valuesinsideonsubmit");
+        const submitVAlue = {
+          select_work_week: values.select_work_week,
+          calculate_salary_based_on: values.calculate_salary_based_on,
+          pay_your_employee_on:
+            values.payemployeeon == "days"
+              ? "Day" + " " + values.which_day + " of every month"
+              : values.pay_your_employee_on,
+          start_first_payroll: nextpayrun.month[0],
+          salary_month_willbe_paidon: values.salary_month_willbe_paidon,
+        };
+        try {
+          const response = await axios.put(
+            `${process.env.REACT_APP_BACKEND_URL}/mg_payschedule`,
+            submitVAlue,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.status === 200) {
+            console.log("Updated Successfully");
+            // window.location.reload();
+            // action.resetForm();
           }
-        );
-        if (response.status === 200) {
-          console.log("Updated Successfully");
-          // window.location.reload();
-          // action.resetForm();
+        } catch (error) {
+          console.error("Error saving data:", error);
         }
-      } catch (error) {
-        console.error("Error saving data:", error);
-      }
-    },
-  });
+      },
+    });
 
   function formatDate(inputDate: any) {
     var dateObject = new Date(inputDate);
@@ -143,7 +147,10 @@ function EditAndShowPaysheadule(props: any) {
       var formattedDate = [day + "-" + month + "-" + year];
     }
     if (day >= 20) {
-      var formattedDate = [day + "-" + month1 + "-" + year, day + "-" + month2 + "-" + year];
+      var formattedDate = [
+        day + "-" + month1 + "-" + year,
+        day + "-" + month2 + "-" + year,
+      ];
     }
 
     return formattedDate;
@@ -165,7 +172,13 @@ function EditAndShowPaysheadule(props: any) {
                   Change Pay Day
                 </MDTypography>
               </Grid>
-              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                display="flex"
+                justifyContent="flex-end"
+              >
                 <IconButton
                   size="small"
                   aria-label="close"
@@ -202,7 +215,10 @@ function EditAndShowPaysheadule(props: any) {
                       <Grid container spacing={2} p={2}>
                         <MDTypography variant="body2">day</MDTypography>
                         <MDInput
-                          disabled={values.payemployeeon === "The Last Working Day Of Every Month"}
+                          disabled={
+                            values.payemployeeon ===
+                            "The Last Working Day Of Every Month"
+                          }
                           name="which_day"
                           type="number"
                           value={values.which_day}
@@ -210,7 +226,9 @@ function EditAndShowPaysheadule(props: any) {
                           size="small"
                           sx={{ width: "15%" }}
                         />
-                        <MDTypography variant="body2">of every month</MDTypography>
+                        <MDTypography variant="body2">
+                          of every month
+                        </MDTypography>
                       </Grid>
                     }
                   />
@@ -224,7 +242,9 @@ function EditAndShowPaysheadule(props: any) {
               <Grid item xs={12} sm={4}>
                 <Autocomplete
                   onChange={(_event, value) => {
-                    handleChange({ target: { name: "salary_month_willbe_paidon", value } });
+                    handleChange({
+                      target: { name: "salary_month_willbe_paidon", value },
+                    });
                   }}
                   options={salary_selected_month}
                   renderInput={(params) => (
@@ -244,8 +264,19 @@ function EditAndShowPaysheadule(props: any) {
 
             <hr />
             <Grid container spacing={3} py={1}>
-              <Grid item xs={12} sm={12} display="flex" justifyContent="flex-end">
-                <Grid container spacing={3} display="flex" justifyContent="flex-end">
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                display="flex"
+                justifyContent="flex-end"
+              >
+                <Grid
+                  container
+                  spacing={3}
+                  display="flex"
+                  justifyContent="flex-end"
+                >
                   <Grid item>
                     <MDButton
                       variant="outlined"
@@ -301,14 +332,20 @@ function EditAndShowPaysheadule(props: any) {
               <Grid item xs={12} sm={8}>
                 <MDTypography variant="inherit">
                   {sheaduledata.pay_your_employee_on}
-                  <MDButton onClick={() => setOpenPopup(true)}>{"(Change)"}</MDButton>
+                  <MDButton onClick={() => setOpenPopup(true)}>
+                    {"(Change)"}
+                  </MDButton>
                 </MDTypography>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <MDTypography variant="subtitle2">First Pay Period</MDTypography>
+                <MDTypography variant="subtitle2">
+                  First Pay Period
+                </MDTypography>
               </Grid>
               <Grid item xs={12} sm={8}>
-                <MDTypography variant="inherit">{sheaduledata.start_first_payroll}</MDTypography>
+                <MDTypography variant="inherit">
+                  {sheaduledata.start_first_payroll}
+                </MDTypography>
               </Grid>
             </Grid>
           </Card>
