@@ -438,7 +438,9 @@ export default function LeaveDashboard() {
               </Grid>
             </MDBox>
           </Grid> */}
-          <Grid item sm={12}>
+
+          {/* lEAVE TREND  */}
+          {/* <Grid item sm={12}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>
                 <Grid item sm={8}>
@@ -478,7 +480,7 @@ export default function LeaveDashboard() {
                 />
               </Grid>
             </MDBox>
-          </Grid>
+          </Grid> */}
           {/* <Grid item sm={6}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>
@@ -517,6 +519,129 @@ export default function LeaveDashboard() {
               </Grid>
             </MDBox>
           </Grid> */}
+          <Grid item sm={6}>
+            <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
+              <Grid container spacing={3} p={2}>
+                <Grid item sm={8} pb={1}>
+                  {" "}
+                  <MDTypography>Attendance</MDTypography>
+                </Grid>
+                <Grid item sm={4} pb={1}>
+                  {" "}
+                  <MDTypography
+                    component={Link}
+                    to="/pages/leavereport/detailedattendance"
+                    variant="button"
+                    color="info"
+                    fontWeight="medium"
+                    textGradient
+                  >
+                    Detailed Report{" "}
+                  </MDTypography>
+                </Grid>
+              </Grid>
+
+              <Grid sm={12} textAlign={"center"} pb={1}>
+                {" "}
+                <PieChart
+                  series={[
+                    {
+                      data: attendancedata,
+                      highlightScope: { faded: "global", highlighted: "item" },
+                      faded: { innerRadius: 30, additionalRadius: -30 },
+                    },
+                  ]}
+                  height={200}
+                />
+              </Grid>
+            </MDBox>
+          </Grid>
+          <Grid item sm={6}>
+            <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
+              <Grid item sm={12} p={2}>
+                {" "}
+                <MDTypography>Other Reports</MDTypography>
+              </Grid>
+              <Grid item sm={12} pl={2}>
+                {" "}
+                <MDTypography
+                  component={Link}
+                  to="/pages/leavereport/dailyleavestatus"
+                  variant="button"
+                  color="info"
+                  fontWeight="medium"
+                  textGradient
+                >
+                  Daily leave status{" "}
+                </MDTypography>
+              </Grid>
+              <Grid item sm={12} pl={2}>
+                {" "}
+                <MDTypography
+                  component={Link}
+                  to="/pages/leavereport/resourceavailbility"
+                  variant="button"
+                  color="info"
+                  fontWeight="medium"
+                  textGradient
+                >
+                  Resource availability{" "}
+                </MDTypography>
+              </Grid>
+              <Grid item sm={12} pl={2}>
+                {" "}
+                <MDTypography
+                  component={Link}
+                  to="/pages/leavereport/leavebalance"
+                  variant="button"
+                  color="info"
+                  fontWeight="medium"
+                  textGradient
+                >
+                  Employee leave balance{" "}
+                </MDTypography>
+              </Grid>
+              <Grid item sm={12} pl={2}>
+                {" "}
+                <MDTypography
+                  component={Link}
+                  to="/pages/leavereport/leavebookedandbalance"
+                  variant="button"
+                  color="info"
+                  fontWeight="medium"
+                  textGradient
+                >
+                  Leave booked and balance
+                </MDTypography>
+              </Grid>
+              <Grid item sm={12} pl={2}>
+                {" "}
+                <MDTypography
+                  component={Link}
+                  to="/pages/leavereport/leavetypewisesummary"
+                  variant="button"
+                  color="info"
+                  fontWeight="medium"
+                  textGradient
+                >
+                  Leave Typewise summary
+                </MDTypography>
+              </Grid>
+              <Grid item sm={12} pl={2} pb={2.5}>
+                {" "}
+                <MDTypography
+                  component={Link}
+                  to="/pages/leavereport/employeeattandancestatus"
+                  variant="button"
+                  color="info"
+                  fontWeight="medium"
+                  textGradient
+                >
+                  Attandance status{" "}
+                </MDTypography>
+              </Grid>
+            </MDBox>
+          </Grid>
           <Grid item sm={6}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>
@@ -665,129 +790,6 @@ export default function LeaveDashboard() {
                   // width={550}
                   height={200}
                 />
-              </Grid>
-            </MDBox>
-          </Grid>
-          <Grid item sm={6}>
-            <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
-              <Grid container spacing={3} p={2}>
-                <Grid item sm={8} pb={1}>
-                  {" "}
-                  <MDTypography>Attendance</MDTypography>
-                </Grid>
-                <Grid item sm={4} pb={1}>
-                  {" "}
-                  <MDTypography
-                    component={Link}
-                    to="/pages/leavereport/detailedattendance"
-                    variant="button"
-                    color="info"
-                    fontWeight="medium"
-                    textGradient
-                  >
-                    Detailed Report{" "}
-                  </MDTypography>
-                </Grid>
-              </Grid>
-
-              <Grid sm={12} textAlign={"center"} pb={1}>
-                {" "}
-                <PieChart
-                  series={[
-                    {
-                      data: attendancedata,
-                      highlightScope: { faded: "global", highlighted: "item" },
-                      faded: { innerRadius: 30, additionalRadius: -30 },
-                    },
-                  ]}
-                  height={200}
-                />
-              </Grid>
-            </MDBox>
-          </Grid>
-          <Grid item sm={6}>
-            <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
-              <Grid item sm={12}>
-                {" "}
-                <MDTypography>Other Reports</MDTypography>
-              </Grid>
-              <Grid item sm={12}>
-                {" "}
-                <MDTypography
-                  component={Link}
-                  to="/pages/leavereport/dailyleavestatus"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Daily leave status{" "}
-                </MDTypography>
-              </Grid>
-              <Grid item sm={12}>
-                {" "}
-                <MDTypography
-                  component={Link}
-                  to="/pages/leavereport/resourceavailbility"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Resource availability{" "}
-                </MDTypography>
-              </Grid>
-              <Grid item sm={12}>
-                {" "}
-                <MDTypography
-                  component={Link}
-                  to="/pages/leavereport/leavebalance"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Employee leave balance{" "}
-                </MDTypography>
-              </Grid>
-              <Grid item sm={12}>
-                {" "}
-                <MDTypography
-                  component={Link}
-                  to="/pages/leavereport/leavebookedandbalance"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Leave booked and balance
-                </MDTypography>
-              </Grid>
-              <Grid item sm={12}>
-                {" "}
-                <MDTypography
-                  component={Link}
-                  to="/pages/leavereport/leavetypewisesummary"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Leave TypeWise summery
-                </MDTypography>
-              </Grid>
-              <Grid item sm={12}>
-                {" "}
-                <MDTypography
-                  component={Link}
-                  to="/pages/leavereport/employeeattandancestatus"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Attandance status{" "}
-                </MDTypography>
               </Grid>
             </MDBox>
           </Grid>

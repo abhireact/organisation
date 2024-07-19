@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
-import Grid from "@mui/material/Grid";
 import MDButton from "components/MDButton";
 import FormField from "layouts/ecommerce/products/new-product/components/FormField";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -13,10 +12,21 @@ import * as Yup from "yup";
 import axios from "axios";
 import { message } from "antd";
 import Cookies from "js-cookie";
+import { Icon, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 const token = Cookies.get("token");
 const initialValues = {
   year: "",
 };
+interface DeductionData {
+  [key: string]: number;
+  "Pension Funds": number;
+  "Health Insurance ": number;
+  "Loan - Education Loan": number;
+  "Loan - Home  loan": number;
+  "Child Education": number;
+  total_deduction: number;
+}
 
 const validationSchema = Yup.object().shape({
   year: Yup.date()
@@ -31,8 +41,12 @@ const validationSchema = Yup.object().shape({
 });
 
 const Pre_Tax_Deductions_Summary = () => {
-  const [data, setData] = useState([]);
-  const [apidata, setApidata] = useState<{ columns: any[]; rows: any[] }>({
+  const navigate = useNavigate();
+  const [data, setData] = useState<DeductionData | null>(null);
+  const [apiData, setApiData] = useState<{
+    columns: any[];
+    rows: DeductionData[];
+  }>({
     columns: [],
     rows: [],
   });
@@ -43,7 +57,7 @@ const Pre_Tax_Deductions_Summary = () => {
       validationSchema,
       onSubmit: async () => {
         try {
-          const response = await axios.get(
+          const response = await axios.get<DeductionData>(
             `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/report/pre_tax_deduction?year=${values.year}`,
             {
               headers: {
@@ -53,7 +67,7 @@ const Pre_Tax_Deductions_Summary = () => {
             }
           );
 
-          if (response.data.length === 0) {
+          if (Object.keys(response.data).length === 0) {
             message.error("No Data Found");
           } else {
             setData(response.data);
@@ -64,43 +78,66 @@ const Pre_Tax_Deductions_Summary = () => {
       },
     });
 
+  const trimKeys = (obj: DeductionData): { [key: string]: number } => {
+    const result: { [key: string]: number } = {};
+    Object.keys(obj).forEach((key) => {
+      result[key.trim()] = obj[key];
+    });
+    return result;
+  };
+
   useEffect(() => {
-    if (data.length > 0) {
-      setApidata({
+    if (data) {
+      const trimmedData = trimKeys(data);
+
+      const roundedData: DeductionData = {
+        "Pension Funds": roundOff(trimmedData["Pension Funds"]),
+        "Health Insurance": roundOff(trimmedData["Health Insurance"]),
+        "Loan - Education Loan": roundOff(trimmedData["Loan - Education Loan"]),
+        "Loan - Home  loan": roundOff(trimmedData["Loan - Home  loan"]),
+        "Child Education": roundOff(trimmedData["Child Education"]),
+        total_deduction: roundOff(trimmedData["total_deduction"]),
+        "Health Insurance ": 0,
+      };
+
+      setApiData({
         columns: [
-          { Header: "Pension Funds", accessor: "Pension Funds", width: "10%" },
+          { Header: "Pension Funds", accessor: "Pension Funds", width: "20%" },
           {
-            Header: "EMPLOYEE NAME",
-            accessor: "Health Insurance ",
-            width: "10%",
+            Header: "Health Insurance",
+            accessor: "Health Insurance",
+            width: "20%",
           },
           {
-            Header: "EMPLOYEE'S CONTRIBUTION",
+            Header: "Loan - Education Loan",
             accessor: "Loan - Education Loan",
-            width: "10%",
+            width: "20%",
           },
           {
-            Header: "EMPLOYER'S CONTRIBUTION",
-            accessor: "Loan - Home Loan",
-            width: "10%",
+            Header: "Loan - Home  loan",
+            accessor: "Loan - Home  loan",
+            width: "20%",
           },
           {
-            Header: "TOTAL CONTRIBUTION",
+            Header: "Child Education",
             accessor: "Child Education",
-            width: "10%",
+            width: "20%",
+          },
+          {
+            Header: "Total Deduction",
+            accessor: "total_deduction",
+            width: "20%",
           },
         ],
-        rows: data?.map((item: any) => ({
-          item: item.item,
-          cross_reference: item.cross_reference,
-          trx_number: item.trx_number,
-          trx_date: item.trx_date,
-          customer_name: item.customer_name,
-          supplier: item.supplier,
-        })),
+        rows: [roundedData],
       });
     }
   }, [data]);
+
+  const roundOff = (value: number): number => {
+    return Math.round(value);
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -139,6 +176,22 @@ const Pre_Tax_Deductions_Summary = () => {
             </MDButton>
           </MDBox>
           <Card sx={{ width: "80%", margin: "auto" }}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{ textAlign: "right" }}
+              mx={4}
+              mt={2}
+            >
+              <Icon
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                close
+              </Icon>
+            </Grid>
             <MDBox p={5}>
               <MDTypography variant="h5" sx={{ textAlign: "center" }}>
                 Mindcom
@@ -146,11 +199,8 @@ const Pre_Tax_Deductions_Summary = () => {
               <MDTypography variant="subtitle1" sx={{ textAlign: "center" }}>
                 Pre-Tax Deductions Summary
               </MDTypography>
-              {/* <MDTypography variant="body2" sx={{ textAlign: "center" }}>
-                Deduction period from 01/04/2023 to 31/03/2024
-              </MDTypography> */}
             </MDBox>
-            <DataTable table={apidata} />
+            <DataTable table={apiData} />
           </Card>
         </Grid>
       </form>

@@ -1,78 +1,175 @@
-import React from "react";
-import { Card } from "@mui/material";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import MDBox from "components/MDBox";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useEffect, useState } from "react";
+import Card from "@mui/material/Card";
 import MDTypography from "components/MDTypography";
+import MDBox from "components/MDBox";
+import Grid from "@mui/material/Grid";
+import MDButton from "components/MDButton";
+import FormField from "layouts/ecommerce/products/new-product/components/FormField";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
-
-const dataTableData = {
-  columns: [
-    { Header: "EMPLOYEE ID", accessor: "employee_id" },
-    { Header: "EMPLOYEE NAME", accessor: "employee_name" },
-    { Header: "ESI NUMBER", accessor: "esi_number" },
-    { Header: "EMPLOYEES' CONTRIBUTION", accessor: "employees_contribution" },
-    {
-      Header: "EMPLOYER'S CONTRIBUTION",
-      accessor: "employers_contribution",
-    },
-    { Header: "TOTAL CONTRIBUTION", accessor: "total_contribution" },
-  ],
-  rows: [
-    {
-      employee_id: "lkjk",
-      employee_name: "Lara Puleque",
-      esi_number: 9867,
-      employees_contribution: 8776,
-      employers_contribution: 9869,
-      total_contribution: "87687",
-    },
-    {
-      employee_id: "nbmn",
-      employee_name: "Puleque",
-      esi_number: 8760,
-      employees_contribution: 98722,
-      employers_contribution: 7657,
-      total_contribution: 987789,
-    },
-    {
-      employee_id: "8668",
-      employee_name: "leque",
-      esi_number: 9876,
-      employees_contribution: 987232,
-      employers_contribution: 546,
-      total_contribution: 76575,
-    },
-    {
-      employee_id: "5676",
-      employee_name: "leoo",
-      esi_number: 9756,
-      employees_contribution: 7232,
-      employers_contribution: 7890,
-      total_contribution: 97890,
-    },
-  ],
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import { message } from "antd";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { Icon } from "@mui/material";
+const token = Cookies.get("token");
+const initialValues = {
+  year: "",
 };
-const ESIC_Summary = () => {
+
+const validationSchema = Yup.object().shape({
+  year: Yup.date()
+    .required("Year is Required *")
+    .test("valid-year", "Incorrect format ", function (value) {
+      if (value) {
+        const year = new Date(value).getFullYear();
+        return year >= 2000 && year <= 3000;
+      }
+      return true;
+    }),
+});
+
+function ESIC_Summary(): JSX.Element {
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const [apidata, setApidata] = useState<{ columns: any[]; rows: any[] }>({
+    columns: [],
+    rows: [],
+  });
+
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema,
+      onSubmit: async () => {
+        try {
+          const response = await axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/report/liability_report`,
+            values,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (response.data.length === 0) {
+            message.error("No Data Found");
+          } else {
+            setData(response.data);
+          }
+        } catch (error: any) {
+          message.error(error.response.data.detail);
+        }
+      },
+    });
+  const roundOff = (value: number): number => {
+    return Math.round(value);
+  };
+  useEffect(() => {
+    if (data.length > 0) {
+      const filteredData = data.filter((item: any) => item.liability === "ESI");
+
+      setApidata({
+        columns: [
+          // { Header: "LIABILITY", accessor: "liability", width: "25%" },
+          {
+            Header: "EMPLOYEES' CONTRIBUTION",
+            accessor: "emp_amt",
+            width: "25%",
+          },
+          {
+            Header: "EMPLOYER'S CONTRIBUTION",
+            accessor: "empr_amt",
+            width: "25%",
+          },
+          {
+            Header: "TOTAL CONTRIBUTION",
+            accessor: "total",
+            width: "25%",
+          },
+        ],
+        rows: filteredData.map((item: any) => ({
+          // liability: item.liability,
+          emp_amt: roundOff(item.emp_amt),
+          empr_amt: roundOff(item.empr_amt),
+          total: roundOff(item.emp_amt + item.empr_amt),
+        })),
+      });
+    }
+  }, [data]);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Card sx={{ width: "80%", margin: "auto", mt: "4%" }}>
-        <MDBox p={5}>
-          <MDTypography variant="h5" sx={{ textAlign: "center" }}>
-            Mindcom
-          </MDTypography>
-          <MDTypography variant="subtitle1" sx={{ textAlign: "center" }}>
-            ESI Summary
-          </MDTypography>
-          <MDTypography variant="subtitle1" sx={{ textAlign: "center" }}>
-            Contribution period from 01/09/2023 to 30/09/2023
-          </MDTypography>
-        </MDBox>
-        <DataTable table={dataTableData} />
-      </Card>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={2}>
+            <FormField
+              label="Year"
+              name="year"
+              value={values.year}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText="2023-2024"
+              required
+              error={errors.year && touched.year}
+            />
+            {errors.year && touched.year ? (
+              <MDTypography
+                variant="caption"
+                fontWeight="regular"
+                color="error"
+              >
+                {errors.year}
+              </MDTypography>
+            ) : null}
+          </Grid>
+          <MDBox p={2} mt={1.5}>
+            <MDButton
+              variant="gradient"
+              color="info"
+              style={{ marginRight: "10px" }}
+              type="submit"
+              size="small"
+            >
+              Search
+            </MDButton>
+          </MDBox>
+          <Card sx={{ width: "80%", margin: "auto" }}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{ textAlign: "right" }}
+              mx={4}
+              mt={2}
+            >
+              <Icon
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                close
+              </Icon>
+            </Grid>
+            <MDBox p={5}>
+              <MDTypography variant="h5" sx={{ textAlign: "center" }}>
+                MindCom
+              </MDTypography>
+              <MDTypography variant="subtitle1" sx={{ textAlign: "center" }}>
+                ESI Summary
+              </MDTypography>
+            </MDBox>
+            <DataTable table={apidata} />
+          </Card>
+        </Grid>
+      </form>
     </DashboardLayout>
   );
-};
-
+}
 export default ESIC_Summary;

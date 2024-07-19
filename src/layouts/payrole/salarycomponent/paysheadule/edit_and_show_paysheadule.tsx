@@ -27,7 +27,7 @@ import Cookies from "js-cookie";
 const token = Cookies.get("token");
 import Financialyear from "./financialyear";
 function EditAndShowPaysheadule(props: any) {
-  const ExistingData = props.data[0];
+  const ExistingData = props?.data[0];
   interface NextPayRun {
     month: string[];
     date: string[]; // Adjust the type as per the actual data structure

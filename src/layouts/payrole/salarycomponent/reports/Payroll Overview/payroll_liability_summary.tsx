@@ -12,6 +12,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { message } from "antd";
+import { useNavigate } from "react-router-dom";
+import { Icon } from "@mui/material";
 import Cookies from "js-cookie";
 const token = Cookies.get("token");
 const initialValues = {
@@ -32,11 +34,14 @@ const validationSchema = Yup.object().shape({
 
 function payrollLiabilitySummary(): JSX.Element {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const [apidata, setApidata] = useState<{ columns: any[]; rows: any[] }>({
     columns: [],
     rows: [],
   });
-
+  const roundOff = (value: number): number => {
+    return Math.round(value);
+  };
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: initialValues,
@@ -88,9 +93,9 @@ function payrollLiabilitySummary(): JSX.Element {
         ],
         rows: data?.map((item: any) => ({
           liability: item.liability,
-          emp_amt: item.emp_amt,
-          empr_amt: item.empr_amt,
-          total: item.total,
+          emp_amt: roundOff(item.emp_amt),
+          empr_amt: roundOff(item.empr_amt),
+          total: roundOff(item.emp_amt + item.empr_amt),
         })),
       });
     }
@@ -134,6 +139,22 @@ function payrollLiabilitySummary(): JSX.Element {
             </MDButton>
           </MDBox>
           <Card sx={{ width: "80%", margin: "auto" }}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{ textAlign: "right" }}
+              mx={4}
+              mt={2}
+            >
+              <Icon
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                close
+              </Icon>
+            </Grid>
             <MDBox p={5}>
               <MDTypography variant="h5" sx={{ textAlign: "center" }}>
                 MindCom

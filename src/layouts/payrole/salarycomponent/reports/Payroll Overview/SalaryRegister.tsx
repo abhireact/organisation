@@ -7,6 +7,8 @@ import axios from "axios";
 import DataTable from "examples/Tables/DataTable";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Cookies from "js-cookie";
+import { Icon, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 const token = Cookies.get("token");
 
 const SalaryRegister = () => {
@@ -14,7 +16,7 @@ const SalaryRegister = () => {
     columns: [],
     rows: [],
   });
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,7 +29,6 @@ const SalaryRegister = () => {
             },
           }
         );
-        console.log(response.data);
 
         setTableData({
           columns: [
@@ -81,6 +82,15 @@ const SalaryRegister = () => {
     <DashboardLayout>
       <DashboardNavbar />
       <Card sx={{ width: "80%", margin: "auto" }}>
+        <Grid item xs={12} sm={12} sx={{ textAlign: "right" }} mx={4} mt={2}>
+          <Icon
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            close
+          </Icon>
+        </Grid>
         <MDBox p={5}>
           <MDTypography variant="h5" sx={{ textAlign: "center" }}>
             Mindcom

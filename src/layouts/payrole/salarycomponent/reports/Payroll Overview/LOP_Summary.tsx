@@ -14,6 +14,8 @@ import axios from "axios";
 import { message } from "antd";
 
 import Cookies from "js-cookie";
+import { Icon } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 const token = Cookies.get("token");
 const initialValues = {
   year: "",
@@ -31,6 +33,7 @@ const validationSchema = Yup.object().shape({
     }),
 });
 const LOP_Summary = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [apidata, setApidata] = useState<{ columns: any[]; rows: any[] }>({
     columns: [],
@@ -70,12 +73,12 @@ const LOP_Summary = () => {
       setApidata({
         columns: [
           { Header: "Employee Name", accessor: "emp_name", width: "10%" },
-          { Header: "Total Days", accessor: "total_days", width: "10%" },
+          // { Header: "Total Days", accessor: "total_days", width: "10%" },
           { Header: "LOP", accessor: "lop", width: "10%" },
         ],
         rows: data?.map((item: any) => ({
           emp_name: item.emp_name,
-          total_days: item.total_days,
+          // total_days: item.total_days,
           lop: item.lop,
         })),
       });
@@ -119,6 +122,22 @@ const LOP_Summary = () => {
             </MDButton>
           </MDBox>
           <Card sx={{ width: "80%", margin: "auto" }}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{ textAlign: "right" }}
+              mx={4}
+              mt={2}
+            >
+              <Icon
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                close
+              </Icon>
+            </Grid>
             <MDBox p={5}>
               <MDTypography variant="h5" sx={{ textAlign: "center" }}>
                 Mindcom
@@ -127,7 +146,7 @@ const LOP_Summary = () => {
                 LOP Summary
               </MDTypography>
             </MDBox>
-            <DataTable table={apidata} />
+            <DataTable table={apidata} isSorted={false} />
           </Card>
         </Grid>
       </form>
