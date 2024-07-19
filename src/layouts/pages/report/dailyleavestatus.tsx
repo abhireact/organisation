@@ -36,10 +36,12 @@ interface YourDataInterface {
 type LeaveDataProps = {
   targetDate: string;
 };
+let today = new Date().toISOString().split("T")[0];
+
 const Dailyleave = () => {
   const todayDate = new Date();
   const formattedDate = todayDate.toISOString().split("T")[0];
-  const [date, setDate] = useState("2023-10-03"); //
+  const [date, setDate] = useState(today); //
 
   // Function to add one day
   const addOneDay = () => {

@@ -99,8 +99,11 @@ function CoverLogin() {
         // Cookies.set("token", res.data.access_token, { httpOnly: true });
         const token = res.data.access_token;
         Cookies.set("token", token, { expires: 7 });
-        navigate("/pages/organisations/new-organisation");
-        message.success("Login Successful");
+        navigate("/dashboards/analytics");
+        setTimeout(() => {
+          window.location.reload();
+          message.success("Login Successful");
+        }, 0);
         // window.location.reload();
       } else {
         message.error("Invalid email or password");
