@@ -17,6 +17,7 @@ const Variable_Pay_Earnings_report = () => {
     rows: [],
   });
   const navigate = useNavigate();
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -44,7 +45,7 @@ const Variable_Pay_Earnings_report = () => {
         ],
         rows: response.data.map((employee: any) => ({
           emp_name: employee.emp_name,
-          amount: employee.amount,
+          amount: parseFloat(employee.amount).toFixed(2),
         })),
       });
     } catch (error: any) {
