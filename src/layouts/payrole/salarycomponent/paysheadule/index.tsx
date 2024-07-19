@@ -10,6 +10,7 @@ import { message } from "antd";
 const token = Cookies.get("token");
 function CreatePage() {
   const [pagestatus, setPageStatus] = useState("create");
+  const [existData, setExistData] = useState("create");
   const fetchData = async () => {
     try {
       axios
@@ -20,6 +21,7 @@ function CreatePage() {
           },
         })
         .then((response) => {
+          setExistData(response.data);
           setPageStatus("edit");
         })
         .catch((error) => {
@@ -38,7 +40,7 @@ function CreatePage() {
       {pagestatus === "create" ? (
         <CreatePaysheadule />
       ) : pagestatus === "edit" ? (
-        <CreateAndShowPaysheadule />
+        <CreateAndShowPaysheadule data={existData} />
       ) : null}
     </DashboardLayout>
   );
