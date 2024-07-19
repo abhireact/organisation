@@ -86,7 +86,7 @@ const Pdfdown = (props: any) => {
     entertainment_allowance: 0,
     tax_on_employment: 0,
     total_amount_of_deduction: 0,
-    income_chargeable: 0,
+    income_charageable: 0,
     income_from_house_property: 0,
     income_under_the_head_source: 0,
     total_amount_of_other_income: 0,
@@ -100,7 +100,7 @@ const Pdfdown = (props: any) => {
     aggregate_of_deductible_amount: 0,
     total_tax_incomme: 0,
     rebate_under_section_87A: 0,
-    tax_after_rebate_under_section_87A: 0,
+    tax_amount: 0,
     health_and_education_cess: 0,
     tax_payable: 0,
     net_tax_payable: 0,
@@ -108,7 +108,7 @@ const Pdfdown = (props: any) => {
   useEffect(() => {
     axios
       .post(
-        `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/generate_pay_report/form16`,
+        `${process.env.REACT_APP_BACKEND_URL}/employee_salary_details/retrive/form16`,
 
         {
           email: emaildata,
@@ -121,11 +121,13 @@ const Pdfdown = (props: any) => {
         }
       )
       .then((response) => {
-        if (response.status === 404) {
-          setOpenupdate(true);
-          message.error("No Data Available");
+        if (response.data.length < 1) {
+          setOpenupdate(false);
+          message.error("Annual CTC is less than 2.6 Lakh");
+          return;
+        } else {
+          setData(response.data[0].data);
         }
-        setData(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -415,7 +417,7 @@ const Pdfdown = (props: any) => {
               <td style={tdStyle}></td>
               <td style={tdStyle}></td>
               <td style={tdStyle}>
-                {data.income_chargeable ? data.income_chargeable : 0}
+                {data.income_charageable ? data.income_charageable : 0}
               </td>
             </tr>
             <tr>
@@ -705,8 +707,8 @@ const Pdfdown = (props: any) => {
               <td style={tdStyle}></td>
               <td style={tdStyle}></td>
               <td style={tdStyle}>
-                {data.tax_after_rebate_under_section_87A
-                  ? data.tax_after_rebate_under_section_87A
+                {data.tax_amount
+                  ? data.tax_amount
                   : 0}
               </td>
             </tr>

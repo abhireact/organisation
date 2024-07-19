@@ -27,7 +27,7 @@ const Employeesm = () => {
 
   const [emaildata, setEmaildata] = useState("");
   const [openupdate, setOpenupdate] = useState(false);
-  const [showbutton, setShowbutton] = useState(false);// if form 16 is generated , status : true otherwise false
+  const [showbutton, setShowbutton] = useState(false); // if form 16 is generated , status : true otherwise false
   const handleOpenupdate = (main_data: any) => {
     console.log(main_data, "maindata");
 
@@ -123,12 +123,10 @@ const Employeesm = () => {
       { Header: "Action", accessor: "action", width: "20%" },
     ],
     rows: data.map((row, index) => ({
-      name: (
-        <MDTypography variant="p">
-          {row.first_name} {row.last_name}
-        </MDTypography>
-      ),
-      email: <MDTypography variant="p">{row.email}</MDTypography>,
+      name: `
+          ${row.first_name} ${row.last_name ? row.last_name : ""}
+      `,
+      email: row.email,
       action: (
         <MDTypography variant="p">
           <IconButton
@@ -209,9 +207,10 @@ const Employeesm = () => {
           </Dialog>
           <DataTable
             table={dataTableData}
+            canSearch
             entriesPerPage={{
-              defaultValue: 5,
-              entries: [5, 10, 15, 20, 25],
+              defaultValue: 30,
+              entries: [5, 10, 15, 20, 25,30],
             }}
           />
         </Grid>

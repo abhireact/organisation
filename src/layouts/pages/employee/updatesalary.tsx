@@ -534,7 +534,7 @@ function Createsalary() {
                   ).toFixed(2)
                 )
               : deduction.calculation_type === "Flat Amount"
-              ? parseFloat(deduction.enter_amount_or_percent.toFixed(2))
+              ? parseFloat(deduction.enter_amount_or_percent).toFixed(2)
               : deduction.calculation_type === "% of Basic"
               ? parseFloat(
                   ((basic / 100) * deduction.enter_amount_or_percent).toFixed(2)
