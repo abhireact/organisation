@@ -12,8 +12,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
+import { Icon } from "@mui/material";
 const token = Cookies.get("token");
 const initialValues = {
   year: "",
@@ -33,6 +35,7 @@ const validationSchema = Yup.object().shape({
 
 const Leave_Encashment_Summary = () => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const [apidata, setApidata] = useState<{ columns: any[]; rows: any[] }>({
     columns: [],
     rows: [],
@@ -114,6 +117,22 @@ const Leave_Encashment_Summary = () => {
             </MDButton>
           </MDBox>
           <Card sx={{ width: "80%", margin: "auto" }}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{ textAlign: "right" }}
+              mx={4}
+              mt={2}
+            >
+              <Icon
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                close
+              </Icon>
+            </Grid>
             <MDBox p={5}>
               <MDTypography variant="h5" sx={{ textAlign: "center" }}>
                 Mindcom
@@ -122,7 +141,7 @@ const Leave_Encashment_Summary = () => {
                 Leave Encashment Summary
               </MDTypography>
             </MDBox>
-            <DataTable table={apidata} />
+            <DataTable table={apidata} isSorted={false} />
           </Card>
         </Grid>
       </form>
