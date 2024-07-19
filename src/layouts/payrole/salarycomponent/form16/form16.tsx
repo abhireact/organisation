@@ -27,7 +27,7 @@ const Employeesm = () => {
 
   const [emaildata, setEmaildata] = useState("");
   const [openupdate, setOpenupdate] = useState(false);
-  const [showbutton, setShowbutton] = useState(true);
+  const [showbutton, setShowbutton] = useState(false);// if form 16 is generated , status : true otherwise false
   const handleOpenupdate = (main_data: any) => {
     console.log(main_data, "maindata");
 
@@ -106,6 +106,9 @@ const Employeesm = () => {
         }
       )
       .then((response) => {
+        if (response.status == 200) {
+          message.success("Form 16 is Generated");
+        }
         console.log("form 16 for employees", response.data);
       })
       .catch((error) => {

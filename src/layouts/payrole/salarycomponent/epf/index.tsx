@@ -259,7 +259,7 @@ const Epf = () => {
                     onClick={() => handleDelete(getdata.epf_number)}
                   >
                     <DeleteForeverIcon />
-                    Disable ESI
+                    Disable EPF
                   </MDButton>
                 </Grid>
               </MDBox>

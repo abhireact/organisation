@@ -120,7 +120,9 @@ function Payroll_summary(): JSX.Element {
     // Convert the Set to an array if needed
     des_name.push(...uniqueDesignationNames);
   }
-
+  const roundOff = (value: any): number => {
+    return Math.round(value);
+  };
   // console.log(des_name, "DesignationName");
   const [showReport, setShowReport] = useState(false);
   return (
@@ -319,7 +321,9 @@ function Payroll_summary(): JSX.Element {
                     key={key + value}
                     sx={{ textAlign: "right" }}
                   >
-                    <MDTypography variant="button">₹{value}</MDTypography>
+                    <MDTypography variant="button">
+                      ₹{roundOff(value)}
+                    </MDTypography>
                   </Grid>
                 </>
               ))}
@@ -344,7 +348,9 @@ function Payroll_summary(): JSX.Element {
                     key={key + value}
                     sx={{ textAlign: "right" }}
                   >
-                    <MDTypography variant="button">₹{value}</MDTypography>
+                    <MDTypography variant="button">
+                      ₹{roundOff(value)}
+                    </MDTypography>
                   </Grid>
                 </>
               ))}
@@ -369,7 +375,9 @@ function Payroll_summary(): JSX.Element {
                     key={key + value}
                     sx={{ textAlign: "right" }}
                   >
-                    <MDTypography variant="button">₹{value}</MDTypography>
+                    <MDTypography variant="button">
+                      ₹{roundOff(value)}
+                    </MDTypography>
                   </Grid>
                 </>
               ))}
@@ -394,7 +402,9 @@ function Payroll_summary(): JSX.Element {
                     key={key + value}
                     sx={{ textAlign: "right" }}
                   >
-                    <MDTypography variant="button">₹{value}</MDTypography>
+                    <MDTypography variant="button">
+                      ₹{roundOff(value)}
+                    </MDTypography>
                   </Grid>
                 </>
               ))}
@@ -419,7 +429,9 @@ function Payroll_summary(): JSX.Element {
                     key={key + value}
                     sx={{ textAlign: "right" }}
                   >
-                    <MDTypography variant="button">₹{value}</MDTypography>
+                    <MDTypography variant="button">
+                      ₹{roundOff(value)}
+                    </MDTypography>
                   </Grid>
                 </>
               ))}
@@ -445,7 +457,9 @@ function Payroll_summary(): JSX.Element {
                     key={key + value}
                     sx={{ textAlign: "right" }}
                   >
-                    <MDTypography variant="button">₹{value}</MDTypography>
+                    <MDTypography variant="button">
+                      ₹{roundOff(value)}
+                    </MDTypography>
                   </Grid>
                 </>
               ))}
@@ -457,14 +471,14 @@ function Payroll_summary(): JSX.Element {
               <MDTypography variant="h6">Net Pay</MDTypography>
             </Grid>
             <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
-              <MDTypography variant="button">
+              <MDTypography variant="h6">
                 ₹
-                {data?.reimbursements["Total reimbursement"] +
-                  data?.taxes["Total taxes"] +
-                  data?.deductions["Total deductions"] +
-                  data?.donations["Total donations"] +
-                  data?.statutories["Total statutory"] +
-                  data?.earnings["Total Gross Pay"]}
+                {roundOff(data?.reimbursements["Total reimbursement"]) +
+                  roundOff(data?.taxes["Total taxes"]) +
+                  roundOff(data?.["total_deductions"]) +
+                  roundOff(data?.donations["Total donations"]) +
+                  roundOff(data?.statutories["Total statutory"]) +
+                  roundOff(data?.earnings["Total Gross Pay"])}
               </MDTypography>
             </Grid>
           </Grid>
