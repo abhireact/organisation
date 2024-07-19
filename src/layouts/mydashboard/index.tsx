@@ -158,6 +158,7 @@ export default function MYDashboard() {
   const [locationData, setLocationData] = useState([]);
   const [genderData, setGenderData] = useState([]);
   const [ageData, setAgeData] = useState([]);
+  const [attendancedata, setAttendancedata] = useState([]);
 
   // redux call
 
@@ -347,6 +348,26 @@ export default function MYDashboard() {
         setAgeData(response.data);
         // setTasks(response.data); //updating dialog box
         console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  // attendace
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/attendance/dailystatus`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setAttendancedata(response?.data);
+        // setTasks(response.data); //updating dialog box
+        console.log(response?.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -604,7 +625,7 @@ export default function MYDashboard() {
               </Grid>
             </MDBox>
           </Grid> */}
-          <Grid item sm={6}>
+          {/* <Grid item sm={6}>
             <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
               <Grid container spacing={3} p={2}>
                 <Grid item sm={8}>
@@ -641,6 +662,43 @@ export default function MYDashboard() {
                     { dataKey: "lucknow", label: "Lucknow", valueFormatter },
                   ]}
                   {...chartSetting}
+                />
+              </Grid>
+            </MDBox>
+          </Grid> */}
+          <Grid item sm={6}>
+            <MDBox borderRadius="10px" border={"1px solid #F1F3F4"}>
+              <Grid container spacing={3} p={2}>
+                <Grid item sm={8} pb={1}>
+                  {" "}
+                  <MDTypography>Work Location</MDTypography>
+                </Grid>
+                <Grid item sm={4} pb={1}>
+                  {" "}
+                  <MDTypography
+                    component={Link}
+                    to="/pages/reports/distributionreport"
+                    variant="button"
+                    color="info"
+                    fontWeight="medium"
+                    textGradient
+                  >
+                    Detailed Report{" "}
+                  </MDTypography>
+                </Grid>
+              </Grid>
+
+              <Grid sm={12} textAlign={"center"} pb={1}>
+                {" "}
+                <PieChart
+                  series={[
+                    {
+                      data: locationData,
+                      highlightScope: { faded: "global", highlighted: "item" },
+                      faded: { innerRadius: 30, additionalRadius: -30 },
+                    },
+                  ]}
+                  height={200}
                 />
               </Grid>
             </MDBox>
@@ -725,13 +783,13 @@ export default function MYDashboard() {
               <Grid container spacing={3} p={2}>
                 <Grid item sm={8} pb={1}>
                   {" "}
-                  <MDTypography>Work Location</MDTypography>
+                  <MDTypography>Attendance</MDTypography>
                 </Grid>
                 <Grid item sm={4} pb={1}>
                   {" "}
                   <MDTypography
                     component={Link}
-                    to="/pages/reports/distributionreport"
+                    to="/pages/leavereport/detailedattendance"
                     variant="button"
                     color="info"
                     fontWeight="medium"
@@ -747,7 +805,7 @@ export default function MYDashboard() {
                 <PieChart
                   series={[
                     {
-                      data: locationData,
+                      data: attendancedata,
                       highlightScope: { faded: "global", highlighted: "item" },
                       faded: { innerRadius: 30, additionalRadius: -30 },
                     },
