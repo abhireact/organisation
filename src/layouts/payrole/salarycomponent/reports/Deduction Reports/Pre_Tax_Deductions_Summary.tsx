@@ -15,9 +15,11 @@ import Cookies from "js-cookie";
 import { Icon, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 const token = Cookies.get("token");
+
 const initialValues = {
   year: "",
 };
+
 interface DeductionData {
   [key: string]: number;
   "Pension Funds": number;
@@ -45,7 +47,7 @@ const Pre_Tax_Deductions_Summary = () => {
   const [data, setData] = useState<DeductionData | null>(null);
   const [apiData, setApiData] = useState<{
     columns: any[];
-    rows: DeductionData[];
+    rows: Array<{ [key: string]: number | string }>;
   }>({
     columns: [],
     rows: [],
@@ -86,17 +88,21 @@ const Pre_Tax_Deductions_Summary = () => {
     return result;
   };
 
+  const formatNumber = (value: number): string => {
+    return value.toFixed(2);
+  };
+
   useEffect(() => {
     if (data) {
       const trimmedData = trimKeys(data);
 
-      const roundedData: DeductionData = {
-        "Pension Funds": roundOff(trimmedData["Pension Funds"]),
-        "Health Insurance": roundOff(trimmedData["Health Insurance"]),
-        "Loan - Education Loan": roundOff(trimmedData["Loan - Education Loan"]),
-        "Loan - Home  loan": roundOff(trimmedData["Loan - Home  loan"]),
-        "Child Education": roundOff(trimmedData["Child Education"]),
-        total_deduction: roundOff(trimmedData["total_deduction"]),
+      const roundedData: { [key: string]: number | string } = {
+        "Pension Funds": trimmedData["Pension Funds"],
+        "Health Insurance": trimmedData["Health Insurance"],
+        "Loan - Education Loan": trimmedData["Loan - Education Loan"],
+        "Loan - Home  loan": trimmedData["Loan - Home  loan"],
+        "Child Education": trimmedData["Child Education"],
+        total_deduction: trimmedData["total_deduction"],
         "Health Insurance ": 0,
       };
 
@@ -133,10 +139,6 @@ const Pre_Tax_Deductions_Summary = () => {
       });
     }
   }, [data]);
-
-  const roundOff = (value: number): number => {
-    return Math.round(value);
-  };
 
   return (
     <DashboardLayout>
@@ -200,7 +202,30 @@ const Pre_Tax_Deductions_Summary = () => {
                 Pre-Tax Deductions Summary
               </MDTypography>
             </MDBox>
-            <DataTable table={apiData} />
+            <DataTable
+              table={{
+                ...apiData,
+                rows: apiData.rows.map((row) => ({
+                  ...row,
+                  "Pension Funds": formatNumber(row["Pension Funds"] as number),
+                  "Health Insurance": formatNumber(
+                    row["Health Insurance"] as number
+                  ),
+                  "Loan - Education Loan": formatNumber(
+                    row["Loan - Education Loan"] as number
+                  ),
+                  "Loan - Home  loan": formatNumber(
+                    row["Loan - Home  loan"] as number
+                  ),
+                  "Child Education": formatNumber(
+                    row["Child Education"] as number
+                  ),
+                  total_deduction: formatNumber(
+                    row["total_deduction"] as number
+                  ),
+                })),
+              }}
+            />
           </Card>
         </Grid>
       </form>

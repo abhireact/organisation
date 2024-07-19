@@ -39,8 +39,8 @@ function payrollLiabilitySummary(): JSX.Element {
     columns: [],
     rows: [],
   });
-  const roundOff = (value: number): number => {
-    return Math.round(value);
+  const roundOff = (value: number): string => {
+    return value.toFixed(2); // Return as a string with two decimal places
   };
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({

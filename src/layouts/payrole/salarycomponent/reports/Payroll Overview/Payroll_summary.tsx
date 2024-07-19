@@ -120,8 +120,8 @@ function Payroll_summary(): JSX.Element {
     // Convert the Set to an array if needed
     des_name.push(...uniqueDesignationNames);
   }
-  const roundOff = (value: any): number => {
-    return Math.round(value);
+  const roundOff = (value: any): string => {
+    return value.toFixed(2);
   };
   // console.log(des_name, "DesignationName");
   const [showReport, setShowReport] = useState(false);
@@ -473,12 +473,14 @@ function Payroll_summary(): JSX.Element {
             <Grid item xs={12} sm={4} sx={{ textAlign: "right" }}>
               <MDTypography variant="h6">
                 ₹
-                {roundOff(data?.reimbursements["Total reimbursement"]) +
-                  roundOff(data?.taxes["Total taxes"]) +
-                  roundOff(data?.["total_deductions"]) +
-                  roundOff(data?.donations["Total donations"]) +
-                  roundOff(data?.statutories["Total statutory"]) +
-                  roundOff(data?.earnings["Total Gross Pay"])}
+                {(
+                  (data?.reimbursements["Total reimbursement"] || 0) +
+                  (data?.taxes["Total taxes"] || 0) +
+                  (data?.["total_deductions"] || 0) +
+                  (data?.donations["Total donations"] || 0) +
+                  (data?.statutories["Total statutory"] || 0) +
+                  (data?.earnings["Total Gross Pay"] || 0)
+                ).toFixed(2)}
               </MDTypography>
             </Grid>
           </Grid>
