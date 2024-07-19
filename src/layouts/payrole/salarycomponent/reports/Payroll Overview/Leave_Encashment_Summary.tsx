@@ -64,7 +64,9 @@ const Leave_Encashment_Summary = () => {
         }
       },
     });
-
+  const roundOff = (value: number): string => {
+    return value.toFixed(2);
+  };
   useEffect(() => {
     if (data.length > 0) {
       setApidata({
@@ -74,7 +76,7 @@ const Leave_Encashment_Summary = () => {
         ],
         rows: data?.map((item: any) => ({
           emp_name: item.emp_name,
-          amount: item.amount,
+          amount: roundOff(item.amount),
         })),
       });
     }

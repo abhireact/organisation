@@ -67,13 +67,14 @@ function ESIC_Summary(): JSX.Element {
         }
       },
     });
-  const roundOff = (value: number): number => {
-    return Math.round(value);
-  };
+    const roundOff = (value: number): string => {
+      return value.toFixed(2); 
+    };
   useEffect(() => {
     if (data.length > 0) {
       const filteredData = data.filter((item: any) => item.liability === "EPF");
-
+      const totalEmpAmt = data.reduce((sum, item) => sum + item.emp_amt, 0);
+      const totalEmprAmt = data.reduce((sum, item) => sum + item.empr_amt, 0);
       setApidata({
         columns: [
           // { Header: "LIABILITY", accessor: "liability", width: "25%" },
@@ -93,12 +94,19 @@ function ESIC_Summary(): JSX.Element {
             width: "25%",
           },
         ],
-        rows: filteredData.map((item: any) => ({
-          // liability: item.liability,
-          emp_amt: roundOff(item.emp_amt),
-          empr_amt: roundOff(item.empr_amt),
-          total: roundOff(item.emp_amt + item.empr_amt),
-        })),
+        // rows: filteredData.map((item: any) => ({
+        //   // liability: item.liability,
+        //   emp_amt: roundOff(totalEmpAmt),
+        //   empr_amt: roundOff(totalEmprAmt),
+        //   total: roundOff(totalEmpAmt + totalEmprAmt),
+        // })),
+        rows: [
+          {
+            emp_amt: roundOff(totalEmpAmt),
+            empr_amt: roundOff(totalEmprAmt),
+            total: roundOff(totalEmpAmt + totalEmprAmt),
+          },
+        ],
       });
     }
   }, [data]);
@@ -165,7 +173,11 @@ function ESIC_Summary(): JSX.Element {
                 EPF Summary
               </MDTypography>
             </MDBox>
-            <DataTable table={apidata} />
+            <DataTable
+              table={apidata}
+              isSorted={false}
+              entriesPerPage={false}
+            />
           </Card>
         </Grid>
       </form>

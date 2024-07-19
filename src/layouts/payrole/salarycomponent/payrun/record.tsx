@@ -61,6 +61,7 @@ interface PopupData {
   epf_amt?: number;
   lop_amt?: number;
   esi_amt?: number;
+  gross_pay?: number;
 }
 function PayrunRecoed(props: any) {
   const [openPopup, setOpenPopup] = useState(false);
@@ -262,13 +263,13 @@ function PayrunRecoed(props: any) {
                 <MDTypography variant="h6">{popupData?.name}</MDTypography>
               </Grid>
               <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                <MDTypography variant="button">Net Pay</MDTypography>
+                <MDTypography variant="button">Gross Pay</MDTypography>
               </Grid>
               <Grid item xs={12} sm={9}>
                 <MDTypography variant="body2"></MDTypography>
               </Grid>
               <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
-                <MDTypography variant="h6">{popupData?.net_pay}</MDTypography>
+                <MDTypography variant="h6">{popupData?.gross_pay}</MDTypography>
               </Grid>
               <Grid item xs={12} sm={12}>
                 <MDTypography variant="h6" color="success" bgcolor="success">
@@ -356,6 +357,16 @@ function PayrunRecoed(props: any) {
                   </Grid>
                   <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
                     <MDTypography variant="button">{popupData.esi_amt}</MDTypography>
+                  </Grid>
+                </>
+              )}
+              {popupData.tax_amt > 0 && (
+                <>
+                  <Grid item xs={12} sm={9}>
+                    <MDTypography variant="button">TAX</MDTypography>
+                  </Grid>
+                  <Grid item xs={12} sm={3} display="flex" justifyContent="flex-end">
+                    <MDTypography variant="button">{popupData.tax_amt}</MDTypography>
                   </Grid>
                 </>
               )}

@@ -63,7 +63,9 @@ const SalaryRegister = () => {
               <ul>
                 {employee.earnings_type_name.map(
                   (earning: any, index: number) => (
-                    <li key={index}>{earning.monthly_amount}</li>
+                    <li key={index}>
+                      {parseFloat(earning.monthly_amount).toFixed(2)}
+                    </li>
                   )
                 )}
               </ul>
